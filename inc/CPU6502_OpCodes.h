@@ -1,7 +1,7 @@
 #pragma once
 #include <Types.h>
 
-enum OpCodes_6502 : BYTE {
+enum CPU6502_OpCodes : BYTE {
 ///////////////////////// ADC - Add with Carry
     ADC_IM    = 0x69,
     ADC_ZP    = 0x65,
