@@ -8,7 +8,7 @@ public:
     Memory mem{64};
     CPU6502 cpu{};
 
-    virtual void SetUp() override{
+    void SetUp() override{
         cpu.Reset(mem);
     }
 
@@ -18,21 +18,55 @@ public:
 };
 
 TEST_F(CPU6502_TestFixture, LDA_IM){
+    // given:
     // start
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;
-    mem[0xFFFD] = 0x42;
+    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
+    mem[0xFFFD] = 0x42;                         // store this value in A register
     //end
 
+    // when:
     WORD CNT = cpu.Run(mem);
-    ASSERT_EQ(cpu.A, 0x42);
-    ASSERT_EQ(CNT, 1);
+
+    // then:
+    EXPECT_EQ(cpu.A, 0x42);
+    EXPECT_EQ(CNT, 1);
+}
+
+TEST_F(CPU6502_TestFixture, LDA_ZP){
+    // given:
+    // start
+    mem[0xFFFC] = CPU6502_OpCodes::LDA_ZP;      // read pointer to the ZP memory from the next mem cell
+    mem[0xFFFD] = 0x42;                         // read value from memory using pointer
+    mem[0x0042] = 0x37;                         // store this value in A register
+    //end
+
+    // when:
+    WORD CNT = cpu.Run(mem);
+
+    // then:
+    EXPECT_EQ(cpu.A, 0x37);
+    EXPECT_EQ(CNT, 1);
+}
+
+TEST_F(CPU6502_TestFixture, LDA_ZPX){
+    // given:
+    cpu.X = 5;
+    // start
+    mem[0xFFFC] = CPU6502_OpCodes::LDA_ZPX;     // read pointer to the ZP memory from the next mem cell
+    mem[0xFFFD] = 0x42;                         // add X register value to this pointer
+    mem[0x0047] = 0x37;                         // read value from memory using pointer
+    //end                                       // store this value in A register
+
+    // when:
+    WORD CNT = cpu.Run(mem);
+
+    // then:
+    EXPECT_EQ(cpu.A, 0x37);
+    EXPECT_EQ(CNT, 1);
 }
 
 TEST_F(CPU6502_TestFixture, LDA_IM_WITH_JSR) {
-    Memory mem{64};
-    CPU6502 cpu{};
-    cpu.Reset(mem);
-
+    // given:
     // start
     mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;
     mem[0xFFFD] = 0x42;
@@ -41,15 +75,22 @@ TEST_F(CPU6502_TestFixture, LDA_IM_WITH_JSR) {
     mem[0x4243] = 0x84;
     //end
 
+    // when:
     WORD CNT = cpu.Run(mem);
-    ASSERT_EQ(cpu.A, 0x84);
-    ASSERT_EQ(CNT, 2);
+
+    // then:
+    EXPECT_EQ(cpu.A, 0x84);
+    EXPECT_EQ(CNT, 2);
 }
 
-TEST(RegularTests, MemCheck) {
-    Memory mem{64};
-    mem.Reset();
+TEST_F(CPU6502_TestFixture, MemCheck) {
+    // given:
+    unsigned long long MemCellsSum = 0;
 
+    // when:
     for(U32 i = 0; i < mem.GetSize(); ++i)
-        ASSERT_EQ(mem[i], 0);
+        MemCellsSum+=mem[i];
+
+    // then:
+    EXPECT_EQ(MemCellsSum, 0);
 }
