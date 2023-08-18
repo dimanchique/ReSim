@@ -40,7 +40,8 @@ WORD CPU6502::Run(Memory& memory){
         BYTE Instruction = FetchByte(memory);
         const auto res = FetchCommand(Instruction, memory, *this);
         if (!res)
-            return CNT;
+            break;
         CNT++;
     }
+    return CNT;
 }
