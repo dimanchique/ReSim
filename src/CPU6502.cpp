@@ -7,7 +7,7 @@ void CPU6502::Reset(Memory& memory){
     SP = 0x0100;
 
     A = X = Y = 0;
-    CF = ZF = ID = DM = BC = OF = NF = 0;
+    C = Z = I = D = B = V = N = 0;
 
     memory.Reset();
 }

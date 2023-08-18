@@ -16,14 +16,14 @@ struct CPU6502 {
 //****************************************************
 //                        Processor Status          **
 //****************************************************
-    BYTE CF:1;         // Carry Flag                **
-    BYTE ZF:1;         // Zero Flag                 **
-    BYTE ID:1;         // Interrupt Disable         **
-    BYTE DM:1;         // Decimal Mode              **
-    BYTE BC:1;         // Break Command             **
+    BYTE C:1;         // Carry Flag                **
+    BYTE Z:1;         // Zero Flag                 **
+    BYTE I:1;         // Interrupt Disable         **
+    BYTE D:1;         // Decimal Mode              **
+    BYTE B:1;         // Break Command             **
     BYTE NU:1;         // Not Used                  **
-    BYTE OF:1;         // Overflow Flag             **
-    BYTE NF:1;         // Negative Flag             **
+    BYTE V:1;         // Overflow Flag             **
+    BYTE N:1;         // Negative Flag             **
 //****************************************************
 //                        Functionality             **
 //****************************************************
@@ -38,7 +38,7 @@ struct CPU6502 {
     void WriteWord(WORD Value, U32 ADDR, Memory& memory);
 
     void LDASetStatus(){
-        ZF = (A == 0);
-        NF = (A & 0b10000000) > 0;
+        Z = (A == 0);
+        N = (A & 0b10000000) > 0;
     }
 };
