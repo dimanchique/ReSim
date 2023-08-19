@@ -19,12 +19,31 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
     mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
     mem[0xFFFD] = 0x42;                         // store this value in A register
 
+    const U32 NumCycles = 1;
+
     // when:
-    U32 CNT = cpu.Run(1, mem);                  // At least one instruction must be executed
+    S32 CNT = cpu.Run(NumCycles, mem);          // At least one instruction must be executed
 
     // then:
     EXPECT_EQ(CNT, 2);
 }
+
+//*****************************************
+// This test fails because we're throwing exception on bad instruction
+//*****************************************
+//TEST_F(CPU6502_CPUFixture, CpuDoesntGoToInfiniteLoopWithBadInstruction) {
+//    // given:
+//    mem[0xFFFC] = 0x0;                          // Invalid OpCode
+//    mem[0xFFFD] = 0x0;
+//
+//    const S32 NumCycles = 15;
+//
+//    // when:
+//    S32 CNT = cpu.Run(NumCycles, mem);
+//
+//    // then:
+//    EXPECT_EQ(CNT, NumCycles);                          // It should execute only one cycle and return
+//}
 
 TEST_F(CPU6502_CPUFixture, MemCheck) {
     // given:

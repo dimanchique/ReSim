@@ -17,9 +17,16 @@ struct CPU6502_JSR_ABS{
 };
 
 const static std::map<BYTE, std::function<void(S32&, Memory &, CPU6502 &)>> CPU6502_OpCodesMap{
-        { CPU6502_OpCodes::LDA_IM,  CPU6502_LDA_IM{}  },
-        { CPU6502_OpCodes::LDA_ZP,  CPU6502_LDA_ZP{}  },
-        { CPU6502_OpCodes::LDA_ZPX, CPU6502_LDA_ZPX{} },
+    //LDA
+        { CPU6502_OpCodes::LDA_IM,  CPU6502_LDA_IM{}        },
+        { CPU6502_OpCodes::LDA_ZP,  CPU6502_LDA_ZP{}        },
+        { CPU6502_OpCodes::LDA_ZPX, CPU6502_LDA_ZPX{}       },
+        { CPU6502_OpCodes::LDA_ABS, CPU6502_LDA_ABS{}       },
+        { CPU6502_OpCodes::LDA_ABSX, CPU6502_LDA_ABSX{}     },
+        { CPU6502_OpCodes::LDA_ABSY, CPU6502_LDA_ABSY{}     },
+        { CPU6502_OpCodes::LDA_INDX, CPU6502_LDA_INDX{}     },
+        { CPU6502_OpCodes::LDA_INDY, CPU6502_LDA_INDY{}     },
+
         { CPU6502_OpCodes::JSR_ABS, CPU6502_JSR_ABS{} },
 };
 
