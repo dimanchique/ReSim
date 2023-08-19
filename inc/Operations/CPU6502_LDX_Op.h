@@ -12,7 +12,7 @@ struct CPU6502_LDX_ZP{
     void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
 };
 
-struct CPU6502_LDX_ZPX{
+struct CPU6502_LDX_ZPY{
     void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
 };
 

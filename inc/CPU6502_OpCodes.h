@@ -208,7 +208,7 @@ enum CPU6502_OpCodes : BYTE {
 //********************************************************
     LDX_IM    = 0xA2,
     LDX_ZP    = 0xA6,
-    LDX_ZPX   = 0xB6,
+    LDX_ZPY   = 0xB6,
     LDX_ABS   = 0xAE,
     LDX_ABSY  = 0xBE,
 

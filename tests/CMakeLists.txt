@@ -12,6 +12,8 @@ set(
         "main_test.cpp"
         "CPU_Tests.cpp"
         "LDA_Tests.cpp"
+        "LDX_Tests.cpp"
+        "LDY_Tests.cpp"
         "JSR_Tests.cpp"
 )
 

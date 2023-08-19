@@ -92,4 +92,14 @@ struct CPU6502 {
         Z = (A == 0);
         N = (A & 0b10000000) > 0;
     }
+
+    void LDXSetStatus() {
+        Z = (X == 0);
+        N = (X & 0b10000000) > 0;
+    }
+
+    void LDYSetStatus() {
+        Z = (Y == 0);
+        N = (Y & 0b10000000) > 0;
+    }
 };
