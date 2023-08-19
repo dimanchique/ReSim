@@ -1,18 +1,24 @@
 cmake_minimum_required(VERSION 3.26)
 enable_testing()
 
-include_directories(inc)
+include_directories(
+        ../inc
+        inc
+)
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/Operations/*.cpp)
 
 set(
-        CPU6502_SOURCES
+        CPU6502_TESTS
         "main_test.cpp"
-        "test.cpp"
-        )
+        "CPU_Tests.cpp"
+        "LDA_Tests.cpp"
+        "JSR_Tests.cpp"
+)
+
 
 add_executable(
         main_tests
-        ${CPU6502_SOURCES}
+        ${CPU6502_TESTS}
         ${SRC_FILES}
 )
 

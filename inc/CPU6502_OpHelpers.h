@@ -4,4 +4,4 @@
 struct Memory;
 struct CPU6502;
 
-unsigned char FetchCommand(BYTE OpCode, Memory& Memory, CPU6502& CPU);
+unsigned char FetchCommand(S32& Cycles, BYTE OpCode, Memory& Memory, CPU6502& CPU);

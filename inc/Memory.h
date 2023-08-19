@@ -21,7 +21,7 @@ struct Memory {
         }
     }
 
-    U32 GetSize() const noexcept {
+    [[nodiscard]] U32 GetSize() const noexcept {
         return SIZE;
     }
 

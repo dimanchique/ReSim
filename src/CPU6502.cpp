@@ -12,36 +12,42 @@ void CPU6502::Reset(Memory& memory){
     memory.Reset();
 }
 
-BYTE CPU6502::FetchByte(Memory& memory){
+BYTE CPU6502::FetchByte(S32& Cycles, Memory& memory){
     BYTE Data = memory[PC++];
+    Cycles--;
     return Data;
 }
 
-WORD CPU6502::FetchWord(Memory& memory){
+WORD CPU6502::FetchWord(S32& Cycles, Memory& memory){
     // 6502 is little endian
     WORD Data = memory[PC++];
     Data |= (memory[PC++] << 8);
+
+    Cycles -= 2;
     return Data;
 }
 
-void CPU6502::WriteWord(WORD Value, U32 ADDR, Memory& memory){
+void CPU6502::WriteWord(S32& Cycles, WORD Value, U32 ADDR, Memory& memory){
     memory[ADDR]      =  Value & 0xFF;
     memory[ADDR + 1]  = (Value >> 8);
+    Cycles -= 2;
 }
 
-BYTE CPU6502::ReadByte(BYTE ADDR, Memory& memory) const {
+BYTE CPU6502::ReadByte(S32& Cycles, BYTE ADDR, Memory& memory) const {
     BYTE Data = memory[ADDR];
+    Cycles--;
     return Data;
 }
 
-WORD CPU6502::Run(Memory& memory){
-    WORD CNT = 0;
-    while(PC != memory.GetSize()) {
-        BYTE Instruction = FetchByte(memory);
-        const auto res = FetchCommand(Instruction, memory, *this);
+S32 CPU6502::Run(S32 Cycles, Memory& memory){
+    const S32 CyclesRequested = Cycles;
+    while(Cycles > 0) {
+        BYTE Instruction = FetchByte(Cycles, memory);
+        const auto res = FetchCommand(Cycles, Instruction, memory, *this);
         if (!res)
             break;
-        CNT++;
     }
-    return CNT;
+
+    const S32 NumCyclesUsed = CyclesRequested - Cycles;
+    return NumCyclesUsed;
 }
