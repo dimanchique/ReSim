@@ -19,12 +19,14 @@ for i in data:
 
 sorted_map = sorted(op_map.items(), key=lambda x: x[1])
 sorted_map = dict(sorted_map)
-ops = ['CPU6502_NOOP'] * 255
+ops = ['\tCPU6502_NOOP'] * 255
 for i in sorted_map:
     if 'LDA' in i or 'LDX' in i or 'LDY' in i:
-        ops[sorted_map[i]] = 'CPU6502_' + i
+        ops[sorted_map[i]] = '\tCPU6502_' + i
 
-ops[0x20] = 'CPU6502_JSR_ABS'
+ops[0x20] = '\tCPU6502_JSR_ABS'
 
 printed_ops = ',\n'.join(ops)
+print('const static OpSig Ops[] = {')
 print(printed_ops)
+print('}')
