@@ -2,19 +2,19 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_LDA_IM::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_IM(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     BYTE Value = cpu.FetchByte(Cycles, memory);
     cpu.A = Value;
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_ZP::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
     cpu.A = cpu.ReadByte(Cycles, ZeroPageAddress, memory);
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_ZPX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_ZPX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
     ZeroPageAddress += cpu.X;
     Cycles--;
@@ -22,13 +22,13 @@ void CPU6502_LDA_ZPX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_ABS::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     WORD AbsAddress = cpu.FetchWord(Cycles, memory);
     cpu.A = cpu.ReadByte(Cycles, AbsAddress, memory);
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_ABSX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_ABSX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     WORD AbsAddress = cpu.FetchWord(Cycles, memory);
     WORD AbsAddressX = AbsAddress + cpu.X;
     cpu.A = cpu.ReadByte(Cycles, AbsAddressX, memory);
@@ -37,7 +37,7 @@ void CPU6502_LDA_ABSX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_ABSY::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_ABSY(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     WORD AbsAddress = cpu.FetchWord(Cycles, memory);
     WORD AbsAddressY = AbsAddress + cpu.Y;
     cpu.A = cpu.ReadByte(Cycles, AbsAddressY, memory);
@@ -46,7 +46,7 @@ void CPU6502_LDA_ABSY::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_INDX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_INDX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
     ZeroPageAddress += cpu.X;
     Cycles--;
@@ -55,7 +55,7 @@ void CPU6502_LDA_INDX::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     cpu.LDASetStatus();
 }
 
-void CPU6502_LDA_INDY::operator()(S32& Cycles, Memory &memory, CPU6502 &cpu) {
+void CPU6502_LDA_INDY(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
     WORD EffectiveAddress = cpu.ReadWord(Cycles, ZeroPageAddress, memory);
     WORD EffectiveAddressY = EffectiveAddress + cpu.Y;
