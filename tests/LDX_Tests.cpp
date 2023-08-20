@@ -1,7 +1,6 @@
 #include "CPU6502_Tests.h"
 
-class CPU6502_LDXFixture : public CPU6502_TestFixture{
-};
+class CPU6502_LDXFixture : public CPU6502_TestFixture{};
 
 TEST_F(CPU6502_LDXFixture, LDX_IM_CanLoadValue){
     // given:

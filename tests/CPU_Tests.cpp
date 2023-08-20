@@ -1,7 +1,6 @@
 #include "CPU6502_Tests.h"
 
-class CPU6502_CPUFixture : public CPU6502_TestFixture{
-};
+class CPU6502_CPUFixture : public CPU6502_TestFixture{};
 
 TEST_F(CPU6502_CPUFixture, CpuDoesNothingWithZeroCycles) {
     // given:

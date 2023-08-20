@@ -1,7 +1,6 @@
 #include "CPU6502_Tests.h"
 
-class CPU6502_JSRFixture : public CPU6502_TestFixture{
-};
+class CPU6502_JSRFixture : public CPU6502_TestFixture{};
 
 TEST_F(CPU6502_JSRFixture, LDA_IM_WITH_JSR) {
     // given:
