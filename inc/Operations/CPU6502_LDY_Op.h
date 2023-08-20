@@ -4,22 +4,8 @@
 struct CPU6502;
 struct Memory;
 
-struct CPU6502_LDY_IM{
-    void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
-};
-
-struct CPU6502_LDY_ZP{
-    void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
-};
-
-struct CPU6502_LDY_ZPX{
-    void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
-};
-
-struct CPU6502_LDY_ABS{
-    void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
-};
-
-struct CPU6502_LDY_ABSX{
-    void operator()(S32& Cycles, Memory &memory, CPU6502 &cpu);
-};
+void CPU6502_LDY_IM(S32& Cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_LDY_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_LDY_ZPX(S32& Cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_LDY_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_LDY_ABSX(S32& Cycles, Memory &memory, CPU6502 &cpu);
