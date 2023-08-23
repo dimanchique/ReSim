@@ -28,7 +28,7 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
 }
 
 //*****************************************
-// This test fails because we're throwing exception on bad instruction
+// This test fails while we're throwing exception on bad instruction
 //*****************************************
 //TEST_F(CPU6502_CPUFixture, CpuDoesntGoToInfiniteLoopWithBadInstruction) {
 //    // given:
