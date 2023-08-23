@@ -2,7 +2,23 @@
 
 class CPU6502_JSRFixture : public CPU6502_TestFixture{};
 
-TEST_F(CPU6502_JSRFixture, LDA_IM_WITH_JSR) {
+TEST_F(CPU6502_JSRFixture, JSR_ABS_CanJump) {
+    // given:
+    mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;
+    mem[0xFFFD] = 0x42;
+    mem[0xFFFE] = 0x42;
+
+    const U32 NumCycles = 6;
+
+    // when:
+    U32 CNT = cpu.Run(NumCycles, mem);
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0x4242);
+    EXPECT_EQ(CNT, NumCycles);
+}
+
+TEST_F(CPU6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     // given:
     mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;
     mem[0xFFFD] = 0x42;
