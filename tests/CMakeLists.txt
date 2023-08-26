@@ -11,6 +11,7 @@ set(
         CPU6502_TESTS
         "main_test.cpp"
         "CPU_Tests.cpp"
+        "LD_Tests.cpp"
         "LDA_Tests.cpp"
         "LDX_Tests.cpp"
         "LDY_Tests.cpp"

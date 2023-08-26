@@ -1,134 +1,43 @@
-#include "CPU6502_Tests.h"
+#include "CPU6502_LD_Tests.h"
 
-class CPU6502_LDXFixture : public CPU6502_TestFixture{};
+class CPU6502_LDXFixture : public CPU6502_LDFixture{};
 
 TEST_F(CPU6502_LDXFixture, LDX_IM_CanLoadValue){
-    CPU6502 cpuCopy = cpu;
     LD_IM_CanLoadValue(CPU6502_OpCodes::LDX_IM, cpu.X);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_IM_CanAffectZeroFlag){
-    CPU6502 cpuCopy = cpu;
     LD_IM_CanAffectZeroFlag(CPU6502_OpCodes::LDX_IM);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_IM_CanAffectNegativeFlag){
-    CPU6502 cpuCopy = cpu;
     LD_IM_CanAffectNegativeFlag(CPU6502_OpCodes::LDX_IM);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ZP_CanLoadValue){
-    CPU6502 cpuCopy = cpu;
     LD_ZP_CanLoadValue(CPU6502_OpCodes::LDX_ZP, cpu.X);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ZPY_CanLoadValue){
-    // given:
-    cpu.Y = 0x5;                                // read pointer to the ZP memory from the next mem cell
-    mem[0xFFFC] = CPU6502_OpCodes::LDX_ZPY;     // add X register value to this pointer
-    mem[0xFFFD] = 0x42;                         // read value from memory using pointer
-    mem[0x0047] = 0x37;                         // store this value in A register
-
-    const U32 NumCycles = 4;
-    CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.X, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
+    cpu.Y = 0x5;
+    LD_ZP_CanLoadValue(CPU6502_OpCodes::LDX_ZPY, cpu.X, cpu.Y);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ZPY_CanLoadValue_WithWrap){
-    // given:
-    cpu.Y = 0xFF;                               // read pointer to the ZP memory from the next mem cell
-    mem[0xFFFC] = CPU6502_OpCodes::LDX_ZPY;     // add X register value to this pointer
-    mem[0xFFFD] = 0x80;                         // read value from memory using pointer
-    mem[0x007F] = 0x37;                         // store this value in A register
-
-    const S32 NumCycles = 4;
-    CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.X, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
+    cpu.Y = 0xFF;
+    LD_ZP_CanLoadValue(CPU6502_OpCodes::LDX_ZPY, cpu.X, cpu.Y);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ABS_CanLoadValue){
-    // given:
-    mem[0xFFFC] = CPU6502_OpCodes::LDX_ABS;     // read the 16 bit Little Endian pointer from the next mem cell
-    mem[0xFFFD] = 0x80;                         // read from this address
-    mem[0xFFFE] = 0x44;                         // 0x4480
-    mem[0x4480] = 0x37;                         // store this value in A register
-
-    const S32 NumCycles = 4;
-    CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.X, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
+    LD_ABS_CanLoadValue(CPU6502_OpCodes::LDX_ABS, cpu.X);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ABSY_CanLoadValue){
-    // given:
-    cpu.Y = 0x01;                               // preload 0x01 to Y to add it to absolute address we read
-    mem[0xFFFC] = CPU6502_OpCodes::LDX_ABSY;    // read the 16 bit Little Endian pointer from the next mem cell
-    mem[0xFFFD] = 0x80;                         // read from this address
-    mem[0xFFFE] = 0x44;                         // 0x4480 + 0x0001 = 0x4481
-    mem[0x4481] = 0x37;                         // store this value in A register
-
-    const S32 NumCycles = 4;
-    CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.X, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
+    cpu.Y = 0x01;
+    LD_ABS_CanLoadValue(CPU6502_OpCodes::LDX_ABSY, cpu.X, cpu.Y);
 }
 
 TEST_F(CPU6502_LDXFixture, LDX_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing){
-    // given:
-    cpu.Y = 0xFF;                               // preload 0xFF to Y to add it to absolute address we read
-    mem[0xFFFC] = CPU6502_OpCodes::LDX_ABSY;    // read the 16 bit Little Endian pointer from the next mem cell
-    mem[0xFFFD] = 0x02;                         // read from this address
-    mem[0xFFFE] = 0x44;                         // 0x4402 + 0x00FF = 0x4501 -> page crossing, so we need extra cycle
-    mem[0x4501] = 0x37;                         // store this value in A register
-
-    const S32 NumCycles = 5;
-    CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.X, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
+    cpu.Y = 0xFF;
+    LD_ABS_CanLoadValue(CPU6502_OpCodes::LDX_ABSY, cpu.X, cpu.Y);
 }

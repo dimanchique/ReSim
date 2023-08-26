@@ -1,4 +1,4 @@
-#include "CPU6502_Tests.h"
+#include "CPU6502_TestingSuite.h"
 
 class CPU6502_CPUFixture : public CPU6502_TestFixture{};
 
@@ -15,43 +15,15 @@ TEST_F(CPU6502_CPUFixture, CpuDoesNothingWithZeroCycles) {
 
 TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
     // given:
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
-    mem[0xFFFD] = 0x42;                         // store this value in A register
+    mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;     // This instruction takes 6 sycles
+    mem[0xFFFD] = 0x42;
+    mem[0xFFFE] = 0x42;
 
-    const U32 NumCycles = 1;
-
-    // when:
-    S32 CNT = cpu.Run(NumCycles, mem);          // At least one instruction must be executed
-
-    // then:
-    EXPECT_EQ(CNT, 2);
-}
-
-//*****************************************
-// This test fails while we're throwing exception on bad instruction
-//*****************************************
-//TEST_F(CPU6502_CPUFixture, CpuDoesntGoToInfiniteLoopWithBadInstruction) {
-//    // given:
-//    mem[0xFFFC] = 0x0;                          // Invalid OpCode
-//    mem[0xFFFD] = 0x0;
-//
-//    const S32 NumCycles = 15;
-//
-//    // when:
-//    S32 CNT = cpu.Run(NumCycles, mem);
-//
-//    // then:
-//    EXPECT_EQ(CNT, NumCycles);                          // It should execute only one cycle and return
-//}
-
-TEST_F(CPU6502_CPUFixture, MemCheck) {
-    // given:
-    unsigned long long MemCellsSum = 0;
+    const U32 NumCycles = 1;                    // We're "expecting" 1 cycle
 
     // when:
-    for(U32 i = 0; i < mem.GetSize(); ++i)
-        MemCellsSum+=mem[i];
+    S32 CNT = cpu.Run(NumCycles, mem);
 
     // then:
-    EXPECT_EQ(MemCellsSum, 0);
+    EXPECT_EQ(CNT, 6);                          // But there are 6 actually
 }

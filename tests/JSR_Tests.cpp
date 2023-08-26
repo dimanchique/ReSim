@@ -1,4 +1,4 @@
-#include "CPU6502_Tests.h"
+#include "CPU6502_TestingSuite.h"
 
 class CPU6502_JSRFixture : public CPU6502_TestFixture{};
 
