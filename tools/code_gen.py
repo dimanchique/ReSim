@@ -25,8 +25,10 @@ for i in sorted_map:
         ops[sorted_map[i]] = '\tCPU6502_' + i
 
 ops[0x20] = '\tCPU6502_JSR_ABS'
+ops[0xCA] = '\tCPU6502_DEX_IMPL'
+ops[0x88] = '\tCPU6502_DEY_IMPL'
 
 printed_ops = ',\n'.join(ops)
-print('const static OpSig Ops[] = {')
+print('const static OpSignature Ops[] = {')
 print(printed_ops)
-print('}')
+print('};')

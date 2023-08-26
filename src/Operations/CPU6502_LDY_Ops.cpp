@@ -1,17 +1,14 @@
-#include "Operations/CPU6502_LDY_Op.h"
+#include "Operations/CPU6502_LD_Ops.h"
+#include "Operations/CPU6502_LDY_Ops.h"
 #include "CPU6502.h"
 #include "Memory.h"
 
 void CPU6502_LDY_IM(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE Value = cpu.FetchByte(Cycles, memory);
-    cpu.Y = Value;
-    cpu.LDYSetStatus();
+    CPU6502_LD_IM(Cycles, memory, cpu, cpu.Y);
 }
 
 void CPU6502_LDY_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    cpu.Y = cpu.ReadByte(Cycles, ZeroPageAddress, memory);
-    cpu.LDYSetStatus();
+    CPU6502_LD_ZP(Cycles, memory, cpu, cpu.Y);
 }
 
 void CPU6502_LDY_ZPX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
@@ -19,14 +16,11 @@ void CPU6502_LDY_ZPX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     ZeroPageAddress += cpu.X;
     Cycles--;
     cpu.Y = cpu.ReadByte(Cycles, ZeroPageAddress, memory);
-    cpu.LDYSetStatus();
+    cpu.LoadRegisterSetStatus(cpu.Y);
 }
 
 void CPU6502_LDY_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    WORD AbsAddress = cpu.FetchWord(Cycles, memory);
-    cpu.Y = cpu.ReadByte(Cycles, AbsAddress, memory);
-    cpu.LDYSetStatus();
-
+    CPU6502_LD_ABS(Cycles, memory, cpu, cpu.Y);
 }
 
 void CPU6502_LDY_ABSX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
@@ -35,6 +29,5 @@ void CPU6502_LDY_ABSX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
     cpu.Y = cpu.ReadByte(Cycles, AbsAddressY, memory);
     if(AbsAddressY - AbsAddress >= 0xFF)
         Cycles--;
-    cpu.LDYSetStatus();
-
+    cpu.LoadRegisterSetStatus(cpu.Y);
 }

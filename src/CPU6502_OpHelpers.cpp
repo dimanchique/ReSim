@@ -1,14 +1,12 @@
-#include <Operations/CPU6502_LDA_Op.h>
-#include <Operations/CPU6502_LDX_Op.h>
-#include <Operations/CPU6502_LDY_Op.h>
 #include <CPU6502_OpHelpers.h>
+#include <Operations/CPU6502_LDA_Ops.h>
+#include <Operations/CPU6502_LDX_Ops.h>
+#include <Operations/CPU6502_LDY_Ops.h>
 #include <CPU6502.h>
 #include <Memory.h>
-#include <functional>
 
-void CPU6502_NOOP(S32& Cycles, Memory &memory, CPU6502 &cpu){
+void CPU6502_NOOP(S32& Cycles, Memory &memory, CPU6502 &cpu){}
 
-}
 void CPU6502_JSR_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu){
     WORD JumpAddress = cpu.FetchWord(Cycles, memory);
     cpu.WriteWord(Cycles, cpu.PC - 1, cpu.SP, memory);
@@ -17,12 +15,40 @@ void CPU6502_JSR_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu){
     Cycles--;
 }
 
-using OpSignature = std::function<void(S32&, Memory&, CPU6502&)>;
-using OpSig = void (*)(S32 &,Memory &,CPU6502 &);
+void CPU6502_CLC_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.C = 0;
+    Cycles -= 2;
+}
 
-OpSig s[255] = {};
+void CPU6502_CLD_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.D = 0;
+    Cycles -= 2;
+}
 
-const static OpSig Ops[] = {
+void CPU6502_CLI_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.I = 0;
+    Cycles -= 2;
+}
+
+void CPU6502_CLV_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.V = 0;
+    Cycles -= 2;
+}
+
+void CPU6502_DEX_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.X--;
+    Cycles -= 2;
+    cpu.LoadRegisterSetStatus(cpu.X);
+}
+
+void CPU6502_DEY_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
+    cpu.Y--;
+    Cycles -= 2;
+    cpu.LoadRegisterSetStatus(cpu.Y);
+}
+
+using OpSignature = void (*)(S32 &,Memory &,CPU6502 &);
+const static OpSignature Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
@@ -159,7 +185,7 @@ const static OpSig Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_DEY_IMPL,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
@@ -225,7 +251,7 @@ const static OpSig Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_DEX_IMPL,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
@@ -280,7 +306,7 @@ const static OpSig Ops[] = {
         CPU6502_NOOP
 };
 
-unsigned char FetchCommand(S32& Cycles, BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
+BYTE FetchCommand(S32& Cycles, BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
     Ops[OpCode](Cycles, Memory, CPU);
     return 1;
 }

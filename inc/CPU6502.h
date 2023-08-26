@@ -1,9 +1,7 @@
 #pragma once
+#include "Types.h"
 
-#include <cstdio>
-#include <Types.h>
-#include "CPU6502_OpHelpers.h"
-#include "Memory.h"
+struct Memory;
 
 struct CPU6502 {
 //****************************************************
@@ -29,77 +27,16 @@ struct CPU6502 {
 //                        Functionality             **
 //****************************************************
 
-    void Reset(Memory &memory) {
-        PC = 0xFFFC;
-        SP = 0x0100;
+    void Reset(Memory &memory);
 
-        A = X = Y = 0;
-        C = Z = I = D = B = V = N = 0;
+    BYTE FetchByte(S32 &Cycles, Memory &memory);
+    WORD FetchWord(S32 &Cycles, Memory &memory);
 
-        memory.Reset();
-    }
+    BYTE ReadByte(S32 &Cycles, WORD ADDR, Memory &memory) const;
+    WORD ReadWord(S32 &Cycles, WORD ADDR, Memory &memory) const;
 
-    BYTE FetchByte(S32 &Cycles, Memory &memory) {
-        BYTE Data = memory[PC++];
-        Cycles--;
-        return Data;
-    }
+    void WriteWord(S32 &Cycles, WORD Value, U32 ADDR, Memory &memory);
 
-    WORD FetchWord(S32 &Cycles, Memory &memory) {
-        // 6502 is little endian
-        WORD Data = memory[PC++];
-        Data |= (memory[PC++] << 8);
-
-        Cycles -= 2;
-        return Data;
-    }
-
-    void WriteWord(S32 &Cycles, WORD Value, U32 ADDR, Memory &memory) {
-        memory[ADDR] = Value & 0xFF;
-        memory[ADDR + 1] = (Value >> 8);
-        Cycles -= 2;
-    }
-
-    BYTE ReadByte(S32 &Cycles, WORD ADDR, Memory &memory) const {
-        BYTE Data = memory[ADDR];
-        Cycles--;
-        return Data;
-    }
-
-    WORD ReadWord(S32 &Cycles, WORD ADDR, Memory &memory) const {
-        BYTE Lo = ReadByte(Cycles, ADDR, memory);
-        BYTE Hi = ReadByte(Cycles, ADDR + 1, memory);
-        return Lo | (Hi<<8);
-    }
-
-    S32 Run(S32 Cycles, Memory &memory) {
-        const S32 CyclesRequested = Cycles;
-
-        while (Cycles > 0) {
-            BYTE Instruction = FetchByte(Cycles, memory);
-            const auto res = FetchCommand(Cycles, Instruction, memory, *this);
-            if (!res) {
-                std::printf("Can't handle instruction 0x%x\n", Instruction);
-                throw -1;
-            }
-        }
-
-        const S32 NumCyclesUsed = CyclesRequested - Cycles;
-        return NumCyclesUsed;
-    }
-
-    void LDASetStatus() {
-        Z = (A == 0);
-        N = (A & 0b10000000) > 0;
-    }
-
-    void LDXSetStatus() {
-        Z = (X == 0);
-        N = (X & 0b10000000) > 0;
-    }
-
-    void LDYSetStatus() {
-        Z = (Y == 0);
-        N = (Y & 0b10000000) > 0;
-    }
+    S32 Run(S32 Cycles, Memory &memory);
+    void LoadRegisterSetStatus(BYTE& Register);
 };

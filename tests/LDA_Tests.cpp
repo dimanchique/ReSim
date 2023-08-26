@@ -3,76 +3,27 @@
 class CPU6502_LDAFixture : public CPU6502_TestFixture{};
 
 TEST_F(CPU6502_LDAFixture, LDA_IM_CanLoadValue){
-    // given:
-    BYTE OldA = 0x44;
-    BYTE NewA = 0x04;
-    cpu.A = OldA;
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
-    mem[0xFFFD] = NewA;                         // store this value in A register
-
     CPU6502 cpuCopy = cpu;
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_NE(cpu.A, OldA);
-    EXPECT_EQ(cpu.A, NewA);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    LD_IM_CanLoadValue(CPU6502_OpCodes::LDA_IM, cpu.A);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_IM_CanAffectZeroFlag){
-    // given:
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
-    mem[0xFFFD] = 0x0;                         // store this value in A register
-
     CPU6502 cpuCopy = cpu;
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_TRUE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    LD_IM_CanAffectZeroFlag(CPU6502_OpCodes::LDA_IM);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_IM_CanAffectNegativeFlag){
-    // given:
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_IM;      // read value from the next mem cell
-    mem[0xFFFD] = 0x80;                         // store this value in A register
-
     CPU6502 cpuCopy = cpu;
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_TRUE(cpu.N);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    LD_IM_CanAffectNegativeFlag(CPU6502_OpCodes::LDA_IM);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ZP_CanLoadValue){
-    // given:
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_ZP;      // read pointer to the ZP memory from the next mem cell
-    mem[0xFFFD] = 0x42;                         // read value from memory using pointer
-    mem[0x0042] = 0x37;                         // store this value in A register
-
-    const U32 NumCycles = 3;
     CPU6502 cpuCopy = cpu;
-
-    // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
-
-    // then:
-    EXPECT_EQ(cpu.A, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
-    EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    LD_ZP_CanLoadValue(CPU6502_OpCodes::LDA_ZP, cpu.A);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ZPX_CanLoadValue){
@@ -93,7 +44,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ZPX_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ZPX_CanLoadValue_WithWrap){
@@ -114,7 +65,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ZPX_CanLoadValue_WithWrap){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ABS_CanLoadValue){
@@ -135,7 +86,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ABS_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ABSX_CanLoadValue){
@@ -157,7 +108,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ABSX_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ABSX_CanLoadValue_WithExtraCycleOnPageCrossing){
@@ -179,7 +130,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ABSX_CanLoadValue_WithExtraCycleOnPageCrossing){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ABSY_CanLoadValue){
@@ -201,7 +152,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ABSY_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing){
@@ -223,7 +174,7 @@ TEST_F(CPU6502_LDAFixture, LDA_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
@@ -246,7 +197,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
@@ -269,10 +220,10 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }
 
-TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
     // given:
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read
     mem[0xFFFC] = CPU6502_OpCodes::LDA_INDY;    // read the 8 bit value from the next mem cell and add X
@@ -292,5 +243,5 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing){
     EXPECT_FALSE(cpu.Z);
     EXPECT_FALSE(cpu.N);
     EXPECT_EQ(CNT, NumCycles);
-    VerifyUnmodifiedFlagsFromLDA(cpu, cpuCopy);
+    CheckUnmodifiedFlagsFromLoadOperation(cpuCopy);
 }

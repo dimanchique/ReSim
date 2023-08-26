@@ -15,6 +15,8 @@ set(
         "LDX_Tests.cpp"
         "LDY_Tests.cpp"
         "JSR_Tests.cpp"
+        "DEX_Tests.cpp"
+        "DEY_Tests.cpp"
 )
 
 
