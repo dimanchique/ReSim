@@ -29,12 +29,13 @@ struct CPU6502 {
 
     void Reset(Memory &memory);
 
-    BYTE FetchByte(S32 &Cycles, Memory &memory);
-    WORD FetchWord(S32 &Cycles, Memory &memory);
+    BYTE FetchByte(S32 &Cycles, const Memory &memory);
+    WORD FetchWord(S32 &Cycles, const Memory &memory);
 
-    BYTE ReadByte(S32 &Cycles, WORD ADDR, Memory &memory) const;
-    WORD ReadWord(S32 &Cycles, WORD ADDR, Memory &memory) const;
+    BYTE ReadByte(S32 &Cycles, WORD ADDR, const Memory &memory) const;
+    WORD ReadWord(S32 &Cycles, WORD ADDR, const Memory &memory) const;
 
+    void WriteByte(S32 &Cycles, BYTE Value, U32 ADDR, Memory &memory);
     void WriteWord(S32 &Cycles, WORD Value, U32 ADDR, Memory &memory);
 
     S32 Run(S32 Cycles, Memory &memory);

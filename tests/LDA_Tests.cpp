@@ -57,7 +57,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
     cpu.X = 0x04;                               // preload 0x04 to X to add it to value we read
     mem[0xFFFC] = CPU6502_OpCodes::LDA_INDX;    // read the 8 bit value from the next mem cell and add X
     mem[0xFFFD] = 0x02;                         // 0x2 + 0x4 = 0x6
-    mem[0x0006] = 0x00;                         // read the 16 bit Little Endian address
+    mem[0x0006] = 0x00;                         // read the 16 bit Little Endian address from 0x0006-0x0007
     mem[0x0007] = 0x80;                         // read from the address we've got
     mem[0x8000] = 0x37;                         // store this value in A register
 
@@ -76,10 +76,10 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
 TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     // given:
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
-    mem[0xFFFC] = CPU6502_OpCodes::LDA_INDY;    // read the 8 bit value from the next mem cell and add Y
+    mem[0xFFFC] = CPU6502_OpCodes::LDA_INDY;    // read the 8 bit value from the next mem cell
     mem[0xFFFD] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
     mem[0x0002] = 0x00;                         //
-    mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (Y) = 0x8004
+    mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x37;                         // store this value in A register
 
     const S32 NumCycles = 5;

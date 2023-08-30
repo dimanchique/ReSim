@@ -1,10 +1,13 @@
 #pragma once
 #include <Types.h>
-#include <vector>
 
 struct Memory {
     explicit Memory(U32 MEM_SIZE = 1) : SIZE(MEM_SIZE * 1024) {
-        MEM.resize(SIZE);
+        MEM = new BYTE[SIZE];
+    }
+
+    ~Memory(){
+        delete[] MEM;
     }
 
     BYTE operator[](U32 ADDR) const {
@@ -26,6 +29,6 @@ struct Memory {
     }
 
 private:
-    std::vector<BYTE> MEM;
+    BYTE* MEM;
     U32 SIZE;
 };

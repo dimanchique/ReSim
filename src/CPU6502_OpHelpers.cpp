@@ -2,6 +2,9 @@
 #include <Operations/CPU6502_LDA_Ops.h>
 #include <Operations/CPU6502_LDX_Ops.h>
 #include <Operations/CPU6502_LDY_Ops.h>
+#include <Operations/CPU6502_STA_Ops.h>
+#include <Operations/CPU6502_STX_Ops.h>
+#include <Operations/CPU6502_STY_Ops.h>
 #include <CPU6502.h>
 #include <Memory.h>
 
@@ -47,7 +50,7 @@ void CPU6502_DEY_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
     cpu.LoadRegisterSetStatus(cpu.Y);
 }
 
-using OpSignature = void (*)(S32 &,Memory &,CPU6502 &);
+using OpSignature = void (*)(S32 &, Memory &, CPU6502 &);
 const static OpSignature Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
@@ -178,35 +181,35 @@ const static OpSignature Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
+        CPU6502_STA_INDX,
         CPU6502_NOOP,
         CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_STY_ZP,
+        CPU6502_STA_ZP,
+        CPU6502_STX_ZP,
         CPU6502_NOOP,
         CPU6502_DEY_IMPL,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
+        CPU6502_STY_ABS,
+        CPU6502_STA_ABS,
+        CPU6502_STX_ABS,
+        CPU6502_NOOP,
+        CPU6502_NOOP,
+        CPU6502_STA_INDY,
+        CPU6502_NOOP,
+        CPU6502_NOOP,
+        CPU6502_STY_ZPX,
+        CPU6502_STA_ZPX,
+        CPU6502_STX_ZPY,
+        CPU6502_NOOP,
+        CPU6502_NOOP,
+        CPU6502_STA_ABSY,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_STA_ABSX,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_LDY_IM,
@@ -306,7 +309,7 @@ const static OpSignature Ops[] = {
         CPU6502_NOOP
 };
 
-BYTE FetchCommand(S32& Cycles, BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
+BYTE FetchCommand(S32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
     Ops[OpCode](Cycles, Memory, CPU);
     return 1;
 }

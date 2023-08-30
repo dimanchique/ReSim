@@ -21,12 +21,8 @@ sorted_map = sorted(op_map.items(), key=lambda x: x[1])
 sorted_map = dict(sorted_map)
 ops = ['\tCPU6502_NOOP'] * 255
 for i in sorted_map:
-    if 'LDA' in i or 'LDX' in i or 'LDY' in i:
+    if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
-
-ops[0x20] = '\tCPU6502_JSR_ABS'
-ops[0xCA] = '\tCPU6502_DEX_IMPL'
-ops[0x88] = '\tCPU6502_DEY_IMPL'
 
 printed_ops = ',\n'.join(ops)
 print('const static OpSignature Ops[] = {')

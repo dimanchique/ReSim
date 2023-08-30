@@ -5,26 +5,14 @@ include_directories(
         ../inc
         inc
 )
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/Operations/*.cpp)
 
-set(
-        CPU6502_TESTS
-        "main_test.cpp"
-        "CPU_Tests.cpp"
-        "LD_Tests.cpp"
-        "LDA_Tests.cpp"
-        "LDX_Tests.cpp"
-        "LDY_Tests.cpp"
-        "JSR_Tests.cpp"
-        "DEX_Tests.cpp"
-        "DEY_Tests.cpp"
-)
-
+file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/Operations/*.cpp)
+file(GLOB CPU6502_TESTS ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
 add_executable(
         main_tests
         ${CPU6502_TESTS}
-        ${SRC_FILES}
+        ${SOURCES}
 )
 
 target_link_libraries(
