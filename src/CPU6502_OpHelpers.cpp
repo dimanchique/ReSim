@@ -7,12 +7,13 @@
 #include <Operations/CPU6502_STY_Ops.h>
 #include <CPU6502.h>
 #include <Memory.h>
+#include "Operations/CPU6502_T_Ops.h"
 
 void CPU6502_NOOP(S32& Cycles, Memory &memory, CPU6502 &cpu){}
 
 void CPU6502_JSR_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu){
     WORD JumpAddress = cpu.FetchWord(Cycles, memory);
-    cpu.WriteWord(Cycles, cpu.PC - 1, cpu.SP, memory);
+    memory.WriteWord(Cycles, cpu.PC - 1, cpu.SP);
     cpu.PC = JumpAddress;
     cpu.SP += 2;
     Cycles--;
@@ -190,7 +191,7 @@ const static OpSignature Ops[] = {
         CPU6502_NOOP,
         CPU6502_DEY_IMPL,
         CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_TXA_IMPL,
         CPU6502_NOOP,
         CPU6502_STY_ABS,
         CPU6502_STA_ABS,
@@ -204,9 +205,9 @@ const static OpSignature Ops[] = {
         CPU6502_STA_ZPX,
         CPU6502_STX_ZPY,
         CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_TYA_IMPL,
         CPU6502_STA_ABSY,
-        CPU6502_NOOP,
+        CPU6502_TXS_IMPL,
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_STA_ABSX,
@@ -220,9 +221,9 @@ const static OpSignature Ops[] = {
         CPU6502_LDA_ZP,
         CPU6502_LDX_ZP,
         CPU6502_NOOP,
-        CPU6502_NOOP,
+        CPU6502_TAY_IMPL,
         CPU6502_LDA_IM,
-        CPU6502_NOOP,
+        CPU6502_TAX_IMPL,
         CPU6502_NOOP,
         CPU6502_LDY_ABS,
         CPU6502_LDA_ABS,
@@ -238,7 +239,7 @@ const static OpSignature Ops[] = {
         CPU6502_NOOP,
         CPU6502_NOOP,
         CPU6502_LDA_ABSY,
-        CPU6502_NOOP,
+        CPU6502_TSX_IMPL,
         CPU6502_NOOP,
         CPU6502_LDY_ABSX,
         CPU6502_LDA_ABSX,

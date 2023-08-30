@@ -21,7 +21,8 @@ sorted_map = sorted(op_map.items(), key=lambda x: x[1])
 sorted_map = dict(sorted_map)
 ops = ['\tCPU6502_NOOP'] * 255
 for i in sorted_map:
-    if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR']):
+    if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
+                                  'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
 
 printed_ops = ',\n'.join(ops)

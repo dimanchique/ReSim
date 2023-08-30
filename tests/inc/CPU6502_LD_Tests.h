@@ -12,4 +12,3 @@ public:
     void LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetRegister);
     void LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetRegister, BYTE AffectingRegister);
 };
-

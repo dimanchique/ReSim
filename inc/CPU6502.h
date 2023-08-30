@@ -8,7 +8,7 @@ struct CPU6502 {
 //                        Main Registers            **
 //****************************************************
     WORD PC;           // Program Counter           **
-    WORD SP;           // Stack Pointer             **
+    BYTE SP;           // Stack Pointer             **
     BYTE A;            // Accumulator               **
     BYTE X;            // X Index                   **
     BYTE Y;            // Y Index                   **
@@ -31,12 +31,6 @@ struct CPU6502 {
 
     BYTE FetchByte(S32 &Cycles, const Memory &memory);
     WORD FetchWord(S32 &Cycles, const Memory &memory);
-
-    BYTE ReadByte(S32 &Cycles, WORD ADDR, const Memory &memory) const;
-    WORD ReadWord(S32 &Cycles, WORD ADDR, const Memory &memory) const;
-
-    void WriteByte(S32 &Cycles, BYTE Value, U32 ADDR, Memory &memory);
-    void WriteWord(S32 &Cycles, WORD Value, U32 ADDR, Memory &memory);
 
     S32 Run(S32 Cycles, Memory &memory);
     void LoadRegisterSetStatus(BYTE& Register);

@@ -18,14 +18,33 @@ struct Memory {
         return MEM[ADDR];
     }
 
+    BYTE ReadByte(S32 &Cycles, WORD ADDR) const{
+        BYTE Data = MEM[ADDR];
+        Cycles--;
+        return Data;
+    }
+
+    WORD ReadWord(S32 &Cycles, WORD ADDR) const{
+        BYTE Lo = ReadByte(Cycles, ADDR);
+        BYTE Hi = ReadByte(Cycles, ADDR + 1);
+        return Lo | (Hi << 8);
+    }
+
+    void WriteByte(S32 &Cycles, BYTE Value, U32 ADDR){
+        MEM[ADDR] = Value;
+        Cycles --;
+    }
+
+    void WriteWord(S32 &Cycles, WORD Value, U32 ADDR){
+        MEM[ADDR] = Value & 0xFF;
+        MEM[ADDR + 1] = (Value >> 8);
+        Cycles -= 2;
+    }
+
     void Reset() {
         for (U32 i = 0; i < SIZE; ++i) {
             MEM[i] = 0;
         }
-    }
-
-    [[nodiscard]] U32 GetSize() const noexcept {
-        return SIZE;
     }
 
 private:

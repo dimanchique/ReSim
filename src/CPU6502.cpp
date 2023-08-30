@@ -5,7 +5,7 @@
 
 void CPU6502::Reset(Memory &memory) {
     PC = 0xFFFC;
-    SP = 0x0100;
+    SP = 0x0000;                                        // with 0x0100 offset
 
     A = X = Y = 0;
     C = Z = I = D = B = V = N = 0;
@@ -20,32 +20,9 @@ BYTE CPU6502::FetchByte(S32 &Cycles, const Memory &memory) {
 }
 
 WORD CPU6502::FetchWord(S32 &Cycles, const Memory &memory) {
-    WORD Data = ReadWord(Cycles, PC++, memory);         // Read WORD
+    WORD Data = memory.ReadWord(Cycles, PC++);          // Read WORD
     PC++;                                               // Don't forget extra increment
     return Data;
-}
-
-BYTE CPU6502::ReadByte(S32 &Cycles, const WORD ADDR, const Memory &memory) const {
-    BYTE Data = memory[ADDR];
-    Cycles--;
-    return Data;
-}
-
-WORD CPU6502::ReadWord(S32 &Cycles, const WORD ADDR, const Memory &memory) const {
-    BYTE Lo = ReadByte(Cycles, ADDR, memory);
-    BYTE Hi = ReadByte(Cycles, ADDR + 1, memory);
-    return Lo | (Hi << 8);
-}
-
-void CPU6502::WriteByte(S32 &Cycles, const BYTE Value, const U32 ADDR, Memory &memory) {
-    memory[ADDR] = Value;
-    Cycles --;
-}
-
-void CPU6502::WriteWord(S32 &Cycles, const WORD Value, const U32 ADDR, Memory &memory) {
-    memory[ADDR] = Value & 0xFF;
-    memory[ADDR + 1] = (Value >> 8);
-    Cycles -= 2;
 }
 
 S32 CPU6502::Run(S32 Cycles, Memory &memory) {

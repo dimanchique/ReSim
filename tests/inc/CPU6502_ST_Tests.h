@@ -8,4 +8,3 @@ public:
     void ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister);
     void ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE AffectingRegister);
 };
-
