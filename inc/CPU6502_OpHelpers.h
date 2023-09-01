@@ -4,4 +4,5 @@
 struct Memory;
 struct CPU6502;
 
-BYTE FetchCommand(S32& Cycles, BYTE OpCode, Memory& Memory, CPU6502& CPU);
+void FetchCommand(S32& cycles, BYTE opcode, Memory& memory, CPU6502& cpu);
+void DumpStack(S32& cycles, Memory& memory, CPU6502& cpu);

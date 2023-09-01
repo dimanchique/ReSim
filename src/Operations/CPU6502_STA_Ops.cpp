@@ -3,37 +3,40 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_STA_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ST_ZP(Cycles, memory, cpu, cpu.A);
+void CPU6502_STA_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    CPU6502_ST_ZP(Cycles, Memory, CPU, CPU.A);
 }
 
-void CPU6502_STA_ZPX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ST_ZP(Cycles, memory, cpu, cpu.A, cpu.X);
+void CPU6502_STA_ZPX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    CPU6502_ST_ZP(Cycles, Memory, CPU, CPU.A, CPU.X);
 }
 
-void CPU6502_STA_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ST_ABS(Cycles, memory, cpu, cpu.A);
+void CPU6502_STA_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    CPU6502_ST_ABS(Cycles, Memory, CPU, CPU.A);
 }
 
-void CPU6502_STA_ABSX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ST_ABS(Cycles, memory, cpu, cpu.A, cpu.X);
+void CPU6502_STA_ABSX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    CPU6502_ST_ABS(Cycles, Memory, CPU, CPU.A, CPU.X);
+    Cycles--;                                                       //Extra cycle needed in STA
 }
 
-void CPU6502_STA_ABSY(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ST_ABS(Cycles, memory, cpu, cpu.A, cpu.Y);
+void CPU6502_STA_ABSY(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    CPU6502_ST_ABS(Cycles, Memory, CPU, CPU.A, CPU.Y);
+    Cycles--;                                                       //Extra cycle needed in STA
 }
 
-void CPU6502_STA_INDX(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    ZeroPageAddress += cpu.X;
-    Cycles--;
-    WORD EffectiveAddress = memory.ReadWord(Cycles, ZeroPageAddress);
-    memory.WriteByte(Cycles, cpu.A, EffectiveAddress);
+void CPU6502_STA_INDX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
+    ZeroPageAddress += CPU.X;
+    Cycles--;                                                       //Extra cycle needed in STA
+    WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
+    CPU.WriteByte(Cycles, Memory, CPU.A, EffectiveAddress);
 }
 
-void CPU6502_STA_INDY(S32& Cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    WORD EffectiveAddress = memory.ReadWord(Cycles, ZeroPageAddress);
-    WORD EffectiveAddressY = EffectiveAddress + cpu.Y;
-    memory.WriteByte(Cycles, cpu.A, EffectiveAddressY);
+void CPU6502_STA_INDY(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
+    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
+    const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
+    const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
+    Cycles--;                                                       //Extra cycle needed in STA
+    CPU.WriteByte(Cycles, Memory, CPU.A, EffectiveAddressY);
 }

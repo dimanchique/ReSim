@@ -2,36 +2,36 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_LD_IM(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister) {
-    TargetRegister = cpu.FetchByte(Cycles, memory);
-    cpu.LoadRegisterSetStatus(TargetRegister);
+void CPU6502_LD_IM(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
+    TargetRegister = CPU.FetchByte(Cycles, Memory);
+    CPU.LoadRegisterSetStatus(TargetRegister);
 }
 
-void CPU6502_LD_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    TargetRegister = memory.ReadByte(Cycles, ZeroPageAddress);
-    cpu.LoadRegisterSetStatus(TargetRegister);
+void CPU6502_LD_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
+    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
+    TargetRegister = CPU.ReadByte(Cycles, Memory, ZeroPageAddress);
+    CPU.LoadRegisterSetStatus(TargetRegister);
 }
 
-void CPU6502_LD_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
+void CPU6502_LD_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister) {
+    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
     ZeroPageAddress += AffectingRegister;
+    TargetRegister = CPU.ReadByte(Cycles, Memory, ZeroPageAddress);
+    CPU.LoadRegisterSetStatus(TargetRegister);
     Cycles--;
-    TargetRegister = memory.ReadByte(Cycles, ZeroPageAddress);
-    cpu.LoadRegisterSetStatus(TargetRegister);
 }
 
-void CPU6502_LD_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister) {
-    WORD AbsAddress = cpu.FetchWord(Cycles, memory);
-    TargetRegister = memory.ReadByte(Cycles, AbsAddress);
-    cpu.LoadRegisterSetStatus(TargetRegister);
+void CPU6502_LD_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
+    const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
+    TargetRegister = CPU.ReadByte(Cycles, Memory, AbsAddress);
+    CPU.LoadRegisterSetStatus(TargetRegister);
 }
 
-void CPU6502_LD_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister) {
-    WORD AbsAddress = cpu.FetchWord(Cycles, memory);
-    WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
-    TargetRegister = memory.ReadByte(Cycles, AffectedAbsAddress);
+void CPU6502_LD_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister) {
+    const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
+    const WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
+    TargetRegister = CPU.ReadByte(Cycles, Memory, AffectedAbsAddress);
     if(AffectedAbsAddress - AbsAddress >= 0xFF)
         Cycles--;
-    cpu.LoadRegisterSetStatus(TargetRegister);
+    CPU.LoadRegisterSetStatus(TargetRegister);
 }

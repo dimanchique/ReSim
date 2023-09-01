@@ -2,25 +2,23 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_ST_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister) {
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    memory.WriteByte(Cycles, TargetRegister, ZeroPageAddress);
+void CPU6502_ST_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
+    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
+    CPU.WriteByte(Cycles, Memory, TargetRegister, ZeroPageAddress);
 }
 
-void CPU6502_ST_ZP(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister){
-    BYTE ZeroPageAddress = cpu.FetchByte(Cycles, memory);
-    ZeroPageAddress += AffectingRegister;
+void CPU6502_ST_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister){
+    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + AffectingRegister;
+    CPU.WriteByte(Cycles, Memory, TargetRegister, ZeroPageAddress);
     Cycles--;
-    memory.WriteByte(Cycles, TargetRegister, ZeroPageAddress);
 }
 
-void CPU6502_ST_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister) {
-    WORD AbsAddress = cpu.FetchWord(Cycles, memory);
-    memory.WriteByte(Cycles, TargetRegister, AbsAddress);
+void CPU6502_ST_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
+    const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
+    CPU.WriteByte(Cycles, Memory, TargetRegister, AbsAddress);
 }
 
-void CPU6502_ST_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister) {
-    WORD AbsAddress = cpu.FetchWord(Cycles, memory);
-    WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
-    memory.WriteByte(Cycles, TargetRegister, AffectedAbsAddress);
+void CPU6502_ST_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister) {
+    const WORD AffectedAbsAddress = CPU.FetchWord(Cycles, Memory) + AffectingRegister;
+    CPU.WriteByte(Cycles, Memory, TargetRegister, AffectedAbsAddress);
 }

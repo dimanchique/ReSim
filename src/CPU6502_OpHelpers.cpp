@@ -7,48 +7,62 @@
 #include <Operations/CPU6502_STY_Ops.h>
 #include <CPU6502.h>
 #include <Memory.h>
+#include <cstdio>
 #include "Operations/CPU6502_T_Ops.h"
 
-void CPU6502_NOOP(S32& Cycles, Memory &memory, CPU6502 &cpu){}
+void DumpStack(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    std::printf("Illegal instruction called\n");
+    std::printf("Runtime information:\n");
+    std::printf("\tCycles left: %d\n", Cycles);
+    std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);
+    std::printf("\tStack Pointer: 0x%04x\n", CPU.SP + 0x100);
+    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", CPU.C, CPU.Z, CPU.I, CPU.D, CPU.B, CPU.V, CPU.N);
+    std::printf("\t                 CZIDBVN\n");
+}
 
-void CPU6502_JSR_ABS(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    WORD JumpAddress = cpu.FetchWord(Cycles, memory);
-    memory.WriteWord(Cycles, cpu.PC - 1, cpu.SP);
-    cpu.PC = JumpAddress;
-    cpu.SP += 2;
+void CPU6502_NOOP(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    DumpStack(Cycles, Memory, CPU);
+    throw -1;
+}
+
+void CPU6502_JSR_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    const WORD JumpAddress = CPU.FetchWord(Cycles, Memory);
+    CPU.WriteWord(Cycles, Memory, CPU.PC - 1, CPU.SP);
+    CPU.PC = JumpAddress;
+    CPU.SP += 2;
     Cycles--;
 }
 
-void CPU6502_CLC_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.C = 0;
+void CPU6502_CLC_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.C = 0;
     Cycles -= 2;
 }
 
-void CPU6502_CLD_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.D = 0;
+void CPU6502_CLD_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.D = 0;
     Cycles -= 2;
 }
 
-void CPU6502_CLI_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.I = 0;
+void CPU6502_CLI_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.I = 0;
     Cycles -= 2;
 }
 
-void CPU6502_CLV_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.V = 0;
+void CPU6502_CLV_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.V = 0;
     Cycles -= 2;
 }
 
-void CPU6502_DEX_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.X--;
+void CPU6502_DEX_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.X--;
     Cycles -= 2;
-    cpu.LoadRegisterSetStatus(cpu.X);
+    CPU.LoadRegisterSetStatus(CPU.X);
 }
 
-void CPU6502_DEY_IMPL(S32& Cycles, Memory &memory, CPU6502 &cpu){
-    cpu.Y--;
+void CPU6502_DEY_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    CPU.Y--;
     Cycles -= 2;
-    cpu.LoadRegisterSetStatus(cpu.Y);
+    CPU.LoadRegisterSetStatus(CPU.Y);
 }
 
 using OpSignature = void (*)(S32 &, Memory &, CPU6502 &);
@@ -310,7 +324,6 @@ const static OpSignature Ops[] = {
         CPU6502_NOOP
 };
 
-BYTE FetchCommand(S32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
+void FetchCommand(S32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
     Ops[OpCode](Cycles, Memory, CPU);
-    return 1;
 }
