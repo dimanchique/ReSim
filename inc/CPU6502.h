@@ -28,6 +28,9 @@ struct CPU6502 {
 //****************************************************
 
     void Reset(Memory &memory);
+    void Reset(WORD ResetVector, Memory& memory);
+    void SoftReset(Memory& memory);
+    void SoftReset(WORD ResetVector, Memory& memory);
 
     BYTE FetchByte(S32 &cycles, const Memory &memory);
     WORD FetchWord(S32 &cycles, const Memory &memory);
@@ -37,6 +40,13 @@ struct CPU6502 {
 
     void WriteByte(S32 &cycles, Memory &memory, BYTE Value, U32 ADDR);
     void WriteWord(S32 &cycles, Memory &memory, WORD Value, U32 ADDR);
+
+    void PushProgramCounterToStack(S32 &Cycles, Memory &memory);
+    WORD PopAddressFromStack(S32 &Cycles, Memory &Memory);
+
+    WORD StackPointerToAddress() const{
+        return 0x100 | SP;
+    }
 
     S32 Run(S32 cycles, Memory &memory);
     void LoadRegisterSetStatus(BYTE& Register);

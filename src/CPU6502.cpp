@@ -3,13 +3,29 @@
 #include "CPU6502_OpHelpers.h"
 
 void CPU6502::Reset(Memory &Memory) {
-    PC = 0xFFFC;
-    SP = 0x00;                                          // with 0x0100 offset
+    Reset(0xFFFC, Memory);
+}
 
-    A = X = Y = 0;
+void CPU6502::Reset(WORD ResetVector, Memory &Memory) {
+    PC = ResetVector;
+    SP = 0xFF;                                          // with 0x0100 offset
+
     C = Z = I = D = B = V = N = 0;
+    A = X = Y = 0;
 
     Memory.Reset();
+}
+
+void CPU6502::SoftReset(Memory &Memory) {
+    SoftReset(0xFFFC, Memory);
+}
+
+void CPU6502::SoftReset(WORD ResetVector, Memory &Memory) {
+    PC = ResetVector;
+    SP = 0xFF;                                          // with 0x0100 offset
+
+    C = Z = I = D = B = V = N = 0;
+    A = X = Y = 0;
 }
 
 BYTE CPU6502::FetchByte(S32 &Cycles, const Memory &Memory) {
@@ -45,6 +61,18 @@ void CPU6502::WriteWord(S32 &Cycles, Memory &Memory, const WORD Value, const U32
     Memory[ADDR] = Value & 0xFF;
     Memory[ADDR + 1] = (Value >> 8);
     Cycles -= 2;
+}
+
+void CPU6502::PushProgramCounterToStack(S32 &Cycles, Memory &Memory) {
+    WriteWord(Cycles, Memory, PC - 1, StackPointerToAddress() - 1);
+    SP -= 2;
+}
+
+WORD CPU6502::PopAddressFromStack(S32 &Cycles, Memory &Memory) {
+    WORD ValueFromStack = ReadWord(Cycles, Memory, StackPointerToAddress() + 1);
+    SP += 2;
+    Cycles--;
+    return ValueFromStack + 1;
 }
 
 S32 CPU6502::Run(S32 Cycles, Memory &Memory) {
