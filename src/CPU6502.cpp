@@ -83,11 +83,12 @@ S32 CPU6502::Run(S32 Cycles, Memory &Memory) {
         FetchCommand(Cycles, Instruction, Memory, *this);
     }
 
-    const S32 NumCyclesUsed = CyclesRequested - Cycles;
-    return NumCyclesUsed;
+    return CyclesRequested - Cycles;
 }
 
-void CPU6502::LoadRegisterSetStatus(BYTE &Register) {
-    Z = (Register == 0);
-    N = (Register & 0b10000000) > 0;
+void CPU6502::SetStatusRegisterValue(BYTE &Register, BYTE CheckArgs) {
+    if(CheckArgs & CPU6502_Status_Z)
+        Z = (Register == 0);
+    if(CheckArgs & CPU6502_Status_N)
+        N = (Register & 0b10000000) > 0;
 }

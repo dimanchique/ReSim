@@ -28,11 +28,10 @@ void CPU6502_LDA_ABSY(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
 }
 
 void CPU6502_LDA_INDX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
-    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
-    ZeroPageAddress += CPU.X;
+    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + CPU.X;
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     CPU.A = CPU.ReadByte(Cycles, Memory, EffectiveAddress);
-    CPU.LoadRegisterSetStatus(CPU.A);
+    CPU.SetStatusRegisterValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
     Cycles--;
 }
 
@@ -43,5 +42,5 @@ void CPU6502_LDA_INDY(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
     CPU.A = CPU.ReadByte(Cycles, Memory, EffectiveAddressY);
     if(EffectiveAddressY - EffectiveAddress >= 0xFF)
         Cycles--;
-    CPU.LoadRegisterSetStatus(CPU.A);
+    CPU.SetStatusRegisterValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

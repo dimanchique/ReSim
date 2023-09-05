@@ -1,8 +1,8 @@
 #include "CPU6502_TestingSuite.h"
 
-class CPU6502_JumpFixture : public CPU6502_TestFixture{};
+class CPU6502_JSRFixture : public CPU6502_TestFixture{};
 
-TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJump) {
+TEST_F(CPU6502_JSRFixture, JSR_ABS_CanJump) {
     // given:
     mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;
     mem[0xFFFD] = 0x42;
@@ -18,7 +18,7 @@ TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJump) {
     EXPECT_EQ(CNT, NumCycles);
 }
 
-TEST_F(CPU6502_JumpFixture, JSR_ABS_CanExecuteNextOpCode) {
+TEST_F(CPU6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     // given:
     mem[0xFFFC] = CPU6502_OpCodes::JSR_ABS;
     mem[0xFFFD] = 0x42;
@@ -26,7 +26,7 @@ TEST_F(CPU6502_JumpFixture, JSR_ABS_CanExecuteNextOpCode) {
     mem[0x4242] = CPU6502_OpCodes::LDA_IM;
     mem[0x4243] = 0x84;
 
-    const U32 NumCycles = 8;
+    const U32 NumCycles = 6 + 2;
 
     // when:
     U32 CNT = cpu.Run(NumCycles, mem);
@@ -38,7 +38,9 @@ TEST_F(CPU6502_JumpFixture, JSR_ABS_CanExecuteNextOpCode) {
     EXPECT_EQ(CNT, NumCycles);
 }
 
-TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJumpToSubroutineAndJumpBack) {
+class CPU6502_JSR_RTSFixture : public CPU6502_TestFixture{};
+
+TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) {
     // given:
     cpu.Reset(0xFF00, mem);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles
@@ -58,7 +60,7 @@ TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJumpToSubroutineAndJumpBack) {
     EXPECT_EQ(CNT, NumCycles);
 }
 
-TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJumpEvenMore) {
+TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     // given:
     cpu.Reset(0xFF00, mem);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles
@@ -82,7 +84,7 @@ TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJumpEvenMore) {
     EXPECT_EQ(CNT, NumCycles);
 }
 
-TEST_F(CPU6502_JumpFixture, JSR_ABS_CanJumpEvenDeeper) {
+TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     // given:
     cpu.Reset(0xFF00, mem);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles

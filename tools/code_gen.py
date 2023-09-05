@@ -24,10 +24,21 @@ ops = ['\tCPU6502_NOOP'] * 255
 for i in sorted_map:
     if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
                                   'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA', 'RTS', 'RTI', 'CLC',
-                                  'CLD', 'CLI', 'CLV']):
+                                  'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
 
-printed_ops = ',\n'.join(ops)
+ops_cpy = ops.copy()
+ops_strings = []
+while ops_cpy:
+    line = ops_cpy[:5]
+    ops_cpy = ops_cpy[5:]
+    line_str = []
+    for i in line:
+        line_str.append((str(i)+',').ljust(20))
+    res = ''.join(line_str)
+    ops_strings.append(res)
+
+ops_to_pass = '\n'.join(ops_strings)
 
 with open(write_target, 'r') as file:
     data = file.readlines()
@@ -38,7 +49,7 @@ start_idx = data.index('// Code generator placeholder begin\n')
 end_idx = data.index('// Code generator placeholder end\n')
 code_src = data[:start_idx+1]
 code_src.append('const static OpSignature Ops[] = {\n')
-code_src.append(printed_ops)
+code_src.append(ops_to_pass)
 code_src.append('\n};\n')
 code_src.extend(data[end_idx:])
 
