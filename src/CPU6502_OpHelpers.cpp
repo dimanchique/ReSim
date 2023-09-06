@@ -10,6 +10,7 @@
 #include "Operations/CPU6502_SE_Ops.h"
 #include "Operations/CPU6502_DE_Ops.h"
 #include "Operations/CPU6502_T_Ops.h"
+#include "Operations/CPU6502_P_Ops.h"
 #include <CPU6502.h>
 #include <Memory.h>
 #include <cstdio>
@@ -20,7 +21,7 @@ void DumpStack(S32& Cycles, Memory &Memory, CPU6502 &CPU){
     std::printf("\tCycles left:     %d\n", Cycles);
     std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);
     std::printf("\tStack Pointer:   0x%04x\n", CPU.SP + 0x100);
-    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", CPU.C, CPU.Z, CPU.I, CPU.D, CPU.B, CPU.V, CPU.N);
+    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", CPU.Status.C, CPU.Status.Z, CPU.Status.I, CPU.Status.D, CPU.Status.B, CPU.Status.V, CPU.Status.N);
     std::printf("\t                 CZIDBVN\n");
     std::printf("\tA Register:      0x%04x\n", CPU.A);
     std::printf("\tX Register:      0x%04x\n", CPU.X);
@@ -37,26 +38,26 @@ using OpSignature = void (*)(S32 &, Memory &, CPU6502 &);
 // Code generator placeholder begin
 const static OpSignature Ops[] = {
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
-	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
+	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_PHP_IMPL,  	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_CLC_IMPL,  
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_JSR_ABS,   	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
-	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
+	CPU6502_PLP_IMPL,  	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_SEC_IMPL,  	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_RTI_IMPL,  
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
-	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
+	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_PHA_IMPL,  	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_JMP_ABS,   	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_CLI_IMPL,  	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_RTS_IMPL,  	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
-	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
+	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_PLA_IMPL,  
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_JMP_IND,   	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      
 	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      	CPU6502_NOOP,      

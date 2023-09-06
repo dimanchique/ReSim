@@ -25,8 +25,8 @@ void CPU6502_LDFixture::LD_IM_CanAffectZeroFlag(CPU6502_OpCodes OpCode){
     cpu.Run(2, mem);
 
     // then:
-    EXPECT_TRUE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_TRUE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
 }
 
 void CPU6502_LDFixture::LD_IM_CanAffectNegativeFlag(CPU6502_OpCodes OpCode){
@@ -38,8 +38,8 @@ void CPU6502_LDFixture::LD_IM_CanAffectNegativeFlag(CPU6502_OpCodes OpCode){
     cpu.Run(2, mem);
 
     // then:
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_TRUE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_TRUE(cpu.Status.N);
 }
 
 void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetRegister){
@@ -55,8 +55,8 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }
 
@@ -73,8 +73,8 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }
 
@@ -92,8 +92,8 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }
 
@@ -111,7 +111,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }

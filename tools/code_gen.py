@@ -24,7 +24,8 @@ ops = ['\tCPU6502_NOOP'] * 255
 for i in sorted_map:
     if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
                                   'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA', 'RTS', 'RTI', 'CLC',
-                                  'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED']):
+                                  'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED', 'PHP', 'PLP',
+                                  'PLA', 'PHA']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
 
 ops_cpy = ops.copy()

@@ -68,8 +68,8 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }
 
@@ -89,8 +89,8 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }
 
@@ -110,7 +110,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
     EXPECT_EQ(CNT, NumCycles);
 }

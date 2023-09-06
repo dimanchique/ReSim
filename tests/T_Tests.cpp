@@ -20,13 +20,13 @@ void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes OpCode, BYTE& Sou
 void CPU6502_TFixture::T_IMPL_CanAffectNegativeFlag(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
     SourceRegister = 0x80;
     T_IMPL_CanTransferValue(OpCode, SourceRegister, DestinationRegister);
-    EXPECT_TRUE(cpu.N);
+    EXPECT_TRUE(cpu.Status.N);
 }
 
 void CPU6502_TFixture::T_IMPL_CanAffectZeroFlag(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
     SourceRegister = 0x0;
     T_IMPL_CanTransferValue(OpCode, SourceRegister, DestinationRegister);
-    EXPECT_TRUE(cpu.Z);
+    EXPECT_TRUE(cpu.Status.Z);
 }
 
 class CPU6502_TAXFixture : public CPU6502_TFixture{};

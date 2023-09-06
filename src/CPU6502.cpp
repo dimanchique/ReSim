@@ -10,22 +10,10 @@ void CPU6502::Reset(WORD ResetVector, Memory &Memory) {
     PC = ResetVector;
     SP = 0xFF;                                          // with 0x0100 offset
 
-    C = Z = I = D = B = V = N = 0;
+    Status = 0;
     A = X = Y = 0;
 
     Memory.Reset();
-}
-
-void CPU6502::SoftReset(Memory &Memory) {
-    SoftReset(0xFFFC, Memory);
-}
-
-void CPU6502::SoftReset(WORD ResetVector, Memory &Memory) {
-    PC = ResetVector;
-    SP = 0xFF;                                          // with 0x0100 offset
-
-    C = Z = I = D = B = V = N = 0;
-    A = X = Y = 0;
 }
 
 BYTE CPU6502::FetchByte(S32 &Cycles, const Memory &Memory) {
@@ -75,6 +63,20 @@ WORD CPU6502::PopAddressFromStack(S32 &Cycles, Memory &Memory) {
     return ValueFromStack + 1;
 }
 
+void CPU6502::PushByteToStack(S32 &Cycles, Memory &Memory, BYTE Value) {
+    WriteByte(Cycles, Memory, Value, StackPointerToAddress());
+    Cycles--;
+    SP--;
+}
+
+BYTE CPU6502::PullByteFromStack(S32 &Cycles, Memory &Memory) {
+    SP++;
+    Cycles--;
+    const auto Value = ReadByte(Cycles, Memory, StackPointerToAddress());
+    Cycles--;
+    return Value;
+}
+
 S32 CPU6502::Run(S32 Cycles, Memory &Memory) {
     const S32 CyclesRequested = Cycles;
 
@@ -84,11 +86,4 @@ S32 CPU6502::Run(S32 Cycles, Memory &Memory) {
     }
 
     return CyclesRequested - Cycles;
-}
-
-void CPU6502::SetStatusRegisterValue(BYTE &Register, BYTE CheckArgs) {
-    if(CheckArgs & CPU6502_Status_Z)
-        Z = (Register == 0);
-    if(CheckArgs & CPU6502_Status_N)
-        N = (Register & 0b10000000) > 0;
 }

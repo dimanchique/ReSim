@@ -16,8 +16,8 @@ TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectY){
     // then:
     EXPECT_NE(cpu.Y, InitialValue);
     EXPECT_EQ(cpu.Y, TargetValue);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
 }
 
 TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectZeroFlag){
@@ -34,8 +34,8 @@ TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectZeroFlag){
     // then:
     EXPECT_NE(cpu.Y, InitialValue);
     EXPECT_EQ(cpu.Y, TargetValue);
-    EXPECT_TRUE(cpu.Z);
-    EXPECT_FALSE(cpu.N);
+    EXPECT_TRUE(cpu.Status.Z);
+    EXPECT_FALSE(cpu.Status.N);
 }
 
 TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectNegativeFlag){
@@ -52,6 +52,6 @@ TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectNegativeFlag){
     // then:
     EXPECT_NE(cpu.Y, InitialValue);
     EXPECT_EQ(cpu.Y, TargetValue);
-    EXPECT_FALSE(cpu.Z);
-    EXPECT_TRUE(cpu.N);
+    EXPECT_FALSE(cpu.Status.Z);
+    EXPECT_TRUE(cpu.Status.N);
 }

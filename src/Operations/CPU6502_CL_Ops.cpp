@@ -3,21 +3,21 @@
 #include "Memory.h"
 
 void CPU6502_CLC_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.C = 0;
+    CPU.Status.C = 0;
     Cycles -= 2;
 }
 
 void CPU6502_CLD_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.D = 0;
+    CPU.Status.D = 0;
     Cycles -= 2;
 }
 
 void CPU6502_CLI_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.I = 0;
+    CPU.Status.I = 0;
     Cycles -= 2;
 }
 
 void CPU6502_CLV_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.V = 0;
+    CPU.Status.V = 0;
     Cycles -= 2;
 }
