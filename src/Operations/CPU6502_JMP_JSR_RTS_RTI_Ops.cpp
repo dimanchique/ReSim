@@ -3,8 +3,7 @@
 #include "Memory.h"
 
 void CPU6502_JMP_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.PC = CPU.FetchWord(Cycles, Memory);;
-    Cycles--;
+    CPU.PC = CPU.FetchWord(Cycles, Memory);
 }
 
 void CPU6502_JMP_IND(S32& Cycles, Memory &Memory, CPU6502 &CPU){

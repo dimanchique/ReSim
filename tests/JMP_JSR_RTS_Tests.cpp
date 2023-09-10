@@ -107,3 +107,41 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     EXPECT_EQ(cpu.A, 0x42);
     EXPECT_EQ(CNT, NumCycles);
 }
+
+class CPU6502_JMPFixture : public CPU6502_TestFixture{};
+
+TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJump) {
+    // given:
+    mem[0xFFFC] = CPU6502_OpCodes::JMP_ABS;
+    mem[0xFFFD] = 0x42;
+    mem[0xFFFE] = 0x42;
+
+    const U32 NumCycles = 3;
+
+    // when:
+    U32 CNT = cpu.Run(NumCycles, mem);
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0x4242);
+    EXPECT_EQ(CNT, NumCycles);
+}
+
+TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
+    // given:
+    cpu.Reset(0xFF00, mem);
+    mem[0xFF00] = CPU6502_OpCodes::JMP_ABS;        // 3 cycles
+    mem[0xFF01] = 0x00;
+    mem[0xFF02] = 0x80;
+    mem[0x8000] = CPU6502_OpCodes::JMP_ABS;        // 3 cycles
+    mem[0x8001] = 0x03;
+    mem[0x8002] = 0xFF;
+
+    const U32 NumCycles = 3 + 3;
+
+    // when:
+    U32 CNT = cpu.Run(NumCycles, mem);
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0xFF03);
+    EXPECT_EQ(CNT, NumCycles);
+}

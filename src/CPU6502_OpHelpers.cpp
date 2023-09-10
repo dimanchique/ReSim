@@ -16,12 +16,13 @@
 #include <cstdio>
 
 void DumpStack(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+    const auto &Stat = CPU.Status;
     std::printf("Illegal instruction called\n");
     std::printf("Runtime information:\n");
     std::printf("\tCycles left:     %d\n", Cycles);
     std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);
     std::printf("\tStack Pointer:   0x%04x\n", CPU.SP + 0x100);
-    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", CPU.Status.C, CPU.Status.Z, CPU.Status.I, CPU.Status.D, CPU.Status.B, CPU.Status.V, CPU.Status.N);
+    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", Stat.C, Stat.Z, Stat.I, Stat.D, Stat.B, Stat.V, Stat.N);
     std::printf("\t                 CZIDBVN\n");
     std::printf("\tA Register:      0x%04x\n", CPU.A);
     std::printf("\tX Register:      0x%04x\n", CPU.X);

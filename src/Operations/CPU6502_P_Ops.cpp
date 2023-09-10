@@ -13,7 +13,7 @@ void CPU6502_PLA_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
 }
 
 void CPU6502_PHP_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.PushByteToStack(Cycles, Memory, CPU.Status.AsByte());
+    CPU.PushByteToStack(Cycles, Memory, CPU.Status);
 }
 
 void CPU6502_PLP_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){

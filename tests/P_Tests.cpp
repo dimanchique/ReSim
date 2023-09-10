@@ -60,6 +60,6 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator){
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
-    EXPECT_EQ(cpu.Status.AsByte(), 0x00);
+    EXPECT_EQ(cpu.Status, 0x00);
     EXPECT_EQ(CNT, NumCycles);
 }

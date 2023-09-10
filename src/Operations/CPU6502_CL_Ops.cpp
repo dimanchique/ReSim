@@ -2,22 +2,23 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
+void CL_IMPL(BYTE StatusFlag, S32& Cycles, CPU6502 &CPU){
+    CPU.Status.ClearFlag(StatusFlag);
+    Cycles--;
+}
+
 void CPU6502_CLC_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.Status.C = 0;
-    Cycles -= 2;
+    CL_IMPL(CPU6502_Status_C, Cycles, CPU);
 }
 
 void CPU6502_CLD_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.Status.D = 0;
-    Cycles -= 2;
+    CL_IMPL(CPU6502_Status_D, Cycles, CPU);
 }
 
 void CPU6502_CLI_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.Status.I = 0;
-    Cycles -= 2;
+    CL_IMPL(CPU6502_Status_I, Cycles, CPU);
 }
 
 void CPU6502_CLV_IMPL(S32& Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.Status.V = 0;
-    Cycles -= 2;
+    CL_IMPL(CPU6502_Status_V, Cycles, CPU);
 }

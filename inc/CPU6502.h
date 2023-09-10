@@ -28,7 +28,7 @@ struct CPU6502_Status{
 #define CPU6502_Status_V    (1 << 6)
 #define CPU6502_Status_N    (1 << 7)
 //**********************************************************
-    BYTE AsByte() const {
+    operator BYTE() const {
         return *(BYTE*)(this);
     }
 
@@ -46,6 +46,14 @@ struct CPU6502_Status{
             Z = (Register == 0);
         if(CheckArgs & CPU6502_Status_N)
             N = (Register & 0b10000000) > 0;
+    }
+
+    void SetFlag(BYTE StatusFlag){
+        *(BYTE*)(this) |= StatusFlag;
+    }
+
+    void ClearFlag(BYTE StatusFlag){
+        *(BYTE*)(this) &= ~StatusFlag;
     }
 };
 
