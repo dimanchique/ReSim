@@ -21,13 +21,16 @@ for i in data:
 sorted_map = sorted(op_map.items(), key=lambda x: x[1])
 sorted_map = dict(sorted_map)
 ops = ['\tCPU6502_NOOP'] * 255
+used_instructions = 0
 for i in sorted_map:
     if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
                                   'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA', 'RTS', 'RTI', 'CLC',
                                   'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED', 'PHP', 'PLP',
                                   'PLA', 'PHA', 'DEC']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
+        used_instructions += 1
 
+print(f"Used instructions: {used_instructions}/{len(op_map.keys())}")
 ops_cpy = ops.copy()
 ops_strings = []
 while ops_cpy:
