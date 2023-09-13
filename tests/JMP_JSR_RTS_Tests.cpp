@@ -145,3 +145,22 @@ TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     EXPECT_EQ(cpu.PC, 0xFF03);
     EXPECT_EQ(CNT, NumCycles);
 }
+
+TEST_F(CPU6502_JMPFixture, JMP_IND_CanJump) {
+    // given:
+    cpu.Reset(0xFF00, mem);
+    mem[0xFF00] = CPU6502_OpCodes::JMP_IND;        // 5 cycles
+    mem[0xFF01] = 0x00;
+    mem[0xFF02] = 0x80;
+    mem[0x8000] = 0x03;
+    mem[0x8001] = 0xFF;
+
+    const U32 NumCycles = 5;
+
+    // when:
+    U32 CNT = cpu.Run(NumCycles, mem);
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0xFF03);
+    EXPECT_EQ(CNT, NumCycles);
+}

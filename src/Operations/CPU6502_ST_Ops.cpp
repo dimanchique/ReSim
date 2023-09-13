@@ -8,9 +8,10 @@ void CPU6502_ST_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegist
 }
 
 void CPU6502_ST_ZP(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister){
-    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + AffectingRegister;
-    CPU.WriteByte(Cycles, Memory, TargetRegister, ZeroPageAddress);
+    const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
+    const BYTE AffectedZeroPage = ZeroPageAddress + AffectingRegister;
     Cycles--;
+    CPU.WriteByte(Cycles, Memory, TargetRegister, AffectedZeroPage);
 }
 
 void CPU6502_ST_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister) {
@@ -19,6 +20,8 @@ void CPU6502_ST_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegis
 }
 
 void CPU6502_ST_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister) {
-    const WORD AffectedAbsAddress = CPU.FetchWord(Cycles, Memory) + AffectingRegister;
-    CPU.WriteByte(Cycles, Memory, TargetRegister, AffectedAbsAddress);
+    WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
+    AbsAddress = AbsAddress + AffectingRegister;
+    Cycles--;
+    CPU.WriteByte(Cycles, Memory, TargetRegister, AbsAddress);
 }

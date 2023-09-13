@@ -1,57 +1,24 @@
-#include "CPU6502_TestingSuite.h"
+#include "CPU6502_DE_Tests.h"
 
-class  CPU6502_DEYFixture: public CPU6502_TestFixture{};
+class CPU6502_DEYFixture : public CPU6502_DEFixture{};
 
-TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectY){
-    BYTE InitialValue = 0x9;
-    BYTE TargetValue = InitialValue - 1;
-
-    // given:
-    cpu.Y = InitialValue;                           // set InitialValue to Y
-    mem[0xFFFC] = CPU6502_OpCodes::DEY_IMPL;        // call DEY
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_NE(cpu.Y, InitialValue);
-    EXPECT_EQ(cpu.Y, TargetValue);
+TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectX){
+    cpu.Y = 0x9;
+    DE_IMPL_CanAffectValue(DEY_IMPL, cpu.Y);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
 }
 
 TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectZeroFlag){
-    BYTE InitialValue = 0x1;
-    BYTE TargetValue = InitialValue - 1;
-
-    // given:
-    cpu.Y = InitialValue;                           // set InitialValue to Y
-    mem[0xFFFC] = CPU6502_OpCodes::DEY_IMPL;        // call DEY
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_NE(cpu.Y, InitialValue);
-    EXPECT_EQ(cpu.Y, TargetValue);
+    cpu.Y = 0x1;
+    DE_IMPL_CanAffectValue(DEY_IMPL, cpu.Y);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
 }
 
 TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectNegativeFlag){
-    BYTE InitialValue = 0x0;
-    BYTE TargetValue = InitialValue - 1;
-
-    // given:
-    cpu.Y = InitialValue;                           // set InitialValue to Y
-    mem[0xFFFC] = CPU6502_OpCodes::DEY_IMPL;        // call DEY
-
-    // when:
-    cpu.Run(2, mem);
-
-    // then:
-    EXPECT_NE(cpu.Y, InitialValue);
-    EXPECT_EQ(cpu.Y, TargetValue);
+    cpu.Y = 0x0;
+    DE_IMPL_CanAffectValue(DEY_IMPL, cpu.Y);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
 }

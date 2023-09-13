@@ -59,7 +59,7 @@ void CPU6502::PushProgramCounterToStack(S32 &Cycles, Memory &Memory) {
 WORD CPU6502::PopAddressFromStack(S32 &Cycles, Memory &Memory) {
     WORD ValueFromStack = ReadWord(Cycles, Memory, StackPointerToAddress() + 1);
     SP += 2;
-    Cycles--;
+    Cycles -= 2;
     return ValueFromStack + 1;
 }
 

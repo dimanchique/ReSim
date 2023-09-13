@@ -17,12 +17,10 @@ void CPU6502_STA_ABS(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
 
 void CPU6502_STA_ABSX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
     CPU6502_ST_ABS(Cycles, Memory, CPU, CPU.A, CPU.X);
-    Cycles--;                                                       //Extra cycle needed in STA
 }
 
 void CPU6502_STA_ABSY(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
     CPU6502_ST_ABS(Cycles, Memory, CPU, CPU.A, CPU.Y);
-    Cycles--;                                                       //Extra cycle needed in STA
 }
 
 void CPU6502_STA_INDX(S32& Cycles, Memory &Memory, CPU6502 &CPU) {
