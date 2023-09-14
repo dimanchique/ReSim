@@ -7,7 +7,7 @@ TEST_F(CPU6502_CPUFixture, CpuDoesNothingWithZeroCycles) {
     const U32 NumCycles = 0;
 
     // when:
-    S32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(NumCycles, CNT);
@@ -22,7 +22,7 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
     const U32 NumCycles = 1;                    // We're "expecting" 1 cycle
 
     // when:
-    S32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(CNT, 6);                          // But there are 6 actually

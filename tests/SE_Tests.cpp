@@ -9,7 +9,7 @@ public:
         const U32 NumCycles = 2;
 
         // when:
-        U32 CNT = cpu.Run(NumCycles, mem);
+        CNT = cpu.Run(NumCycles, mem);
 
         // then:
         EXPECT_TRUE(cpu.Status & StatusFlag);

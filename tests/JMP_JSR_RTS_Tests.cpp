@@ -11,7 +11,7 @@ TEST_F(CPU6502_JSRFixture, JSR_ABS_CanJump) {
     const U32 NumCycles = 6;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.PC, 0x4242);
@@ -29,7 +29,7 @@ TEST_F(CPU6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     const U32 NumCycles = 6 + 2;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x84);
@@ -53,7 +53,7 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) 
     const U32 NumCycles = 6 + 6 + 2;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -77,7 +77,7 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     const U32 NumCycles = 6 + 6 + 6 + 6 + 2;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -101,7 +101,7 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     const U32 NumCycles = 6 + 6 + 6 + 6 + 2;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -119,7 +119,7 @@ TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJump) {
     const U32 NumCycles = 3;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.PC, 0x4242);
@@ -139,7 +139,7 @@ TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     const U32 NumCycles = 3 + 3;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.PC, 0xFF03);
@@ -158,7 +158,7 @@ TEST_F(CPU6502_JMPFixture, JMP_IND_CanJump) {
     const U32 NumCycles = 5;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.PC, 0xFF03);

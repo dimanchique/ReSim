@@ -10,11 +10,13 @@ public:
     Memory mem{64};
     CPU6502 cpu{};
 
+    U32 CNT;
+
     void SetUp() override{
         cpu.Reset(mem);
     }
 
     void TearDown() override{
-
+        std::cout << "Test finished. Cycles passed: " << CNT << "\n";
     }
 };

@@ -51,7 +51,7 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
     const U32 NumCycles = 3;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -69,7 +69,7 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
     const U32 NumCycles = 4;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -88,7 +88,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
     const S32 NumCycles = 4;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -107,7 +107,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
     const S32 NumCycles = (0x4402 + AffectingRegister) - 0x4402 >= 0xFF ? 5 : 4;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);

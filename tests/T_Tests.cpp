@@ -10,7 +10,7 @@ void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes OpCode, BYTE& Sou
     const U32 NumCycles = 2;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(DestinationRegister, SourceRegister);

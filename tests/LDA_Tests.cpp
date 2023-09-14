@@ -64,7 +64,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
     const S32 NumCycles = 6;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -85,7 +85,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     const S32 NumCycles = 5;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -106,7 +106,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
     const S32 NumCycles = 6;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);

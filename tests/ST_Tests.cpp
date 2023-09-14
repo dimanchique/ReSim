@@ -11,7 +11,7 @@ void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& Source
     const U32 NumCycles = 3;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(mem[0x0080], SourceRegister);
@@ -30,7 +30,7 @@ void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& Source
     const U32 NumCycles = 4;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(mem[TargetAddress], SourceRegister);
@@ -49,7 +49,7 @@ void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& Sourc
     const U32 NumCycles = 4;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(mem[0x8000], SourceRegister);
@@ -69,7 +69,7 @@ void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& Sourc
     const U32 NumCycles = 5;
 
     // when:
-    U32 CNT = cpu.Run(NumCycles, mem);
+    CNT = cpu.Run(NumCycles, mem);
 
     // then:
     EXPECT_EQ(mem[TargetAddress], SourceRegister);
