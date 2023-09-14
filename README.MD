@@ -6,16 +6,14 @@ Next step is to make it execute a real asm program;<br>
 This README.MD is WIP document. All progress will be committed. Stay tuned.
 ---
 Emulator features:
-* basic functionality: fetch word/byte, read byt/word, write word
-* LDA/LDX/LDY instructions
-* GTest coverage
+* basic functionality: fetch word/byte, read byte/word, write byte/word
+* TDD with GTest
 ---
-TODO:
-* other instructions
-* more tests
-* assembler interpreter
-* real asm programs for tests
-* cpu + memory = computer?
-  * interaction
-  * hardware emulation
-  * etc.
+Current instructions support:
+* Clear/Set: CLx/SEx
+* Decrement: DEx
+* Jump: JMP/JSR/RTS
+* Load: LDx
+* Push/Pop: PHx/PLx
+* Store: STx
+* Transfer: Txx
