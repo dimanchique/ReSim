@@ -1,4 +1,5 @@
 <h2>TODO LIST</h2>
+
 <h3>Instructions:</h3>
 * ADC - Add with Carry
 * AND - Logical AND
@@ -57,12 +58,15 @@
 * ~~TXS - Transfer X to Stack Pointer~~
 * ~~TYA - Transfer Y to Accumulator~~
 
-<h3>Other:</h3>
+<h3>OTHER:</h3>
 * more tests
 * assembler interpreter
 * real asm programs for tests
-* BASIC INTERPRETER
+
+<h3>FEATHER PLANS:</h3>
+* Basic interpreter
 * cpu + memory = computer?
     * interaction
     * hardware mapping emulation
     * etc.
+* ZX80/i4040/i8080/etc
