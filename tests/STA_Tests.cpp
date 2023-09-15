@@ -35,14 +35,14 @@ TEST_F(CPU6502_STAFixture, STA_INDX_CanStoreValue){
     mem[0x0007] = 0x80;                         // read from the address we've got
     mem[0x8000] = 0x00;                         // store A value int this mem cell
 
-    const S32 NumCycles = 6;
+    CyclesExpected = 6;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(mem[0x8000], cpu.A);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }
 
 TEST_F(CPU6502_STAFixture, STA_INDY_CanStoreValue){
@@ -55,12 +55,12 @@ TEST_F(CPU6502_STAFixture, STA_INDY_CanStoreValue){
     mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x00;                         // store A value int this mem cell
 
-    const S32 NumCycles = 6;
+    CyclesExpected = 6;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(mem[0x8004], cpu.A);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }

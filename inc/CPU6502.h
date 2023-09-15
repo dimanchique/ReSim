@@ -48,6 +48,10 @@ struct CPU6502_Status{
             N = (Register & 0b10000000) > 0;
     }
 
+    bool GetStatusValue(BYTE CheckArgs) const{
+        return BYTE(*this) & CheckArgs;
+    }
+
     void SetFlag(BYTE StatusFlag){
         *(BYTE*)(this) |= StatusFlag;
     }
@@ -86,7 +90,10 @@ struct CPU6502 {
     WORD PopAddressFromStack(S32 &Cycles, Memory &Memory);
 
     void PushByteToStack(S32 &Cycles, Memory &Memory, BYTE Value);
+    void PushWordToStack(S32 &Cycles, Memory &Memory, WORD Value);
+
     BYTE PullByteFromStack(S32 &Cycles, Memory &Memory);
+    WORD PullWordFromStack(S32 &Cycles, Memory &Memory);
 
     S32 Run(S32 cycles, Memory &Memory);
 

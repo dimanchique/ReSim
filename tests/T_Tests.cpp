@@ -2,19 +2,17 @@
 
 void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
     //given:
-    //SourceRegister = 0x2F; <---------------- this value should be loaded by target test
     DestinationRegister = 0x0;
     mem[0xFFFC] = OpCode;
 
-    //when:
-    const U32 NumCycles = 2;
+    CyclesExpected = 2;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(DestinationRegister, SourceRegister);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }
 
 void CPU6502_TFixture::T_IMPL_CanAffectNegativeFlag(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){

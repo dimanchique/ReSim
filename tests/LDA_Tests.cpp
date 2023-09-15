@@ -61,16 +61,16 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
     mem[0x0007] = 0x80;                         // read from the address we've got
     mem[0x8000] = 0x37;                         // store this value in A register
 
-    const S32 NumCycles = 6;
+    CyclesExpected = 6;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
@@ -82,16 +82,16 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x37;                         // store this value in A register
 
-    const S32 NumCycles = 5;
+    CyclesExpected = 5;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }
 
 TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
@@ -103,14 +103,14 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
     mem[0x0003] = 0x80;                         // 0x8002 + 0x00FF (Y) = 0x8101 -> page crossing, so we need extra cycle
     mem[0x8101] = 0x37;                         // store this value in A register
 
-    const S32 NumCycles = 6;
+    CyclesExpected = 6;
 
     // when:
-    CNT = cpu.Run(NumCycles, mem);
+    CyclesPassed = cpu.Run(CyclesExpected, mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_EQ(CNT, NumCycles);
+    CheckCyclesCount();
 }

@@ -6,14 +6,14 @@ public:
         cpu.Status.ClearFlag(StatusFlag);
         mem[0xFFFC] = OpCode;
 
-        const U32 NumCycles = 2;
+        CyclesExpected = 2;
 
         // when:
-        CNT = cpu.Run(NumCycles, mem);
+        CyclesPassed = cpu.Run(CyclesExpected, mem);
 
         // then:
-        EXPECT_TRUE(cpu.Status & StatusFlag);
-        EXPECT_EQ(CNT, NumCycles);
+        EXPECT_TRUE(cpu.Status.GetStatusValue(StatusFlag));
+        CheckCyclesCount();
     }
 };
 

@@ -52,21 +52,22 @@ void CPU6502::WriteWord(S32 &Cycles, Memory &Memory, const WORD Value, const U32
 }
 
 void CPU6502::PushProgramCounterToStack(S32 &Cycles, Memory &Memory) {
-    WriteWord(Cycles, Memory, PC - 1, StackPointerToAddress() - 1);
-    SP -= 2;
+    PushWordToStack(Cycles, Memory, PC - 1);
 }
 
 WORD CPU6502::PopAddressFromStack(S32 &Cycles, Memory &Memory) {
-    WORD ValueFromStack = ReadWord(Cycles, Memory, StackPointerToAddress() + 1);
-    SP += 2;
-    Cycles -= 2;
-    return ValueFromStack + 1;
+    return PullWordFromStack(Cycles, Memory) + 1;
 }
 
 void CPU6502::PushByteToStack(S32 &Cycles, Memory &Memory, BYTE Value) {
     WriteByte(Cycles, Memory, Value, StackPointerToAddress());
-    Cycles--;
     SP--;
+    Cycles--;
+}
+
+void CPU6502::PushWordToStack(S32 &Cycles, Memory &Memory, WORD Value) {
+    WriteWord(Cycles, Memory, Value, StackPointerToAddress() - 1);
+    SP -= 2;
 }
 
 BYTE CPU6502::PullByteFromStack(S32 &Cycles, Memory &Memory) {
@@ -74,6 +75,13 @@ BYTE CPU6502::PullByteFromStack(S32 &Cycles, Memory &Memory) {
     Cycles--;
     const auto Value = ReadByte(Cycles, Memory, StackPointerToAddress());
     Cycles--;
+    return Value;
+}
+
+WORD CPU6502::PullWordFromStack(S32 &Cycles, Memory &Memory) {
+    WORD Value = ReadWord(Cycles, Memory, StackPointerToAddress() + 1);
+    SP += 2;
+    Cycles -= 2;
     return Value;
 }
 
