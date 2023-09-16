@@ -9,7 +9,7 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAccumulator){
     CyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(mem[cpu.StackPointerToAddress() + 1], 0x42);
@@ -25,7 +25,7 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator){
     CyclesExpected = 3 + 2 + 4;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -39,7 +39,7 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushStatusRegister){
     CyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(mem[cpu.StackPointerToAddress() + 1], 0x42);
@@ -56,7 +56,7 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator){
     CyclesExpected = 3 + 3 + 4 + 4;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);

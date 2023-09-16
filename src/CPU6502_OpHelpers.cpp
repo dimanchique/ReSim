@@ -15,11 +15,11 @@
 #include <Memory.h>
 #include <cstdio>
 
-void DumpStack(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+void DumpStack(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     const auto &Stat = CPU.Status;
     std::printf("Illegal instruction called\n");
     std::printf("Runtime information:\n");
-    std::printf("\tCycles left:     %d\n", Cycles);
+    std::printf("\tCycles passed:   %d\n", Cycles);
     std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);
     std::printf("\tStack Pointer:   0x%04x\n", CPU.SP + 0x100);
     std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", Stat.C, Stat.Z, Stat.I, Stat.D, Stat.B, Stat.V, Stat.N);
@@ -29,12 +29,11 @@ void DumpStack(S32& Cycles, Memory &Memory, CPU6502 &CPU){
     std::printf("\tY Register:      0x%04x\n", CPU.Y);
 }
 
-void CPU6502_NOOP(S32& Cycles, Memory &Memory, CPU6502 &CPU){
+void CPU6502_NOOP(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     DumpStack(Cycles, Memory, CPU);
-    throw -1;
 }
 
-using OpSignature = void (*)(S32 &, Memory &, CPU6502 &);
+using OpSignature = void (*)(U32 &, Memory &, CPU6502 &);
 
 // Code generator placeholder begin
 const static OpSignature Ops[] = {
@@ -92,6 +91,8 @@ const static OpSignature Ops[] = {
 };
 // Code generator placeholder end
 
-void FetchCommand(S32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
-    Ops[OpCode](Cycles, Memory, CPU);
+bool FetchCommand(U32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
+    const auto &Instruction = Ops[OpCode];
+    Instruction(Cycles, Memory, CPU);
+    return Instruction != CPU6502_NOOP;
 }

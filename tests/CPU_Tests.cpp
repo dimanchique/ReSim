@@ -7,7 +7,7 @@ TEST_F(CPU6502_CPUFixture, CpuDoesNothingWithZeroCycles) {
     CyclesExpected = 0;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     CheckCyclesCount();
@@ -22,7 +22,7 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
     CyclesExpected = 1;                         // We're "expecting" 1 cycle
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     CheckCyclesCount(6);                        // But there are 6 actually

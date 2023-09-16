@@ -2,7 +2,7 @@
 
 class CPU6502_DEYFixture : public CPU6502_DEFixture{};
 
-TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectX){
+TEST_F(CPU6502_DEYFixture, DEY_IMPL_CanAffectY){
     cpu.Y = 0x9;
     DE_IMPL_CanAffectValue(DEY_IMPL, cpu.Y);
     EXPECT_FALSE(cpu.Status.Z);

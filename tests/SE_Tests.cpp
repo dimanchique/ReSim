@@ -9,7 +9,7 @@ public:
         CyclesExpected = 2;
 
         // when:
-        CyclesPassed = cpu.Run(CyclesExpected, mem);
+        CyclesPassed = cpu.Run(mem);
 
         // then:
         EXPECT_TRUE(cpu.Status.GetStatusValue(StatusFlag));

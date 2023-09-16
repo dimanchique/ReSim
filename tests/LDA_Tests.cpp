@@ -64,7 +64,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDX_CanLoadValue){
     CyclesExpected = 6;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -85,7 +85,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     CyclesExpected = 5;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -106,7 +106,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
     CyclesExpected = 6;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);

@@ -8,7 +8,7 @@ void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes OpCode, BYTE& Sou
     CyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(DestinationRegister, SourceRegister);

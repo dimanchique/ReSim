@@ -10,8 +10,8 @@ public:
     Memory mem{64};
     CPU6502 cpu{};
 
-    S32 CyclesPassed;
-    S32 CyclesExpected;
+    U32 CyclesPassed;
+    U32 CyclesExpected;
 
     void SetUp() override{
         cpu.Reset(mem);

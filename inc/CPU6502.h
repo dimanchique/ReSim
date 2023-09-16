@@ -77,25 +77,25 @@ struct CPU6502 {
     void Reset(Memory &Memory);
     void Reset(WORD ResetVector, Memory& Memory);
 
-    BYTE FetchByte(S32 &cycles, const Memory &Memory);
-    WORD FetchWord(S32 &cycles, const Memory &Memory);
+    BYTE FetchByte(U32 &Cycles, const Memory &Memory);
+    WORD FetchWord(U32 &Cycles, const Memory &Memory);
 
-    BYTE ReadByte(S32 &cycles, const Memory &Memory, WORD ADDR) const;
-    WORD ReadWord(S32 &cycles, const Memory &Memory, WORD ADDR) const;
+    BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) const;
+    WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) const;
 
-    void WriteByte(S32 &cycles, Memory &Memory, BYTE Value, U32 ADDR);
-    void WriteWord(S32 &cycles, Memory &Memory, WORD Value, U32 ADDR);
+    void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
+    void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
 
-    void PushProgramCounterToStack(S32 &Cycles, Memory &Memory);
-    WORD PopAddressFromStack(S32 &Cycles, Memory &Memory);
+    void PushProgramCounterToStack(U32 &Cycles, Memory &Memory);
+    WORD PopAddressFromStack(U32 &Cycles, Memory &Memory);
 
-    void PushByteToStack(S32 &Cycles, Memory &Memory, BYTE Value);
-    void PushWordToStack(S32 &Cycles, Memory &Memory, WORD Value);
+    void PushByteToStack(U32 &Cycles, Memory &Memory, BYTE Value);
+    void PushWordToStack(U32 &Cycles, Memory &Memory, WORD Value);
 
-    BYTE PullByteFromStack(S32 &Cycles, Memory &Memory);
-    WORD PullWordFromStack(S32 &Cycles, Memory &Memory);
+    BYTE PullByteFromStack(U32 &Cycles, Memory &Memory);
+    WORD PullWordFromStack(U32 &Cycles, Memory &Memory);
 
-    S32 Run(S32 cycles, Memory &Memory);
+    U32 Run(Memory &Memory);
 
     WORD StackPointerToAddress() const {
         return 0x100 | SP;

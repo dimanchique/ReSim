@@ -10,7 +10,7 @@ void CPU6502_DEFixture::DE_ZP_CanAffectValue(CPU6502_OpCodes OpCode, BYTE Memory
     CyclesExpected = OffsetValueRegister ? 6 : 5;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_NE(mem[0x42 + OffsetValueRegister], MemoryValue);
@@ -29,7 +29,7 @@ void CPU6502_DEFixture::DE_ABS_CanAffectValue(CPU6502_OpCodes OpCode, BYTE Memor
     CyclesExpected = OffsetValueRegister ? 7 : 6;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_NE(mem[0x4200 + OffsetValueRegister], MemoryValue);
@@ -46,7 +46,7 @@ void CPU6502_DEFixture::DE_IMPL_CanAffectValue(CPU6502_OpCodes OpCode, BYTE& Tar
     CyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_NE(TargetRegister, InitialValue);

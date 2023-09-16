@@ -11,7 +11,7 @@ void CPU6502_LDFixture::LD_IM_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
     CyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_NE(TargetRegister, OldValue);
@@ -27,7 +27,7 @@ void CPU6502_LDFixture::LD_IM_CanAffectZeroFlag(CPU6502_OpCodes OpCode){
     CyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_TRUE(cpu.Status.Z);
@@ -43,7 +43,7 @@ void CPU6502_LDFixture::LD_IM_CanAffectNegativeFlag(CPU6502_OpCodes OpCode){
     CyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_FALSE(cpu.Status.Z);
@@ -60,7 +60,7 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
     CyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -78,7 +78,7 @@ void CPU6502_LDFixture::LD_ZP_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& TargetR
     CyclesExpected = 4;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -97,7 +97,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
     CyclesExpected = 4;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
@@ -116,7 +116,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE& Target
     CyclesExpected = (0x4402 + AffectingRegister) - 0x4402 >= 0xFF ? 5 : 4;
 
     // when:
-    CyclesPassed = cpu.Run(CyclesExpected, mem);
+    CyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(TargetRegister, 0x37);
