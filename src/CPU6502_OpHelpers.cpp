@@ -17,7 +17,6 @@
 
 void DumpStack(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     const auto &Stat = CPU.Status;
-    std::printf("Illegal instruction called\n");
     std::printf("Runtime information:\n");
     std::printf("\tCycles passed:   %d\n", Cycles);
     std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);

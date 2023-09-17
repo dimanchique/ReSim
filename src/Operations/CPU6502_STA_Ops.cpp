@@ -26,7 +26,7 @@ void CPU6502_STA_ABSY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
 void CPU6502_STA_INDX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
     ZeroPageAddress += CPU.X;
-    Cycles++;                                                       //Extra cycle needed in STA
+    CPU6502::DoTick(Cycles);                                    //Extra cycle needed in STA
     WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     CPU.WriteByte(Cycles, Memory, CPU.A, EffectiveAddress);
 }
@@ -35,6 +35,6 @@ void CPU6502_STA_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
-    Cycles++;                                                       //Extra cycle needed in STA
+    CPU6502::DoTick(Cycles);                                    //Extra cycle needed in STA
     CPU.WriteByte(Cycles, Memory, CPU.A, EffectiveAddressY);
 }

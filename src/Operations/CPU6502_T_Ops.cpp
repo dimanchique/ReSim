@@ -6,7 +6,7 @@ void CPU6502_T_IMPL(BYTE SourceRegister, BYTE &DestinationRegister, U32 &Cycles,
     DestinationRegister = SourceRegister;
     if(ShouldCheckStatus)
         CPU.SetStatusValue(DestinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
-    Cycles++;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502_TAX_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){

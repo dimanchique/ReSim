@@ -4,7 +4,7 @@
 
 void CL_IMPL(BYTE StatusFlag, U32 &Cycles, CPU6502 &CPU){
     CPU.Status.ClearFlag(StatusFlag);
-    Cycles++;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502_CLC_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){

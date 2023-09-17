@@ -80,11 +80,11 @@ struct CPU6502 {
     BYTE FetchByte(U32 &Cycles, const Memory &Memory);
     WORD FetchWord(U32 &Cycles, const Memory &Memory);
 
-    BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) const;
-    WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) const;
+    static BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
+    static WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
 
-    void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
-    void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
+    static void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
+    static void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
 
     void PushProgramCounterToStack(U32 &Cycles, Memory &Memory);
     WORD PopAddressFromStack(U32 &Cycles, Memory &Memory);
@@ -96,6 +96,10 @@ struct CPU6502 {
     WORD PullWordFromStack(U32 &Cycles, Memory &Memory);
 
     U32 Run(Memory &Memory);
+
+    inline static void DoTick(U32 &Cycles, U32 Count = 1) {
+        Cycles += Count;
+    }
 
     WORD StackPointerToAddress() const {
         return 0x100 | SP;

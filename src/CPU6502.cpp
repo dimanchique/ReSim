@@ -18,7 +18,7 @@ void CPU6502::Reset(WORD ResetVector, Memory &Memory) {
 
 BYTE CPU6502::FetchByte(U32 &Cycles, const Memory &Memory) {
     BYTE Data = Memory[PC++];
-    Cycles++;
+    CPU6502::DoTick(Cycles);
     return Data;
 }
 
@@ -28,13 +28,13 @@ WORD CPU6502::FetchWord(U32 &Cycles, const Memory &Memory) {
     return Lo | (Hi << 8);
 }
 
-BYTE CPU6502::ReadByte(U32 &Cycles, const Memory &Memory, const WORD ADDR) const {
+BYTE CPU6502::ReadByte(U32 &Cycles, const Memory &Memory, const WORD ADDR) {
     BYTE Data = Memory[ADDR];
-    Cycles++;
+    CPU6502::DoTick(Cycles);
     return Data;
 }
 
-WORD CPU6502::ReadWord(U32 &Cycles, const Memory &Memory, const WORD ADDR) const {
+WORD CPU6502::ReadWord(U32 &Cycles, const Memory &Memory, const WORD ADDR) {
     BYTE Lo = ReadByte(Cycles, Memory, ADDR);
     BYTE Hi = ReadByte(Cycles, Memory, ADDR + 1);
     return Lo | (Hi << 8);
@@ -47,8 +47,9 @@ void CPU6502::WriteByte(U32 &Cycles, Memory &Memory, const BYTE Value, const U32
 
 void CPU6502::WriteWord(U32 &Cycles, Memory &Memory, const WORD Value, const U32 ADDR){
     Memory[ADDR] = Value & 0xFF;
+    CPU6502::DoTick(Cycles);
     Memory[ADDR + 1] = (Value >> 8);
-    Cycles += 2;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502::PushProgramCounterToStack(U32 &Cycles, Memory &Memory) {
@@ -62,7 +63,7 @@ WORD CPU6502::PopAddressFromStack(U32 &Cycles, Memory &Memory) {
 void CPU6502::PushByteToStack(U32 &Cycles, Memory &Memory, BYTE Value) {
     WriteByte(Cycles, Memory, Value, StackPointerToAddress());
     SP--;
-    Cycles++;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502::PushWordToStack(U32 &Cycles, Memory &Memory, WORD Value) {
@@ -72,16 +73,17 @@ void CPU6502::PushWordToStack(U32 &Cycles, Memory &Memory, WORD Value) {
 
 BYTE CPU6502::PullByteFromStack(U32 &Cycles, Memory &Memory) {
     SP++;
-    Cycles++;
-    const auto Value = ReadByte(Cycles, Memory, StackPointerToAddress());
-    Cycles++;
+    CPU6502::DoTick(Cycles);
+    const BYTE Value = ReadByte(Cycles, Memory, StackPointerToAddress());
+    CPU6502::DoTick(Cycles);
     return Value;
 }
 
 WORD CPU6502::PullWordFromStack(U32 &Cycles, Memory &Memory) {
     WORD Value = ReadWord(Cycles, Memory, StackPointerToAddress() + 1);
+    CPU6502::DoTick(Cycles);
     SP += 2;
-    Cycles += 2;
+    CPU6502::DoTick(Cycles);
     return Value;
 }
 
