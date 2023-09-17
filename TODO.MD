@@ -60,6 +60,7 @@
 
 <h3>OTHER:</h3>
 * more tests
+* interrupts handling
 * assembler interpreter
 * real asm programs for tests
 

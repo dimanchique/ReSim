@@ -5,6 +5,7 @@
 Development stages:
 - Perform a working emulator of 6502 8-bit CPU with full set of instructions
   - Make it execute a real asm program
+- Interrupts handling
 - Simulate hardware mapping
   - Make it execute BASIC interpreter
 ---
