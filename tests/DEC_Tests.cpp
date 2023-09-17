@@ -1,81 +1,55 @@
-#include "CPU6502_DE_Tests.h"
+#include "CPU6502_DEC_Tests.h"
 
-class CPU6502_DECFixture : public CPU6502_DEFixture{};
+void CPU6502_DECFixture::DEC_ZP_CanAffectValue(CPU6502_OpCodes OpCode, BYTE MemoryValue, BYTE OffsetValueRegister){
+    // given:
+    mem[0xFFFC] = OpCode;
+    mem[0xFFFD] = 0x42;
+    mem[0x42 + OffsetValueRegister] = MemoryValue;
+    BYTE TargetValue = MemoryValue - 1;
 
-TEST_F(CPU6502_DECFixture, DEC_ZP_CanAffectMemory){
-    DE_ZP_CanAffectValue(DEC_ZP, 0x9);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
+    CyclesExpected = OffsetValueRegister ? 6 : 5;
+
+    // when:
+    CyclesPassed = cpu.Run(mem);
+
+    // then:
+    EXPECT_NE(mem[0x42 + OffsetValueRegister], MemoryValue);
+    EXPECT_EQ(mem[0x42 + OffsetValueRegister], TargetValue);
+    CheckCyclesCount();
 }
 
-TEST_F(CPU6502_DECFixture, DEC_ZP_CanAffectZeroFlag){
-    DE_ZP_CanAffectValue(DEC_ZP, 0x1);
-    EXPECT_TRUE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
+void CPU6502_DECFixture::DEC_ABS_CanAffectValue(CPU6502_OpCodes OpCode, BYTE MemoryValue, BYTE OffsetValueRegister){
+    // given:
+    mem[0xFFFC] = OpCode;
+    mem[0xFFFD] = 0x00;
+    mem[0xFFFE] = 0x42;
+    mem[0x4200 + OffsetValueRegister] = MemoryValue;
+    BYTE TargetValue = MemoryValue - 1;
+
+    CyclesExpected = OffsetValueRegister ? 7 : 6;
+
+    // when:
+    CyclesPassed = cpu.Run(mem);
+
+    // then:
+    EXPECT_NE(mem[0x4200 + OffsetValueRegister], MemoryValue);
+    EXPECT_EQ(mem[0x4200 + OffsetValueRegister], TargetValue);
+    CheckCyclesCount();
 }
 
-TEST_F(CPU6502_DECFixture, DEC_ZP_CanAffectNegativeFlag){
-    DE_ZP_CanAffectValue(DEC_ZP, 0x0);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_TRUE(cpu.Status.N);
-}
+void CPU6502_DECFixture::DEC_IMPL_CanAffectValue(CPU6502_OpCodes OpCode, BYTE& TargetRegister){
+    // given:
+    BYTE InitialValue = TargetRegister;
+    BYTE TargetValue = InitialValue - 1;
+    mem[0xFFFC] = OpCode;
 
-TEST_F(CPU6502_DECFixture, DEC_ZPX_CanAffectMemory){
-    cpu.X = 0x2;
-    DE_ZP_CanAffectValue(DEC_ZPX, 0x9, cpu.X);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
+    CyclesExpected = 2;
 
-TEST_F(CPU6502_DECFixture, DEC_ZPX_CanAffectZeroFlag){
-    cpu.X = 0x2;
-    DE_ZP_CanAffectValue(DEC_ZPX, 0x1, cpu.X);
-    EXPECT_TRUE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
+    // when:
+    CyclesPassed = cpu.Run(mem);
 
-TEST_F(CPU6502_DECFixture, DEC_ZPX_CanAffectNegativeFlag){
-    cpu.X = 0x2;
-    DE_ZP_CanAffectValue(DEC_ZPX, 0x0, cpu.X);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_TRUE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABS_CanAffectMemory){
-    DE_ABS_CanAffectValue(DEC_ABS, 0x9);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABS_CanAffectZeroFlag){
-    DE_ABS_CanAffectValue(DEC_ABS, 0x1);
-    EXPECT_TRUE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABS_CanAffectNegativeFlag){
-    DE_ABS_CanAffectValue(DEC_ABS, 0x0);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_TRUE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABSX_CanAffectMemory){
-    cpu.X = 0x4;
-    DE_ABS_CanAffectValue(DEC_ABSX, 0x9, cpu.X);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABSX_CanAffectZeroFlag){
-    cpu.X = 0x4;
-    DE_ABS_CanAffectValue(DEC_ABSX, 0x1, cpu.X);
-    EXPECT_TRUE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-}
-
-TEST_F(CPU6502_DECFixture, DEC_ABSX_CanAffectNegativeFlag){
-    cpu.X = 0x4;
-    DE_ABS_CanAffectValue(DEC_ABSX, 0x0, cpu.X);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_TRUE(cpu.Status.N);
+    // then:
+    EXPECT_NE(TargetRegister, InitialValue);
+    EXPECT_EQ(TargetRegister, TargetValue);
+    CheckCyclesCount();
 }
