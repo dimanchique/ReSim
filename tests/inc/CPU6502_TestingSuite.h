@@ -18,7 +18,7 @@ public:
     }
 
     void TearDown() override{
-        std::printf("Test finished. Cycles passed/expected: %d/%d", CyclesPassed, CyclesExpected);
+        std::printf("Test finished. Cycles passed/expected: %d/%d\n", CyclesPassed, CyclesExpected);
     }
 
     void CheckCyclesCount(S32 CustomCyclesExpected = -1) const {

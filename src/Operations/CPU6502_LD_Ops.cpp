@@ -16,7 +16,7 @@ void CPU6502_LD_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegist
 void CPU6502_LD_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegister, BYTE AffectingRegister) {
     BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
     ZeroPageAddress += AffectingRegister;
-    Cycles++;
+    CPU6502::DoTick(Cycles);
     TargetRegister = CPU.ReadByte(Cycles, Memory, ZeroPageAddress);
     CPU.SetStatusValue(TargetRegister, CPU6502_Status_Z | CPU6502_Status_N);
 }
@@ -31,7 +31,7 @@ void CPU6502_LD_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE& TargetRegis
     const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
     const WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
     if(AffectedAbsAddress - AbsAddress >= 0xFF)
-        Cycles++;
+        CPU6502::DoTick(Cycles);
     TargetRegister = CPU.ReadByte(Cycles, Memory, AffectedAbsAddress);
     CPU.SetStatusValue(TargetRegister, CPU6502_Status_Z | CPU6502_Status_N);
 }

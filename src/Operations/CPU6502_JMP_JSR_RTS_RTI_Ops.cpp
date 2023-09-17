@@ -15,12 +15,12 @@ void CPU6502_JSR_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     const WORD JumpAddress = CPU.FetchWord(Cycles, Memory);
     CPU.PushProgramCounterToStack(Cycles, Memory);
     CPU.PC = JumpAddress;
-    Cycles++;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502_RTS_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     CPU.PC = CPU.PopAddressFromStack(Cycles, Memory);
-    Cycles++;
+    CPU6502::DoTick(Cycles);
 }
 
 void CPU6502_RTI_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
