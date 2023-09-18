@@ -2,7 +2,7 @@
 
 <h3>Instructions:</h3>
 * ADC - Add with Carry
-* AND - Logical AND
+* ~~AND - Logical AND~~
 * ASL - Arithmetic Shift Left
 * BCC - Branch if Carry Clear
 * BCS - Branch if Carry Set
