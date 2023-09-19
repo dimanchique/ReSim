@@ -24,10 +24,10 @@
 * ~~DEC - Decrement Memory~~
 * ~~DEX - Decrement X Register~~
 * ~~DEY - Decrement Y Register~~
-* EOR - Exclusive OR
-* INC - Increment Memory
-* INX - Increment X Register
-* INY - Increment Y Register
+* ~~EOR - Exclusive OR~~
+* ~~INC - Increment Memory~~
+* ~~INX - Increment X Register~~
+* ~~INY - Increment Y Register~~
 * ~~JMP - Jump~~
 * ~~JSR - Jump to Subroutine~~
 * ~~LDA - Load Accumulator~~
@@ -35,7 +35,7 @@
 * ~~LDY - Load Y Register~~
 * LSR - Logical Shift Right
 * NOP - No Operation
-* ORA - Logical Inclusive OR
+* ~~ORA - Logical Inclusive OR~~
 * ~~PHA - Push Accumulator~~
 * ~~PHP - Push Processor Status~~
 * ~~PLA - Pull Accumulator~~
