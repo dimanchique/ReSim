@@ -26,7 +26,8 @@ for i in sorted_map:
     if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
                                   'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA', 'RTS', 'RTI', 'CLC',
                                   'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED', 'PHP', 'PLP',
-                                  'PLA', 'PHA', 'DEC', 'INC', 'INX', 'INY', 'AND', 'EOR', 'ORA']):
+                                  'PLA', 'PHA', 'DEC', 'INC', 'INX', 'INY', 'AND', 'EOR', 'ORA',
+                                  'ASL', 'LSR']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
         used_instructions += 1
 

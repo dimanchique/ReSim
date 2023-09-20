@@ -3,7 +3,7 @@
 <h3>Instructions:</h3>
 * ADC - Add with Carry
 * ~~AND - Logical AND~~
-* ASL - Arithmetic Shift Left
+* ~~ASL - Arithmetic Shift Left~~
 * BCC - Branch if Carry Clear
 * BCS - Branch if Carry Set
 * BEQ - Branch if Equal
@@ -33,7 +33,7 @@
 * ~~LDA - Load Accumulator~~
 * ~~LDX - Load X Register~~
 * ~~LDY - Load Y Register~~
-* LSR - Logical Shift Right
+* ~~LSR - Logical Shift Right~~
 * NOP - No Operation
 * ~~ORA - Logical Inclusive OR~~
 * ~~PHA - Push Accumulator~~
