@@ -3,7 +3,7 @@
 #include "Memory.h"
 
 void CL_IMPL(BYTE StatusFlag, U32 &Cycles, CPU6502 &CPU){
-    CPU.Status.ClearFlag(StatusFlag);
+    CPU.Status.ResetFlag(StatusFlag);
     CPU6502::DoTick(Cycles);
 }
 

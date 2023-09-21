@@ -41,20 +41,20 @@ public:
 
 TEST_F(CPU6502_BITFixture, BIT_ZP_CanTestMemoryValue){
     BIT_ZP_CanTestMemoryValue(0x42, 0x42);
-    EXPECT_FALSE(cpu.Status.GetStatusValue(CPU6502_Status_Z));
+    EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(CPU6502_BITFixture, BIT_ZP_CanAffectZeroValue){
     BIT_ZP_CanTestMemoryValue(0x42, 0x00);
-    EXPECT_TRUE(cpu.Status.GetStatusValue(CPU6502_Status_Z));
+    EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(CPU6502_BITFixture, BIT_ABS_CanTestMemoryValue){
     BIT_ABS_CanTestMemoryValue(0x42, 0x42);
-    EXPECT_FALSE(cpu.Status.GetStatusValue(CPU6502_Status_Z));
+    EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(CPU6502_BITFixture, BIT_ABS_CanAffectZeroValue){
     BIT_ABS_CanTestMemoryValue(0x42, 0x00);
-    EXPECT_TRUE(cpu.Status.GetStatusValue(CPU6502_Status_Z));
+    EXPECT_TRUE(cpu.Status.Z);
 }

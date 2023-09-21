@@ -3,7 +3,7 @@
 class CPU6502_SEFixture : public CPU6502_TestFixture {
 public:
     void SE_CanSetFlag(CPU6502_OpCodes OpCode, BYTE StatusFlag) {
-        cpu.Status.ClearFlag(StatusFlag);
+        cpu.Status.ResetFlag(StatusFlag);
         mem[0xFFFC] = OpCode;
 
         CyclesExpected = 2;
