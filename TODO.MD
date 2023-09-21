@@ -7,7 +7,7 @@
 * BCC - Branch if Carry Clear
 * BCS - Branch if Carry Set
 * BEQ - Branch if Equal
-* BIT - Bit Test
+* ~~BIT - Bit Test~~
 * BMI - Branch if Minus
 * BNE - Branch if Not Equal
 * BPL - Branch if Positive
