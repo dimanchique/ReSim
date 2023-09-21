@@ -40,8 +40,8 @@
 * ~~PHP - Push Processor Status~~
 * ~~PLA - Pull Accumulator~~
 * ~~PLP - Pull Processor Status~~
-* ROL - Rotate Left
-* ROR - Rotate Right
+* ~~ROL - Rotate Left~~
+* ~~ROR - Rotate Right~~
 * RTI - Return from Interrupt
 * ~~RTS - Return from Subroutine~~
 * SBC - Subtract with Carry
