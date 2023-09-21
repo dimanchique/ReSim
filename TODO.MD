@@ -34,7 +34,7 @@
 * ~~LDX - Load X Register~~
 * ~~LDY - Load Y Register~~
 * ~~LSR - Logical Shift Right~~
-* NOP - No Operation
+* ~~NOP - No Operation~~
 * ~~ORA - Logical Inclusive OR~~
 * ~~PHA - Push Accumulator~~
 * ~~PHP - Push Processor Status~~

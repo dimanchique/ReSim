@@ -20,14 +20,14 @@ for i in data:
 
 sorted_map = sorted(op_map.items(), key=lambda x: x[1])
 sorted_map = dict(sorted_map)
-ops = ['\tCPU6502_NOOP'] * 255
+ops = ['\tCPU6502_FAKE_NOP'] * 255
 used_instructions = 0
 for i in sorted_map:
     if any(item in i for item in ['LDA', 'LDX', 'LDY', 'STA', 'STX', 'STY', 'DEX', 'DEY', 'JSR',
                                   'TSX', 'TXS', 'TXA', 'TAX', 'TAY', 'TYA', 'RTS', 'RTI', 'CLC',
                                   'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED', 'PHP', 'PLP',
                                   'PLA', 'PHA', 'DEC', 'INC', 'INX', 'INY', 'AND', 'EOR', 'ORA',
-                                  'ASL', 'LSR', 'BIT', 'ROL', 'ROR']):
+                                  'ASL', 'LSR', 'BIT', 'ROL', 'ROR', 'NOP']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
         used_instructions += 1
 
