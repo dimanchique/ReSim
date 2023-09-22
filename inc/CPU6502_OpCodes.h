@@ -1,5 +1,5 @@
 #pragma once
-#include <Types.h>
+#include <utils.h>
 
 enum CPU6502_OpCodes : BYTE {
 //********************************************************

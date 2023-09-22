@@ -40,7 +40,7 @@ void CPU6502_LDA_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
     CPU.A = CPU.ReadByte(Cycles, Memory, EffectiveAddressY);
-    if(EffectiveAddressY - EffectiveAddress >= 0xFF)
+    if(isPageCrossed(EffectiveAddressY, EffectiveAddress))
         CPU6502::DoTick(Cycles);
     CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

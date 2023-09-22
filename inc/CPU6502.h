@@ -51,6 +51,6 @@ struct CPU6502 {
     }
 
     void SetStatusValue(BYTE& Register, BYTE CheckArgs){
-        Status.SetStatusValue(Register, CheckArgs);
+        Status.UpdateStatus(Register, CheckArgs);
     }
 };

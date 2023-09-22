@@ -30,7 +30,7 @@ void CPU6502_AND_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
 void CPU6502_AND_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE AffectingRegister) {
     const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
     const WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
-    if(AffectedAbsAddress - AbsAddress >= 0xFF)
+    if(isPageCrossed(AffectedAbsAddress, AbsAddress))
         CPU6502::DoTick(Cycles);
     CPU.A &= CPU.ReadByte(Cycles, Memory, AffectedAbsAddress);
     CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
@@ -58,7 +58,7 @@ void CPU6502_AND_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
     CPU.A &= CPU.ReadByte(Cycles, Memory, EffectiveAddressY);
-    if(EffectiveAddressY - EffectiveAddress >= 0xFF)
+    if(isPageCrossed(EffectiveAddressY, EffectiveAddress))
         CPU6502::DoTick(Cycles);
     CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

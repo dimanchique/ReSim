@@ -27,3 +27,11 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMoreCyclesThenRequested) {
     // then:
     CheckCyclesCount(6);                        // But there are 6 actually
 }
+
+class UtilsTests : public testing::Test{};
+TEST_F(UtilsTests, DetectPageCrossingTest) {
+    EXPECT_TRUE(isPageCrossed(0x4001, 0x3ffe));
+    EXPECT_TRUE(isPageCrossed(0x4001, 0x4101));
+    EXPECT_FALSE(isPageCrossed(0x4001, 0x4005));
+    EXPECT_FALSE(isPageCrossed(0x3333, 0x3335));
+}

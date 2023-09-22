@@ -1,5 +1,5 @@
 #pragma once
-#include <Types.h>
+#include <utils.h>
 
 struct Memory {
     explicit Memory(U32 MEM_SIZE = 1) : SIZE(MEM_SIZE * 1024) {

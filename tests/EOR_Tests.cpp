@@ -79,7 +79,7 @@ public:
         mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + AffectingRegister
         mem[0x4402 + AffectingRegister] = MemoryValue;  // store this value in TargetRegister
 
-        CyclesExpected = (0x4402 + AffectingRegister) - 0x4402 >= 0xFF ? 5 : 4;
+        CyclesExpected = isPageCrossed(0x4402 + AffectingRegister, 0x4402) ? 5 : 4;
 
         // when:
         CyclesPassed = cpu.Run(mem);

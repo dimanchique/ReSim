@@ -39,7 +39,7 @@ struct CPU6502_Status{
         return *this;
     }
 
-    void SetStatusValue(BYTE& Register, BYTE CheckArgs){
+    void UpdateStatus(BYTE& Register, BYTE CheckArgs){
         if(CheckArgs & CPU6502_Status_Z)
             Z = (Register == 0);
         if(CheckArgs & CPU6502_Status_N)
@@ -50,7 +50,7 @@ struct CPU6502_Status{
         return BYTE(*this) & CheckArgs;
     }
 
-    void SetStatusFlagValue(BYTE Value, BYTE StatusFlag){
+    void SetStatusFlagValue(BYTE StatusFlag, BYTE Value){
         if(Value)
             SetFlag(StatusFlag);
         else
