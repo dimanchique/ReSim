@@ -8,7 +8,7 @@ void CPU6502_INC_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     MemoryValue++;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, ZeroPageAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INC_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
@@ -19,7 +19,7 @@ void CPU6502_INC_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     MemoryValue++;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, ZeroPageAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INC_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
@@ -28,7 +28,7 @@ void CPU6502_INC_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     MemoryValue++;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, AbsAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INC_ABSX(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
@@ -39,17 +39,17 @@ void CPU6502_INC_ABSX(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     MemoryValue++;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, AffectedAbsAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INX_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     CPU.X++;
     CPU6502::DoTick(Cycles);
-    CPU.SetStatusValue(CPU.X, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.X, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INY_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     CPU.Y++;
     CPU6502::DoTick(Cycles);
-    CPU.SetStatusValue(CPU.Y, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.Y, CPU6502_Status_Z | CPU6502_Status_N);
 }

@@ -7,7 +7,7 @@ void CPU6502_ROR_ACC(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     CPU.A >>= 1;
     CPU.A |= CPU.Status.C << 7;
     CPU6502::DoTick(Cycles);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
     CPU.Status.C = Carry;
 }
 
@@ -19,7 +19,7 @@ void CPU6502_ROR_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     MemoryValue |= CPU.Status.C << 7;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, ZeroPageAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
     CPU.Status.C = Carry;
 }
 
@@ -33,7 +33,7 @@ void CPU6502_ROR_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     MemoryValue |= CPU.Status.C << 7;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, ZeroPageAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
     CPU.Status.C = Carry;
 }
 
@@ -45,7 +45,7 @@ void CPU6502_ROR_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     MemoryValue |= CPU.Status.C << 7;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, AbsAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
     CPU.Status.C = Carry;
 }
 
@@ -58,7 +58,7 @@ void CPU6502_ROR_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE AffectingRe
     MemoryValue |= CPU.Status.C << 7;
     CPU6502::DoTick(Cycles);
     CPU.WriteByte(Cycles, Memory, MemoryValue, AffectedAbsAddress);
-    CPU.SetStatusValue(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(MemoryValue, CPU6502_Status_Z | CPU6502_Status_N);
     CPU.Status.C = Carry;
 }
 

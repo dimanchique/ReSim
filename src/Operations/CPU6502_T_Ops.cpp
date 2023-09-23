@@ -5,7 +5,7 @@
 void CPU6502_T_IMPL(BYTE SourceRegister, BYTE &DestinationRegister, U32 &Cycles, CPU6502 &CPU, bool ShouldCheckStatus = true) {
     DestinationRegister = SourceRegister;
     if(ShouldCheckStatus)
-        CPU.SetStatusValue(DestinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
+        CPU.Status.UpdateStatus(DestinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
     CPU6502::DoTick(Cycles);
 }
 

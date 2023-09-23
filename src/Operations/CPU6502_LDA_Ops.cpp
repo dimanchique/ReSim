@@ -29,18 +29,18 @@ void CPU6502_LDA_ABSY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
 
 void CPU6502_LDA_INDX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + CPU.X;
-    const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
-    CPU.A = CPU.ReadByte(Cycles, Memory, EffectiveAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    const WORD EffectiveAddress = CPU6502::ReadWord(Cycles, Memory, ZeroPageAddress);
+    CPU.A = CPU6502::ReadByte(Cycles, Memory, EffectiveAddress);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
     CPU6502::DoTick(Cycles);
 }
 
 void CPU6502_LDA_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
-    const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
+    const WORD EffectiveAddress = CPU6502::ReadWord(Cycles, Memory, ZeroPageAddress);
     const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
-    CPU.A = CPU.ReadByte(Cycles, Memory, EffectiveAddressY);
-    if(isPageCrossed(EffectiveAddressY, EffectiveAddress))
+    CPU.A = CPU6502::ReadByte(Cycles, Memory, EffectiveAddressY);
+    if(CPU6502::isPageCrossed(EffectiveAddressY, EffectiveAddress))
         CPU6502::DoTick(Cycles);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

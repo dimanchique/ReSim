@@ -25,11 +25,11 @@ struct CPU6502 {
     BYTE FetchByte(U32 &Cycles, const Memory &Memory);
     WORD FetchWord(U32 &Cycles, const Memory &Memory);
 
-    static BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
-    static WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
+    inline static BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
+    inline static WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
 
-    static void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
-    static void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
+    inline static void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
+    inline static void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
 
     void PushProgramCounterToStack(U32 &Cycles, Memory &Memory);
     WORD PopAddressFromStack(U32 &Cycles, Memory &Memory);
@@ -46,11 +46,11 @@ struct CPU6502 {
         Cycles += Count;
     }
 
-    WORD StackPointerToAddress() const {
-        return 0x100 | SP;
+    inline static bool isPageCrossed(WORD src, WORD dest){
+        return (src ^ dest) >= PAGE_SIZE;
     }
 
-    void SetStatusValue(BYTE& Register, BYTE CheckArgs){
-        Status.UpdateStatus(Register, CheckArgs);
+    [[nodiscard]] inline WORD StackPointerToAddress() const {
+        return 0x100 | SP;
     }
 };

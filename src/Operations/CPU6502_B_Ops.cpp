@@ -6,7 +6,7 @@ void CPU6502_B_REL(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE TargetFlag, b
     const SBYTE Offset = cpu.FetchByte(Cycles, memory);
     if(TargetFlag == ExpectedValue){
         CPU6502::DoTick(Cycles);
-        if(isPageCrossed(cpu.PC, cpu.PC + Offset))
+        if(CPU6502::isPageCrossed(cpu.PC, cpu.PC + Offset))
             CPU6502::DoTick(Cycles);
         cpu.PC += Offset;
     }

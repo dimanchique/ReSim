@@ -4,13 +4,13 @@
 
 void CPU6502_AND_IM(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     CPU.A &= CPU.FetchByte(Cycles, Memory);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_AND_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
     CPU.A &= CPU.ReadByte(Cycles, Memory, ZeroPageAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_AND_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
@@ -18,22 +18,22 @@ void CPU6502_AND_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     ZeroPageAddress += CPU.X;
     CPU6502::DoTick(Cycles);
     CPU.A &= CPU.ReadByte(Cycles, Memory, ZeroPageAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_AND_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
     CPU.A &= CPU.ReadByte(Cycles, Memory, AbsAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_AND_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU, BYTE AffectingRegister) {
     const WORD AbsAddress = CPU.FetchWord(Cycles, Memory);
     const WORD AffectedAbsAddress = AbsAddress + AffectingRegister;
-    if(isPageCrossed(AffectedAbsAddress, AbsAddress))
+    if(CPU6502::isPageCrossed(AffectedAbsAddress, AbsAddress))
         CPU6502::DoTick(Cycles);
     CPU.A &= CPU.ReadByte(Cycles, Memory, AffectedAbsAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_AND_ABSX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
@@ -49,7 +49,7 @@ void CPU6502_AND_INDX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + CPU.X;
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     CPU.A &= CPU.ReadByte(Cycles, Memory, EffectiveAddress);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
     CPU6502::DoTick(Cycles);
 }
 
@@ -58,7 +58,7 @@ void CPU6502_AND_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
     const WORD EffectiveAddress = CPU.ReadWord(Cycles, Memory, ZeroPageAddress);
     const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
     CPU.A &= CPU.ReadByte(Cycles, Memory, EffectiveAddressY);
-    if(isPageCrossed(EffectiveAddressY, EffectiveAddress))
+    if(CPU6502::isPageCrossed(EffectiveAddressY, EffectiveAddress))
         CPU6502::DoTick(Cycles);
-    CPU.SetStatusValue(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

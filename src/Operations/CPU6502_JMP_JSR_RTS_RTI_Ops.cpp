@@ -8,7 +8,7 @@ void CPU6502_JMP_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
 
 void CPU6502_JMP_IND(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
     const WORD JumpAddress = CPU.FetchWord(Cycles, Memory);
-    CPU.PC = CPU.ReadWord(Cycles, Memory, JumpAddress);
+    CPU.PC = CPU6502::ReadWord(Cycles, Memory, JumpAddress);
 }
 
 void CPU6502_JSR_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
