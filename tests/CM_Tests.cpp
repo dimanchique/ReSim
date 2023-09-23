@@ -19,6 +19,7 @@ void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
+    mem[0xFFFD] = 0x42;
     mem[0x0042] = memoryValue;
 
     cyclesExpected = 3;

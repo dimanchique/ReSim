@@ -1,7 +1,7 @@
 <h2>TODO LIST</h2>
 
 <h3>Instructions:</h3>
-* ADC - Add with Carry
+* ~~ADC - Add with Carry~~
 * ~~AND - Logical AND~~
 * ~~ASL - Arithmetic Shift Left~~
 * ~~BCC - Branch if Carry Clear~~
@@ -11,7 +11,7 @@
 * ~~BMI - Branch if Minus~~
 * ~~BNE - Branch if Not Equal~~
 * ~~BPL - Branch if Positive~~
-* BRK - Force Interrupt
+* ~~BRK - Force Interrupt~~
 * ~~BVC - Branch if Overflow Clear~~
 * ~~BVS - Branch if Overflow Set~~
 * ~~CLC - Clear Carry Flag~~
@@ -42,9 +42,9 @@
 * ~~PLP - Pull Processor Status~~
 * ~~ROL - Rotate Left~~
 * ~~ROR - Rotate Right~~
-* RTI - Return from Interrupt
+* ~~RTI - Return from Interrupt~~
 * ~~RTS - Return from Subroutine~~
-* SBC - Subtract with Carry
+* ~~SBC - Subtract with Carry~~
 * ~~SEC - Set Carry Flag~~
 * ~~SED - Set Decimal Flag~~
 * ~~SEI - Set Interrupt Disable~~

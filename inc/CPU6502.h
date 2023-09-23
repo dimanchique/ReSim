@@ -63,8 +63,14 @@ struct CPU6502 {
         PushWordToStack(cycles, memory, PC - 1);
     }
 
-    WORD PopAddressFromStack(U32 &cycles, Memory &memory){
+    WORD PullAddressFromStack(U32 &cycles, Memory &memory){
         return PullWordFromStack(cycles, memory) + 1;
+    }
+
+    inline void PushStatusToStack(U32 &cycles, Memory &memory){
+        WriteByte(cycles, memory, Status, StackPointerToAddress());
+        SP--;
+        CPU6502::DoTick(cycles);
     }
 
     inline void PushByteToStack(U32 &cycles, Memory &memory, BYTE value){
@@ -84,6 +90,13 @@ struct CPU6502 {
         const BYTE value = ReadByte(cycles, memory, StackPointerToAddress());
         CPU6502::DoTick(cycles);
         return value;
+    }
+
+    inline void PullStatusFromStack(U32 &cycles, Memory &memory){
+        SP++;
+        CPU6502::DoTick(cycles);
+        Status = ReadByte(cycles, memory, StackPointerToAddress());
+        CPU6502::DoTick(cycles);
     }
 
     inline WORD PullWordFromStack(U32 &cycles, Memory &memory){

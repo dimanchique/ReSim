@@ -28,7 +28,8 @@ for i in sorted_map:
                                   'CLD', 'CLI', 'CLV', 'JMP', 'SEC', 'SEI', 'SED', 'PHP', 'PLP',
                                   'PLA', 'PHA', 'DEC', 'INC', 'INX', 'INY', 'AND', 'EOR', 'ORA',
                                   'ASL', 'LSR', 'BIT', 'ROL', 'ROR', 'NOP', 'BCC', 'BCS', 'BEQ',
-                                  'BNE', 'BMI', 'BPL', 'BVC', 'BVS', 'CMP', 'CPX', 'CPY']):
+                                  'BNE', 'BMI', 'BPL', 'BVC', 'BVS', 'CMP', 'CPX', 'CPY', 'ADC',
+                                  'SBC', 'RTI', 'BRK']):
         ops[sorted_map[i]] = '\tCPU6502_' + i
         used_instructions += 1
 

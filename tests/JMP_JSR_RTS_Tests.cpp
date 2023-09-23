@@ -164,3 +164,23 @@ TEST_F(CPU6502_JMPFixture, JMP_IND_CanJump) {
     EXPECT_EQ(cpu.PC, 0xFF03);
     CheckCyclesCount();
 }
+
+TEST_F(CPU6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
+    // given:
+    cpu.Reset(0xFF00, mem);
+    mem[0xFFFE] = 0x00;
+    mem[0xFFFF] = 0x80;
+    mem[0xFF00] = CPU6502_OpCodes::BRK_IMPL;
+    mem[0xFF01] = CPU6502_OpCodes::LDA_IM;
+    mem[0xFF02] = 0x80;
+    mem[0x8000] = CPU6502_OpCodes::RTI_IMPL;
+
+    cyclesExpected = 6 + 2 + 6;
+
+    // when:
+    cyclesPassed = cpu.Run(mem);
+
+    // then:
+    EXPECT_EQ(cpu.A, 0x80);
+    CheckCyclesCount();
+}

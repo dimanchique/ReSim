@@ -35,3 +35,10 @@ TEST_F(UtilsTests, PageCrossingTest) {
     EXPECT_FALSE(CPU6502::isPageCrossed(0x4001, 0x4005));
     EXPECT_FALSE(CPU6502::isPageCrossed(0x3333, 0x3335));
 }
+
+TEST_F(UtilsTests, DataConversionTest) {
+    EXPECT_EQ((BYTE)45, (SBYTE)45);
+    EXPECT_NE((BYTE)250, (SBYTE)250);
+    EXPECT_EQ((BYTE)258, 0x2);
+    EXPECT_EQ((SBYTE)253, -3);
+}
