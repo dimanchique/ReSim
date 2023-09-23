@@ -175,7 +175,7 @@ TEST_F(CPU6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
     mem[0xFF02] = 0x80;
     mem[0x8000] = CPU6502_OpCodes::RTI_IMPL;
 
-    cyclesExpected = 6 + 2 + 6;
+    cyclesExpected = 7 + 2 + 7;
 
     // when:
     cyclesPassed = cpu.Run(mem);
