@@ -234,7 +234,7 @@ TEST_F(CPU6502_ANDFixture, AND_INDY_CanLoadValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ANDFixture, AND_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_ANDFixture, AND_INDY_CanLoadValue_WithExtraCycleOnPageCrossing){
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read

@@ -39,7 +39,7 @@ struct CPU6502_Status{
         return *this;
     }
 
-    void UpdateStatus(BYTE& targetRegister, BYTE mask){
+    void UpdateStatus(const BYTE& targetRegister, BYTE mask){
         if(mask & CPU6502_Status_Z)
             Z = (targetRegister == 0);
         if(mask & CPU6502_Status_N)

@@ -4,23 +4,23 @@
 * ADC - Add with Carry
 * ~~AND - Logical AND~~
 * ~~ASL - Arithmetic Shift Left~~
-* BCC - Branch if Carry Clear
-* BCS - Branch if Carry Set
-* BEQ - Branch if Equal
+* ~~BCC - Branch if Carry Clear~~
+* ~~BCS - Branch if Carry Set~~
+* ~~BEQ - Branch if Equal~~
 * ~~BIT - Bit Test~~
-* BMI - Branch if Minus
-* BNE - Branch if Not Equal
-* BPL - Branch if Positive
+* ~~BMI - Branch if Minus~~
+* ~~BNE - Branch if Not Equal~~
+* ~~BPL - Branch if Positive~~
 * BRK - Force Interrupt
-* BVC - Branch if Overflow Clear
-* BVS - Branch if Overflow Set
+* ~~BVC - Branch if Overflow Clear~~
+* ~~BVS - Branch if Overflow Set~~
 * ~~CLC - Clear Carry Flag~~
 * ~~CLD - Clear Decimal Mode~~
 * ~~CLI - Clear Interrupt Disable~~
 * ~~CLV - Clear Overflow Flag~~
-* CMP - Compare
-* CPX - Compare X Register
-* CPY - Compare Y Register
+* ~~CMP - Compare~~
+* ~~CPX - Compare X Register~~
+* ~~CPY - Compare Y Register~~
 * ~~DEC - Decrement Memory~~
 * ~~DEX - Decrement X Register~~
 * ~~DEY - Decrement Y Register~~

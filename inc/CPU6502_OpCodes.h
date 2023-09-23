@@ -160,7 +160,7 @@ enum CPU6502_OpCodes : BYTE {
     EOR_ABS   = 0x4D,
     EOR_ABSX  = 0x5D,
     EOR_ABSY  = 0x59,
-    EOR_INDX  = 0xC1,
+    EOR_INDX  = 0x41,
     EOR_INDY  = 0x51,
 
 //********************************************************

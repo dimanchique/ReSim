@@ -22,6 +22,8 @@
   * Shift Left/Right
   * Roll Left/Right
 * Bit test: BIT
+* Branch: BEQ/BNE/BMI/BPL/BVC/BVS
+* Compare: CMP/CPX/CPY
 * Clear/Set: CLx/SEx
 * Decrement: DEx
 * Jump: JMP/JSR/RTS

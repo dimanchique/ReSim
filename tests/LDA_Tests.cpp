@@ -94,7 +94,7 @@ TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_LDAFixture, LDA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing){
     // given:
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read
     mem[0xFFFC] = CPU6502_OpCodes::LDA_INDY;    // read the 8 bit value from the next mem cell and add X

@@ -29,10 +29,10 @@ void CPU6502_LDA_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 
 void CPU6502_LDA_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory) + cpu.X;
+    CPU6502::DoTick(cycles);
     const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
     cpu.A = CPU6502::ReadByte(cycles, memory, EffectiveAddress);
     cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
-    CPU6502::DoTick(cycles);
 }
 
 void CPU6502_LDA_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
