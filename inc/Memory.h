@@ -2,29 +2,29 @@
 
 
 struct Memory {
-    explicit Memory(U32 MEM_SIZE = 1) : SIZE(MEM_SIZE * 1024) {
-        MEM = new BYTE[SIZE];
+    explicit Memory(U32 mem_size = 1) : size(mem_size * 1024) {
+        mem = new BYTE[size];
     }
 
     ~Memory(){
-        delete[] MEM;
+        delete[] mem;
     }
 
-    BYTE operator[](U32 ADDR) const {
-        return MEM[ADDR];
+    BYTE operator[](U32 addr) const {
+        return mem[addr];
     }
 
-    BYTE &operator[](U32 ADDR) {
-        return MEM[ADDR];
+    BYTE &operator[](U32 addr) {
+        return mem[addr];
     }
 
     void Reset() {
-        for (U32 i = 0; i < SIZE; ++i) {
-            MEM[i] = 0;
+        for (U32 i = 0; i < size; ++i) {
+            mem[i] = 0;
         }
     }
 
 private:
-    BYTE* MEM;
-    U32 SIZE;
+    BYTE* mem;
+    U32 size;
 };

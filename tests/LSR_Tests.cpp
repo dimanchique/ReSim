@@ -2,85 +2,85 @@
 
 class CPU6502_LSRFixture : public CPU6502_TestFixture{
 public:
-    void LSR_ACC_CanShiftRight(BYTE Value){
+    void LSR_ACC_CanShiftRight(BYTE value){
         // given:
-        cpu.A = Value;
+        cpu.A = value;
         mem[0xFFFC] = CPU6502_OpCodes::LSR_ACC;                     // shift right
 
-        CyclesExpected = 2;
+        cyclesExpected = 2;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, BYTE(Value >> 1));
+        EXPECT_EQ(cpu.A, BYTE(value >> 1));
         CheckCyclesCount();
     }
 
-    void LSR_ZP_CanShiftRight(BYTE Value){
+    void LSR_ZP_CanShiftRight(BYTE value){
         // given:
         mem[0xFFFC] = CPU6502_OpCodes::LSR_ZP;                      // read pointer to the ZP memory from the next mem cell
         mem[0xFFFD] = 0x42;                                         // read value from memory using pointer
-        mem[0x0042] = Value;                                        // store this value in target register
+        mem[0x0042] = value;                                        // store this value in target register
 
-        CyclesExpected = 5;
+        cyclesExpected = 5;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[0x0042], BYTE(Value >> 1));
+        EXPECT_EQ(mem[0x0042], BYTE(value >> 1));
         CheckCyclesCount();
     }
 
-    void LSR_ZPX_CanShiftRight(BYTE Value){
+    void LSR_ZPX_CanShiftRight(BYTE value){
         // given:
         cpu.X = 0x10;
         mem[0xFFFC] = CPU6502_OpCodes::LSR_ZPX;                     // read pointer to the ZP memory from the next mem cell
-        mem[0xFFFD] = 0x42;                                         // add AffectingRegister value to this pointer
-        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = Value;                  // read value from memory using pointer
-        // store this value in TargetRegister register
-        CyclesExpected = 6;
+        mem[0xFFFD] = 0x42;                                         // add affectingRegister value to this pointer
+        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = value;                  // read value from memory using pointer
+        // store this value in targetRegister register
+        cyclesExpected = 6;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[(mem[0xFFFD] + cpu.X) & 0xFF], BYTE(Value >> 1));
+        EXPECT_EQ(mem[(mem[0xFFFD] + cpu.X) & 0xFF], BYTE(value >> 1));
         CheckCyclesCount();
     }
 
-    void LSR_ABS_CanShiftRight(BYTE Value){
+    void LSR_ABS_CanShiftRight(BYTE value){
         // given:
         mem[0xFFFC] = CPU6502_OpCodes::LSR_ABS;     // read the 16 bit Little Endian pointer from the next mem cell
         mem[0xFFFD] = 0x01;                         // read from this address
         mem[0xFFFE] = 0x44;                         // 0x4401
-        mem[0x4401] = Value;                        // store this value in TargetRegister
+        mem[0x4401] = value;                        // store this value in targetRegister
 
-        CyclesExpected = 6;
+        cyclesExpected = 6;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[0x4401], BYTE(Value >> 1));
+        EXPECT_EQ(mem[0x4401], BYTE(value >> 1));
         CheckCyclesCount();
     }
 
-    void LSR_ABS_CanShiftRight(CPU6502_OpCodes OpCode, BYTE Value, BYTE AffectingRegister){
+    void LSR_ABS_CanShiftRight(CPU6502_OpCodes opcode, BYTE value, BYTE affectingRegister){
         // given:
-        mem[0xFFFC] = OpCode;                           // read the 16 bit Little Endian pointer from the next mem cell
+        mem[0xFFFC] = opcode;                           // read the 16 bit Little Endian pointer from the next mem cell
         mem[0xFFFD] = 0x02;                             // read from this address
-        mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + AffectingRegister
-        mem[0x4402 + AffectingRegister] = Value;        // store this value in TargetRegister
+        mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + affectingRegister
+        mem[0x4402 + affectingRegister] = value;        // store this value in targetRegister
 
-        CyclesExpected = 7;
+        cyclesExpected = 7;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[0x4402 + AffectingRegister], BYTE(Value >> 1));
+        EXPECT_EQ(mem[0x4402 + affectingRegister], BYTE(value >> 1));
         CheckCyclesCount();
     }
 };

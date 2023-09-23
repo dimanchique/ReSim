@@ -1,55 +1,55 @@
 #include "CPU6502_INC_Tests.h"
 
-void CPU6502_INCFixture::INC_ZP_CanAffectValue(CPU6502_OpCodes OpCode, BYTE MemoryValue, BYTE OffsetValueRegister){
+void CPU6502_INCFixture::INC_ZP_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister){
     // given:
-    mem[0xFFFC] = OpCode;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x42;
-    mem[0x42 + OffsetValueRegister] = MemoryValue;
-    BYTE TargetValue = MemoryValue + 1;
+    mem[0x42 + offsetValueRegister] = memoryValue;
+    BYTE targetValue = memoryValue + 1;
 
-    CyclesExpected = OffsetValueRegister ? 6 : 5;
+    cyclesExpected = offsetValueRegister ? 6 : 5;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_NE(mem[0x42 + OffsetValueRegister], MemoryValue);
-    EXPECT_EQ(mem[0x42 + OffsetValueRegister], TargetValue);
+    EXPECT_NE(mem[0x42 + offsetValueRegister], memoryValue);
+    EXPECT_EQ(mem[0x42 + offsetValueRegister], targetValue);
     CheckCyclesCount();
 }
 
-void CPU6502_INCFixture::INC_ABS_CanAffectValue(CPU6502_OpCodes OpCode, BYTE MemoryValue, BYTE OffsetValueRegister){
+void CPU6502_INCFixture::INC_ABS_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister){
     // given:
-    mem[0xFFFC] = OpCode;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x00;
     mem[0xFFFE] = 0x42;
-    mem[0x4200 + OffsetValueRegister] = MemoryValue;
-    BYTE TargetValue = MemoryValue + 1;
+    mem[0x4200 + offsetValueRegister] = memoryValue;
+    BYTE targetValue = memoryValue + 1;
 
-    CyclesExpected = OffsetValueRegister ? 7 : 6;
+    cyclesExpected = offsetValueRegister ? 7 : 6;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_NE(mem[0x4200 + OffsetValueRegister], MemoryValue);
-    EXPECT_EQ(mem[0x4200 + OffsetValueRegister], TargetValue);
+    EXPECT_NE(mem[0x4200 + offsetValueRegister], memoryValue);
+    EXPECT_EQ(mem[0x4200 + offsetValueRegister], targetValue);
     CheckCyclesCount();
 }
 
-void CPU6502_INCFixture::INC_IMPL_CanAffectValue(CPU6502_OpCodes OpCode, BYTE& TargetRegister){
+void CPU6502_INCFixture::INC_IMPL_CanAffectValue(CPU6502_OpCodes opcode, BYTE& targetRegister){
     // given:
-    BYTE InitialValue = TargetRegister;
-    BYTE TargetValue = InitialValue + 1;
-    mem[0xFFFC] = OpCode;
+    BYTE initialValue = targetRegister;
+    BYTE targetValue = initialValue + 1;
+    mem[0xFFFC] = opcode;
 
-    CyclesExpected = 2;
+    cyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_NE(TargetRegister, InitialValue);
-    EXPECT_EQ(TargetRegister, TargetValue);
+    EXPECT_NE(targetRegister, initialValue);
+    EXPECT_EQ(targetRegister, targetValue);
     CheckCyclesCount();
 }

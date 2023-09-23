@@ -2,27 +2,27 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_JMP_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.PC = CPU.FetchWord(Cycles, Memory);
+void CPU6502_JMP_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    cpu.PC = cpu.FetchWord(cycles, memory);
 }
 
-void CPU6502_JMP_IND(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    const WORD JumpAddress = CPU.FetchWord(Cycles, Memory);
-    CPU.PC = CPU6502::ReadWord(Cycles, Memory, JumpAddress);
+void CPU6502_JMP_IND(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    const WORD JumpAddress = cpu.FetchWord(cycles, memory);
+    cpu.PC = CPU6502::ReadWord(cycles, memory, JumpAddress);
 }
 
-void CPU6502_JSR_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    const WORD JumpAddress = CPU.FetchWord(Cycles, Memory);
-    CPU.PushProgramCounterToStack(Cycles, Memory);
-    CPU.PC = JumpAddress;
-    CPU6502::DoTick(Cycles);
+void CPU6502_JSR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    const WORD JumpAddress = cpu.FetchWord(cycles, memory);
+    cpu.PushProgramCounterToStack(cycles, memory);
+    cpu.PC = JumpAddress;
+    CPU6502::DoTick(cycles);
 }
 
-void CPU6502_RTS_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    CPU.PC = CPU.PopAddressFromStack(Cycles, Memory);
-    CPU6502::DoTick(Cycles);
+void CPU6502_RTS_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    cpu.PC = cpu.PopAddressFromStack(cycles, memory);
+    CPU6502::DoTick(cycles);
 }
 
-void CPU6502_RTI_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
+void CPU6502_RTI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu){
 
 }

@@ -2,19 +2,19 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void SE_IMPL(BYTE StatusFlag, U32 &Cycles, CPU6502 &CPU){
-    CPU.Status.SetFlag(StatusFlag);
-    CPU6502::DoTick(Cycles);
+void SE_IMPL(BYTE statusFlag, U32 &cycles, CPU6502 &cpu){
+    cpu.Status.SetFlag(statusFlag);
+    CPU6502::DoTick(cycles);
 }
 
-void CPU6502_SEC_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    SE_IMPL(CPU6502_Status_C, Cycles, CPU);
+void CPU6502_SEC_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    SE_IMPL(CPU6502_Status_C, cycles, cpu);
 }
 
-void CPU6502_SED_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    SE_IMPL(CPU6502_Status_D, Cycles, CPU);
+void CPU6502_SED_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    SE_IMPL(CPU6502_Status_D, cycles, cpu);
 }
 
-void CPU6502_SEI_IMPL(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    SE_IMPL(CPU6502_Status_I, Cycles, CPU);
+void CPU6502_SEI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    SE_IMPL(CPU6502_Status_I, cycles, cpu);
 }

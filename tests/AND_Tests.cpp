@@ -2,90 +2,90 @@
 
 class CPU6502_ANDFixture : public CPU6502_TestFixture{
 public:
-    void AND_IM_CanLoadValue(BYTE InitialValue, BYTE MemoryValue){
+    void AND_IM_CanLoadValue(BYTE initialValue, BYTE memoryValue){
         // given:
-        cpu.A = InitialValue;
+        cpu.A = initialValue;
         mem[0xFFFC] = CPU6502_OpCodes::AND_IM;          // read value from the next mem cell
-        mem[0xFFFD] = MemoryValue;                      // store this value in target register
+        mem[0xFFFD] = memoryValue;                      // store this value in target register
 
-        CyclesExpected = 2;
+        cyclesExpected = 2;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, MemoryValue & InitialValue);
+        EXPECT_EQ(cpu.A, memoryValue & initialValue);
         CheckCyclesCount();
     }
 
-    void AND_ZP_CanLoadValue(BYTE InitialValue, BYTE MemoryValue){
+    void AND_ZP_CanLoadValue(BYTE initialValue, BYTE memoryValue){
         // given:
-        cpu.A = InitialValue;
+        cpu.A = initialValue;
         mem[0xFFFC] = CPU6502_OpCodes::AND_ZP;                      // read pointer to the ZP memory from the next mem cell
         mem[0xFFFD] = 0x42;                                         // read value from memory using pointer
-        mem[0x0042] = MemoryValue;                                  // store this value in target register
+        mem[0x0042] = memoryValue;                                  // store this value in target register
 
-        CyclesExpected = 3;
+        cyclesExpected = 3;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, MemoryValue & InitialValue);
+        EXPECT_EQ(cpu.A, memoryValue & initialValue);
         CheckCyclesCount();
     }
 
-    void AND_ZPX_CanLoadValue(BYTE InitialValue, BYTE MemoryValue){
+    void AND_ZPX_CanLoadValue(BYTE initialValue, BYTE memoryValue){
         // given:
-        cpu.A = InitialValue;
+        cpu.A = initialValue;
         cpu.X = 0x10;
         mem[0xFFFC] = CPU6502_OpCodes::AND_ZPX;                 // read pointer to the ZP memory from the next mem cell
-        mem[0xFFFD] = 0x42;                                     // add AffectingRegister value to this pointer
-        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = MemoryValue;        // read value from memory using pointer
-        // store this value in TargetRegister register
-        CyclesExpected = 4;
+        mem[0xFFFD] = 0x42;                                     // add affectingRegister value to this pointer
+        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = memoryValue;        // read value from memory using pointer
+        // store this value in targetRegister register
+        cyclesExpected = 4;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, MemoryValue & InitialValue);
+        EXPECT_EQ(cpu.A, memoryValue & initialValue);
         CheckCyclesCount();
     }
 
-    void AND_ABS_CanLoadValue(BYTE InitialValue, BYTE MemoryValue){
+    void AND_ABS_CanLoadValue(BYTE initialValue, BYTE memoryValue){
         // given:
-        cpu.A = InitialValue;
+        cpu.A = initialValue;
         mem[0xFFFC] = CPU6502_OpCodes::AND_ABS;     // read the 16 bit Little Endian pointer from the next mem cell
         mem[0xFFFD] = 0x80;                         // read from this address
         mem[0xFFFE] = 0x44;                         // 0x4480
-        mem[0x4480] = MemoryValue;                  // store this value in TargetRegister
+        mem[0x4480] = memoryValue;                  // store this value in targetRegister
 
-        CyclesExpected = 4;
+        cyclesExpected = 4;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, MemoryValue & InitialValue);
+        EXPECT_EQ(cpu.A, memoryValue & initialValue);
         CheckCyclesCount();
     }
 
-    void AND_ABS_CanLoadValue(CPU6502_OpCodes OpCode, BYTE InitialValue, BYTE MemoryValue, BYTE AffectingRegister){
+    void AND_ABS_CanLoadValue(CPU6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister){
         // given:
-        cpu.A = InitialValue;
-        mem[0xFFFC] = OpCode;                           // read the 16 bit Little Endian pointer from the next mem cell
+        cpu.A = initialValue;
+        mem[0xFFFC] = opcode;                           // read the 16 bit Little Endian pointer from the next mem cell
         mem[0xFFFD] = 0x02;                             // read from this address
-        mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + AffectingRegister
-        mem[0x4402 + AffectingRegister] = MemoryValue;  // store this value in TargetRegister
+        mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + affectingRegister
+        mem[0x4402 + affectingRegister] = memoryValue;  // store this value in targetRegister
 
-        CyclesExpected = CPU6502::isPageCrossed(0x4402 + AffectingRegister, 0x4402) ? 5 : 4;
+        cyclesExpected = CPU6502::isPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, MemoryValue & InitialValue);
+        EXPECT_EQ(cpu.A, memoryValue & initialValue);
         CheckCyclesCount();
     }
 };
@@ -200,10 +200,10 @@ TEST_F(CPU6502_ANDFixture, AND_INDX_CanLoadValue){
     mem[0x0007] = 0x80;                         // read from the address we've got
     mem[0x8000] = 0x37;                         // store this value in A register
 
-    CyclesExpected = 6;
+    cyclesExpected = 6;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37 & 0x42);
@@ -222,10 +222,10 @@ TEST_F(CPU6502_ANDFixture, AND_INDY_CanLoadValue){
     mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x37;                         // store this value in A register
 
-    CyclesExpected = 5;
+    cyclesExpected = 5;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37 & 0x42);
@@ -244,10 +244,10 @@ TEST_F(CPU6502_ANDFixture, AND_INDY_CanLoadValueWithExtraCycleOnPageCrossing){
     mem[0x0003] = 0x80;                         // 0x8002 + 0x00FF (Y) = 0x8101 -> page crossing, so we need extra cycle
     mem[0x8101] = 0x37;                         // store this value in A register
 
-    CyclesExpected = 6;
+    cyclesExpected = 6;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x37 & 0x42);

@@ -10,21 +10,21 @@ public:
     Memory mem{64};
     CPU6502 cpu{};
 
-    U32 CyclesPassed;
-    U32 CyclesExpected;
+    U32 cyclesPassed;
+    U32 cyclesExpected;
 
     void SetUp() override{
         cpu.Reset(mem);
     }
 
     void TearDown() override{
-        std::printf("Test finished. Cycles passed/expected: %d/%d\n", CyclesPassed, CyclesExpected);
+        std::printf("Test finished. cycles passed/expected: %d/%d\n", cyclesPassed, cyclesExpected);
     }
 
-    void CheckCyclesCount(S32 CustomCyclesExpected = -1) const {
-        if (CustomCyclesExpected == -1)
-            EXPECT_EQ(CyclesPassed, CyclesExpected);
+    void CheckCyclesCount(S32 customCyclesExpected = -1) const {
+        if (customCyclesExpected == -1)
+            EXPECT_EQ(cyclesPassed, cyclesExpected);
         else
-            EXPECT_EQ(CyclesPassed, CustomCyclesExpected);
+            EXPECT_EQ(cyclesPassed, customCyclesExpected);
     }
 };

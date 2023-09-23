@@ -3,44 +3,44 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_LDA_IM(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_IM(Cycles, Memory, CPU, CPU.A);
+void CPU6502_LDA_IM(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_IM(cycles, memory, cpu, cpu.A);
 }
 
-void CPU6502_LDA_ZP(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_ZP(Cycles, Memory, CPU, CPU.A);
+void CPU6502_LDA_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(cycles, memory, cpu, cpu.A);
 }
 
-void CPU6502_LDA_ZPX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_ZP(Cycles, Memory, CPU, CPU.A, CPU.X);
+void CPU6502_LDA_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(cycles, memory, cpu, cpu.A, cpu.X);
 }
 
-void CPU6502_LDA_ABS(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_ABS(Cycles, Memory, CPU, CPU.A);
+void CPU6502_LDA_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(cycles, memory, cpu, cpu.A);
 }
 
-void CPU6502_LDA_ABSX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_ABS(Cycles, Memory, CPU, CPU.A, CPU.X);
+void CPU6502_LDA_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(cycles, memory, cpu, cpu.A, cpu.X);
 }
 
-void CPU6502_LDA_ABSY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    CPU6502_LD_ABS(Cycles, Memory, CPU, CPU.A, CPU.Y);
+void CPU6502_LDA_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(cycles, memory, cpu, cpu.A, cpu.Y);
 }
 
-void CPU6502_LDA_INDX(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory) + CPU.X;
-    const WORD EffectiveAddress = CPU6502::ReadWord(Cycles, Memory, ZeroPageAddress);
-    CPU.A = CPU6502::ReadByte(Cycles, Memory, EffectiveAddress);
-    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
-    CPU6502::DoTick(Cycles);
+void CPU6502_LDA_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory) + cpu.X;
+    const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
+    cpu.A = CPU6502::ReadByte(cycles, memory, EffectiveAddress);
+    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU6502::DoTick(cycles);
 }
 
-void CPU6502_LDA_INDY(U32 &Cycles, Memory &Memory, CPU6502 &CPU) {
-    BYTE ZeroPageAddress = CPU.FetchByte(Cycles, Memory);
-    const WORD EffectiveAddress = CPU6502::ReadWord(Cycles, Memory, ZeroPageAddress);
-    const WORD EffectiveAddressY = EffectiveAddress + CPU.Y;
-    CPU.A = CPU6502::ReadByte(Cycles, Memory, EffectiveAddressY);
+void CPU6502_LDA_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory);
+    const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
+    const WORD EffectiveAddressY = EffectiveAddress + cpu.Y;
+    cpu.A = CPU6502::ReadByte(cycles, memory, EffectiveAddressY);
     if(CPU6502::isPageCrossed(EffectiveAddressY, EffectiveAddress))
-        CPU6502::DoTick(Cycles);
-    CPU.Status.UpdateStatus(CPU.A, CPU6502_Status_Z | CPU6502_Status_N);
+        CPU6502::DoTick(cycles);
+    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
 }

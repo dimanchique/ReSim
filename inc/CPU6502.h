@@ -2,9 +2,8 @@
 
 #include <cstring>
 #include "Types.h"
+#include "Memory.h"
 #include "CPU6502_Status.h"
-
-struct Memory;
 
 struct CPU6502 {
 //**********************************************************
@@ -19,31 +18,84 @@ struct CPU6502 {
 //**********************************************************
 //                          Functions
 //**********************************************************
-    void Reset(Memory &Memory);
-    void Reset(WORD ResetVector, Memory& Memory);
+    void Reset(Memory &memory);
+    void Reset(WORD ResetVector, Memory& memory);
 
-    BYTE FetchByte(U32 &Cycles, const Memory &Memory);
-    WORD FetchWord(U32 &Cycles, const Memory &Memory);
+    U32 Run(Memory &memory);
 
-    inline static BYTE ReadByte(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
-    inline static WORD ReadWord(U32 &Cycles, const Memory &Memory, WORD ADDR) ;
+    inline BYTE FetchByte(U32 &cycles, const Memory &memory){
+        BYTE Data = memory[PC++];
+        CPU6502::DoTick(cycles);
+        return Data;
+    }
 
-    inline static void WriteByte(U32 &Cycles, Memory &Memory, BYTE Value, U32 ADDR);
-    inline static void WriteWord(U32 &Cycles, Memory &Memory, WORD Value, U32 ADDR);
+    inline WORD FetchWord(U32 &cycles, const Memory &memory){
+        BYTE Lo = ReadByte(cycles, memory, PC++);
+        BYTE Hi = ReadByte(cycles, memory, PC++);
+        return Lo | (Hi << 8);
+    }
 
-    void PushProgramCounterToStack(U32 &Cycles, Memory &Memory);
-    WORD PopAddressFromStack(U32 &Cycles, Memory &Memory);
+    inline static BYTE ReadByte(U32 &cycles, const Memory &memory, WORD ADDR){
+        BYTE Data = memory[ADDR];
+        CPU6502::DoTick(cycles);
+        return Data;
+    }
 
-    void PushByteToStack(U32 &Cycles, Memory &Memory, BYTE Value);
-    void PushWordToStack(U32 &Cycles, Memory &Memory, WORD Value);
+    inline static WORD ReadWord(U32 &cycles, const Memory &memory, WORD ADDR){
+        BYTE Lo = ReadByte(cycles, memory, ADDR);
+        BYTE Hi = ReadByte(cycles, memory, ADDR + 1);
+        return Lo | (Hi << 8);
+    }
 
-    BYTE PullByteFromStack(U32 &Cycles, Memory &Memory);
-    WORD PullWordFromStack(U32 &Cycles, Memory &Memory);
+    inline static void WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 ADDR){
+        memory[ADDR] = value;
+        cycles++;
+    }
 
-    U32 Run(Memory &Memory);
+    inline static void WriteWord(U32 &cycles, Memory &memory, WORD value, U32 ADDR){
+        memory[ADDR] = value & 0xFF;
+        CPU6502::DoTick(cycles);
+        memory[ADDR + 1] = (value >> 8);
+        CPU6502::DoTick(cycles);
+    }
 
-    inline static void DoTick(U32 &Cycles, U32 Count = 1) {
-        Cycles += Count;
+    void PushProgramCounterToStack(U32 &cycles, Memory &memory){
+        PushWordToStack(cycles, memory, PC - 1);
+    }
+
+    WORD PopAddressFromStack(U32 &cycles, Memory &memory){
+        return PullWordFromStack(cycles, memory) + 1;
+    }
+
+    inline void PushByteToStack(U32 &cycles, Memory &memory, BYTE value){
+        WriteByte(cycles, memory, value, StackPointerToAddress());
+        SP--;
+        CPU6502::DoTick(cycles);
+    }
+
+    inline void PushWordToStack(U32 &cycles, Memory &memory, WORD value){
+        WriteWord(cycles, memory, value, StackPointerToAddress() - 1);
+        SP -= 2;
+    }
+
+    inline BYTE PullByteFromStack(U32 &cycles, Memory &memory){
+        SP++;
+        CPU6502::DoTick(cycles);
+        const BYTE value = ReadByte(cycles, memory, StackPointerToAddress());
+        CPU6502::DoTick(cycles);
+        return value;
+    }
+
+    inline WORD PullWordFromStack(U32 &cycles, Memory &memory){
+        WORD value = ReadWord(cycles, memory, StackPointerToAddress() + 1);
+        CPU6502::DoTick(cycles);
+        SP += 2;
+        CPU6502::DoTick(cycles);
+        return value;
+    }
+
+    inline static void DoTick(U32 &cycles, U32 Count = 1) {
+        cycles += Count;
     }
 
     inline static bool isPageCrossed(WORD src, WORD dest){

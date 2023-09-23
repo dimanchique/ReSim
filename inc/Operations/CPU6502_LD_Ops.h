@@ -4,8 +4,8 @@
 struct CPU6502;
 struct Memory;
 
-void CPU6502_LD_IM(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister);
-void CPU6502_LD_ZP(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister);
-void CPU6502_LD_ZP(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister);
-void CPU6502_LD_ABS(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister);
-void CPU6502_LD_ABS(U32 &Cycles, Memory &memory, CPU6502 &cpu, BYTE& TargetRegister, BYTE AffectingRegister);
+void CPU6502_LD_IM(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister);
+void CPU6502_LD_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister);
+void CPU6502_LD_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister, BYTE affectingRegister);
+void CPU6502_LD_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister);
+void CPU6502_LD_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister, BYTE affectingRegister);

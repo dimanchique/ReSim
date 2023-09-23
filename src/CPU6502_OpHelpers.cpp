@@ -26,21 +26,22 @@
 #include <Memory.h>
 #include <cstdio>
 
-void DumpStack(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    const auto &Stat = CPU.Status;
+void DumpStack(U32 &cycles, CPU6502 &cpu){
+    const auto &Status = cpu.Status;
     std::printf("Runtime information:\n");
-    std::printf("\tCycles passed:   %d\n", Cycles);
-    std::printf("\tProgram Counter: 0x%04x\n", CPU.PC);
-    std::printf("\tStack Pointer:   0x%04x\n", CPU.SP + 0x100);
-    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", Stat.C, Stat.Z, Stat.I, Stat.D, Stat.B, Stat.V, Stat.N);
+    std::printf("\tcycles passed:   %d\n", cycles);
+    std::printf("\tProgram Counter: 0x%04x\n", cpu.PC);
+    std::printf("\tStack Pointer:   0x%04x\n", cpu.SP + 0x100);
+    std::printf("\tStatus Register: %d%d%d%d%d%d%d\n", 
+                Status.C, Status.Z, Status.I, Status.D, Status.B, Status.V, Status.N);
     std::printf("\t                 CZIDBVN\n");
-    std::printf("\tA Register:      0x%04x\n", CPU.A);
-    std::printf("\tX Register:      0x%04x\n", CPU.X);
-    std::printf("\tY Register:      0x%04x\n", CPU.Y);
+    std::printf("\tA Register:      0x%04x\n", cpu.A);
+    std::printf("\tX Register:      0x%04x\n", cpu.X);
+    std::printf("\tY Register:      0x%04x\n", cpu.Y);
 }
 
-void CPU6502_FAKE_NOP(U32 &Cycles, Memory &Memory, CPU6502 &CPU){
-    DumpStack(Cycles, Memory, CPU);
+void CPU6502_FAKE_NOP(U32 &cycles, Memory &memory, CPU6502 &cpu){
+    DumpStack(cycles, cpu);
 }
 
 using OpSignature = void (*)(U32 &, Memory &, CPU6502 &);
@@ -101,8 +102,8 @@ const static OpSignature Ops[] = {
 };
 // Code generator placeholder end
 
-bool FetchCommand(U32& Cycles, const BYTE OpCode, Memory &Memory, CPU6502 &CPU) {
-    const auto &Instruction = Ops[OpCode];
-    Instruction(Cycles, Memory, CPU);
+bool FetchCommand(U32& cycles, const BYTE opcode, Memory &memory, CPU6502 &cpu) {
+    const auto &Instruction = Ops[opcode];
+    Instruction(cycles, memory, cpu);
     return Instruction != CPU6502_FAKE_NOP;
 }

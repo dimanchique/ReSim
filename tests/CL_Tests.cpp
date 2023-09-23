@@ -2,17 +2,17 @@
 
 class CPU6502_CLFixture : public CPU6502_TestFixture {
 public:
-    void CL_CanClearFlag(CPU6502_OpCodes OpCode, BYTE StatusFlag) {
-        cpu.Status.SetFlag(StatusFlag);
-        mem[0xFFFC] = OpCode;
+    void CL_CanClearFlag(CPU6502_OpCodes opcode, BYTE statusFlag) {
+        cpu.Status.SetFlag(statusFlag);
+        mem[0xFFFC] = opcode;
 
-        CyclesExpected = 2;
+        cyclesExpected = 2;
 
         // when:
-        CyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_FALSE(cpu.Status.GetStatusValue(StatusFlag));
+        EXPECT_FALSE(cpu.Status.GetStatusValue(statusFlag));
         CheckCyclesCount();
     }
 };

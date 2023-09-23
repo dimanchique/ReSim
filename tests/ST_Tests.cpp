@@ -1,73 +1,73 @@
 #include "CPU6502_ST_Tests.h"
 
-void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister){
+void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister){
     //given:
-    SourceRegister = 0x2F;
-    mem[0xFFFC] = OpCode;
+    sourceRegister = 0x2F;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x80;
     mem[0x0080] = 0x00;
 
-    CyclesExpected = 3;
+    cyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(mem[0x0080], SourceRegister);
+    EXPECT_EQ(mem[0x0080], sourceRegister);
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE AffectingRegister){
+void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE affectingRegister){
     //given:
-    SourceRegister = 0x2F;
-    mem[0xFFFC] = OpCode;
+    sourceRegister = 0x2F;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x80;
-    BYTE TargetAddress = (mem[0xFFFD] + AffectingRegister) & 0xFF;
+    BYTE TargetAddress = (mem[0xFFFD] + affectingRegister) & 0xFF;
     mem[TargetAddress] = 0x00;
 
-    CyclesExpected = 4;
+    cyclesExpected = 4;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(mem[TargetAddress], SourceRegister);
+    EXPECT_EQ(mem[TargetAddress], sourceRegister);
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister){
+void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister){
     //given:
-    SourceRegister = 0x2F;
-    mem[0xFFFC] = OpCode;
+    sourceRegister = 0x2F;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x00;
     mem[0xFFFE] = 0x80;
     mem[0x8000] = 0x00;
 
-    CyclesExpected = 4;
+    cyclesExpected = 4;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(mem[0x8000], SourceRegister);
+    EXPECT_EQ(mem[0x8000], sourceRegister);
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE AffectingRegister){
+void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE affectingRegister){
     //given:
-    SourceRegister = 0x2F;
-    mem[0xFFFC] = OpCode;
+    sourceRegister = 0x2F;
+    mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x00;
     mem[0xFFFE] = 0x80;
-    WORD TargetAddress = 0x8000 + AffectingRegister;
+    WORD TargetAddress = 0x8000 + affectingRegister;
     mem[TargetAddress] = 0x00;
 
-    CyclesExpected = 5;
+    cyclesExpected = 5;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(mem[TargetAddress], SourceRegister);
+    EXPECT_EQ(mem[TargetAddress], sourceRegister);
     CheckCyclesCount();
 }

@@ -6,10 +6,10 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAccumulator){
     cpu.A = 0x42;
     mem[0xFFFC] = CPU6502_OpCodes::PHA_IMPL;
 
-    CyclesExpected = 3;
+    cyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(mem[cpu.StackPointerToAddress() + 1], 0x42);
@@ -22,10 +22,10 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator){
     mem[0xFFFD] = CPU6502_OpCodes::TXA_IMPL;
     mem[0xFFFE] = CPU6502_OpCodes::PLA_IMPL;
 
-    CyclesExpected = 3 + 2 + 4;
+    cyclesExpected = 3 + 2 + 4;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -36,10 +36,10 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushStatusRegister){
     cpu.Status = 0x42;                      // just for test
     mem[0xFFFC] = CPU6502_OpCodes::PHP_IMPL;
 
-    CyclesExpected = 3;
+    cyclesExpected = 3;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(mem[cpu.StackPointerToAddress() + 1], 0x42);
@@ -53,10 +53,10 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator){
     mem[0xFFFE] = CPU6502_OpCodes::PLP_IMPL;
     mem[0xFFFF] = CPU6502_OpCodes::PLA_IMPL;
 
-    CyclesExpected = 3 + 3 + 4 + 4;
+    cyclesExpected = 3 + 3 + 4 + 4;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);

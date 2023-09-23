@@ -34,34 +34,34 @@ struct CPU6502_Status{
         *this = 0;
     }
 
-    CPU6502_Status& operator=(const BYTE ReferenceByte){
-        memset(this, ReferenceByte, 1);
+    CPU6502_Status& operator=(const BYTE referenceByte){
+        memset(this, referenceByte, 1);
         return *this;
     }
 
-    void UpdateStatus(BYTE& Register, BYTE CheckArgs){
-        if(CheckArgs & CPU6502_Status_Z)
-            Z = (Register == 0);
-        if(CheckArgs & CPU6502_Status_N)
-            N = (Register & 0b10000000) > 0;
+    void UpdateStatus(BYTE& targetRegister, BYTE mask){
+        if(mask & CPU6502_Status_Z)
+            Z = (targetRegister == 0);
+        if(mask & CPU6502_Status_N)
+            N = (targetRegister & 0b10000000) > 0;
     }
 
-    bool GetStatusValue(BYTE CheckArgs) const{
-        return BYTE(*this) & CheckArgs;
+    bool GetStatusValue(BYTE checkArgs) const{
+        return BYTE(*this) & checkArgs;
     }
 
-    void SetStatusFlagValue(BYTE StatusFlag, BYTE Value){
-        if(Value)
-            SetFlag(StatusFlag);
+    void SetStatusFlagValue(BYTE statusFlag, BYTE value){
+        if(value)
+            SetFlag(statusFlag);
         else
-            ResetFlag(StatusFlag);
+            ResetFlag(statusFlag);
     }
 
-    void SetFlag(BYTE StatusFlag){
-        *(BYTE*)(this) |= StatusFlag;
+    void SetFlag(BYTE mask){
+        *(BYTE*)(this) |= mask;
     }
 
-    void ResetFlag(BYTE StatusFlag){
-        *(BYTE*)(this) &= ~StatusFlag;
+    void ResetFlag(BYTE mask){
+        *(BYTE*)(this) &= ~mask;
     }
 };

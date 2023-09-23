@@ -1,28 +1,28 @@
 #include "CPU6502_T_Tests.h"
 
-void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
+void CPU6502_TFixture::T_IMPL_CanTransferValue(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE& destinationRegister){
     //given:
-    DestinationRegister = 0x0;
-    mem[0xFFFC] = OpCode;
+    destinationRegister = 0x0;
+    mem[0xFFFC] = opcode;
 
-    CyclesExpected = 2;
+    cyclesExpected = 2;
 
     // when:
-    CyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(DestinationRegister, SourceRegister);
+    EXPECT_EQ(destinationRegister, sourceRegister);
     CheckCyclesCount();
 }
 
-void CPU6502_TFixture::T_IMPL_CanAffectNegativeFlag(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
-    SourceRegister = 0x80;
-    T_IMPL_CanTransferValue(OpCode, SourceRegister, DestinationRegister);
+void CPU6502_TFixture::T_IMPL_CanAffectNegativeFlag(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE& destinationRegister){
+    sourceRegister = 0x80;
+    T_IMPL_CanTransferValue(opcode, sourceRegister, destinationRegister);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-void CPU6502_TFixture::T_IMPL_CanAffectZeroFlag(CPU6502_OpCodes OpCode, BYTE& SourceRegister, BYTE& DestinationRegister){
-    SourceRegister = 0x0;
-    T_IMPL_CanTransferValue(OpCode, SourceRegister, DestinationRegister);
+void CPU6502_TFixture::T_IMPL_CanAffectZeroFlag(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE& destinationRegister){
+    sourceRegister = 0x0;
+    T_IMPL_CanTransferValue(opcode, sourceRegister, destinationRegister);
     EXPECT_TRUE(cpu.Status.Z);
 }
