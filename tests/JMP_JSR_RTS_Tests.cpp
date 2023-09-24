@@ -42,7 +42,7 @@ class CPU6502_JSR_RTSFixture : public CPU6502_TestFixture{};
 
 TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
@@ -62,7 +62,7 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) 
 
 TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
@@ -86,7 +86,7 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
 
 TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFF00] = CPU6502_OpCodes::JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
@@ -128,7 +128,7 @@ TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJump) {
 
 TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFF00] = CPU6502_OpCodes::JMP_ABS;        // 3 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
@@ -148,7 +148,7 @@ TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
 
 TEST_F(CPU6502_JMPFixture, JMP_IND_CanJump) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFF00] = CPU6502_OpCodes::JMP_IND;        // 5 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
@@ -167,7 +167,7 @@ TEST_F(CPU6502_JMPFixture, JMP_IND_CanJump) {
 
 TEST_F(CPU6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
     // given:
-    cpu.Reset(0xFF00, mem);
+    cpu.Reset(mem, 0xFF00);
     mem[0xFFFE] = 0x00;
     mem[0xFFFF] = 0x80;
     mem[0xFF00] = CPU6502_OpCodes::BRK_IMPL;

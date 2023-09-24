@@ -2,6 +2,16 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
+void ExecuteROR(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE memoryValue, const WORD address) {
+    const bool Carry = memoryValue & 1;
+    memoryValue >>= 1;
+    memoryValue |= cpu.Status.C << 7;
+    CPU6502::DoTick(cycles);
+    CPU6502::WriteByte(cycles, memory, memoryValue, address);
+    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.C = Carry;
+}
+
 void CPU6502_ROR_ACC(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const bool Carry = cpu.A & 1;
     cpu.A >>= 1;
@@ -12,57 +22,22 @@ void CPU6502_ROR_ACC(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_ROR_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory);
-    auto memoryValue = CPU6502::ReadByte(cycles, memory, ZeroPageAddress);
-    const bool Carry = memoryValue & 1;
-    memoryValue >>= 1;
-    memoryValue |= cpu.Status.C << 7;
-    CPU6502::DoTick(cycles);
-    cpu.WriteByte(cycles, memory, memoryValue, ZeroPageAddress);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.C = Carry;
+    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(cycles, memory);
+    ExecuteROR(cycles, memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_ROR_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory);
-    ZeroPageAddress += cpu.X;
-    CPU6502::DoTick(cycles);
-    auto memoryValue = CPU6502::ReadByte(cycles, memory, ZeroPageAddress);
-    const bool Carry = memoryValue & 1;
-    memoryValue >>= 1;
-    memoryValue |= cpu.Status.C << 7;
-    CPU6502::DoTick(cycles);
-    cpu.WriteByte(cycles, memory, memoryValue, ZeroPageAddress);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.C = Carry;
+    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(cycles, memory, cpu.X);
+    ExecuteROR(cycles, memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_ROR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const WORD AbsAddress = cpu.FetchWord(cycles, memory);
-    auto memoryValue = CPU6502::ReadByte(cycles, memory, AbsAddress);
-    const bool Carry = memoryValue & 1;
-    memoryValue >>= 1;
-    memoryValue |= cpu.Status.C << 7;
-    CPU6502::DoTick(cycles);
-    cpu.WriteByte(cycles, memory, memoryValue, AbsAddress);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.C = Carry;
-}
-
-void CPU6502_ROR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
-    const WORD AbsAddress = cpu.FetchWord(cycles, memory);
-    const WORD AffectedAbsAddress = AbsAddress + affectingRegister;
-    auto memoryValue = CPU6502::ReadByte(cycles, memory, AffectedAbsAddress);
-    const bool Carry = memoryValue & 1;
-    memoryValue >>= 1;
-    memoryValue |= cpu.Status.C << 7;
-    CPU6502::DoTick(cycles);
-    cpu.WriteByte(cycles, memory, memoryValue, AffectedAbsAddress);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.C = Carry;
+    const ValueAddressRequest Data = cpu.GetAbsAddressValue(cycles, memory);
+    ExecuteROR(cycles, memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_ROR_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_ROR_ABS(cycles, memory, cpu, cpu.X);
-    CPU6502::DoTick(cycles);
+    const ValueAddressRequest Data = cpu.GetAbsAddressValue(cycles, memory, cpu.X);
+    ExecuteROR(cycles, memory, cpu, Data.Value, Data.Address);
+    CPU6502::DoTick(cycles); // extra cycle required
 }

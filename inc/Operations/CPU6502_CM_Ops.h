@@ -4,6 +4,8 @@
 struct CPU6502;
 struct Memory;
 
+void ExecuteCMP(CPU6502 &cpu, const BYTE& targetRegister, BYTE memoryValue);
+
 void CPU6502_CM_IM(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister);
 void CPU6502_CM_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister);
 void CPU6502_CM_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE& targetRegister, BYTE affectingRegister);

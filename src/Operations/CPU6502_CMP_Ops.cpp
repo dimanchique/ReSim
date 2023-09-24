@@ -28,23 +28,11 @@ void CPU6502_CMP_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_CMP_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory) + cpu.X;
-    CPU6502::DoTick(cycles);
-    const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
-    const BYTE memoryValue = CPU6502::ReadByte(cycles, memory, EffectiveAddress);
-    const BYTE comparedValue = cpu.A - memoryValue;
-    cpu.Status.UpdateStatus(comparedValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.SetStatusFlagValue(CPU6502_Status_C, cpu.A >= memoryValue);
+    const ValueAddressRequest Data = cpu.GetIndXAddressValue(cycles, memory);
+    ExecuteCMP(cpu, cpu.A, Data.Value);
 }
 
 void CPU6502_CMP_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    BYTE ZeroPageAddress = cpu.FetchByte(cycles, memory);
-    const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
-    const WORD EffectiveAddressY = EffectiveAddress + cpu.Y;
-    const BYTE memoryValue = CPU6502::ReadByte(cycles, memory, EffectiveAddressY);
-    const BYTE comparedValue = cpu.A - memoryValue;
-    if(CPU6502::isPageCrossed(EffectiveAddressY, EffectiveAddress))
-        CPU6502::DoTick(cycles);
-    cpu.Status.UpdateStatus(comparedValue, CPU6502_Status_Z | CPU6502_Status_N);
-    cpu.Status.SetStatusFlagValue(CPU6502_Status_C, cpu.A >= memoryValue);
+    const ValueAddressRequest Data = cpu.GetIndYAddressValue(cycles, memory);
+    ExecuteCMP(cpu, cpu.A, Data.Value);
 }

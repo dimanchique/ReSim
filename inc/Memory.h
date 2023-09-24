@@ -1,12 +1,11 @@
 #pragma once
 
-
 struct Memory {
     explicit Memory(U32 mem_size = 1) : size(mem_size * 1024) {
         mem = new BYTE[size];
     }
 
-    ~Memory(){
+    ~Memory() {
         delete[] mem;
     }
 
@@ -25,6 +24,6 @@ struct Memory {
     }
 
 private:
-    BYTE* mem;
+    BYTE *mem;
     U32 size;
 };

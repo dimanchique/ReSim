@@ -4,7 +4,7 @@
 struct CPU6502;
 struct Memory;
 
-void CPU6502_B_REL(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE TargetFlag, bool ExpectedValue);
+void ExecuteB(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE targetFlag, bool expectedValue);
 
 void CPU6502_BCC_REL(U32 &cycles, Memory &memory, CPU6502 &cpu);
 void CPU6502_BCS_REL(U32 &cycles, Memory &memory, CPU6502 &cpu);

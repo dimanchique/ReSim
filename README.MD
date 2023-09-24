@@ -16,7 +16,7 @@
 * Basic 6502 CPU runtime: instructions fetching and execution
 * TDD with GTest
 
-<h3>Current instructions support:</h3>
+<h3>Instructions support:</h3>
 * Arithmetic: ADC/SBC
 * Logic:
   * AND/OR
@@ -26,7 +26,7 @@
 * Branch: BEQ/BNE/BMI/BPL/BVC/BVS
 * Compare: CMP/CPX/CPY
 * Clear/Set: CLx/SEx
-* Decrement: DEx
+* Increment/Decrement: INx/DEx
 * Jump: JMP/JSR/RTS/BRK/RTI
 * Load: LDx
 * Push/Pop: PHx/PLx
@@ -34,9 +34,8 @@
 * Transfer: Txx
 * No operation: NOP
 
-> Check TODO for more details 
-
 <h3>Useful links:</h3>
 * [6502 wiki page (RU)](https://ru.wikipedia.org/wiki/MOS_Technology_6502)
 * [6502 wiki page (EN)](https://en.wikipedia.org/wiki/MOS_Technology_6502)
 * [6502 Reference](http://www.6502.org/users/obelisk/)
+* [6502 Assembly Language](https://www.masswerk.at/6502/assembler.html)

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <cstring>
 #include "Types.h"
 
@@ -27,41 +26,41 @@ struct CPU6502_Status{
 #define CPU6502_Status_N    (1 << 7)
 //**********************************************************
     operator BYTE() const {
-        return *(BYTE*)(this);
+        return *(BYTE *) (this);
     }
 
-    void Reset(){
+    void Reset() {
         *this = 0;
     }
 
-    CPU6502_Status& operator=(const BYTE referenceByte){
+    CPU6502_Status &operator=(const BYTE referenceByte) {
         memset(this, referenceByte, 1);
         return *this;
     }
 
-    void UpdateStatus(const BYTE& targetRegister, BYTE mask){
-        if(mask & CPU6502_Status_Z)
+    void UpdateStatus(const BYTE &targetRegister, BYTE mask) {
+        if (mask & CPU6502_Status_Z)
             Z = (targetRegister == 0);
-        if(mask & CPU6502_Status_N)
+        if (mask & CPU6502_Status_N)
             N = (targetRegister & 0b10000000) > 0;
     }
 
-    bool GetStatusValue(BYTE checkArgs) const{
+    bool GetStatusValue(BYTE checkArgs) const {
         return BYTE(*this) & checkArgs;
     }
 
-    void SetStatusFlagValue(BYTE statusFlag, BYTE value){
-        if(value)
+    void SetStatusFlagValue(BYTE statusFlag, BYTE value) {
+        if (value)
             SetFlag(statusFlag);
         else
             ResetFlag(statusFlag);
     }
 
-    void SetFlag(BYTE mask){
-        *(BYTE*)(this) |= mask;
+    void SetFlag(BYTE mask) {
+        *(BYTE *) (this) |= mask;
     }
 
-    void ResetFlag(BYTE mask){
-        *(BYTE*)(this) &= ~mask;
+    void ResetFlag(BYTE mask) {
+        *(BYTE *) (this) &= ~mask;
     }
 };

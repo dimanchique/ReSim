@@ -36,7 +36,7 @@ void CPU6502_BFixture::B_REL_CannotBranch(CPU6502_OpCodes opcode, BYTE targetSta
 
 void CPU6502_BFixture::B_REL_CanBranch_WithPageCrossing(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue){
     // given:
-    cpu.Reset(0x4000, mem);
+    cpu.Reset(mem, 0x4000);
     cpu.Status.SetStatusFlagValue(targetStatusFlag, flagValue);
     mem[0x4000] = opcode;
     mem[0x4001] = -10;
