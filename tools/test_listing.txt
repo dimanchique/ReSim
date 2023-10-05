@@ -1,0 +1,31 @@
+pass 1
+
+LINE  LOC          LABEL         PICT
+
+   1  0000         MULT10        ASL ;multiply by 2
+   2  0001                       STA TEMP ;temp store in TEMP
+   3  0004                       ASL ;again multiply by 2 (*4)
+   4  0005                       ASL ;again multiply by 2 (*8)
+   5  0006                       CLC
+   6  0007                       ADC TEMP ;as result, A = x*8 + x*2
+   7  000A                       RTS
+   9  000B         TEMP          .BYTE 0
+
+symbols
+ MULT10              $00
+ TEMP                $0B
+
+pass 2
+
+LOC   CODE         LABEL         INSTRUCTION
+
+0000  0A           MULT10        ASL A ;multiply by 2
+0001  8D 0B 00                   STA $000B ;temp store in TEMP
+0004  0A                         ASL A ;again multiply by 2 (*4)
+0005  0A                         ASL A ;again multiply by 2 (*8)
+0006  18                         CLC
+0007  6D 0B 00                   ADC $000B ;as result, A = x*8 + x*2
+000A  60                         RTS
+000B  00           TEMP          .BYTE $00
+
+done (code: 0000..000B).
