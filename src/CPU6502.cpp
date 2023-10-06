@@ -2,8 +2,8 @@
 #include "Memory.h"
 #include "CPU6502_OpHelpers.h"
 
-void CPU6502::Reset(Memory &memory, WORD resetVector) {
-    PC = resetVector;
+void CPU6502::Reset(Memory &memory, WORD ResetVector) noexcept {
+    PC = ResetVector;
     SP = 0xFF;                                          // with 0x0100 offset
 
     Status = 0;
@@ -41,27 +41,27 @@ WORD CPU6502::FetchWord(U32 &cycles, const Memory &memory) {
     return Lo | (Hi << 8);
 }
 
-BYTE CPU6502::ReadByte(U32 &cycles, const Memory &memory, WORD ADDR) {
-    BYTE Data = memory[ADDR];
+BYTE CPU6502::ReadByte(U32 &cycles, const Memory &memory, WORD address) {
+    BYTE Data = memory[address];
     CPU6502::DoTick(cycles);
     return Data;
 }
 
-WORD CPU6502::ReadWord(U32 &cycles, const Memory &memory, WORD ADDR) {
-    BYTE Lo = ReadByte(cycles, memory, ADDR);
-    BYTE Hi = ReadByte(cycles, memory, ADDR + 1);
+WORD CPU6502::ReadWord(U32 &cycles, const Memory &memory, WORD address) {
+    BYTE Lo = ReadByte(cycles, memory, address);
+    BYTE Hi = ReadByte(cycles, memory, address + 1);
     return Lo | (Hi << 8);
 }
 
-void CPU6502::WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 ADDR) {
-    memory[ADDR] = value;
+void CPU6502::WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 address) {
+    memory[address] = value;
     cycles++;
 }
 
-void CPU6502::WriteWord(U32 &cycles, Memory &memory, WORD value, U32 ADDR) {
-    memory[ADDR] = value & 0xFF;
+void CPU6502::WriteWord(U32 &cycles, Memory &memory, WORD value, U32 address) {
+    memory[address] = value & 0xFF;
     CPU6502::DoTick(cycles);
-    memory[ADDR + 1] = (value >> 8);
+    memory[address + 1] = (value >> 8);
     CPU6502::DoTick(cycles);
 }
 
@@ -153,7 +153,7 @@ ValueAddressRequest CPU6502::GetAbsAddressValue(U32 &cycles, Memory &memory) {
 WORD CPU6502::GetAbsAddress(U32 &cycles, Memory &memory, BYTE offsetAddress) {
     const WORD AbsAddress = FetchWord(cycles, memory);
     const WORD TargetAddress = AbsAddress + offsetAddress;
-    if (CPU6502::isPageCrossed(TargetAddress, AbsAddress))
+    if (CPU6502::IsPageCrossed(TargetAddress, AbsAddress))
         CPU6502::DoTick(cycles);
     return TargetAddress;
 }
@@ -180,7 +180,7 @@ WORD CPU6502::GetIndYAddress(U32 &cycles, Memory &memory) {
     BYTE ZeroPageAddress = FetchByte(cycles, memory);
     const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
     const WORD TargetAddress = EffectiveAddress + Y;
-    if (CPU6502::isPageCrossed(TargetAddress, EffectiveAddress))
+    if (CPU6502::IsPageCrossed(TargetAddress, EffectiveAddress))
         CPU6502::DoTick(cycles);
     return TargetAddress;
 }

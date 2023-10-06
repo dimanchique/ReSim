@@ -1,6 +1,6 @@
 #include "CPU6502_ST_Tests.h"
 
-void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister){
+void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = opcode;
@@ -17,7 +17,7 @@ void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& source
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE affectingRegister){
+void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = opcode;
@@ -35,7 +35,7 @@ void CPU6502_STFixture::ST_ZP_CanStoreValue(CPU6502_OpCodes opcode, BYTE& source
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister){
+void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = opcode;
@@ -53,7 +53,7 @@ void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourc
     CheckCyclesCount();
 }
 
-void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE& sourceRegister, BYTE affectingRegister){
+void CPU6502_STFixture::ST_ABS_CanStoreValue(CPU6502_OpCodes opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = opcode;

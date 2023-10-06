@@ -1,22 +1,13 @@
-## CPU Emulator project
+## CPU Emulator Project
 
-This README.MD is WIP document. All progress will be committed. Stay tuned.
+This README.md is a work in progress document. All progress will be committed. Stay tuned.
 
-### Development stages:
-- [x] Perform a working emulator of 6502 8-bit CPU with a full set of instructions
-  - [ ] Create an assembler Python script to translate asm to instructions
-  - [ ] Make it execute a real asm program
-  - [x] Interrupts handling
-- [ ] Simulate hardware mapping
-- [ ] Make it execute a BASIC interpreter
-- [ ] Make it work with the cc65 compiler
+### Emulator Features:
+* Base 6502 CPU functionality: fetch byte/word, read byte/word, write byte/word
+* Base 6502 CPU runtime: instructions fetching and execution
+* TDD with GTest framework
 
-### Emulator features:
-* Basic 6502 CPU functionality: fetch byte/word, read byte/word, write byte/word
-* Basic 6502 CPU runtime: instructions fetching and execution
-* TDD with GTest
-
-### Instructions support:
+### Instructions Support:
 - Arithmetic: ADC, SBC
 - Logic: AND, OR
 - Shift Left/Right
@@ -33,7 +24,7 @@ This README.MD is WIP document. All progress will be committed. Stay tuned.
 - Transfer: Txx
 - No operation: NOP
 
-### Useful links:
+### Useful Links:
 - [6502 Wiki Page (RU)](https://ru.wikipedia.org/wiki/MOS_Technology_6502) (Russian)
 - [6502 Wiki Page (EN)](https://en.wikipedia.org/wiki/MOS_Technology_6502) (English)
 - [6502 Reference](http://www.6502.org/users/obelisk/)

@@ -3,7 +3,7 @@
 class CPU6502_ADCFixture : public CPU6502_TestFixture {
 public:
 
-    void ADC_IM_DoAddValue(BYTE initialValue, BYTE memoryValue){
+    void ADC_IM_DoAddValue(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = ADC_IM;
@@ -19,7 +19,7 @@ public:
     }
 };
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue) {
     ADC_IM_DoAddValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x60);
@@ -28,7 +28,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue){
     EXPECT_FALSE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue_WithCarryFlag){
+TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue_WithCarryFlag) {
     cpu.Status.C = 1;
 
     ADC_IM_DoAddValue(0x50, 0x10);
@@ -39,7 +39,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_CanAddValue_WithCarryFlag){
     EXPECT_FALSE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectNegativeFlag){
+TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectNegativeFlag) {
     ADC_IM_DoAddValue(0x00, 0xFF);
 
     EXPECT_EQ(cpu.A, 0xFF);
@@ -48,7 +48,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectNegativeFlag){
     EXPECT_FALSE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectZeroFlag){
+TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectZeroFlag) {
     cpu.Status.C = 1;
     ADC_IM_DoAddValue(0x00, 0xFF);
 
@@ -58,7 +58,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_CanAffectZeroFlag){
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_1){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_1) {
     ADC_IM_DoAddValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x60);
@@ -68,7 +68,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_1){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_2){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_2) {
     ADC_IM_DoAddValue(0x50, 0x50);
 
     EXPECT_EQ(cpu.A, 0xa0);
@@ -78,7 +78,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_2){
     EXPECT_TRUE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_3){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_3) {
     ADC_IM_DoAddValue(0x50, 0x90);
 
     EXPECT_EQ(cpu.A, 0xe0);
@@ -88,7 +88,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_3){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_4){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_4) {
     ADC_IM_DoAddValue(0x50, 0xd0);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x120);
@@ -98,7 +98,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_4){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_5){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_5) {
     ADC_IM_DoAddValue(0xd0, 0x10);
 
     EXPECT_EQ(cpu.A, 0xe0);
@@ -108,7 +108,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_5){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_6){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_6) {
     ADC_IM_DoAddValue(0xd0, 0x50);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x120);
@@ -118,7 +118,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_6){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_7){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_7) {
     ADC_IM_DoAddValue(0xd0, 0x90);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x160);
@@ -128,7 +128,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_7){
     EXPECT_TRUE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_8){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_8) {
     ADC_IM_DoAddValue(0xd0, 0xd0);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x1a0);
@@ -138,7 +138,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_8){
     EXPECT_FALSE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_9){
+TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_9) {
     ADC_IM_DoAddValue(0x80, 0xFF);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x7F);
@@ -148,7 +148,7 @@ TEST_F(CPU6502_ADCFixture, ADC_IM_StatusFlagTest_9){
     EXPECT_TRUE(cpu.Status.V);
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_ZP_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_ZP_CanAddValue) {
     // given:
     cpu.A = 0x42;
     mem[0xFFFC] = ADC_ZP;
@@ -168,7 +168,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ZP_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_ZPX_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_ZPX_CanAddValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x15;
@@ -189,7 +189,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ZPX_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_ABS_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_ABS_CanAddValue) {
     // given:
     cpu.A = 0x42;
     mem[0xFFFC] = ADC_ABS;
@@ -210,7 +210,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ABS_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_ABSX_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_ABSX_CanAddValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x15;
@@ -219,7 +219,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ABSX_CanAddValue){
     mem[0xFFFE] = 0x44;
     mem[0x4402 + cpu.X] = 0x02;
 
-    cyclesExpected = CPU6502::isPageCrossed(0x4402 + cpu.X, 0x4402 ) ? 5 : 4;
+    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);
@@ -232,7 +232,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ABSX_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_ABSY_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_ABSY_CanAddValue) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x15;
@@ -241,7 +241,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ABSY_CanAddValue){
     mem[0xFFFE] = 0x44;
     mem[0x4402 + cpu.Y] = 0x02;
 
-    cyclesExpected = CPU6502::isPageCrossed(0x4402 + cpu.Y, 0x4402 ) ? 5 : 4;
+    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);
@@ -255,7 +255,7 @@ TEST_F(CPU6502_ADCFixture, ADC_ABSY_CanAddValue){
 }
 
 
-TEST_F(CPU6502_ADCFixture, ADC_INDX_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_INDX_CanAddValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x04;
@@ -278,7 +278,7 @@ TEST_F(CPU6502_ADCFixture, ADC_INDX_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_INDY_CanAddValue){
+TEST_F(CPU6502_ADCFixture, ADC_INDY_CanAddValue) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x04;
@@ -301,7 +301,7 @@ TEST_F(CPU6502_ADCFixture, ADC_INDY_CanAddValue){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_ADCFixture, ADC_INDY_CanAddValue_WithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_ADCFixture, ADC_INDY_CanAddValue_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;

@@ -1,8 +1,9 @@
 #include "CPU6502_TestingSuite.h"
 
-class CPU6502_PFixture : public CPU6502_TestFixture{};
+class CPU6502_PFixture : public CPU6502_TestFixture {};
 
-TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAccumulator){
+TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAccumulator) {
+    // given:
     cpu.A = 0x42;
     mem[0xFFFC] = CPU6502_OpCodes::PHA_IMPL;
 
@@ -16,7 +17,8 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAccumulator){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator){
+TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator) {
+    // given:
     cpu.A = 0x42;
     mem[0xFFFC] = CPU6502_OpCodes::PHA_IMPL;
     mem[0xFFFD] = CPU6502_OpCodes::TXA_IMPL;
@@ -32,7 +34,8 @@ TEST_F(CPU6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushStatusRegister){
+TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushStatusRegister) {
+    // given:
     cpu.Status = 0x42;                      // just for test
     mem[0xFFFC] = CPU6502_OpCodes::PHP_IMPL;
 
@@ -46,7 +49,8 @@ TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushStatusRegister){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator){
+TEST_F(CPU6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator) {
+    // given:
     cpu.Status = 0x42;
     mem[0xFFFC] = CPU6502_OpCodes::PHP_IMPL;
     mem[0xFFFD] = CPU6502_OpCodes::PHA_IMPL;

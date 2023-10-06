@@ -1,73 +1,74 @@
-<h2>TODO LIST</h2>
+## TODO LIST
 
-<h3>Instructions:</h3>
-* ~~ADC - Add with Carry~~
-* ~~AND - Logical AND~~
-* ~~ASL - Arithmetic Shift Left~~
-* ~~BCC - Branch if Carry Clear~~
-* ~~BCS - Branch if Carry Set~~
-* ~~BEQ - Branch if Equal~~
-* ~~BIT - Bit Test~~
-* ~~BMI - Branch if Minus~~
-* ~~BNE - Branch if Not Equal~~
-* ~~BPL - Branch if Positive~~
-* ~~BRK - Force Interrupt~~
-* ~~BVC - Branch if Overflow Clear~~
-* ~~BVS - Branch if Overflow Set~~
-* ~~CLC - Clear Carry Flag~~
-* ~~CLD - Clear Decimal Mode~~
-* ~~CLI - Clear Interrupt Disable~~
-* ~~CLV - Clear Overflow Flag~~
-* ~~CMP - Compare~~
-* ~~CPX - Compare X Register~~
-* ~~CPY - Compare Y Register~~
-* ~~DEC - Decrement Memory~~
-* ~~DEX - Decrement X Register~~
-* ~~DEY - Decrement Y Register~~
-* ~~EOR - Exclusive OR~~
-* ~~INC - Increment Memory~~
-* ~~INX - Increment X Register~~
-* ~~INY - Increment Y Register~~
-* ~~JMP - Jump~~
-* ~~JSR - Jump to Subroutine~~
-* ~~LDA - Load Accumulator~~
-* ~~LDX - Load X Register~~
-* ~~LDY - Load Y Register~~
-* ~~LSR - Logical Shift Right~~
-* ~~NOP - No Operation~~
-* ~~ORA - Logical Inclusive OR~~
-* ~~PHA - Push Accumulator~~
-* ~~PHP - Push Processor Status~~
-* ~~PLA - Pull Accumulator~~
-* ~~PLP - Pull Processor Status~~
-* ~~ROL - Rotate Left~~
-* ~~ROR - Rotate Right~~
-* ~~RTI - Return from Interrupt~~
-* ~~RTS - Return from Subroutine~~
-* ~~SBC - Subtract with Carry~~
-* ~~SEC - Set Carry Flag~~
-* ~~SED - Set Decimal Flag~~
-* ~~SEI - Set Interrupt Disable~~
-* ~~STA - Store Accumulator~~
-* ~~STX - Store X Register~~
-* ~~STY - Store Y Register~~
-* ~~TAX - Transfer Accumulator to X~~
-* ~~TAY - Transfer Accumulator to Y~~
-* ~~TSX - Transfer Stack Pointer to X~~
-* ~~TXA - Transfer X to Accumulator~~
-* ~~TXS - Transfer X to Stack Pointer~~
-* ~~TYA - Transfer Y to Accumulator~~
+### Development Stages:
+#### Base Goals:
+- [x] Perform a working emulator of 6502 8-bit CPU with a full set of instructions
+- [ ] Create an assembler Python script to translate asm to instructions
+- [ ] Make CPU execute a real asm program
+- [x] Software interrupts handling
 
-<h3>OTHER:</h3>
-* more tests
-* interrupts handling
-* assembler interpreter
-* real asm programs for tests
+#### Advanced Goals:
+- [ ] Hardware interrupts handling
+- [ ] Simulate hardware mapping
+- [ ] Make it execute a BASIC interpreter
+- [ ] Make it work with the cc65 compiler
+- [ ] New CPU integration: ZX80/i4040/i8080/etc
 
-<h3>FEATHER PLANS:</h3>
-* Basic interpreter
-* cpu + memory = computer?
-    * interaction
-    * hardware mapping emulation
-    * etc.
-* ZX80/i4040/i8080/etc
+### Instructions:
+
+- [x] ADC - Add with Carry
+- [x] AND - Logical AND
+- [x] ASL - Arithmetic Shift Left
+- [x] BCC - Branch if Carry Clear
+- [x] BCS - Branch if Carry Set
+- [x] BEQ - Branch if Equal
+- [x] BIT - Bit Test
+- [x] BMI - Branch if Minus
+- [x] BNE - Branch if Not Equal
+- [x] BPL - Branch if Positive
+- [x] BRK - Force Interrupt
+- [x] BVC - Branch if Overflow Clear
+- [x] BVS - Branch if Overflow Set
+- [x] CLC - Clear Carry Flag
+- [x] CLD - Clear Decimal Mode
+- [x] CLI - Clear Interrupt Disable
+- [x] CLV - Clear Overflow Flag
+- [x] CMP - Compare
+- [x] CPX - Compare X Register
+- [x] CPY - Compare Y Register
+- [x] DEC - Decrement Memory
+- [x] DEX - Decrement X Register
+- [x] DEY - Decrement Y Register
+- [x] EOR - Exclusive OR
+- [x] INC - Increment Memory
+- [x] INX - Increment X Register
+- [x] INY - Increment Y Register
+- [x] JMP - Jump
+- [x] JSR - Jump to Subroutine
+- [x] LDA - Load Accumulator
+- [x] LDX - Load X Register
+- [x] LDY - Load Y Register
+- [x] LSR - Logical Shift Right
+- [x] NOP - No Operation
+- [x] ORA - Logical Inclusive OR
+- [x] PHA - Push Accumulator
+- [x] PHP - Push Processor Status
+- [x] PLA - Pull Accumulator
+- [x] PLP - Pull Processor Status
+- [x] ROL - Rotate Left
+- [x] ROR - Rotate Right
+- [x] RTI - Return from Interrupt
+- [x] RTS - Return from Subroutine
+- [x] SBC - Subtract with Carry
+- [x] SEC - Set Carry Flag
+- [x] SED - Set Decimal Flag
+- [x] SEI - Set Interrupt Disable
+- [x] STA - Store Accumulator
+- [x] STX - Store X Register
+- [x] STY - Store Y Register
+- [x] TAX - Transfer Accumulator to X
+- [x] TAY - Transfer Accumulator to Y
+- [x] TSX - Transfer Stack Pointer to X
+- [x] TXA - Transfer X to Accumulator
+- [x] TXS - Transfer X to Stack Pointer
+- [x] TYA - Transfer Y to Accumulator

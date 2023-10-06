@@ -1,7 +1,7 @@
 #pragma once
 
 struct Memory {
-    explicit Memory(U32 mem_size = 1) : size(mem_size * 1024) {
+    explicit Memory(U32 memSize = 1) : size(memSize * 1024) {
         mem = new BYTE[size];
     }
 
@@ -9,12 +9,12 @@ struct Memory {
         delete[] mem;
     }
 
-    BYTE operator[](U32 addr) const {
-        return mem[addr];
+    BYTE operator[](U32 address) const {
+        return mem[address];
     }
 
-    BYTE &operator[](U32 addr) {
-        return mem[addr];
+    BYTE &operator[](U32 address) {
+        return mem[address];
     }
 
     void Reset() {

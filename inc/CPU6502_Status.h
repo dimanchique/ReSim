@@ -3,9 +3,8 @@
 #include "Types.h"
 
 struct CPU6502_Status{
-//**********************************************************
-//                          Processor Status
-//**********************************************************
+
+//  Processor Status
     BYTE C  :1;             // Carry Flag
     BYTE Z  :1;             // Zero Flag
     BYTE I  :1;             // Interrupt Disable
@@ -14,9 +13,8 @@ struct CPU6502_Status{
     BYTE NU :1;             // Not Used
     BYTE V  :1;             // Overflow Flag
     BYTE N  :1;             // Negative Flag
-//**********************************************************
-//                          Status Register Mask
-//**********************************************************
+
+//  Status Register Mask
 #define CPU6502_Status_C    (1 << 0)
 #define CPU6502_Status_Z    (1 << 1)
 #define CPU6502_Status_I    (1 << 2)
@@ -24,12 +22,12 @@ struct CPU6502_Status{
 #define CPU6502_Status_B    (1 << 4)
 #define CPU6502_Status_V    (1 << 6)
 #define CPU6502_Status_N    (1 << 7)
-//**********************************************************
-    operator BYTE() const {
+
+    operator BYTE() const noexcept {
         return *(BYTE *) (this);
     }
 
-    void Reset() {
+    void Reset() noexcept {
         *this = 0;
     }
 
@@ -45,22 +43,22 @@ struct CPU6502_Status{
             N = (targetRegister & 0b10000000) > 0;
     }
 
-    bool GetStatusValue(BYTE checkArgs) const {
+    [[nodiscard]] bool GetStatusValue(BYTE checkArgs) const noexcept {
         return BYTE(*this) & checkArgs;
     }
 
-    void SetStatusFlagValue(BYTE statusFlag, BYTE value) {
+    void SetStatusFlagValue(BYTE statusFlag, BYTE value) noexcept {
         if (value)
             SetFlag(statusFlag);
         else
             ResetFlag(statusFlag);
     }
 
-    void SetFlag(BYTE mask) {
+    void SetFlag(BYTE mask) noexcept {
         *(BYTE *) (this) |= mask;
     }
 
-    void ResetFlag(BYTE mask) {
+    void ResetFlag(BYTE mask) noexcept {
         *(BYTE *) (this) &= ~mask;
     }
 };

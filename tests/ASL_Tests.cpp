@@ -1,11 +1,11 @@
 #include "CPU6502_TestingSuite.h"
 
-class CPU6502_ASLFixture : public CPU6502_TestFixture{
+class CPU6502_ASLFixture : public CPU6502_TestFixture {
 public:
-    void ASL_ACC_CanShiftLeft(BYTE value){
+    void ASL_ACC_CanShiftLeft(BYTE value) {
         // given:
         cpu.A = value;
-        mem[0xFFFC] = CPU6502_OpCodes::ASL_ACC;                     // shift left
+        mem[0xFFFC] = CPU6502_OpCodes::ASL_ACC;
 
         cyclesExpected = 2;
 
@@ -17,11 +17,11 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ZP_CanShiftLeft(BYTE value){
+    void ASL_ZP_CanShiftLeft(BYTE value) {
         // given:
-        mem[0xFFFC] = CPU6502_OpCodes::ASL_ZP;                      // read pointer to the ZP memory from the next mem cell
-        mem[0xFFFD] = 0x42;                                         // read value from memory using pointer
-        mem[0x0042] = value;                                        // store this value in target register
+        mem[0xFFFC] = CPU6502_OpCodes::ASL_ZP;
+        mem[0xFFFD] = 0x42;
+        mem[0x0042] = value;
 
         cyclesExpected = 5;
 
@@ -33,13 +33,13 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ZPX_CanShiftLeft(BYTE value){
+    void ASL_ZPX_CanShiftLeft(BYTE value) {
         // given:
         cpu.X = 0x10;
-        mem[0xFFFC] = CPU6502_OpCodes::ASL_ZPX;                     // read pointer to the ZP memory from the next mem cell
-        mem[0xFFFD] = 0x42;                                         // add affectingRegister value to this pointer
-        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = value;                  // read value from memory using pointer
-        // store this value in targetRegister register
+        mem[0xFFFC] = CPU6502_OpCodes::ASL_ZPX;
+        mem[0xFFFD] = 0x42;
+        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = value;
+
         cyclesExpected = 6;
 
         // when:
@@ -50,12 +50,12 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ABS_CanShiftLeft(BYTE value){
+    void ASL_ABS_CanShiftLeft(BYTE value) {
         // given:
-        mem[0xFFFC] = CPU6502_OpCodes::ASL_ABS;     // read the 16 bit Little Endian pointer from the next mem cell
-        mem[0xFFFD] = 0x80;                         // read from this address
-        mem[0xFFFE] = 0x44;                         // 0x4480
-        mem[0x4480] = value;                        // store this value in targetRegister
+        mem[0xFFFC] = CPU6502_OpCodes::ASL_ABS;
+        mem[0xFFFD] = 0x80;
+        mem[0xFFFE] = 0x44;
+        mem[0x4480] = value;
 
         cyclesExpected = 6;
 
@@ -67,12 +67,12 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ABS_CanShiftLeft(CPU6502_OpCodes opcode, BYTE value, BYTE affectingRegister){
+    void ASL_ABS_CanShiftLeft(CPU6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
         // given:
-        mem[0xFFFC] = opcode;                           // read the 16 bit Little Endian pointer from the next mem cell
-        mem[0xFFFD] = 0x02;                             // read from this address
-        mem[0xFFFE] = 0x44;                             // target value is in memory address 0x4402 + affectingRegister
-        mem[0x4402 + affectingRegister] = value;        // store this value in targetRegister
+        mem[0xFFFC] = opcode;
+        mem[0xFFFD] = 0x02;
+        mem[0xFFFE] = 0x44;
+        mem[0x4402 + affectingRegister] = value;
 
         cyclesExpected = 7;
 
@@ -85,79 +85,79 @@ public:
     }
 };
 
-TEST_F(CPU6502_ASLFixture, ASL_ACC_CanShiftLeft){
+TEST_F(CPU6502_ASLFixture, ASL_ACC_CanShiftLeft) {
     ASL_ACC_CanShiftLeft(0xFF);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ACC_CanAffectZeroFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ACC_CanAffectZeroFlag) {
     ASL_ACC_CanShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ACC_CanAffectNegativeFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ACC_CanAffectNegativeFlag) {
     ASL_ACC_CanShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZP_CanShiftLeft){
+TEST_F(CPU6502_ASLFixture, ASL_ZP_CanShiftLeft) {
     ASL_ZP_CanShiftLeft(0xFF);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZP_CanAffectZeroFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ZP_CanAffectZeroFlag) {
     ASL_ZP_CanShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZP_CanAffectNegativeFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ZP_CanAffectNegativeFlag) {
     ASL_ZP_CanShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanShiftLeft){
+TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanShiftLeft) {
     ASL_ZPX_CanShiftLeft(0xFF);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanAffectZeroFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanAffectZeroFlag) {
     ASL_ZPX_CanShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanAffectNegativeFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ZPX_CanAffectNegativeFlag) {
     ASL_ZPX_CanShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABS_CanShiftLeft){
+TEST_F(CPU6502_ASLFixture, ASL_ABS_CanShiftLeft) {
     ASL_ABS_CanShiftLeft(0xFF);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABS_CanAffectZeroFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ABS_CanAffectZeroFlag) {
     ASL_ABS_CanShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABS_CanAffectNegativeFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ABS_CanAffectNegativeFlag) {
     ASL_ABS_CanShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanShiftLeft){
+TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanShiftLeft) {
     cpu.X = 0x05;
     ASL_ABS_CanShiftLeft(CPU6502_OpCodes::ASL_ABSX, 0xFF, cpu.X);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanAffectZeroFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
     ASL_ABS_CanShiftLeft(CPU6502_OpCodes::ASL_ABSX, 0x80, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
-TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanAffectNegativeFlag){
+TEST_F(CPU6502_ASLFixture, ASL_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
     ASL_ABS_CanShiftLeft(CPU6502_OpCodes::ASL_ABSX, 0x40, cpu.X);
     EXPECT_TRUE(cpu.Status.N);

@@ -2,8 +2,8 @@
 
 class CPU6502_BITFixture : public CPU6502_TestFixture {
 public:
-
     void BIT_ZP_CanTestMemoryValue(BYTE maskValue, BYTE targetValue) {
+        // given:
         cpu.A = maskValue;
         mem[0xFFFC] = BIT_ZP;
         mem[0xFFFD] = 0x42;
@@ -21,6 +21,7 @@ public:
     }
 
     void BIT_ABS_CanTestMemoryValue(BYTE maskValue, BYTE targetValue) {
+        // given:
         cpu.A = maskValue;
         mem[0xFFFC] = BIT_ABS;
         mem[0xFFFD] = 0x00;
@@ -39,22 +40,22 @@ public:
     }
 };
 
-TEST_F(CPU6502_BITFixture, BIT_ZP_CanTestmemoryValue){
+TEST_F(CPU6502_BITFixture, BIT_ZP_CanTestmemoryValue) {
     BIT_ZP_CanTestMemoryValue(0x42, 0x42);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_BITFixture, BIT_ZP_CanAffectZeroValue){
+TEST_F(CPU6502_BITFixture, BIT_ZP_CanAffectZeroValue) {
     BIT_ZP_CanTestMemoryValue(0x42, 0x00);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_BITFixture, BIT_ABS_CanTestmemoryValue){
+TEST_F(CPU6502_BITFixture, BIT_ABS_CanTestmemoryValue) {
     BIT_ABS_CanTestMemoryValue(0x42, 0x42);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_BITFixture, BIT_ABS_CanAffectZeroValue){
+TEST_F(CPU6502_BITFixture, BIT_ABS_CanAffectZeroValue) {
     BIT_ABS_CanTestMemoryValue(0x42, 0x00);
     EXPECT_TRUE(cpu.Status.Z);
 }
