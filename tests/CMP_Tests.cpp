@@ -1,74 +1,74 @@
 #include "CPU6502_CM_Tests.h"
 
-class CPU6502_CMPFixture : public CPU6502_CMFixture{};
+class CPU6502_CMPFixture : public CPU6502_CMFixture {};
 
-TEST_F(CPU6502_CMPFixture, CMP_IM_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_IM_CanCompare) {
     CM_IM(CPU6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_IM_CanAffectZeroFlag){
+TEST_F(CPU6502_CMPFixture, CMP_IM_CanAffectZeroFlag) {
     CM_IM(CPU6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x10);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_IM_CanAffectNegativeFlag){
+TEST_F(CPU6502_CMPFixture, CMP_IM_CanAffectNegativeFlag) {
     CM_IM(CPU6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x11);
     EXPECT_FALSE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ZP_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_ZP_CanCompare) {
     CM_ZP(CPU6502_OpCodes::CMP_ZP, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ZPX_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_ZPX_CanCompare) {
     cpu.X = 0x5;
     CM_ZP(CPU6502_OpCodes::CMP_ZPX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ABS_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_ABS_CanCompare) {
     CM_ABS(CPU6502_OpCodes::CMP_ABS, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ABSX_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_ABSX_CanCompare) {
     cpu.X = 0x01;
     CM_ABS(CPU6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ABSX_CanCompare_WithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_CMPFixture, CMP_ABSX_CanCompare_WithExtraCycleOnPageCrossing) {
     cpu.X = 0xFF;
     CM_ABS(CPU6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ABSY_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_ABSY_CanCompare) {
     cpu.Y = 0x01;
     CM_ABS(CPU6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_ABSY_CanCompare_WithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_CMPFixture, CMP_ABSY_CanCompare_WithExtraCycleOnPageCrossing) {
     cpu.Y = 0xFF;
     CM_ABS(CPU6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_INDX_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_INDX_CanCompare) {
     // given:
     cpu.A = 0x10;
     cpu.X = 0x04;
@@ -89,7 +89,7 @@ TEST_F(CPU6502_CMPFixture, CMP_INDX_CanCompare){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_INDY_CanCompare){
+TEST_F(CPU6502_CMPFixture, CMP_INDY_CanCompare) {
     // given:
     cpu.A = 0x10;
     cpu.Y = 0x04;
@@ -110,7 +110,7 @@ TEST_F(CPU6502_CMPFixture, CMP_INDY_CanCompare){
     CheckCyclesCount();
 }
 
-TEST_F(CPU6502_CMPFixture, CMP_INDY_CanCompare_WithExtraCycleOnPageCrossing){
+TEST_F(CPU6502_CMPFixture, CMP_INDY_CanCompare_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x10;
     cpu.Y = 0xFF;

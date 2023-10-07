@@ -5,30 +5,28 @@
 #include "CPU6502_Status.h"
 
 struct CPU6502 {
-//**********************************************************
-//                          Registers
-//**********************************************************
+
+//  Registers
     WORD PC;                // Program Counter
     BYTE SP;                // Stack Pointer
     BYTE A;                 // Accumulator
     BYTE X;                 // X Index
     BYTE Y;                 // Y Index
     CPU6502_Status Status;
-//**********************************************************
-//                          Functions
-//**********************************************************
-    void Reset(Memory& memory, WORD ResetVector = 0xFFFC);
+
+//  Functions
+    void Reset(Memory& memory, WORD ResetVector = 0xFFFC) noexcept;
 
     U32 Run(Memory &memory);
 
     BYTE FetchByte(U32 &cycles, const Memory &memory);
     WORD FetchWord(U32 &cycles, const Memory &memory);
 
-    static BYTE ReadByte(U32 &cycles, const Memory &memory, WORD ADDR);
-    static WORD ReadWord(U32 &cycles, const Memory &memory, WORD ADDR);
+    static BYTE ReadByte(U32 &cycles, const Memory &memory, WORD address);
+    static WORD ReadWord(U32 &cycles, const Memory &memory, WORD address);
 
-    static void WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 ADDR);
-    static void WriteWord(U32 &cycles, Memory &memory, WORD value, U32 ADDR);
+    static void WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 address);
+    static void WriteWord(U32 &cycles, Memory &memory, WORD value, U32 address);
 
     void PushProgramCounterToStack(U32 &cycles, Memory &memory);
     WORD PullAddressFromStack(U32 &cycles, Memory &memory);
@@ -56,15 +54,15 @@ struct CPU6502 {
     WORD GetIndYAddress(U32 &cycles, Memory &memory);
     ValueAddressRequest GetIndYAddressValue(U32 &cycles, Memory &memory);
 
-    inline static void DoTick(U32 &cycles, U32 Count = 1) {
-        cycles += Count;
+    inline static void DoTick(U32 &cycles, U32 count = 1) noexcept {
+        cycles += count;
     }
 
-    inline static bool isPageCrossed(WORD src, WORD dest){
+    inline static bool IsPageCrossed(WORD src, WORD dest) noexcept {
         return (src ^ dest) >= PAGE_SIZE;
     }
 
-    [[nodiscard]] inline WORD StackPointerToAddress() const {
+    [[nodiscard]] inline WORD StackPointerToAddress() const noexcept {
         return 0x100 | SP;
     }
 };

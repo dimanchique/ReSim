@@ -1,6 +1,6 @@
 #include "CPU6502_B_Tests.h"
 
-void CPU6502_BFixture::B_REL_CanBranch(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue){
+void CPU6502_BFixture::B_REL_CanBranch(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     cpu.Status.SetStatusFlagValue(targetStatusFlag, flagValue);
     mem[0xFFFC] = opcode;
@@ -18,7 +18,7 @@ void CPU6502_BFixture::B_REL_CanBranch(CPU6502_OpCodes opcode, BYTE targetStatus
     CheckCyclesCount();
 }
 
-void CPU6502_BFixture::B_REL_CannotBranch(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue){
+void CPU6502_BFixture::B_REL_CannotBranch(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     cpu.Status.SetStatusFlagValue(targetStatusFlag, flagValue);
     mem[0xFFFC] = opcode;
@@ -34,7 +34,7 @@ void CPU6502_BFixture::B_REL_CannotBranch(CPU6502_OpCodes opcode, BYTE targetSta
     CheckCyclesCount();
 }
 
-void CPU6502_BFixture::B_REL_CanBranch_WithPageCrossing(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue){
+void CPU6502_BFixture::B_REL_CanBranch_WithPageCrossing(CPU6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     cpu.Reset(mem, 0x4000);
     cpu.Status.SetStatusFlagValue(targetStatusFlag, flagValue);

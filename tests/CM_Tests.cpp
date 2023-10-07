@@ -1,6 +1,6 @@
 #include "CPU6502_CM_Tests.h"
 
-void CPU6502_CMFixture::CM_IM(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE initialValue, BYTE memoryValue){
+void CPU6502_CMFixture::CM_IM(CPU6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
@@ -15,7 +15,7 @@ void CPU6502_CMFixture::CM_IM(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE
     CheckCyclesCount();
 }
 
-void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE initialValue, BYTE memoryValue){
+void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
@@ -31,7 +31,7 @@ void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE
     CheckCyclesCount();
 }
 
-void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister){
+void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
@@ -47,7 +47,7 @@ void CPU6502_CMFixture::CM_ZP(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE
     CheckCyclesCount();
 }
 
-void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE initialValue, BYTE memoryValue){
+void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
@@ -64,7 +64,7 @@ void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE& targetRegister, BYT
     CheckCyclesCount();
 }
 
-void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE& targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister){
+void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = opcode;
@@ -72,7 +72,7 @@ void CPU6502_CMFixture::CM_ABS(CPU6502_OpCodes opcode, BYTE& targetRegister, BYT
     mem[0xFFFE] = 0x44;
     mem[0x4402 + affectingRegister] = memoryValue;
 
-    cyclesExpected = CPU6502::isPageCrossed(0x4402 + affectingRegister, 0x4402 ) ? 5 : 4;
+    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);

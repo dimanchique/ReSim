@@ -1,6 +1,6 @@
 #include "CPU6502_TestingSuite.h"
 
-class CPU6502_CPUFixture : public CPU6502_TestFixture{};
+class CPU6502_CPUFixture : public CPU6502_TestFixture {};
 
 TEST_F(CPU6502_CPUFixture, CpuDoesNothingWithZerocycles) {
     // given:
@@ -28,17 +28,18 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMorecyclesThenRequested) {
     CheckCyclesCount(6);                        // But there are 6 actually
 }
 
-class UtilsTests : public testing::Test{};
+class UtilsTests : public testing::Test {};
+
 TEST_F(UtilsTests, PageCrossingTest) {
-    EXPECT_TRUE(CPU6502::isPageCrossed(0x4001, 0x3ffe));
-    EXPECT_TRUE(CPU6502::isPageCrossed(0x4001, 0x4101));
-    EXPECT_FALSE(CPU6502::isPageCrossed(0x4001, 0x4005));
-    EXPECT_FALSE(CPU6502::isPageCrossed(0x3333, 0x3335));
+    EXPECT_TRUE(CPU6502::IsPageCrossed(0x4001, 0x3ffe));
+    EXPECT_TRUE(CPU6502::IsPageCrossed(0x4001, 0x4101));
+    EXPECT_FALSE(CPU6502::IsPageCrossed(0x4001, 0x4005));
+    EXPECT_FALSE(CPU6502::IsPageCrossed(0x3333, 0x3335));
 }
 
 TEST_F(UtilsTests, DataConversionTest) {
-    EXPECT_EQ((BYTE)45, (SBYTE)45);
-    EXPECT_NE((BYTE)250, (SBYTE)250);
-    EXPECT_EQ((BYTE)258, 0x2);
-    EXPECT_EQ((SBYTE)253, -3);
+    EXPECT_EQ((BYTE) 45, (SBYTE) 45);
+    EXPECT_NE((BYTE) 250, (SBYTE) 250);
+    EXPECT_EQ((BYTE) 258, 0x2);
+    EXPECT_EQ((SBYTE) 253, -3);
 }

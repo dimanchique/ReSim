@@ -1,6 +1,6 @@
 #include "CPU6502_INC_Tests.h"
 
-void CPU6502_INCFixture::INC_ZP_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister){
+void CPU6502_INCFixture::INC_ZP_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
     mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x42;
@@ -18,7 +18,7 @@ void CPU6502_INCFixture::INC_ZP_CanAffectValue(CPU6502_OpCodes opcode, BYTE memo
     CheckCyclesCount();
 }
 
-void CPU6502_INCFixture::INC_ABS_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister){
+void CPU6502_INCFixture::INC_ABS_CanAffectValue(CPU6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
     mem[0xFFFC] = opcode;
     mem[0xFFFD] = 0x00;
@@ -37,7 +37,7 @@ void CPU6502_INCFixture::INC_ABS_CanAffectValue(CPU6502_OpCodes opcode, BYTE mem
     CheckCyclesCount();
 }
 
-void CPU6502_INCFixture::INC_IMPL_CanAffectValue(CPU6502_OpCodes opcode, BYTE& targetRegister){
+void CPU6502_INCFixture::INC_IMPL_CanAffectValue(CPU6502_OpCodes opcode, BYTE &targetRegister) {
     // given:
     BYTE initialValue = targetRegister;
     BYTE targetValue = initialValue + 1;

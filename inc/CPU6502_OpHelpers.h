@@ -1,7 +1,7 @@
 #pragma once
-#include <CPU6502_OpCodes.h>
+#include "Types.h"
 
-struct Memory;
 struct CPU6502;
+struct Memory;
 
-bool FetchCommand(U32 &cycles, BYTE opcode, Memory& memory, CPU6502& cpu);
+bool FetchCommand(U32 &cycles, BYTE opcode, Memory &memory, CPU6502 &cpu);

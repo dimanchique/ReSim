@@ -1,6 +1,6 @@
 #include "CPU6502_TestingSuite.h"
 
-class CPU6502_JSRFixture : public CPU6502_TestFixture{};
+class CPU6502_JSRFixture : public CPU6502_TestFixture {};
 
 TEST_F(CPU6502_JSRFixture, JSR_ABS_CanJump) {
     // given:
@@ -34,11 +34,12 @@ TEST_F(CPU6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     // then:
     EXPECT_EQ(cpu.A, 0x84);
     EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_TRUE(cpu.Status.N);                             // 0x84 is 0b10000100 and N is checking the 7's bit in A and it's 1
+    EXPECT_TRUE(cpu.Status.N);                      // 0x84 is 0b10000100 and N is checking the 7's bit in A and it's 1
     CheckCyclesCount();
 }
 
-class CPU6502_JSR_RTSFixture : public CPU6502_TestFixture{};
+class CPU6502_JSR_RTSFixture : public CPU6502_TestFixture {
+};
 
 TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) {
     // given:
@@ -108,7 +109,8 @@ TEST_F(CPU6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     CheckCyclesCount();
 }
 
-class CPU6502_JMPFixture : public CPU6502_TestFixture{};
+class CPU6502_JMPFixture : public CPU6502_TestFixture {
+};
 
 TEST_F(CPU6502_JMPFixture, JMP_ABS_CanJump) {
     // given:
