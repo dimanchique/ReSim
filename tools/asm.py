@@ -16,7 +16,7 @@ if enable_test:
     parent = os.path.split(__file__)[0]
     root = os.path.split(parent)[0]
 
-    with open(os.path.join(parent, 'test.asm'), 'r') as file:
+    with open(os.path.join(parent, 'asm_tests/test.asm'), 'r') as file:
         test_asm = file.readlines()
 
     start_addr = 0x1000

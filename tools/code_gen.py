@@ -18,13 +18,11 @@ for i in data:
     value = int(splitter[1][1:].split(',')[0], 16)
     op_map[key] = value
 
-sorted_map = sorted(op_map.items(), key=lambda x: x[1])
-sorted_map = dict(sorted_map)
 ops = ['ADD_CALL(FAKE_NOP)'] * 255
 
 used_instructions = 0
-for i in sorted_map:
-    ops[sorted_map[i]] = f'ADD_CALL({i})'
+for i in op_map:
+    ops[op_map[i]] = f'ADD_CALL({i})'
     used_instructions += 1
 
 print(f"Used instructions: {used_instructions}/{len(op_map.keys())}")
