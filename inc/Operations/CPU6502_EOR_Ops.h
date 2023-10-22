@@ -1,10 +1,10 @@
 #pragma once
-#include "Types.h"
+#include "CPU6502.h"
 
-struct CPU6502;
-struct Memory;
-
-void ExecuteEOR(CPU6502 &cpu, BYTE value);
+inline void ExecuteEOR(CPU6502 &cpu, const BYTE value) {
+    cpu.A ^= value;
+    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+}
 
 void CPU6502_EOR_IM(U32 &cycles, Memory &memory, CPU6502 &cpu);
 void CPU6502_EOR_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);

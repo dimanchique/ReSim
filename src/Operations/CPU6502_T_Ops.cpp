@@ -2,13 +2,6 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void ExecuteT(const BYTE sourceRegister, BYTE &destinationRegister, U32 &cycles, CPU6502 &cpu, const bool ShouldCheckStatus) {
-    destinationRegister = sourceRegister;
-    if (ShouldCheckStatus)
-        cpu.Status.UpdateStatus(destinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
-    CPU6502::DoTick(cycles);
-}
-
 void CPU6502_TAX_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     ExecuteT(cpu.A, cpu.X, cycles, cpu);
 }

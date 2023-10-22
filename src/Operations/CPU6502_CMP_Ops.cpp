@@ -29,10 +29,10 @@ void CPU6502_CMP_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 
 void CPU6502_CMP_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetIndXAddressValue(cycles, memory);
-    ExecuteCMP(cpu, cpu.A, Data.Value);
+    ExecuteCM(cpu, cpu.A, Data.Value);
 }
 
 void CPU6502_CMP_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetIndYAddressValue(cycles, memory);
-    ExecuteCMP(cpu, cpu.A, Data.Value);
+    ExecuteCM(cpu, cpu.A, Data.Value);
 }

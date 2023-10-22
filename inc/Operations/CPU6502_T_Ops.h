@@ -1,10 +1,12 @@
 #pragma once
-#include "Types.h"
+#include "CPU6502.h"
 
-struct CPU6502;
-struct Memory;
-
-void ExecuteT(BYTE sourceRegister, BYTE &destinationRegister, U32 &cycles, CPU6502 &cpu, bool ShouldCheckStatus = true);
+inline void ExecuteT(const BYTE sourceRegister, BYTE &destinationRegister, U32 &cycles, CPU6502 &cpu, const bool ShouldCheckStatus = true) {
+    destinationRegister = sourceRegister;
+    if (ShouldCheckStatus)
+        cpu.Status.UpdateStatus(destinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
+    CPU6502::DoTick(cycles);
+}
 
 void CPU6502_TAX_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
 void CPU6502_TXA_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
