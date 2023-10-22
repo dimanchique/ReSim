@@ -2,13 +2,6 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void ExecuteINC(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE memoryValue, const WORD address) {
-    memoryValue++;
-    CPU6502::DoTick(cycles);
-    CPU6502::WriteByte(cycles, memory, memoryValue, address);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
-}
-
 void CPU6502_INC_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(cycles, memory);
     ExecuteINC(cycles, memory, cpu, Data.Value, Data.Address);

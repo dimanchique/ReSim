@@ -1,7 +1,6 @@
 #pragma once
-#include "Types.h"
+#include "CPU6502.h"
 
-struct CPU6502;
-struct Memory;
-
-void CPU6502_NOP_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
+inline void CPU6502_NOP_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    CPU6502::DoTick(cycles);
+}
