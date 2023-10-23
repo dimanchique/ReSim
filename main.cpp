@@ -5,6 +5,9 @@
 #include <iostream>
 #include <cassert>
 
+//#define CRC16TEST
+#define CRC32TEST
+
 static std::vector<char> ReadAllBytes(char const* filename)
 {
     std::ifstream ifs(filename, std::ios::binary|std::ios::ate);
@@ -22,7 +25,11 @@ static std::vector<char> ReadAllBytes(char const* filename)
 }
 
 int main() {
-    const auto data = ReadAllBytes("tools/asm_tests/CRC_test.bin");
+#ifdef CRC16TEST
+    const auto data = ReadAllBytes("tools/asm_tests/CRC16_test.bin");
+#else
+    const auto data = ReadAllBytes("tools/asm_tests/CRC32_test.bin");
+#endif
 
     CPU6502 cpu{};
     Memory mem{64};
@@ -40,8 +47,15 @@ int main() {
 
     const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
+#ifdef CRC16TEST
     assert(mem[0x06] == 0xA1);
     assert(mem[0x07] == 0xF1);
+#else
+    assert(mem[0x06] == 0x64);
+    assert(mem[0x07] == 0x80);
+    assert(mem[0x08] == 0xDE);
+    assert(mem[0x09] == 0xD4);
+#endif
 
     std::cout << "Execution duration: " << duration / 1e6 << "[s]" << std::endl;
     std::cout << "Cycles count: " << n  << std::endl;
