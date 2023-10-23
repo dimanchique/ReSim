@@ -30,7 +30,7 @@
 #include <CPU6502.h>
 #include <Memory.h>
 
-void CPU6502_FAKE_NOP(U32 &cycles, Memory &memory, CPU6502 &cpu) {}
+static void CPU6502_FAKE_NOP(U32 &cycles, Memory &memory, CPU6502 &cpu) {}
 
 using OpSignature = void (*)(U32 &, Memory &, CPU6502 &);
 

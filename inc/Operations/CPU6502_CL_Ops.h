@@ -6,7 +6,18 @@ inline void ExecuteCL(U32 &cycles, CPU6502 &cpu, const BYTE statusFlag) {
     CPU6502::DoTick(cycles);
 }
 
-void CPU6502_CLC_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CLD_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CLI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CLV_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu);
+inline void CPU6502_CLC_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    ExecuteCL(cycles, cpu, CPU6502_Status_C);
+}
+
+inline void CPU6502_CLD_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    ExecuteCL(cycles, cpu, CPU6502_Status_D);
+}
+
+inline void CPU6502_CLI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    ExecuteCL(cycles, cpu, CPU6502_Status_I);
+}
+
+inline void CPU6502_CLV_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
+    ExecuteCL(cycles, cpu, CPU6502_Status_V);
+}
