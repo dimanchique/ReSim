@@ -36,29 +36,29 @@ struct CPU6502_Status{
         return *this;
     }
 
-    void UpdateStatus(const BYTE &targetRegister, BYTE mask) {
+    inline void UpdateStatus(const BYTE &targetRegister, BYTE mask) {
         if (mask & CPU6502_Status_Z)
             Z = (targetRegister == 0);
         if (mask & CPU6502_Status_N)
             N = (targetRegister & 0b10000000) > 0;
     }
 
-    [[nodiscard]] bool GetStatusValue(BYTE checkArgs) const noexcept {
+    [[nodiscard]] inline bool GetStatusValue(BYTE checkArgs) const noexcept {
         return BYTE(*this) & checkArgs;
     }
 
-    void SetStatusFlagValue(BYTE statusFlag, BYTE value) noexcept {
+    inline void SetStatusFlagValue(BYTE statusFlag, BYTE value) noexcept {
         if (value)
             SetFlag(statusFlag);
         else
             ResetFlag(statusFlag);
     }
 
-    void SetFlag(BYTE mask) noexcept {
+    inline void SetFlag(BYTE mask) noexcept {
         *(BYTE *) (this) |= mask;
     }
 
-    void ResetFlag(BYTE mask) noexcept {
+    inline void ResetFlag(BYTE mask) noexcept {
         *(BYTE *) (this) &= ~mask;
     }
 };
