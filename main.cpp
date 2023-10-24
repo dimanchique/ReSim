@@ -45,7 +45,7 @@ int main() {
     const auto n = cpu.Run(mem);
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
-    const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
+    const double duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
 #ifdef CRC16TEST
     assert(mem[0x06] == 0xA1);
@@ -60,5 +60,6 @@ int main() {
     std::cout << "Execution duration: " << duration / 1e6 << "[s]" << std::endl;
     std::cout << "Cycles count: " << n  << std::endl;
     std::cout << "Cycles/s: " << n / (duration / 1e6)  << std::endl;
+    std::cout << "Frequency: " << n / duration << " MHz" << std::endl;
     return 0;
 }
