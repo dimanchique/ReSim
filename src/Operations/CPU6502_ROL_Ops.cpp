@@ -7,7 +7,7 @@ void CPU6502_ROL_ACC(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.A <<= 1;
     cpu.A |= cpu.Status.C;
     CPU6502::DoTick(cycles);
-    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
     cpu.Status.C = Carry;
 }
 

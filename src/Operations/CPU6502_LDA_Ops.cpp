@@ -28,11 +28,11 @@ void CPU6502_LDA_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_LDA_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetIndXAddressValue(cycles, memory);
-    ExecuteLD(cpu, cpu.A, Data.Value);
+    const BYTE Data = cpu.GetIndXAddressValue(cycles, memory);
+    ExecuteLD(cpu, cpu.A, Data);
 }
 
 void CPU6502_LDA_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetIndYAddressValue(cycles, memory);
-    ExecuteLD(cpu, cpu.A, Data.Value);
+    const BYTE Data = cpu.GetIndYAddressValue(cycles, memory);
+    ExecuteLD(cpu, cpu.A, Data);
 }

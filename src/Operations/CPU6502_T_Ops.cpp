@@ -23,5 +23,5 @@ void CPU6502_TSX_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_TXS_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.X, cpu.SP, cycles, cpu, false);
+    ExecuteT_NoCheck(cpu.X, cpu.SP, cycles, cpu);
 }

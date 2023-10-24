@@ -2,7 +2,7 @@
 #include "CPU6502.h"
 
 inline void ExecuteCL(U32 &cycles, CPU6502 &cpu, const BYTE statusFlag) {
-    cpu.Status.ResetFlag(statusFlag);
+    cpu.Status.SetStatusFlagValue(statusFlag, false);
     CPU6502::DoTick(cycles);
 }
 

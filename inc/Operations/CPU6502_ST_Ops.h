@@ -2,7 +2,7 @@
 #include "CPU6502.h"
 
 inline void CPU6502_ST_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
-    const BYTE TargetAddress = cpu.GetZeroPageAddress(cycles, memory);
+    const BYTE TargetAddress = cpu.FetchByte(cycles, memory);
     CPU6502::WriteByte(cycles, memory, targetRegister, TargetAddress);
 }
 

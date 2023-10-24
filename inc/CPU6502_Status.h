@@ -1,5 +1,4 @@
 #pragma once
-#include <cstring>
 #include "Types.h"
 
 struct CPU6502_Status{
@@ -32,11 +31,11 @@ struct CPU6502_Status{
     }
 
     CPU6502_Status &operator=(const BYTE referenceByte) {
-        memset(this, referenceByte, 1);
+        *(BYTE *) (this) = referenceByte;
         return *this;
     }
 
-    inline void UpdateStatus(const BYTE &targetRegister, BYTE mask) {
+    inline void UpdateStatusByValue(const BYTE &targetRegister, BYTE mask) {
         if (mask & CPU6502_Status_Z)
             Z = (targetRegister == 0);
         if (mask & CPU6502_Status_N)
@@ -47,18 +46,10 @@ struct CPU6502_Status{
         return BYTE(*this) & checkArgs;
     }
 
-    inline void SetStatusFlagValue(BYTE statusFlag, BYTE value) noexcept {
+    inline void SetStatusFlagValue(BYTE statusFlag, bool value) noexcept {
         if (value)
-            SetFlag(statusFlag);
+            *(BYTE *) (this) |= statusFlag;
         else
-            ResetFlag(statusFlag);
-    }
-
-    inline void SetFlag(BYTE mask) noexcept {
-        *(BYTE *) (this) |= mask;
-    }
-
-    inline void ResetFlag(BYTE mask) noexcept {
-        *(BYTE *) (this) &= ~mask;
+            *(BYTE *) (this) &= ~statusFlag;
     }
 };

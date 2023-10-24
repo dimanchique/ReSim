@@ -8,7 +8,7 @@ void CPU6502_PHA_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 
 void CPU6502_PLA_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.A = cpu.PullByteFromStack(cycles, memory);
-    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_PHP_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {

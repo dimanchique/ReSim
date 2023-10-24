@@ -3,28 +3,28 @@
 #include "Memory.h"
 
 void CPU6502_EOR_IM(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetImmediateAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.FetchByte(cycles, memory);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetZeroPageValue(cycles, memory);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(cycles, memory, cpu.X);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetZeroPageValue(cycles, memory, cpu.X);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetAbsValue(cycles, memory);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(cycles, memory, affectingRegister);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetAbsValue(cycles, memory, affectingRegister);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
@@ -36,11 +36,11 @@ void CPU6502_EOR_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_EOR_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetIndXAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetIndXAddressValue(cycles, memory);
+    ExecuteEOR(cpu, Data);
 }
 
 void CPU6502_EOR_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetIndYAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data.Value);
+    const BYTE Data = cpu.GetIndYAddressValue(cycles, memory);
+    ExecuteEOR(cpu, Data);
 }

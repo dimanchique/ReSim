@@ -5,7 +5,7 @@ inline void ExecuteINC(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE memoryVal
     memoryValue++;
     CPU6502::DoTick(cycles);
     CPU6502::WriteByte(cycles, memory, memoryValue, address);
-    cpu.Status.UpdateStatus(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.UpdateStatusByValue(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INC_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);

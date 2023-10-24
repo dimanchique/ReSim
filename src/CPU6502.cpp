@@ -20,6 +20,7 @@ U32 CPU6502::Run(Memory &memory) {
         BYTE Instruction = FetchByte(cyclesPassed, memory);
         cyclesPassed--;             //leaving only instruction cycles here
         FetchSuccess = FetchCommand(cyclesPassed, Instruction, memory, *this);
+
         if (FetchSuccess)
             cyclesPassed++;
     } while (FetchSuccess);

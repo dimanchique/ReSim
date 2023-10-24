@@ -18,9 +18,8 @@ struct Memory {
     }
 
     void Reset() {
-        for (U32 i = 0; i < size; ++i) {
+        for (U32 i = 0; i < size; ++i)
             mem[i] = 0xFF;
-        }
     }
 
 private:

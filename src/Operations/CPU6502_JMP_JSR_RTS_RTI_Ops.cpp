@@ -26,7 +26,7 @@ void CPU6502_RTS_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 void CPU6502_RTI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.PullStatusFromStack(cycles, memory);
     cpu.PC = cpu.PullAddressFromStack(cycles, memory);
-    cpu.Status.ResetFlag(CPU6502_Status_B);
+    cpu.Status.SetStatusFlagValue(CPU6502_Status_B, false);
     cycles--; // temporary fix extra cycle
 }
 
@@ -34,6 +34,6 @@ void CPU6502_BRK_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.PushProgramCounterToStack(cycles, memory);
     cpu.PushStatusToStack(cycles, memory);
     cpu.PC = CPU6502::ReadWord(cycles, memory, 0xFFFE);
-    cpu.Status.SetFlag(CPU6502_Status_B);
+    cpu.Status.SetStatusFlagValue(CPU6502_Status_B, true);
     cycles--; // temporary fix extra cycle
 }
