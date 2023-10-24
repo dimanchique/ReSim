@@ -103,17 +103,13 @@ struct CPU6502 {
         return value;
     }
 
-    inline ValueAddressRequest GetImmediateAddressValue(U32 &cycles, Memory &memory){
-        const BYTE Value = FetchByte(cycles, memory);
-        return {Value, PC};
-    }
-
-    inline BYTE GetZeroPageAddress(U32 &cycles, Memory &memory){
-        return FetchByte(cycles, memory);
+    inline BYTE GetZeroPageValue(U32 &cycles, Memory &memory){
+        const BYTE TargetAddress = FetchByte(cycles, memory);
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
     }
 
     inline ValueAddressRequest GetZeroPageAddressValue(U32 &cycles, Memory &memory){
-        const BYTE TargetAddress = GetZeroPageAddress(cycles, memory);
+        const BYTE TargetAddress = FetchByte(cycles, memory);
         const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
         return {Value, TargetAddress};
     }
@@ -124,6 +120,11 @@ struct CPU6502 {
         return TargetAddress + offsetAddress;
     }
 
+    inline BYTE GetZeroPageValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
+        const BYTE TargetAddress = GetZeroPageAddress(cycles, memory, offsetAddress);
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    }
+
     inline ValueAddressRequest GetZeroPageAddressValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
         const BYTE TargetAddress = GetZeroPageAddress(cycles, memory, offsetAddress);
         const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
@@ -132,6 +133,11 @@ struct CPU6502 {
 
     inline WORD GetAbsAddress(U32 &cycles, Memory &memory){
         return FetchWord(cycles, memory);
+    }
+
+    inline BYTE GetAbsValue(U32 &cycles, Memory &memory){
+        const WORD TargetAddress = GetAbsAddress(cycles, memory);
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
     }
 
     inline ValueAddressRequest GetAbsAddressValue(U32 &cycles, Memory &memory){
@@ -148,6 +154,11 @@ struct CPU6502 {
         return TargetAddress;
     }
 
+    inline BYTE GetAbsValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
+        const WORD TargetAddress = GetAbsAddress(cycles, memory, offsetAddress);
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    }
+
     inline ValueAddressRequest GetAbsAddressValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
         const WORD TargetAddress = GetAbsAddress(cycles, memory, offsetAddress);
         const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
@@ -160,10 +171,9 @@ struct CPU6502 {
         return CPU6502::ReadWord(cycles, memory, TargetAddress);
     }
 
-    inline ValueAddressRequest GetIndXAddressValue(U32 &cycles, Memory &memory){
+    inline BYTE GetIndXAddressValue(U32 &cycles, Memory &memory){
         const WORD TargetAddress = GetIndXAddress(cycles, memory);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
-        return {Value, TargetAddress};
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
     }
 
     inline WORD GetIndYAddress(U32 &cycles, Memory &memory){
@@ -175,10 +185,9 @@ struct CPU6502 {
         return TargetAddress;
     }
 
-    inline ValueAddressRequest GetIndYAddressValue(U32 &cycles, Memory &memory){
+    inline BYTE GetIndYAddressValue(U32 &cycles, Memory &memory){
         const WORD TargetAddress = GetIndYAddress(cycles, memory);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
-        return {Value, TargetAddress};
+        return CPU6502::ReadByte(cycles, memory, TargetAddress);
     }
 
     inline static void DoTick(U32 &cycles, U32 count = 1) noexcept {

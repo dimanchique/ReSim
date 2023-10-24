@@ -4,7 +4,7 @@ class CPU6502_CLFixture : public CPU6502_TestFixture {
 public:
     void CL_CanClearFlag(CPU6502_OpCodes opcode, BYTE statusFlag) {
         // given:
-        cpu.Status.SetFlag(statusFlag);
+        cpu.Status.SetStatusFlagValue(statusFlag, true);
         mem[0xFFFC] = opcode;
 
         cyclesExpected = 2;

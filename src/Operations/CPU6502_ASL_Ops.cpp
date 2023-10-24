@@ -6,7 +6,7 @@ void CPU6502_ASL_ACC(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const bool Carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
     CPU6502::DoTick(cycles);
-    cpu.Status.UpdateStatus(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
     cpu.Status.C = Carry;
 }
 
