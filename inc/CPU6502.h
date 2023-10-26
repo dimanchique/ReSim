@@ -4,6 +4,10 @@
 #include "Memory.h"
 #include "CPU6502_Status.h"
 
+#define PAGE_SIZE 0xFF
+#define DoTick(x) ++x
+#define IsPageCrossed(src, dst) ((src ^ dst) >= PAGE_SIZE)
+
 struct CPU6502 {
 
 //  Registers
@@ -21,7 +25,7 @@ struct CPU6502 {
 
     inline BYTE FetchByte(U32 &cycles, const Memory &memory){
         BYTE Data = memory[PC++];
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return Data;
     }
 
@@ -33,7 +37,7 @@ struct CPU6502 {
 
     inline static BYTE ReadByte(U32 &cycles, const Memory &memory, WORD address){
         BYTE Data = memory[address];
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return Data;
     }
 
@@ -50,9 +54,9 @@ struct CPU6502 {
 
     inline static void WriteWord(U32 &cycles, Memory &memory, WORD value, U32 address){
         memory[address] = value & 0xFF;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         memory[address + 1] = (value >> 8);
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
     }
 
     inline void PushProgramCounterToStack(U32 &cycles, Memory &memory){
@@ -66,27 +70,27 @@ struct CPU6502 {
     inline void PushStatusToStack(U32 &cycles, Memory &memory){
         WriteByte(cycles, memory, Status, StackPointerToAddress());
         SP--;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
     }
 
     inline void PullStatusFromStack(U32 &cycles, Memory &memory){
         SP++;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         Status = ReadByte(cycles, memory, StackPointerToAddress());
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
     }
 
     inline void PushByteToStack(U32 &cycles, Memory &memory, BYTE value){
         WriteByte(cycles, memory, value, StackPointerToAddress());
         SP--;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
     }
 
     inline BYTE PullByteFromStack(U32 &cycles, Memory &memory){
         SP++;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         const BYTE value = ReadByte(cycles, memory, StackPointerToAddress());
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return value;
     }
 
@@ -97,9 +101,9 @@ struct CPU6502 {
 
     inline WORD PullWordFromStack(U32 &cycles, Memory &memory){
         WORD value = ReadWord(cycles, memory, StackPointerToAddress() + 1);
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         SP += 2;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return value;
     }
 
@@ -116,7 +120,7 @@ struct CPU6502 {
 
     inline WORD GetZeroPageAddress(U32 &cycles, Memory &memory, BYTE offsetAddress){
         BYTE TargetAddress = FetchByte(cycles, memory);
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return TargetAddress + offsetAddress;
     }
 
@@ -149,8 +153,8 @@ struct CPU6502 {
     inline WORD GetAbsAddress(U32 &cycles, Memory &memory, BYTE offsetAddress){
         const WORD AbsAddress = FetchWord(cycles, memory);
         const WORD TargetAddress = AbsAddress + offsetAddress;
-        if (CPU6502::IsPageCrossed(TargetAddress, AbsAddress))
-            CPU6502::DoTick(cycles);
+        if (IsPageCrossed(TargetAddress, AbsAddress))
+            DoTick(cycles);
         return TargetAddress;
     }
 
@@ -167,7 +171,7 @@ struct CPU6502 {
 
     inline WORD GetIndXAddress(U32 &cycles, Memory &memory){
         BYTE TargetAddress = FetchByte(cycles, memory) + X;
-        CPU6502::DoTick(cycles);
+        DoTick(cycles);
         return CPU6502::ReadWord(cycles, memory, TargetAddress);
     }
 
@@ -180,8 +184,8 @@ struct CPU6502 {
         BYTE ZeroPageAddress = FetchByte(cycles, memory);
         const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
         const WORD TargetAddress = EffectiveAddress + Y;
-        if (CPU6502::IsPageCrossed(TargetAddress, EffectiveAddress))
-            CPU6502::DoTick(cycles);
+        if (IsPageCrossed(TargetAddress, EffectiveAddress))
+            DoTick(cycles);
         return TargetAddress;
     }
 
@@ -189,15 +193,7 @@ struct CPU6502 {
         const WORD TargetAddress = GetIndYAddress(cycles, memory);
         return CPU6502::ReadByte(cycles, memory, TargetAddress);
     }
-
-    inline static void DoTick(U32 &cycles, U32 count = 1) noexcept {
-        cycles += count;
-    }
-
-    inline static bool IsPageCrossed(WORD src, WORD dest) noexcept {
-        return (src ^ dest) >= PAGE_SIZE;
-    }
-
+    
     [[nodiscard]] inline WORD StackPointerToAddress() const noexcept {
         return 0x100 | SP;
     }

@@ -3,7 +3,7 @@
 
 inline void ExecuteDEC(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE memoryValue, const WORD address) {
     memoryValue--;
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
     CPU6502::WriteByte(cycles, memory, memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
 }
