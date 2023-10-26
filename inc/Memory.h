@@ -9,11 +9,11 @@ struct Memory {
         delete[] mem;
     }
 
-    BYTE operator[](U32 address) const {
+    inline BYTE operator[](U32 address) const {
         return mem[address];
     }
 
-    BYTE &operator[](U32 address) {
+    inline BYTE &operator[](U32 address) {
         return mem[address];
     }
 

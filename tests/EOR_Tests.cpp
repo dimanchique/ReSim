@@ -79,7 +79,7 @@ public:
         mem[0xFFFE] = 0x44;
         mem[0x4402 + affectingRegister] = memoryValue;
 
-        cyclesExpected = CPU6502::IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
+        cyclesExpected = IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
         // when:
         cyclesPassed = cpu.Run(mem);

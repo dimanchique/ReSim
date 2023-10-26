@@ -4,9 +4,9 @@
 inline void ExecuteB(U32 &cycles, Memory &memory, CPU6502 &cpu, const BYTE targetFlag, const bool expectedValue) {
     const SBYTE Offset = cpu.FetchByte(cycles, memory);
     if (targetFlag == expectedValue) {
-        CPU6502::DoTick(cycles);
-        if (CPU6502::IsPageCrossed(cpu.PC, cpu.PC + Offset))
-            CPU6502::DoTick(cycles);
+        DoTick(cycles);
+        if (IsPageCrossed(cpu.PC, cpu.PC + Offset))
+            DoTick(cycles);
         cpu.PC += Offset;
     }
 }

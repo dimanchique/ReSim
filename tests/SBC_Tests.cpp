@@ -218,7 +218,7 @@ TEST_F(CPU6502_SBCFixture, SBC_ABSX_CanSubtractValue) {
     mem[0xFFFE] = 0x44;
     mem[0x4402 + cpu.X] = 0x02;
 
-    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
+    cyclesExpected = IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);
@@ -240,7 +240,7 @@ TEST_F(CPU6502_SBCFixture, SBC_ABSY_CanSubtractValue) {
     mem[0xFFFE] = 0x44;
     mem[0x4402 + cpu.Y] = 0x02;
 
-    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
+    cyclesExpected = IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);

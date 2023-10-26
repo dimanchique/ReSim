@@ -20,17 +20,17 @@ void CPU6502_INC_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 void CPU6502_INC_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetAbsAddressValue(cycles, memory, cpu.X);
     ExecuteINC(cycles, memory, cpu, Data.Value, Data.Address);
-    CPU6502::DoTick(cycles); // extra cycle required
+    DoTick(cycles); // extra cycle required
 }
 
 void CPU6502_INX_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.X++;
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
     cpu.Status.UpdateStatusByValue(cpu.X, CPU6502_Status_Z | CPU6502_Status_N);
 }
 
 void CPU6502_INY_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.Y++;
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
     cpu.Status.UpdateStatusByValue(cpu.Y, CPU6502_Status_Z | CPU6502_Status_N);
 }

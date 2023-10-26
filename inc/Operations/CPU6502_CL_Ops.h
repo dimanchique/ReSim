@@ -3,7 +3,7 @@
 
 inline void ExecuteCL(U32 &cycles, CPU6502 &cpu, const BYTE statusFlag) {
     cpu.Status.SetStatusFlagValue(statusFlag, false);
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
 }
 
 inline void CPU6502_CLC_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {

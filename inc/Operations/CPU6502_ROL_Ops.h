@@ -5,7 +5,7 @@ inline void ExecuteROL(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE memoryVal
     const bool Carry = memoryValue & (1 << 7);
     memoryValue <<= 1;
     memoryValue |= cpu.Status.C;
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
     CPU6502::WriteByte(cycles, memory, memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, CPU6502_Status_Z | CPU6502_Status_N);
     cpu.Status.C = Carry;

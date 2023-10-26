@@ -31,5 +31,5 @@ void CPU6502_STA_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
 void CPU6502_STA_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const WORD TargetAddress = cpu.GetIndYAddress(cycles, memory);
     CPU6502::WriteByte(cycles, memory, cpu.A, TargetAddress);
-    CPU6502::DoTick(cycles); // extra cycle required
+    DoTick(cycles); // extra cycle required
 }

@@ -113,7 +113,7 @@ void CPU6502_LDFixture::LD_ABS_CanLoadValue(CPU6502_OpCodes opcode, BYTE &target
     mem[0xFFFE] = 0x44;
     mem[0x4402 + affectingRegister] = 0x37;
 
-    cyclesExpected = CPU6502::IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
+    cyclesExpected = IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);

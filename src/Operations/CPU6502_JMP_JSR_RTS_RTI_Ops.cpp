@@ -15,12 +15,12 @@ void CPU6502_JSR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     const WORD TargetAddress = cpu.FetchWord(cycles, memory);
     cpu.PushProgramCounterToStack(cycles, memory);
     cpu.PC = TargetAddress;
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
 }
 
 void CPU6502_RTS_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
     cpu.PC = cpu.PullAddressFromStack(cycles, memory);
-    CPU6502::DoTick(cycles);
+    DoTick(cycles);
 }
 
 void CPU6502_RTI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {

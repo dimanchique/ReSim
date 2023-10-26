@@ -31,10 +31,10 @@ TEST_F(CPU6502_CPUFixture, CpuCanExecuteMorecyclesThenRequested) {
 class UtilsTests : public testing::Test {};
 
 TEST_F(UtilsTests, PageCrossingTest) {
-    EXPECT_TRUE(CPU6502::IsPageCrossed(0x4001, 0x3ffe));
-    EXPECT_TRUE(CPU6502::IsPageCrossed(0x4001, 0x4101));
-    EXPECT_FALSE(CPU6502::IsPageCrossed(0x4001, 0x4005));
-    EXPECT_FALSE(CPU6502::IsPageCrossed(0x3333, 0x3335));
+    EXPECT_TRUE(IsPageCrossed(0x4001, 0x3ffe));
+    EXPECT_TRUE(IsPageCrossed(0x4001, 0x4101));
+    EXPECT_FALSE(IsPageCrossed(0x4001, 0x4005));
+    EXPECT_FALSE(IsPageCrossed(0x3333, 0x3335));
 }
 
 TEST_F(UtilsTests, DataConversionTest) {

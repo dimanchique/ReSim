@@ -1,7 +1,5 @@
 #pragma once
 
-#define PAGE_SIZE 0xff
-
 using BYTE = unsigned char;
 using SBYTE = signed char;
 using WORD = unsigned short;
