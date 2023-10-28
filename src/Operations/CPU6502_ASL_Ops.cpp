@@ -11,22 +11,22 @@ void CPU6502_ASL_ACC(Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_ASL_ZP(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory);
-    GenericASL(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.FetchByte(memory);
+    GenericASL(memory, cpu, address);
 }
 
 void CPU6502_ASL_ZPX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory, cpu.X);
-    GenericASL(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericASL(memory, cpu, address);
 }
 
 void CPU6502_ASL_ABS(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory);
-    GenericASL(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.FetchWord(memory);
+    GenericASL(memory, cpu, address);
 }
 
 void CPU6502_ASL_ABSX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory, cpu.X);
-    GenericASL(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericASL(memory, cpu, address);
     cpu.cycles++; // extra cycle required
 }

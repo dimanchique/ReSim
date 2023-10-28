@@ -11,7 +11,9 @@
  * @param memoryValue Memory value to increment
  * @param address Address to write back modified value
  */
-inline void GenericINC(Memory &memory, CPU6502 &cpu, BYTE memoryValue, const WORD address) {
+inline void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
+    BYTE memoryValue = memory[address];
+    cpu.cycles++;
     memoryValue++;
     cpu.cycles++;
     cpu.WriteByte(memory, memoryValue, address);
