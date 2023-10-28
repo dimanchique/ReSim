@@ -10,11 +10,11 @@ inline void ExecuteSBC(CPU6502 &cpu, const BYTE Operand) {
     cpu.Status.SetStatusFlagValue(CPU6502_Status_V, AreSignBitsTheSame && ((cpu.A ^ Operand) & CPU6502_Status_N));
 }
 
-void CPU6502_SBC_IM(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_SBC_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_IM(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_ZP(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_ZPX(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_ABS(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_ABSX(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_ABSY(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_INDX(Memory &memory, CPU6502 &cpu);
+void CPU6502_SBC_INDY(Memory &memory, CPU6502 &cpu);

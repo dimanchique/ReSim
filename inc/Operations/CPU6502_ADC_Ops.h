@@ -10,11 +10,11 @@ inline void ExecuteADC(CPU6502 &cpu, const BYTE value) {
     cpu.Status.SetStatusFlagValue(CPU6502_Status_V, AreSignBitsTheSame && ((cpu.A ^ value) & CPU6502_Status_N));
 }
 
-void CPU6502_ADC_IM(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_ADC_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_IM(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_ZP(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_ZPX(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_ABS(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_ABSX(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_ABSY(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_INDX(Memory &memory, CPU6502 &cpu);
+void CPU6502_ADC_INDY(Memory &memory, CPU6502 &cpu);

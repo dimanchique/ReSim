@@ -4,4 +4,4 @@
 struct CPU6502;
 struct Memory;
 
-bool FetchCommand(U32 &cycles, BYTE opcode, Memory &memory, CPU6502 &cpu);
+bool FetchCommand(BYTE opcode, Memory &memory, CPU6502 &cpu);

@@ -5,7 +5,6 @@
 #include "CPU6502_Status.h"
 
 #define PAGE_SIZE 0xFF
-#define DoTick(x) ++x
 #define IsPageCrossed(src, dst) ((src ^ dst) >= PAGE_SIZE)
 
 struct CPU6502 {
@@ -18,183 +17,181 @@ struct CPU6502 {
     BYTE Y;                 // Y Index
     CPU6502_Status Status;
 
+    U32 cycles;
+
 //  Functions
     void Reset(Memory& memory, WORD ResetVector = 0xFFFC) noexcept;
 
     U32 Run(Memory &memory);
 
-    inline BYTE FetchByte(U32 &cycles, const Memory &memory){
+    inline BYTE FetchByte(const Memory &memory){
         BYTE Data = memory[PC++];
-        DoTick(cycles);
+        cycles++;
         return Data;
     }
 
-    inline WORD FetchWord(U32 &cycles, const Memory &memory){
-        BYTE Lo = ReadByte(cycles, memory, PC++);
-        BYTE Hi = ReadByte(cycles, memory, PC++);
+    inline WORD FetchWord(const Memory &memory){
+        BYTE Lo = ReadByte(memory, PC++);
+        BYTE Hi = ReadByte(memory, PC++);
         return Lo | (Hi << 8);
     }
 
-    inline static BYTE ReadByte(U32 &cycles, const Memory &memory, WORD address){
+    inline BYTE ReadByte(const Memory &memory, WORD address){
         BYTE Data = memory[address];
-        DoTick(cycles);
+        cycles++;
         return Data;
     }
 
-    inline static WORD ReadWord(U32 &cycles, const Memory &memory, WORD address){
-        BYTE Lo = ReadByte(cycles, memory, address);
-        BYTE Hi = ReadByte(cycles, memory, address + 1);
+    inline WORD ReadWord(const Memory &memory, WORD address){
+        BYTE Lo = ReadByte(memory, address);
+        BYTE Hi = ReadByte(memory, address + 1);
         return Lo | (Hi << 8);
     }
 
-    inline static void WriteByte(U32 &cycles, Memory &memory, BYTE value, U32 address){
+    inline void WriteByte(Memory &memory, BYTE value, U32 address){
         memory[address] = value;
         cycles++;
     }
 
-    inline static void WriteWord(U32 &cycles, Memory &memory, WORD value, U32 address){
+    inline  void WriteWord(Memory &memory, WORD value, U32 address){
         memory[address] = value & 0xFF;
-        DoTick(cycles);
+        cycles++;
         memory[address + 1] = (value >> 8);
-        DoTick(cycles);
+        cycles++;
     }
 
-    inline void PushProgramCounterToStack(U32 &cycles, Memory &memory){
-        PushWordToStack(cycles, memory, PC - 1);
+    inline void PushProgramCounterToStack(Memory &memory){
+        PushWordToStack(memory, PC - 1);
     }
 
-    inline WORD PullAddressFromStack(U32 &cycles, Memory &memory){
-        return PullWordFromStack(cycles, memory) + 1;
+    inline WORD PopAddressFromStack(Memory &memory){
+        return PopWordFromStack(memory) + 1;
     }
 
-    inline void PushStatusToStack(U32 &cycles, Memory &memory){
-        WriteByte(cycles, memory, Status, StackPointerToAddress());
+    inline void PushStatusToStack(Memory &memory){
+        WriteByte(memory, Status, StackPointerToAddress());
         SP--;
-        DoTick(cycles);
+        cycles++;
     }
 
-    inline void PullStatusFromStack(U32 &cycles, Memory &memory){
+    inline void PopStatusFromStack(Memory &memory){
         SP++;
-        DoTick(cycles);
-        Status = ReadByte(cycles, memory, StackPointerToAddress());
-        DoTick(cycles);
+        cycles++;
+        Status = ReadByte(memory, StackPointerToAddress());
+        cycles++;
     }
 
-    inline void PushByteToStack(U32 &cycles, Memory &memory, BYTE value){
-        WriteByte(cycles, memory, value, StackPointerToAddress());
+    inline void PushByteToStack(Memory &memory, BYTE value){
+        WriteByte(memory, value, StackPointerToAddress());
         SP--;
-        DoTick(cycles);
+        cycles++;
     }
 
-    inline BYTE PullByteFromStack(U32 &cycles, Memory &memory){
+    inline BYTE PopByteFromStack(Memory &memory){
         SP++;
-        DoTick(cycles);
-        const BYTE value = ReadByte(cycles, memory, StackPointerToAddress());
-        DoTick(cycles);
+        cycles++;
+        const BYTE value = ReadByte(memory, StackPointerToAddress());
+        cycles++;
         return value;
     }
 
-    inline void PushWordToStack(U32 &cycles, Memory &memory, WORD value){
-        WriteWord(cycles, memory, value, StackPointerToAddress() - 1);
+    inline void PushWordToStack(Memory &memory, WORD value){
+        WriteWord(memory, value, StackPointerToAddress() - 1);
         SP -= 2;
     }
 
-    inline WORD PullWordFromStack(U32 &cycles, Memory &memory){
-        WORD value = ReadWord(cycles, memory, StackPointerToAddress() + 1);
-        DoTick(cycles);
+    inline WORD PopWordFromStack(Memory &memory){
+        WORD value = ReadWord(memory, StackPointerToAddress() + 1);
+        cycles++;
         SP += 2;
-        DoTick(cycles);
+        cycles++;
         return value;
     }
 
-    inline BYTE GetZeroPageValue(U32 &cycles, Memory &memory){
-        const BYTE TargetAddress = FetchByte(cycles, memory);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline BYTE GetZeroPageValue(Memory &memory){
+        const BYTE TargetAddress = FetchByte(memory);
+        return ReadByte(memory, TargetAddress);
     }
 
-    inline ValueAddressRequest GetZeroPageAddressValue(U32 &cycles, Memory &memory){
-        const BYTE TargetAddress = FetchByte(cycles, memory);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline ValueAddressRequest GetZeroPageAddressValue(Memory &memory){
+        const BYTE TargetAddress = FetchByte(memory);
+        const BYTE Value = ReadByte(memory, TargetAddress);
         return {Value, TargetAddress};
     }
 
-    inline WORD GetZeroPageAddress(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        BYTE TargetAddress = FetchByte(cycles, memory);
-        DoTick(cycles);
+    inline WORD GetZeroPageAddress(Memory &memory, BYTE offsetAddress){
+        BYTE TargetAddress = FetchByte(memory);
+        cycles++;
         return TargetAddress + offsetAddress;
     }
 
-    inline BYTE GetZeroPageValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        const BYTE TargetAddress = GetZeroPageAddress(cycles, memory, offsetAddress);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline BYTE GetZeroPageValue(Memory &memory, BYTE offsetAddress){
+        const BYTE TargetAddress = GetZeroPageAddress(memory, offsetAddress);
+        return ReadByte(memory, TargetAddress);
     }
 
-    inline ValueAddressRequest GetZeroPageAddressValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        const BYTE TargetAddress = GetZeroPageAddress(cycles, memory, offsetAddress);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline ValueAddressRequest GetZeroPageAddressValue(Memory &memory, BYTE offsetAddress){
+        const BYTE TargetAddress = GetZeroPageAddress(memory, offsetAddress);
+        const BYTE Value = ReadByte(memory, TargetAddress);
         return {Value, TargetAddress};
     }
 
-    inline WORD GetAbsAddress(U32 &cycles, Memory &memory){
-        return FetchWord(cycles, memory);
+    inline BYTE GetAbsValue(Memory &memory){
+        const WORD TargetAddress = FetchWord(memory);
+        return ReadByte(memory, TargetAddress);
     }
 
-    inline BYTE GetAbsValue(U32 &cycles, Memory &memory){
-        const WORD TargetAddress = GetAbsAddress(cycles, memory);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
-    }
-
-    inline ValueAddressRequest GetAbsAddressValue(U32 &cycles, Memory &memory){
-        const WORD TargetAddress = GetAbsAddress(cycles, memory);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline ValueAddressRequest GetAbsAddressValue(Memory &memory){
+        const WORD TargetAddress = FetchWord(memory);
+        const BYTE Value = ReadByte(memory, TargetAddress);
         return {Value, TargetAddress};
     }
 
-    inline WORD GetAbsAddress(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        const WORD AbsAddress = FetchWord(cycles, memory);
+    inline WORD GetAbsAddress(Memory &memory, BYTE offsetAddress){
+        const WORD AbsAddress = FetchWord(memory);
         const WORD TargetAddress = AbsAddress + offsetAddress;
         if (IsPageCrossed(TargetAddress, AbsAddress))
-            DoTick(cycles);
+            cycles++;
         return TargetAddress;
     }
 
-    inline BYTE GetAbsValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        const WORD TargetAddress = GetAbsAddress(cycles, memory, offsetAddress);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline BYTE GetAbsValue(Memory &memory, BYTE offsetAddress){
+        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
+        return ReadByte(memory, TargetAddress);;
     }
 
-    inline ValueAddressRequest GetAbsAddressValue(U32 &cycles, Memory &memory, BYTE offsetAddress){
-        const WORD TargetAddress = GetAbsAddress(cycles, memory, offsetAddress);
-        const BYTE Value = CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline ValueAddressRequest GetAbsAddressValue(Memory &memory, BYTE offsetAddress){
+        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
+        const BYTE Value = ReadByte(memory, TargetAddress);
         return {Value, TargetAddress};
     }
 
-    inline WORD GetIndXAddress(U32 &cycles, Memory &memory){
-        BYTE TargetAddress = FetchByte(cycles, memory) + X;
-        DoTick(cycles);
-        return CPU6502::ReadWord(cycles, memory, TargetAddress);
+    inline WORD GetIndXAddress(Memory &memory){
+        BYTE TargetAddress = FetchByte(memory) + X;
+        cycles++;
+        return ReadWord(memory, TargetAddress);
     }
 
-    inline BYTE GetIndXAddressValue(U32 &cycles, Memory &memory){
-        const WORD TargetAddress = GetIndXAddress(cycles, memory);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline BYTE GetIndXAddressValue(Memory &memory){
+        const WORD TargetAddress = GetIndXAddress(memory);
+        return ReadByte(memory, TargetAddress);
     }
 
-    inline WORD GetIndYAddress(U32 &cycles, Memory &memory){
-        BYTE ZeroPageAddress = FetchByte(cycles, memory);
-        const WORD EffectiveAddress = CPU6502::ReadWord(cycles, memory, ZeroPageAddress);
+    inline WORD GetIndYAddress(Memory &memory){
+        BYTE ZeroPageAddress = FetchByte(memory);
+        const WORD EffectiveAddress = ReadWord(memory, ZeroPageAddress);
         const WORD TargetAddress = EffectiveAddress + Y;
         if (IsPageCrossed(TargetAddress, EffectiveAddress))
-            DoTick(cycles);
+            cycles++;
         return TargetAddress;
     }
 
-    inline BYTE GetIndYAddressValue(U32 &cycles, Memory &memory){
-        const WORD TargetAddress = GetIndYAddress(cycles, memory);
-        return CPU6502::ReadByte(cycles, memory, TargetAddress);
+    inline BYTE GetIndYAddressValue(Memory &memory){
+        const WORD TargetAddress = GetIndYAddress(memory);
+        return ReadByte(memory, TargetAddress);;
     }
     
     [[nodiscard]] inline WORD StackPointerToAddress() const noexcept {
-        return 0x100 | SP;
+        return 0x100 + SP;
     }
 };

@@ -7,27 +7,27 @@ inline void ExecuteCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memor
     cpu.Status.SetStatusFlagValue(CPU6502_Status_C, targetRegister >= memoryValue);
 }
 
-inline void CPU6502_CM_IM(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.FetchByte(cycles, memory);
+inline void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+    const BYTE Data = cpu.FetchByte(memory);
     ExecuteCM(cpu, targetRegister, Data);
 }
 
-inline void CPU6502_CM_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.GetZeroPageValue(cycles, memory);
+inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+    const BYTE Data = cpu.GetZeroPageValue(memory);
     ExecuteCM(cpu, targetRegister, Data);
 }
 
-inline void CPU6502_CM_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetZeroPageValue(cycles, memory, affectingRegister);
+inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
+    const BYTE Data = cpu.GetZeroPageValue(memory, affectingRegister);
     ExecuteCM(cpu, targetRegister, Data);
 }
 
-inline void CPU6502_CM_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.GetAbsValue(cycles, memory);
+inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+    const BYTE Data = cpu.GetAbsValue(memory);
     ExecuteCM(cpu, targetRegister, Data);
 }
 
-inline void CPU6502_CM_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetAbsValue(cycles, memory, affectingRegister);
+inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
+    const BYTE Data = cpu.GetAbsValue(memory, affectingRegister);
     ExecuteCM(cpu, targetRegister, Data);
 }

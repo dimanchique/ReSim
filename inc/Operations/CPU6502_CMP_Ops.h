@@ -4,11 +4,11 @@
 struct CPU6502;
 struct Memory;
 
-void CPU6502_CMP_IM(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_CMP_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_IM(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_ZP(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_ZPX(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_ABS(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_ABSX(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_ABSY(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_INDX(Memory &memory, CPU6502 &cpu);
+void CPU6502_CMP_INDY(Memory &memory, CPU6502 &cpu);

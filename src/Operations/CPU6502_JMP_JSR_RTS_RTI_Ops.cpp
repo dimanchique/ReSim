@@ -2,38 +2,38 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_JMP_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    cpu.PC = cpu.FetchWord(cycles, memory);
+void CPU6502_JMP_ABS(Memory &memory, CPU6502 &cpu) {
+    cpu.PC = cpu.FetchWord(memory);
 }
 
-void CPU6502_JMP_IND(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const WORD TargetAddress = cpu.FetchWord(cycles, memory);
-    cpu.PC = CPU6502::ReadWord(cycles, memory, TargetAddress);
+void CPU6502_JMP_IND(Memory &memory, CPU6502 &cpu) {
+    const WORD TargetAddress = cpu.FetchWord(memory);
+    cpu.PC = cpu.ReadWord(memory, TargetAddress);
 }
 
-void CPU6502_JSR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const WORD TargetAddress = cpu.FetchWord(cycles, memory);
-    cpu.PushProgramCounterToStack(cycles, memory);
+void CPU6502_JSR_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD TargetAddress = cpu.FetchWord(memory);
+    cpu.PushProgramCounterToStack(memory);
     cpu.PC = TargetAddress;
-    DoTick(cycles);
+    cpu.cycles++;
 }
 
-void CPU6502_RTS_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    cpu.PC = cpu.PullAddressFromStack(cycles, memory);
-    DoTick(cycles);
+void CPU6502_RTS_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PC = cpu.PopAddressFromStack(memory);
+    cpu.cycles++;
 }
 
-void CPU6502_RTI_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    cpu.PullStatusFromStack(cycles, memory);
-    cpu.PC = cpu.PullAddressFromStack(cycles, memory);
+void CPU6502_RTI_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PopStatusFromStack(memory);
+    cpu.PC = cpu.PopAddressFromStack(memory);
     cpu.Status.SetStatusFlagValue(CPU6502_Status_B, false);
-    cycles--; // temporary fix extra cycle
+    cpu.cycles--; // temporary fix extra cycle
 }
 
-void CPU6502_BRK_IMPL(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    cpu.PushProgramCounterToStack(cycles, memory);
-    cpu.PushStatusToStack(cycles, memory);
-    cpu.PC = CPU6502::ReadWord(cycles, memory, 0xFFFE);
+void CPU6502_BRK_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PushProgramCounterToStack(memory);
+    cpu.PushStatusToStack(memory);
+    cpu.PC = cpu.ReadWord(memory, 0xFFFE);
     cpu.Status.SetStatusFlagValue(CPU6502_Status_B, true);
-    cycles--; // temporary fix extra cycle
+    cpu.cycles--; // temporary fix extra cycle
 }

@@ -26,10 +26,6 @@ struct CPU6502_Status{
         return *(BYTE *) (this);
     }
 
-    void Reset() noexcept {
-        *this = 0;
-    }
-
     CPU6502_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
         return *this;

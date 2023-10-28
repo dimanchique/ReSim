@@ -8,5 +8,5 @@ inline void ExecuteBIT(CPU6502 &cpu, const BYTE mask) {
     cpu.Status.N = (mask >> 7) & 1;
 }
 
-void CPU6502_BIT_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu);
-void CPU6502_BIT_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu);
+void CPU6502_BIT_ZP(Memory &memory, CPU6502 &cpu);
+void CPU6502_BIT_ABS(Memory &memory, CPU6502 &cpu);
