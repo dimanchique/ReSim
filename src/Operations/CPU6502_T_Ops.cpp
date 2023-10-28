@@ -3,25 +3,26 @@
 #include "Memory.h"
 
 void CPU6502_TAX_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.A, cpu.X, cpu);
+    GenericT(cpu.A, cpu.X, cpu);
 }
 
 void CPU6502_TXA_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.X, cpu.A, cpu);
+    GenericT(cpu.X, cpu.A, cpu);
 }
 
 void CPU6502_TAY_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.A, cpu.Y, cpu);
+    GenericT(cpu.A, cpu.Y, cpu);
 }
 
 void CPU6502_TYA_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.Y, cpu.A, cpu);
+    GenericT(cpu.Y, cpu.A, cpu);
 }
 
 void CPU6502_TSX_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT(cpu.SP, cpu.X, cpu);
+    GenericT(cpu.SP, cpu.X, cpu);
 }
 
 void CPU6502_TXS_IMPL(Memory &memory, CPU6502 &cpu) {
-    ExecuteT_NoCheck(cpu.X, cpu.SP, cpu);
+    cpu.SP = cpu.X;
+    cpu.cycles++;
 }

@@ -1,7 +1,16 @@
 #pragma once
 #include "CPU6502.h"
 
-inline void ExecuteADC(CPU6502 &cpu, const BYTE value) {
+/**
+ * @instruction Add with Carry (generic)
+ * @description
+ * This instruction adds the contents of a memory location to the accumulator together with the carry bit.
+ * If overflow occurs the carry bit is set, this enables multiple byte addition to be performed.
+ * @short A,Z,C,N = A+M+C
+ * @param cpu CPU6502 struct instance
+ * @param value Value to add
+ */
+inline void GenericADC(CPU6502 &cpu, const BYTE value) {
     const bool AreSignBitsTheSame = !((cpu.A ^ value) & CPU6502_Status_N);
     const WORD Sum = cpu.A + value + cpu.Status.C;
     cpu.A = Sum;
@@ -10,11 +19,66 @@ inline void ExecuteADC(CPU6502 &cpu, const BYTE value) {
     cpu.Status.SetStatusFlagValue(CPU6502_Status_V, AreSignBitsTheSame && ((cpu.A ^ value) & CPU6502_Status_N));
 }
 
+/**
+ * @instruction Add with Carry
+ * @addressing Immediate
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_IM(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing Zero Page
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_ZP(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing Zero Page,X
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_ZPX(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing Absolute
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_ABS(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing Absolute,X
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_ABSX(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing Absolute,Y
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_ABSY(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing (Indirect,X)
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_INDX(Memory &memory, CPU6502 &cpu);
+
+/**
+ * @instruction Add with Carry
+ * @addressing (Indirect),Y
+ * @param memory Memory struct instance
+ * @param cpu CPU6502 struct instance
+ */
 void CPU6502_ADC_INDY(Memory &memory, CPU6502 &cpu);

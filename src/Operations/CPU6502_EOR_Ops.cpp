@@ -3,28 +3,28 @@
 #include "Memory.h"
 
 void CPU6502_EOR_IM(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.FetchByte(memory);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.FetchByte(memory);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_ZP(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(memory);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetZeroPageValue(memory);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_ZPX(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(memory, cpu.X);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetAbsValue(memory);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetAbsValue(memory);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetAbsValue(memory, affectingRegister);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetAbsValue(memory, affectingRegister);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_ABSX(Memory &memory, CPU6502 &cpu) {
@@ -36,11 +36,11 @@ void CPU6502_EOR_ABSY(Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_EOR_INDX(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndXAddressValue(memory);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetIndXAddressValue(memory);
+    GenericEOR(cpu, value);
 }
 
 void CPU6502_EOR_INDY(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndYAddressValue(memory);
-    ExecuteEOR(cpu, Data);
+    const BYTE value = cpu.GetIndYAddressValue(memory);
+    GenericEOR(cpu, value);
 }

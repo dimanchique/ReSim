@@ -29,10 +29,10 @@ void CPU6502_LDA_ABSY(Memory &memory, CPU6502 &cpu) {
 
 void CPU6502_LDA_INDX(Memory &memory, CPU6502 &cpu) {
     const BYTE Data = cpu.GetIndXAddressValue(memory);
-    ExecuteLD(cpu, cpu.A, Data);
+    GenericLD(cpu, cpu.A, Data);
 }
 
 void CPU6502_LDA_INDY(Memory &memory, CPU6502 &cpu) {
     const BYTE Data = cpu.GetIndYAddressValue(memory);
-    ExecuteLD(cpu, cpu.A, Data);
+    GenericLD(cpu, cpu.A, Data);
 }

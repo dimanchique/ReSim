@@ -3,28 +3,28 @@
 #include "Memory.h"
 
 void CPU6502_ORA_IM(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.FetchByte(memory);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.FetchByte(memory);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_ZP(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(memory);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetZeroPageValue(memory);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_ZPX(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(memory, cpu.X);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_ABS(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetAbsValue(memory);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetAbsValue(memory);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_ABS(Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetAbsValue(memory, affectingRegister);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetAbsValue(memory, affectingRegister);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_ABSX(Memory &memory, CPU6502 &cpu) {
@@ -36,11 +36,11 @@ void CPU6502_ORA_ABSY(Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_ORA_INDX(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndXAddressValue(memory);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetIndXAddressValue(memory);
+    GenericORA(cpu, value);
 }
 
 void CPU6502_ORA_INDY(Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndYAddressValue(memory);
-    ExecuteORA(cpu, Data);
+    const BYTE value = cpu.GetIndYAddressValue(memory);
+    GenericORA(cpu, value);
 }

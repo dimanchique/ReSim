@@ -12,21 +12,21 @@ void CPU6502_LSR_ACC(Memory &memory, CPU6502 &cpu) {
 
 void CPU6502_LSR_ZP(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory);
-    ExecuteLSR(memory, cpu, Data.Value, Data.Address);
+    GenericLSR(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_LSR_ZPX(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory, cpu.X);
-    ExecuteLSR(memory, cpu, Data.Value, Data.Address);
+    GenericLSR(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_LSR_ABS(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory);
-    ExecuteLSR(memory, cpu, Data.Value, Data.Address);
+    GenericLSR(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_LSR_ABSX(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory, cpu.X);
-    ExecuteLSR(memory, cpu, Data.Value, Data.Address);
+    GenericLSR(memory, cpu, Data.Value, Data.Address);
     cpu.cycles++; // extra cycle required
 }

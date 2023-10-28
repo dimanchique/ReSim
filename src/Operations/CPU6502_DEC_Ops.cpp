@@ -4,22 +4,22 @@
 
 void CPU6502_DEC_ZP(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory);
-    ExecuteDEC(memory, cpu, Data.Value, Data.Address);
+    GenericDEC(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_DEC_ZPX(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory, cpu.X);
-    ExecuteDEC(memory, cpu, Data.Value, Data.Address);
+    GenericDEC(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_DEC_ABS(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory);
-    ExecuteDEC(memory, cpu, Data.Value, Data.Address);
+    GenericDEC(memory, cpu, Data.Value, Data.Address);
 }
 
 void CPU6502_DEC_ABSX(Memory &memory, CPU6502 &cpu) {
     const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory, cpu.X);
-    ExecuteDEC(memory, cpu, Data.Value, Data.Address);
+    GenericDEC(memory, cpu, Data.Value, Data.Address);
     cpu.cycles++; // extra cycle required
 }
 

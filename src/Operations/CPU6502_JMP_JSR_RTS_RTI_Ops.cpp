@@ -23,17 +23,17 @@ void CPU6502_RTS_IMPL(Memory &memory, CPU6502 &cpu) {
     cpu.cycles++;
 }
 
-void CPU6502_RTI_IMPL(Memory &memory, CPU6502 &cpu) {
-    cpu.PopStatusFromStack(memory);
-    cpu.PC = cpu.PopAddressFromStack(memory);
-    cpu.Status.SetStatusFlagValue(CPU6502_Status_B, false);
-    cpu.cycles--; // temporary fix extra cycle
-}
-
 void CPU6502_BRK_IMPL(Memory &memory, CPU6502 &cpu) {
     cpu.PushProgramCounterToStack(memory);
     cpu.PushStatusToStack(memory);
     cpu.PC = cpu.ReadWord(memory, 0xFFFE);
     cpu.Status.SetStatusFlagValue(CPU6502_Status_B, true);
+    cpu.cycles--; // temporary fix extra cycle
+}
+
+void CPU6502_RTI_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PopStatusFromStack(memory);
+    cpu.PC = cpu.PopAddressFromStack(memory);
+    cpu.Status.SetStatusFlagValue(CPU6502_Status_B, false);
     cpu.cycles--; // temporary fix extra cycle
 }
