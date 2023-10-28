@@ -2,30 +2,31 @@
 #include "Memory.h"
 #include "CPU6502_OpHelpers.h"
 
-void CPU6502::Reset(Memory &memory, WORD ResetVector) noexcept {
-    PC = ResetVector;
-    SP = 0xFF;                                          // with 0x0100 offset
+void CPU6502::Reset(Memory &memory, WORD resetVector) noexcept {
+    PC = resetVector;
+    SP = 0xFF;
 
     Status = 0;
     A = X = Y = 0;
+    cycles = 0;
 
     memory.Reset();
 }
 
 U32 CPU6502::Run(Memory &memory) {
-    U32 cyclesPassed = 0;
+    bool DecodeSuccess;
+    BYTE Instruction;
 
-    bool FetchSuccess;
     do {
-        BYTE Instruction = FetchByte(cyclesPassed, memory);
-        cyclesPassed--;             //leaving only instruction cycles here
-        FetchSuccess = FetchCommand(cyclesPassed, Instruction, memory, *this);
+        Instruction = FetchByte(memory);
+        cycles--;           //leaving only instruction cycles here
+        DecodeSuccess = DecodeCommand(Instruction, memory, *this);
 
-        if (FetchSuccess)
-            cyclesPassed++;
-    } while (FetchSuccess);
+        if (DecodeSuccess)
+            cycles++;
 
-    PC--;                           //revert extra PC increment for last instruction fetching
+    } while (DecodeSuccess);
 
-    return cyclesPassed;
+    PC--;                   //revert extra PC increment for last instruction fetching
+    return cycles;
 }

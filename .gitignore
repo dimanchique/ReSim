@@ -1,4 +1,2 @@
-/cmake-build-release/
-/cmake-build-debug/
-/cmake-build-debug-coverage/
+/cmake-build*
 /build

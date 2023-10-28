@@ -27,13 +27,12 @@
 #include "Operations/CPU6502_CPY_Ops.h"
 #include "Operations/CPU6502_ADC_Ops.h"
 #include "Operations/CPU6502_SBC_Ops.h"
-#include <CPU6502.h>
-#include <Memory.h>
 
-static void CPU6502_FAKE_NOP(U32 &cycles, Memory &memory, CPU6502 &cpu) {}
+static void CPU6502_FAKE_NOP(Memory &memory, CPU6502 &cpu) {}
 
-using OpSignature = void (*)(U32 &, Memory &, CPU6502 &);
+using OpSignature = void (*)(Memory &, CPU6502 &);
 
+/** @brief Instructions table used in DecodeCommand function */
 const static OpSignature Ops[] =
         {
 #ifndef ADD_CALL
@@ -43,10 +42,10 @@ const static OpSignature Ops[] =
 #endif
         };
 
-bool FetchCommand(U32& cycles, const BYTE opcode, Memory &memory, CPU6502 &cpu) {
+bool DecodeCommand(const BYTE opcode, Memory &memory, CPU6502 &cpu) {
     if(opcode == 0xFF)
         return false;
     const auto &Instruction = Ops[opcode];
-    Instruction(cycles, memory, cpu);
+    Instruction(memory, cpu);
     return Instruction != CPU6502_FAKE_NOP;
 }

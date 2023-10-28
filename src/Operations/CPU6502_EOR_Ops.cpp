@@ -2,45 +2,45 @@
 #include "CPU6502.h"
 #include "Memory.h"
 
-void CPU6502_EOR_IM(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.FetchByte(cycles, memory);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_IM(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.FetchByte(memory);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_ZP(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(cycles, memory);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetZeroPageValue(memory);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_ZPX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetZeroPageValue(cycles, memory, cpu.X);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetAbsValue(cycles, memory);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetAbsValue(memory);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_ABS(U32 &cycles, Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetAbsValue(cycles, memory, affectingRegister);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
+    const BYTE value = cpu.GetAbsValue(memory, affectingRegister);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_ABSX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_EOR_ABS(cycles, memory, cpu, cpu.X);
+void CPU6502_EOR_ABSX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_EOR_ABS(memory, cpu, cpu.X);
 }
 
-void CPU6502_EOR_ABSY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    CPU6502_EOR_ABS(cycles, memory, cpu, cpu.Y);
+void CPU6502_EOR_ABSY(Memory &memory, CPU6502 &cpu) {
+    CPU6502_EOR_ABS(memory, cpu, cpu.Y);
 }
 
-void CPU6502_EOR_INDX(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndXAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_INDX(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetIndXAddressValue(memory);
+    GenericEOR(cpu, value);
 }
 
-void CPU6502_EOR_INDY(U32 &cycles, Memory &memory, CPU6502 &cpu) {
-    const BYTE Data = cpu.GetIndYAddressValue(cycles, memory);
-    ExecuteEOR(cpu, Data);
+void CPU6502_EOR_INDY(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetIndYAddressValue(memory);
+    GenericEOR(cpu, value);
 }

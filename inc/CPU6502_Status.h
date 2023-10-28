@@ -3,7 +3,6 @@
 
 struct CPU6502_Status{
 
-//  Processor Status
     BYTE C  :1;             // Carry Flag
     BYTE Z  :1;             // Zero Flag
     BYTE I  :1;             // Interrupt Disable
@@ -13,7 +12,6 @@ struct CPU6502_Status{
     BYTE V  :1;             // Overflow Flag
     BYTE N  :1;             // Negative Flag
 
-//  Status Register Mask
 #define CPU6502_Status_C    (1 << 0)
 #define CPU6502_Status_Z    (1 << 1)
 #define CPU6502_Status_I    (1 << 2)
@@ -24,10 +22,6 @@ struct CPU6502_Status{
 
     operator BYTE() const noexcept {
         return *(BYTE *) (this);
-    }
-
-    void Reset() noexcept {
-        *this = 0;
     }
 
     CPU6502_Status &operator=(const BYTE referenceByte) {
