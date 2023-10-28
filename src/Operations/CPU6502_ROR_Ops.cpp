@@ -12,22 +12,22 @@ void CPU6502_ROR_ACC(Memory &memory, CPU6502 &cpu) {
 }
 
 void CPU6502_ROR_ZP(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory);
-    GenericROR(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.FetchByte(memory);
+    GenericROR(memory, cpu, address);
 }
 
 void CPU6502_ROR_ZPX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory, cpu.X);
-    GenericROR(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericROR(memory, cpu, address);
 }
 
 void CPU6502_ROR_ABS(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory);
-    GenericROR(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.FetchWord(memory);
+    GenericROR(memory, cpu, address);
 }
 
 void CPU6502_ROR_ABSX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory, cpu.X);
-    GenericROR(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericROR(memory, cpu, address);
     cpu.cycles++; // extra cycle required
 }

@@ -3,23 +3,23 @@
 #include "Memory.h"
 
 void CPU6502_INC_ZP(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory);
-    GenericINC(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.FetchByte(memory);
+    GenericINC(memory, cpu, address);
 }
 
 void CPU6502_INC_ZPX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetZeroPageAddressValue(memory, cpu.X);
-    GenericINC(memory, cpu, Data.Value, Data.Address);
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericINC(memory, cpu, address);
 }
 
 void CPU6502_INC_ABS(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory);
-    GenericINC(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.FetchWord(memory);
+    GenericINC(memory, cpu, address);
 }
 
 void CPU6502_INC_ABSX(Memory &memory, CPU6502 &cpu) {
-    const ValueAddressRequest Data = cpu.GetAbsAddressValue(memory, cpu.X);
-    GenericINC(memory, cpu, Data.Value, Data.Address);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericINC(memory, cpu, address);
     cpu.cycles++; // extra cycle required
 }
 

@@ -216,20 +216,6 @@ struct CPU6502 {
     }
 
     /**
-     * @description Get address and value using ZeroPage addressing mode.
-     * @note Call FetchByte
-     * @note Call ReadByte using fetched byte as ZeroPage address
-     * @attention Increments cycles count (x2). Increments PC.
-     * @param memory Memory struct instance
-     * @return {Value, TargetAddress}
-     */
-    inline ValueAddressRequest GetZeroPageAddressValue(Memory &memory) {
-        const BYTE TargetAddress = FetchByte(memory);
-        const BYTE Value = ReadByte(memory, TargetAddress);
-        return {Value, TargetAddress};
-    }
-
-    /**
      * @description Get generic ZeroPage address.
      * @note Call FetchByte
      * @note Add offset to fetched byte to get generic ZeroPage address
@@ -263,23 +249,6 @@ struct CPU6502 {
     }
 
     /**
-     * @description Get generic ZeroPage address and value.
-     * @note Call FetchByte
-     * @note Add offset to fetched byte to get generic ZeroPage address
-     * @note Call ReadByte using generic ZeroPage address
-     * @attention Increments cycles count. Increments PC.
-     * @addressing Zero Page,X; Zero Page,Y.
-     * @param memory Memory struct instance
-     * @param offsetAddress Offset memory address value
-     * @return {Value, TargetAddress}
-     */
-    inline ValueAddressRequest GetZeroPageAddressValue(Memory &memory, BYTE offsetAddress) {
-        const BYTE TargetAddress = GetZeroPageAddress(memory, offsetAddress);
-        const BYTE Value = ReadByte(memory, TargetAddress);
-        return {Value, TargetAddress};
-    }
-
-    /**
      * @description Get value using Absolute addressing mode.
      * @note Call FetchWord
      * @note Call ReadByte using fetched word address
@@ -290,20 +259,6 @@ struct CPU6502 {
     inline BYTE GetAbsValue(Memory &memory) {
         const WORD TargetAddress = FetchWord(memory);
         return ReadByte(memory, TargetAddress);
-    }
-
-    /**
-     * @description Get address and value using Absolute addressing mode.
-     * @note Call FetchWord
-     * @note Call ReadByte using fetched word address
-     * @attention Increments cycles count (x3). Increments PC (x2).
-     * @param memory Memory struct instance
-     * @return {Value, TargetAddress}
-     */
-    inline ValueAddressRequest GetAbsAddressValue(Memory &memory) {
-        const WORD TargetAddress = FetchWord(memory);
-        const BYTE Value = ReadByte(memory, TargetAddress);
-        return {Value, TargetAddress};
     }
 
     /**
@@ -340,24 +295,6 @@ struct CPU6502 {
     inline BYTE GetAbsValue(Memory &memory, BYTE offsetAddress) {
         const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
         return ReadByte(memory, TargetAddress);
-    }
-
-    /**
-     * @description Get generic Absolute address and value.
-     * @note Call FetchWord
-     * @note Add offset to fetched word to get generic Absolute address
-     * @note Call ReadByte using generic Absolute address
-     * @attention Increments cycles count (x3). Increments PC (x2).
-     * @attention Extra cycles count increment if page cross detected.
-     * @addressing Absolute,X; Absolute,Y.
-     * @param memory Memory struct instance
-     * @param offsetAddress Offset memory address value
-     * @return {Value, TargetAddress}
-     */
-    inline ValueAddressRequest GetAbsAddressValue(Memory &memory, BYTE offsetAddress) {
-        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
-        const BYTE Value = ReadByte(memory, TargetAddress);
-        return {Value, TargetAddress};
     }
 
     /**

@@ -11,7 +11,9 @@
  * @param memoryValue Value to rotate
  * @param address Address to write back shifted value
  */
-inline void GenericROR(Memory &memory, CPU6502 &cpu, BYTE memoryValue, const WORD address) {
+inline void GenericROR(Memory &memory, CPU6502 &cpu, const WORD address) {
+    BYTE memoryValue = memory[address];
+    cpu.cycles++;
     const bool Carry = memoryValue & 1;
     memoryValue >>= 1;
     memoryValue |= cpu.Status.C << 7;
