@@ -63,7 +63,7 @@ struct CPU6502 {
     }
 
     /**
-     * @description Fetch word from memory.
+     * @brief Fetch word from memory.
      * @attention Increments PC by 2. Increments cycles count by 2.
      * @param memory Memory struct instance.
      * @return Fetched word.
@@ -75,7 +75,7 @@ struct CPU6502 {
     }
 
     /**
-     * @description Read byte from memory.
+     * @brief Read byte from memory.
      * @attention Increments cycles count.
      * @param memory Memory struct instance.
      * @param address Address to read from.
@@ -112,7 +112,7 @@ struct CPU6502 {
     }
 
     /**
-     * @description Write word to memory.
+     * @brief Write word to memory.
      * @attention Increments cycles count by 2.
      * @param memory Memory struct instance.
      * @param value Value to write.

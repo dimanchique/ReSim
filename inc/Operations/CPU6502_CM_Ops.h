@@ -3,11 +3,11 @@
 
 /**
  * @instruction Compare (generic)
- * @description
- * This instruction compares the contents of the targetRegister with memoryValue and sets the zero and carry flags as appropriate.
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
- * @param memoryValue Memory value to compare
+ * @details This instruction compares the contents of the targetRegister with memoryValue
+ * and sets the zero and carry flags as appropriate.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
+ * @param memoryValue Memory value to compare.
  */
 inline void GenericCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memoryValue) {
     const BYTE comparedValue = targetRegister - memoryValue;
@@ -16,11 +16,10 @@ inline void GenericCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memor
 }
 
 /**
- * @instruction Compare (generic)
- * @addressing Immediate
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
+ * @instruction Compare (generic) – Immediate
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
  */
 inline void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.FetchByte(memory);
@@ -28,11 +27,10 @@ inline void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Compare (generic)
- * @addressing Zero Page
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
+ * @instruction Compare (generic) – Zero Page
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
  */
 inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetZeroPageValue(memory);
@@ -40,11 +38,10 @@ inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Compare (generic)
- * @addressing Zero Page,X
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
+ * @instruction Compare (generic) – Zero Page,X
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
  */
 inline void CPU6502_CM_ZPX(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
@@ -52,11 +49,10 @@ inline void CPU6502_CM_ZPX(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Compare (generic)
- * @addressing Absolute
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
+ * @instruction Compare (generic) – Absolute
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
  */
 inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetAbsValue(memory);
@@ -64,12 +60,11 @@ inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Compare (generic)
- * @addressing Absolute (generic)
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to compare
- * @param affectingRegister Address offset register
+ * @instruction Compare (generic) – Absolute (generic)
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to compare.
+ * @param affectingRegister Address offset register.
  */
 inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
     const BYTE value = cpu.GetAbsValue(memory, affectingRegister);

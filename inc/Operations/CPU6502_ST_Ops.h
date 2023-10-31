@@ -2,13 +2,11 @@
 #include "CPU6502.h"
 
 /**
- * @instruction Store (generic)
- * @description
- * Stores the contents of the targetRegister into memory.
- * @addressing Zero Page
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to store
+ * @instruction Store (generic) – Zero Page
+ * @details Stores the contents of the targetRegister into memory.
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to store.
  */
 inline void CPU6502_ST_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE TargetAddress = cpu.FetchByte(memory);
@@ -16,14 +14,12 @@ inline void CPU6502_ST_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Store (generic)
- * @description
- * Stores the contents of the targetRegister into memory.
- * @addressing Zero Page (generic)
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to store
- * @param affectingRegister Address offset register
+ * @instruction Store (generic) – Zero Page (generic)
+ * @details Stores the contents of the targetRegister into memory.
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to store.
+ * @param affectingRegister Address offset register.
  */
 inline void CPU6502_ST_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
     const BYTE TargetAddress = cpu.GetZeroPageAddress(memory, affectingRegister);
@@ -31,13 +27,11 @@ inline void CPU6502_ST_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BY
 }
 
 /**
- * @instruction Store (generic)
- * @description
- * Stores the contents of the targetRegister into memory.
- * @addressing Absolute
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to store
+ * @instruction Store (generic) – Absolute
+ * @details Stores the contents of the targetRegister into memory.
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to store.
  */
 inline void CPU6502_ST_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const WORD TargetAddress = cpu.FetchWord(memory);
@@ -45,14 +39,12 @@ inline void CPU6502_ST_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
 }
 
 /**
- * @instruction Store (generic)
- * @description
- * Stores the contents of the targetRegister into memory.
- * @addressing Absolute (generic)
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param targetRegister Register to store
- * @param affectingRegister Address offset register
+ * @instruction Store (generic) – Absolute (generic)
+ * @details Stores the contents of the targetRegister into memory.
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param targetRegister Register to store.
+ * @param affectingRegister Address offset register.
  */
 inline void CPU6502_ST_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
     const WORD TargetAddress = cpu.GetAbsAddress(memory, affectingRegister);
