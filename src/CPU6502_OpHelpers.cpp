@@ -32,7 +32,7 @@ static void CPU6502_FAKE_NOP(Memory &memory, CPU6502 &cpu) {}
 
 using OpSignature = void (*)(Memory &, CPU6502 &);
 
-/** @brief Instructions table used in DecodeCommand function */
+/** Instructions table */
 const static OpSignature Ops[] =
         {
 #ifndef ADD_CALL

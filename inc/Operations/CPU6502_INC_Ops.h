@@ -3,13 +3,12 @@
 
 /**
  * @instruction Increment Memory (generic)
- * @description
- * Adds one to the value held at a specified memory location setting the zero and negative flags as appropriate.
+ * @details Adds one to the value held at a specified memory location setting the zero and negative flags as appropriate.
  * @short M,Z,N = M+1
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
- * @param memoryValue Memory value to increment
- * @param address Address to write back modified value
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param memoryValue Memory value to increment.
+ * @param address Address to write back modified value.
  */
 inline void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
@@ -21,51 +20,45 @@ inline void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
 }
 
 /**
- * @instruction Increment Memory
- * @addressing Zero Page
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @instruction Increment Memory – Zero Page
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INC_ZP(Memory &memory, CPU6502 &cpu);
 
 /**
- * @instruction Increment Memory
- * @addressing Zero Page,X
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @instruction Increment Memory – Zero Page,X
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INC_ZPX(Memory &memory, CPU6502 &cpu);
 
 /**
- * @instruction Increment Memory
- * @addressing Absolute
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @instruction Increment Memory – Absolute
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INC_ABS(Memory &memory, CPU6502 &cpu);
 
 /**
- * @instruction Increment Memory
- * @addressing Absolute,X
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @instruction Increment Memory – Absolute,X
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INC_ABSX(Memory &memory, CPU6502 &cpu);
 
 /**
- * @instruction Increment X Register
- * @addressing Implied
+ * @instruction Increment X Register – Implied
  * @short X,Z,N = X+1
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INX_IMPL(Memory &memory, CPU6502 &cpu);
 
 /**
- * @instruction Increment Y Register
- * @addressing Implied
+ * @instruction Increment Y Register – Implied
  * @short Y,Z,N = Y+1
- * @param memory Memory struct instance
- * @param cpu CPU6502 struct instance
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
  */
 void CPU6502_INY_IMPL(Memory &memory, CPU6502 &cpu);
