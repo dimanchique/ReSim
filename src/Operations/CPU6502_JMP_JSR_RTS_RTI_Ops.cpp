@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_JMP_JSR_RTS_RTI_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_JMP_ABS(Memory &memory, CPU6502 &cpu) {
     cpu.PC = cpu.FetchWord(memory);

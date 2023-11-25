@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_P_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_PHA_IMPL(Memory &memory, CPU6502 &cpu) {
     cpu.PushByteToStack(memory, cpu.A);

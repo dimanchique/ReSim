@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_LSR_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_LSR_ACC(Memory &memory, CPU6502 &cpu) {
     const bool Carry = cpu.A & 1;

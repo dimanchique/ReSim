@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_B_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_BCC_REL(Memory &memory, CPU6502 &cpu) {
     GenericB(memory, cpu, cpu.Status.C, false);

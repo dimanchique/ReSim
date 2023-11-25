@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_ADC_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_ADC_IM(Memory &memory, CPU6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);

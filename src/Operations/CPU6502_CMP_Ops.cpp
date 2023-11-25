@@ -1,7 +1,6 @@
 #include "Operations/CPU6502_CM_Ops.h"
 #include "Operations/CPU6502_CMP_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_CMP_IM(Memory &memory, CPU6502 &cpu) {
     CPU6502_CM_IM(memory, cpu, cpu.A);
