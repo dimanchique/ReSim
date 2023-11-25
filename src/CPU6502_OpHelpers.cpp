@@ -33,7 +33,7 @@ static void CPU6502_FAKE_NOP(Memory &memory, CPU6502 &cpu) {}
 using OpSignature = void (*)(Memory &, CPU6502 &);
 
 /** Instructions table */
-const static OpSignature Ops[] =
+constexpr static OpSignature Ops[] =
         {
 #ifndef ADD_CALL
 #define ADD_CALL(call) CPU6502_##call

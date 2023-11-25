@@ -1,6 +1,5 @@
 #include "Operations/CPU6502_T_Ops.h"
 #include "CPU6502.h"
-#include "Memory.h"
 
 void CPU6502_TAX_IMPL(Memory &memory, CPU6502 &cpu) {
     GenericT(cpu.A, cpu.X, cpu);
