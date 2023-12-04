@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 3.16)
 project(CPU_Emulator)
 
 set(CMAKE_CXX_STANDARD 17)
-include_directories(inc)
 
+option(print_tests_performance "Enable performance data output on ASM tests" OFF)
+
+# Add the preprocessor definition based on the user's choice
+if(print_tests_performance)
+    add_compile_definitions(TEST_EXECUTION_PERFORMANCE)
+endif()
+
+include_directories(inc)
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/Operations/*.cpp)
 
 include(FetchContent)
