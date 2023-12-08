@@ -10,7 +10,7 @@
  * @param memoryValue Value to rotate.
  * @param address Address to write back shifted value.
  */
-inline void GenericROR(Memory &memory, CPU6502 &cpu, const WORD address) {
+FORCE_INLINE void GenericROR(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
     cpu.cycles++;
     const bool Carry = memoryValue & 1;
@@ -28,32 +28,52 @@ inline void GenericROR(Memory &memory, CPU6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROR_ACC(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROR_ACC(Memory &memory, CPU6502 &cpu) {
+    const bool Carry = cpu.A & 1;
+    cpu.A >>= 1;
+    cpu.A |= cpu.Status.C << 7;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.C = Carry;
+}
 
 /**
  * @instruction Rotate Right – Zero Page
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROR_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROR_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.FetchByte(memory);
+    GenericROR(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Right – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROR_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROR_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericROR(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Right – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROR_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROR_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.FetchWord(memory);
+    GenericROR(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Right – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROR_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROR_ABSX(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericROR(memory, cpu, address);
+    cpu.cycles++; // extra cycle required
+}

@@ -7,7 +7,7 @@
  * @param cpu CPU6502 struct instance.
  * @param statusFlag Status flag to clear.
  */
-inline void GenericCL(CPU6502 &cpu, const BYTE statusFlag) {
+FORCE_INLINE void GenericCL(CPU6502 &cpu, const BYTE statusFlag) {
     cpu.Status.SetStatusFlagValue(statusFlag, false);
     cpu.cycles++;
 }

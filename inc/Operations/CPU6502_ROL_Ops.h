@@ -10,7 +10,7 @@
  * @param memoryValue Value to rotate.
  * @param address Address to write back shifted value.
  */
-inline void GenericROL(Memory &memory, CPU6502 &cpu, const WORD address) {
+FORCE_INLINE void GenericROL(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
     cpu.cycles++;
     const bool Carry = memoryValue & (1 << 7);
@@ -28,32 +28,52 @@ inline void GenericROL(Memory &memory, CPU6502 &cpu, const WORD address) {
  * @param memory Memory struct instance
  * @param cpu CPU6502 struct instance
  */
-void CPU6502_ROL_ACC(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROL_ACC(Memory &memory, CPU6502 &cpu) {
+    const bool Carry = cpu.A & (1 << 7);
+    cpu.A <<= 1;
+    cpu.A |= cpu.Status.C;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.C = Carry;
+}
 
 /**
  * @instruction Rotate Left – Zero Page
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROL_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROL_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.FetchByte(memory);
+    GenericROL(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Left – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROL_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROL_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericROL(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Left – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROL_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROL_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.FetchWord(memory);
+    GenericROL(memory, cpu, address);
+}
 
 /**
  * @instruction Rotate Left – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ROL_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ROL_ABSX(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericROL(memory, cpu, address);
+    cpu.cycles++; // extra cycle required
+}

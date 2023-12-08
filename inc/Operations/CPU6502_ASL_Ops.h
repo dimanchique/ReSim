@@ -13,7 +13,7 @@
  * @param memoryValue Value to shift.
  * @param address Address to write back shifted value.
  */
-inline void GenericASL(Memory &memory, CPU6502 &cpu, const WORD address) {
+FORCE_INLINE void GenericASL(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
     cpu.cycles++;
     const bool Carry = memoryValue & (1 << 7);
@@ -30,32 +30,51 @@ inline void GenericASL(Memory &memory, CPU6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ASL_ACC(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ASL_ACC(Memory &memory, CPU6502 &cpu) {
+    const bool Carry = cpu.A & (1 << 7);
+    cpu.A <<= 1;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+    cpu.Status.C = Carry;
+}
 
 /**
  * @instruction Arithmetic Shift Left – Zero Page
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ASL_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ASL_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.FetchByte(memory);
+    GenericASL(memory, cpu, address);
+}
 
 /**
  * @instruction Arithmetic Shift Left – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ASL_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ASL_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericASL(memory, cpu, address);
+}
 
 /**
  * @instruction Arithmetic Shift Left – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ASL_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ASL_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.FetchWord(memory);
+    GenericASL(memory, cpu, address);
+}
 
 /**
  * @instruction Arithmetic Shift Left – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_ASL_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_ASL_ABSX(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericASL(memory, cpu, address);
+    cpu.cycles++; // extra cycle required
+}

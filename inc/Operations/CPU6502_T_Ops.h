@@ -9,7 +9,7 @@
  * @param destinationRegister Register to transfer to.
  * @param cpu CPU6502 struct instance.
  */
-inline void GenericT(const BYTE sourceRegister, BYTE &destinationRegister, CPU6502 &cpu) {
+FORCE_INLINE void GenericT(const BYTE sourceRegister, BYTE &destinationRegister, CPU6502 &cpu) {
     destinationRegister = sourceRegister;
     cpu.Status.UpdateStatusByValue(destinationRegister, CPU6502_Status_Z | CPU6502_Status_N);
     cpu.cycles++;
@@ -23,7 +23,9 @@ inline void GenericT(const BYTE sourceRegister, BYTE &destinationRegister, CPU65
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TAX_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TAX_IMPL(Memory &memory, CPU6502 &cpu) {
+    GenericT(cpu.A, cpu.X, cpu);
+}
 
 /**
  * @instruction Transfer X to Accumulator – Implied
@@ -33,7 +35,9 @@ void CPU6502_TAX_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TXA_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TXA_IMPL(Memory &memory, CPU6502 &cpu) {
+    GenericT(cpu.X, cpu.A, cpu);
+}
 
 /**
  * @instruction Transfer Accumulator to Y – Implied
@@ -43,7 +47,9 @@ void CPU6502_TXA_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TAY_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TAY_IMPL(Memory &memory, CPU6502 &cpu) {
+    GenericT(cpu.A, cpu.Y, cpu);
+}
 
 /**
  * @instruction Transfer Accumulator to X – Implied
@@ -53,7 +59,9 @@ void CPU6502_TAY_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TYA_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TYA_IMPL(Memory &memory, CPU6502 &cpu) {
+    GenericT(cpu.Y, cpu.A, cpu);
+}
 
 /**
  * @instruction Transfer Stack Pointer to X – Implied
@@ -63,7 +71,9 @@ void CPU6502_TYA_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TSX_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TSX_IMPL(Memory &memory, CPU6502 &cpu) {
+    GenericT(cpu.SP, cpu.X, cpu);
+}
 
 /**
  * @instruction Transfer X to Stack Pointer – Implied
@@ -72,4 +82,7 @@ void CPU6502_TSX_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_TXS_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_TXS_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.SP = cpu.X;
+    cpu.cycles++;
+}

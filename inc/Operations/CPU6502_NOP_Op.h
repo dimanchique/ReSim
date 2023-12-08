@@ -8,6 +8,6 @@
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-inline void CPU6502_NOP_IMPL(Memory &memory, CPU6502 &cpu) {
+FORCE_INLINE void CPU6502_NOP_IMPL(Memory &memory, CPU6502 &cpu) {
     cpu.cycles++;
 }

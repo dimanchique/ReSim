@@ -7,7 +7,7 @@
  * @param cpu CPU6502 struct instance.
  * @param statusFlag Status flag to set.
  */
-inline void GenericSE(CPU6502 &cpu, const BYTE statusFlag) {
+FORCE_INLINE void GenericSE(CPU6502 &cpu, const BYTE statusFlag) {
     cpu.Status.SetStatusFlagValue(statusFlag, true);
     cpu.cycles++;
 }

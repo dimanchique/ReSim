@@ -8,7 +8,7 @@
  * @param cpu CPU6502 struct instance.
  * @param value Value to perform XOR with register A.
  */
-inline void GenericEOR(CPU6502 &cpu, const BYTE value) {
+FORCE_INLINE void GenericEOR(CPU6502 &cpu, const BYTE value) {
     cpu.A ^= value;
     cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
 }
@@ -18,53 +18,86 @@ inline void GenericEOR(CPU6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_IM(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_IM(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.FetchByte(memory);
+    GenericEOR(cpu, value);
+}
 
 /**
  * @instruction Exclusive OR – Zero Page
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetZeroPageValue(memory);
+    GenericEOR(cpu, value);
+}
 
 /**
  * @instruction Exclusive OR – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
+    GenericEOR(cpu, value);
+}
 
 /**
  * @instruction Exclusive OR – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetAbsValue(memory);
+    GenericEOR(cpu, value);
+}
+
+/**
+ * @instruction Exclusive OR – Absolute (generic)
+ * @param memory Memory struct instance.
+ * @param cpu CPU6502 struct instance.
+ * @param affectingRegister Register value used as offset.
+ */
+FORCE_INLINE void CPU6502_EOR_ABS(Memory &memory, CPU6502 &cpu, BYTE affectingRegister) {
+    const BYTE value = cpu.GetAbsValue(memory, affectingRegister);
+    GenericEOR(cpu, value);
+}
 
 /**
  * @instruction Exclusive OR – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_ABSX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_EOR_ABS(memory, cpu, cpu.X);
+}
 
 /**
  * @instruction Exclusive OR – Absolute,Y
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_ABSY(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_ABSY(Memory &memory, CPU6502 &cpu) {
+    CPU6502_EOR_ABS(memory, cpu, cpu.Y);
+}
 
 /**
  * @instruction Exclusive OR – (Indirect,X)
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_INDX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_INDX(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetIndXAddressValue(memory);
+    GenericEOR(cpu, value);
+}
 
 /**
  * @instruction Exclusive OR – (Indirect),Y
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_EOR_INDY(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_EOR_INDY(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetIndYAddressValue(memory);
+    GenericEOR(cpu, value);
+}

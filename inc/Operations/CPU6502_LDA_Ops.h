@@ -1,8 +1,5 @@
 #pragma once
-#include "Types.h"
-
-struct CPU6502;
-struct Memory;
+#include "CPU6502_LD_Ops.h"
 
 /**
  * @instruction Load Accumulator – Immediate
@@ -10,7 +7,9 @@ struct Memory;
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_IM(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_IM(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_IM(memory, cpu, cpu.A);
+}
 
 /**
  * @instruction Load Accumulator – Zero Page
@@ -18,7 +17,9 @@ void CPU6502_LDA_IM(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_ZP(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(memory, cpu, cpu.A);
+}
 
 /**
  * @instruction Load Accumulator – Zero Page,X
@@ -26,7 +27,9 @@ void CPU6502_LDA_ZP(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_ZPX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(memory, cpu, cpu.A, cpu.X);
+}
 
 /**
  * @instruction Load Accumulator – Absolute
@@ -34,7 +37,9 @@ void CPU6502_LDA_ZPX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_ABS(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(memory, cpu, cpu.A);
+}
 
 /**
  * @instruction Load Accumulator – Absolute,X
@@ -42,7 +47,9 @@ void CPU6502_LDA_ABS(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_ABSX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(memory, cpu, cpu.A, cpu.X);
+}
 
 /**
  * @instruction Load Accumulator – Absolute,Y
@@ -50,7 +57,9 @@ void CPU6502_LDA_ABSX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_ABSY(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_ABSY(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(memory, cpu, cpu.A, cpu.Y);
+}
 
 /**
  * @instruction Load Accumulator – (Indirect,X)
@@ -58,7 +67,10 @@ void CPU6502_LDA_ABSY(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_INDX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_INDX(Memory &memory, CPU6502 &cpu) {
+    const BYTE Data = cpu.GetIndXAddressValue(memory);
+    GenericLD(cpu, cpu.A, Data);
+}
 
 /**
  * @instruction Load Accumulator – (Indirect),Y
@@ -66,4 +78,7 @@ void CPU6502_LDA_INDX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDA_INDY(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDA_INDY(Memory &memory, CPU6502 &cpu) {
+    const BYTE Data = cpu.GetIndYAddressValue(memory);
+    GenericLD(cpu, cpu.A, Data);
+}

@@ -24,23 +24,23 @@ struct CPU6502_Status{
         return *(BYTE *) (this);
     }
 
-    CPU6502_Status &operator=(const BYTE referenceByte) {
+    FORCE_INLINE CPU6502_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
         return *this;
     }
 
-    inline void UpdateStatusByValue(const BYTE &targetRegister, const BYTE mask) {
+    FORCE_INLINE void UpdateStatusByValue(const BYTE &targetRegister, const BYTE mask) {
         if (mask & CPU6502_Status_Z)
             Z = (targetRegister == 0);
         if (mask & CPU6502_Status_N)
             N = (targetRegister & CPU6502_Status_N) > 0;
     }
 
-    [[nodiscard]] inline bool GetStatusValue(const BYTE checkArgs) const noexcept {
+    FORCE_INLINE bool GetStatusValue(const BYTE checkArgs) const noexcept {
         return static_cast<BYTE>(*this) & checkArgs;
     }
 
-    inline void SetStatusFlagValue(const BYTE statusFlag, const bool value) noexcept {
+    FORCE_INLINE void SetStatusFlagValue(const BYTE statusFlag, const bool value) noexcept {
         if (value)
             *(BYTE *) (this) |= statusFlag;
         else

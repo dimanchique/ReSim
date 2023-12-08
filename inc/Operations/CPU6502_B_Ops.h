@@ -10,7 +10,7 @@
  * @param targetFlag Status flag to check.
  * @param expectedValue Expected value of status flag.
  */
-inline void GenericB(Memory &memory, CPU6502 &cpu, const BYTE targetFlag, const bool expectedValue) {
+FORCE_INLINE void GenericB(Memory &memory, CPU6502 &cpu, const BYTE targetFlag, const bool expectedValue) {
     const SBYTE Offset = cpu.FetchByte(memory);
     if (targetFlag == expectedValue) {
         cpu.cycles++;
@@ -27,7 +27,9 @@ inline void GenericB(Memory &memory, CPU6502 &cpu, const BYTE targetFlag, const 
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BCC_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BCC_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.C, false);
+}
 
 /**
  * @instruction Branch if Carry Set – Relative
@@ -36,7 +38,9 @@ void CPU6502_BCC_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BCS_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BCS_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.C, true);
+}
 
 /**
  * @instruction Branch if Equal – Relative
@@ -45,7 +49,9 @@ void CPU6502_BCS_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BEQ_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BEQ_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.Z, true);
+}
 
 /**
  * @instruction Branch if Not Equal – Relative
@@ -54,7 +60,9 @@ void CPU6502_BEQ_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BNE_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BNE_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.Z, false);
+}
 
 /**
  * @instruction Branch if Minus – Relative
@@ -63,7 +71,9 @@ void CPU6502_BNE_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BMI_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BMI_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.N, true);
+}
 
 /**
  * @instruction Branch if Positive – Relative
@@ -72,7 +82,9 @@ void CPU6502_BMI_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BPL_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BPL_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.N, false);
+}
 
 /**
  * @instruction Branch if Overflow Clear – Relative
@@ -81,7 +93,9 @@ void CPU6502_BPL_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BVC_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BVC_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.V, false);
+}
 
 /**
  * @instruction Branch if Overflow Set – Relative
@@ -90,4 +104,6 @@ void CPU6502_BVC_REL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BVS_REL(Memory &memory, CPU6502 &cpu);
+void CPU6502_BVS_REL(Memory &memory, CPU6502 &cpu) {
+    GenericB(memory, cpu, cpu.Status.V, true);
+}

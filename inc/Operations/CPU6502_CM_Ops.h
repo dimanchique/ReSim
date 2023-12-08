@@ -9,7 +9,7 @@
  * @param targetRegister Register to compare.
  * @param memoryValue Memory value to compare.
  */
-inline void GenericCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memoryValue) {
+FORCE_INLINE void GenericCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memoryValue) {
     const BYTE comparedValue = targetRegister - memoryValue;
     cpu.Status.UpdateStatusByValue(comparedValue, CPU6502_Status_Z | CPU6502_Status_N);
     cpu.Status.SetStatusFlagValue(CPU6502_Status_C, targetRegister >= memoryValue);
@@ -21,7 +21,7 @@ inline void GenericCM(CPU6502 &cpu, const BYTE& targetRegister, const BYTE memor
  * @param cpu CPU6502 struct instance.
  * @param targetRegister Register to compare.
  */
-inline void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+FORCE_INLINE void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.FetchByte(memory);
     GenericCM(cpu, targetRegister, value);
 }
@@ -32,7 +32,7 @@ inline void CPU6502_CM_IM(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
  * @param cpu CPU6502 struct instance.
  * @param targetRegister Register to compare.
  */
-inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+FORCE_INLINE void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericCM(cpu, targetRegister, value);
 }
@@ -43,7 +43,7 @@ inline void CPU6502_CM_ZP(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
  * @param cpu CPU6502 struct instance.
  * @param targetRegister Register to compare.
  */
-inline void CPU6502_CM_ZPX(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+FORCE_INLINE void CPU6502_CM_ZPX(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericCM(cpu, targetRegister, value);
 }
@@ -54,7 +54,7 @@ inline void CPU6502_CM_ZPX(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
  * @param cpu CPU6502 struct instance.
  * @param targetRegister Register to compare.
  */
-inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
+FORCE_INLINE void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericCM(cpu, targetRegister, value);
 }
@@ -66,7 +66,7 @@ inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister) {
  * @param targetRegister Register to compare.
  * @param affectingRegister Address offset register.
  */
-inline void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
+FORCE_INLINE void CPU6502_CM_ABS(Memory &memory, CPU6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
     const BYTE value = cpu.GetAbsValue(memory, affectingRegister);
     GenericCM(cpu, targetRegister, value);
 }

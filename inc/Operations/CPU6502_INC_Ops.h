@@ -10,7 +10,7 @@
  * @param memoryValue Memory value to increment.
  * @param address Address to write back modified value.
  */
-inline void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
+FORCE_INLINE void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
     cpu.cycles++;
     memoryValue++;
@@ -24,28 +24,41 @@ inline void GenericINC(Memory &memory, CPU6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INC_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INC_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.FetchByte(memory);
+    GenericINC(memory, cpu, address);
+}
 
 /**
  * @instruction Increment Memory – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INC_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INC_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericINC(memory, cpu, address);
+}
 
 /**
  * @instruction Increment Memory – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INC_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INC_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.FetchWord(memory);
+    GenericINC(memory, cpu, address);
+}
 
 /**
  * @instruction Increment Memory – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INC_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INC_ABSX(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericINC(memory, cpu, address);
+    cpu.cycles++; // extra cycle required
+}
 
 /**
  * @instruction Increment X Register – Implied
@@ -53,7 +66,11 @@ void CPU6502_INC_ABSX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INX_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INX_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.X++;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.X, CPU6502_Status_Z | CPU6502_Status_N);
+}
 
 /**
  * @instruction Increment Y Register – Implied
@@ -61,4 +78,8 @@ void CPU6502_INX_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_INY_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_INY_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.Y++;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.Y, CPU6502_Status_Z | CPU6502_Status_N);
+}

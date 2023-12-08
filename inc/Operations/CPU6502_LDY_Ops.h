@@ -1,8 +1,5 @@
 #pragma once
-#include "Types.h"
-
-struct CPU6502;
-struct Memory;
+#include "CPU6502_LD_Ops.h"
 
 /**
  * @instruction Load Y Register – Immediate
@@ -10,7 +7,9 @@ struct Memory;
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDY_IM(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDY_IM(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_IM(memory, cpu, cpu.Y);
+}
 
 /**
  * @instruction Load Y Register – Zero Page
@@ -18,7 +17,9 @@ void CPU6502_LDY_IM(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDY_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDY_ZP(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(memory, cpu, cpu.Y);
+}
 
 /**
  * @instruction Load Y Register – Zero Page,X
@@ -26,7 +27,9 @@ void CPU6502_LDY_ZP(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDY_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDY_ZPX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ZP(memory, cpu, cpu.Y, cpu.X);
+}
 
 /**
  * @instruction Load Y Register – Absolute
@@ -34,7 +37,9 @@ void CPU6502_LDY_ZPX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDY_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDY_ABS(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(memory, cpu, cpu.Y);
+}
 
 /**
  * @instruction Load Y Register – Absolute,X
@@ -42,4 +47,6 @@ void CPU6502_LDY_ABS(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_LDY_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_LDY_ABSX(Memory &memory, CPU6502 &cpu) {
+    CPU6502_LD_ABS(memory, cpu, cpu.Y, cpu.X);
+}

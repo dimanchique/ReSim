@@ -55,7 +55,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Fetched byte.
      */
-    inline BYTE FetchByte(const Memory &memory) {
+    FORCE_INLINE BYTE FetchByte(const Memory &memory) {
         const BYTE Data = memory[PC++];
         cycles++;
         return Data;
@@ -67,7 +67,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Fetched word.
      */
-    inline WORD FetchWord(const Memory &memory) {
+    FORCE_INLINE WORD FetchWord(const Memory &memory) {
         const BYTE Lo = FetchByte(memory);
         const BYTE Hi = FetchByte(memory);
         return Lo | (Hi << 8);
@@ -80,7 +80,7 @@ struct CPU6502 {
      * @param address Address to read from.
      * @return Read byte.
      */
-    inline BYTE ReadByte(const Memory &memory, const WORD address) {
+    FORCE_INLINE BYTE ReadByte(const Memory &memory, const WORD address) {
         const BYTE Data = memory[address];
         cycles++;
         return Data;
@@ -93,7 +93,7 @@ struct CPU6502 {
      * @param address Address to read from.
      * @return Fetched word.
      */
-    inline WORD ReadWord(const Memory &memory, const WORD address) {
+    FORCE_INLINE WORD ReadWord(const Memory &memory, const WORD address) {
         const BYTE Lo = ReadByte(memory, address);
         const BYTE Hi = ReadByte(memory, address + 1);
         return Lo | (Hi << 8);
@@ -107,7 +107,7 @@ struct CPU6502 {
      * @param address Address to read from.
      * @return Read byte.
      */
-    inline void WriteByte(Memory &memory, const BYTE value, const WORD address) {
+    FORCE_INLINE void WriteByte(Memory &memory, const BYTE value, const WORD address) {
         memory[address] = value;
         cycles++;
     }
@@ -119,7 +119,7 @@ struct CPU6502 {
      * @param value Value to write.
      * @param address Address to write to.
      */
-    inline void WriteWord(Memory &memory, const WORD value, const WORD address) {
+    FORCE_INLINE void WriteWord(Memory &memory, const WORD value, const WORD address) {
         memory[address] = value & 0xFF;
         cycles++;
         memory[address + 1] = (value >> 8);
@@ -131,7 +131,7 @@ struct CPU6502 {
      * @attention Increments cycles count by 2. Decrements the Stack Pointer by 2.
      * @param memory Memory struct instance.
      */
-    inline void PushProgramCounterToStack(Memory &memory) {
+    FORCE_INLINE void PushProgramCounterToStack(Memory &memory) {
         PushWordToStack(memory, PC - 1);
     }
 
@@ -141,7 +141,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Popped address.
      */
-    inline WORD PopAddressFromStack(const Memory &memory) {
+    FORCE_INLINE WORD PopAddressFromStack(const Memory &memory) {
         return PopWordFromStack(memory) + 1;
     }
 
@@ -150,19 +150,18 @@ struct CPU6502 {
      * @attention Increments cycles count by 2. Decrements the Stack Pointer.
      * @param memory Memory struct instance.
      */
-    inline void PushStatusToStack(Memory &memory) {
+    FORCE_INLINE void PushStatusToStack(Memory &memory) {
         WriteByte(memory, Status, StackPointerToAddress());
         SP--;
         cycles++;
     }
-
 
     /**
      * @brief Pops the Status register value from the stack.
      * @attention Increments cycles count by 3. Increments the Stack Pointer.
      * @param memory Memory struct instance.
      */
-    inline void PopStatusFromStack(const Memory &memory) {
+    FORCE_INLINE void PopStatusFromStack(const Memory &memory) {
         SP++;
         cycles++;
         Status = ReadByte(memory, StackPointerToAddress());
@@ -175,7 +174,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @param value Value to push to the stack.
      */
-    inline void PushByteToStack(Memory &memory, const BYTE value) {
+    FORCE_INLINE void PushByteToStack(Memory &memory, const BYTE value) {
         WriteByte(memory, value, StackPointerToAddress());
         SP--;
         cycles++;
@@ -187,7 +186,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Popped value.
      */
-    inline BYTE PopByteFromStack(const Memory &memory) {
+    FORCE_INLINE BYTE PopByteFromStack(const Memory &memory) {
         SP++;
         cycles++;
         const BYTE value = ReadByte(memory, StackPointerToAddress());
@@ -201,7 +200,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @param value Value to push to the stack.
      */
-    inline void PushWordToStack(Memory &memory, const WORD value) {
+    FORCE_INLINE void PushWordToStack(Memory &memory, const WORD value) {
         WriteWord(memory, value, StackPointerToAddress() - 1);
         SP -= 2;
     }
@@ -212,7 +211,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Popped value.
      */
-    inline WORD PopWordFromStack(const Memory &memory) {
+    FORCE_INLINE WORD PopWordFromStack(const Memory &memory) {
         const WORD value = ReadWord(memory, StackPointerToAddress() + 1);
         cycles++;
         SP += 2;
@@ -228,7 +227,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Zero Page address value.
      */
-    inline BYTE GetZeroPageValue(const Memory& memory) {
+    FORCE_INLINE BYTE GetZeroPageValue(const Memory& memory) {
         const BYTE TargetAddress = FetchByte(memory);
         return ReadByte(memory, TargetAddress);
     }
@@ -244,7 +243,7 @@ struct CPU6502 {
      * @param offsetAddress Offset memory address value.
      * @return Generic ZeroPage address.
      */
-    inline WORD GetZeroPageAddress(const Memory& memory, const BYTE offsetAddress) {
+    FORCE_INLINE WORD GetZeroPageAddress(const Memory& memory, const BYTE offsetAddress) {
         const BYTE TargetAddress = FetchByte(memory);
         cycles++;
         return TargetAddress + offsetAddress;
@@ -262,7 +261,7 @@ struct CPU6502 {
      * @param offsetAddress Offset memory address value.
      * @return Generic ZeroPage value.
      */
-    inline BYTE GetZeroPageValue(const Memory& memory, const BYTE offsetAddress) {
+    FORCE_INLINE BYTE GetZeroPageValue(const Memory& memory, const BYTE offsetAddress) {
         const BYTE TargetAddress = GetZeroPageAddress(memory, offsetAddress);
         return ReadByte(memory, TargetAddress);
     }
@@ -275,7 +274,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return Absolute address value.
      */
-    inline BYTE GetAbsValue(const Memory& memory) {
+    FORCE_INLINE BYTE GetAbsValue(const Memory& memory) {
         const WORD TargetAddress = FetchWord(memory);
         return ReadByte(memory, TargetAddress);
     }
@@ -292,7 +291,7 @@ struct CPU6502 {
      * @param offsetAddress Offset memory address value.
      * @return Generic Absolute address.
      */
-    inline WORD GetAbsAddress(const Memory& memory, const BYTE offsetAddress) {
+    FORCE_INLINE WORD GetAbsAddress(const Memory& memory, const BYTE offsetAddress) {
         const WORD AbsAddress = FetchWord(memory);
         const WORD TargetAddress = AbsAddress + offsetAddress;
         if (IsPageCrossed(TargetAddress, AbsAddress))
@@ -313,7 +312,7 @@ struct CPU6502 {
      * @param offsetAddress Offset memory address value.
      * @return Generic Absolute address value.
      */
-    inline BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress) {
+    FORCE_INLINE BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress) {
         const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
         return ReadByte(memory, TargetAddress);
     }
@@ -328,7 +327,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return (Indirect,X) address.
      */
-    inline WORD GetIndXAddress(const Memory& memory) {
+    FORCE_INLINE WORD GetIndXAddress(const Memory& memory) {
         const BYTE TargetAddress = FetchByte(memory) + X;
         cycles++;
         return ReadWord(memory, TargetAddress);
@@ -346,7 +345,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return (Indirect,X) address value.
      */
-    inline BYTE GetIndXAddressValue(const Memory& memory) {
+    FORCE_INLINE BYTE GetIndXAddressValue(const Memory& memory) {
         const WORD TargetAddress = GetIndXAddress(memory);
         return ReadByte(memory, TargetAddress);
     }
@@ -362,7 +361,7 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return (Indirect),Y address.
      */
-    inline WORD GetIndYAddress(const Memory& memory) {
+    FORCE_INLINE WORD GetIndYAddress(const Memory& memory) {
         const BYTE ZeroPageAddress = FetchByte(memory);
         const WORD EffectiveAddress = ReadWord(memory, ZeroPageAddress);
         const WORD TargetAddress = EffectiveAddress + Y;
@@ -383,12 +382,15 @@ struct CPU6502 {
      * @param memory Memory struct instance.
      * @return (Indirect),Y address value.
      */
-    inline BYTE GetIndYAddressValue(const Memory& memory) {
+    FORCE_INLINE BYTE GetIndYAddressValue(const Memory& memory) {
         const WORD TargetAddress = GetIndYAddress(memory);
         return ReadByte(memory, TargetAddress);
     }
 
-    /** Convert StackPointer (BYTE) to Address (WORD) */
+    /**
+     * @brief Convert StackPointer (BYTE) to Address (WORD).
+     * @return Converted WORD address.
+     */
     [[nodiscard]] inline WORD StackPointerToAddress() const noexcept {
         return 0x100 + SP;
     }

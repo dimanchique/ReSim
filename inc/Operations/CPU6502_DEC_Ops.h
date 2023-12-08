@@ -11,7 +11,7 @@
  * @param memoryValue Memory value to decrement.
  * @param address Address to write back modified value .
  */
-inline void GenericDEC(Memory &memory, CPU6502 &cpu, const WORD address) {
+FORCE_INLINE void GenericDEC(Memory &memory, CPU6502 &cpu, const WORD address) {
     BYTE memoryValue = memory[address];
     cpu.cycles++;
     memoryValue--;
@@ -25,28 +25,41 @@ inline void GenericDEC(Memory &memory, CPU6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEC_ZP(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEC_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.FetchByte(memory);
+    GenericDEC(memory, cpu, address);
+}
 
 /**
  * @instruction Decrement Memory – Zero Page,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEC_ZPX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEC_ZPX(Memory &memory, CPU6502 &cpu) {
+    const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
+    GenericDEC(memory, cpu, address);
+}
 
 /**
  * @instruction Decrement Memory – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEC_ABS(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEC_ABS(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.FetchWord(memory);
+    GenericDEC(memory, cpu, address);
+}
 
 /**
  * @instruction Decrement Memory – Absolute,X
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEC_ABSX(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEC_ABSX(Memory &memory, CPU6502 &cpu) {
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    GenericDEC(memory, cpu, address);
+    cpu.cycles++; // extra cycle required
+}
 
 /**
  * @instruction Decrement X Register – Implied
@@ -54,7 +67,11 @@ void CPU6502_DEC_ABSX(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEX_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEX_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.X--;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.X, CPU6502_Status_Z | CPU6502_Status_N);
+}
 
 /**
  * @instruction Decrement Y Register – Implied
@@ -62,4 +79,8 @@ void CPU6502_DEX_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_DEY_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_DEY_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.Y--;
+    cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(cpu.Y, CPU6502_Status_Z | CPU6502_Status_N);
+}

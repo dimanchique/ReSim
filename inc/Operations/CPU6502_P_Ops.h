@@ -1,8 +1,5 @@
 #pragma once
-#include "Types.h"
-
-struct CPU6502;
-struct Memory;
+#include "CPU6502.h"
 
 /**
  * @instruction Push Accumulator – Implied
@@ -10,7 +7,9 @@ struct Memory;
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_PHA_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_PHA_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PushByteToStack(memory, cpu.A);
+}
 
 /**
  * @instruction Pull Accumulator – Implied
@@ -19,7 +18,10 @@ void CPU6502_PHA_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_PLA_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_PLA_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.A = cpu.PopByteFromStack(memory);
+    cpu.Status.UpdateStatusByValue(cpu.A, CPU6502_Status_Z | CPU6502_Status_N);
+}
 
 /**
  * @instruction Push Processor Status – Implied
@@ -27,7 +29,9 @@ void CPU6502_PLA_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_PHP_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_PHP_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PushStatusToStack(memory);
+}
 
 /**
  * @instruction Pull Processor Status – Implied
@@ -36,4 +40,6 @@ void CPU6502_PHP_IMPL(Memory &memory, CPU6502 &cpu);
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_PLP_IMPL(Memory &memory, CPU6502 &cpu);
+inline void CPU6502_PLP_IMPL(Memory &memory, CPU6502 &cpu) {
+    cpu.PopStatusFromStack(memory);
+}

@@ -10,7 +10,7 @@
  * @param cpu CPU6502 struct instance.
  * @param mask Value to do BitTest.
  */
-inline void GenericBIT(CPU6502 &cpu, const BYTE mask) {
+FORCE_INLINE void GenericBIT(CPU6502 &cpu, const BYTE mask) {
     const BYTE value = cpu.A & mask;
     cpu.Status.Z = value == 0;
     cpu.Status.V = (mask >> 6) & 1;
@@ -22,11 +22,17 @@ inline void GenericBIT(CPU6502 &cpu, const BYTE mask) {
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BIT_ZP(Memory &memory, CPU6502 &cpu);
+void CPU6502_BIT_ZP(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetZeroPageValue(memory);
+    GenericBIT(cpu, value);
+}
 
 /**
  * @instruction Bit Test – Absolute
  * @param memory Memory struct instance.
  * @param cpu CPU6502 struct instance.
  */
-void CPU6502_BIT_ABS(Memory &memory, CPU6502 &cpu);
+void CPU6502_BIT_ABS(Memory &memory, CPU6502 &cpu) {
+    const BYTE value = cpu.GetAbsValue(memory);
+    GenericBIT(cpu, value);
+}
