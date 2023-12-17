@@ -27,7 +27,7 @@ instruction_types = dict()
 script_path = __file__
 parent = os.path.split(__file__)[0]
 root = os.path.split(parent)[0]
-read_target = os.path.join(os.path.join(root, 'inc'), 'CPU6502_OpCodes.h')
+read_target = os.path.join(os.path.join(root, 'inc'), 'MOS6502_OpCodes.h')
 
 with open(read_target, 'r') as file:
     data = file.readlines()

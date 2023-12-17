@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstring>
+
 struct Memory {
     explicit Memory(U32 memSize = 1) : size(memSize * 1024) {
         mem = new BYTE[size];
@@ -9,17 +11,23 @@ struct Memory {
         delete[] mem;
     }
 
-    FORCE_INLINE BYTE operator[](U32 address) const {
+    BYTE operator[](U32 address) const {
         return mem[address];
     }
 
-    FORCE_INLINE BYTE &operator[](U32 address) {
+    BYTE &operator[](U32 address) {
         return mem[address];
     }
 
     void Reset() {
-        for (U32 i = 0; i < size; ++i)
-            mem[i] = 0xFF;
+        memset(mem, 0xFF, size);
+    }
+
+    bool SetMemory(U32 address, const char* data, long long int numBytes) {
+        if(address + numBytes >= size)
+            return false;
+        memcpy(mem + address, data, numBytes);
+        return true;
     }
 
 private:

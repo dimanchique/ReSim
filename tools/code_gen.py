@@ -3,8 +3,8 @@ import os
 script_path = __file__
 parent = os.path.split(__file__)[0]
 root = os.path.split(parent)[0]
-read_target = os.path.join(os.path.join(root, 'inc'), 'CPU6502_OpCodes.h')
-write_target = os.path.join(os.path.join(root, 'inc'), 'CPU6502_OpCodesList.h')
+read_target = os.path.join(os.path.join(root, 'inc'), 'MOS6502_OpCodes.h')
+write_target = os.path.join(os.path.join(root, 'inc'), 'MOS6502_OpCodesList.h')
 
 with open(read_target, 'r') as file:
     data = file.readlines()
