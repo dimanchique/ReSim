@@ -4,7 +4,7 @@
 #include "MOS6502.h"
 #include "Memory.h"
 
-#ifdef TEST_EXECUTION_PERFORMANCE
+#ifdef PRINT_TESTS_PERFORMANCE
 #include "chrono"
 #endif
 
@@ -15,7 +15,7 @@ public:
 
     U32 cyclesPassed = 0;
 
-#ifdef TEST_EXECUTION_PERFORMANCE
+#ifdef PRINT_TESTS_PERFORMANCE
     std::chrono::steady_clock::time_point begin, end;
     double duration;
 #endif
@@ -30,18 +30,18 @@ public:
     }
 
     void RunTest() {
-#ifdef TEST_EXECUTION_PERFORMANCE
+#ifdef PRINT_TESTS_PERFORMANCE
         begin = std::chrono::steady_clock::now();
 #endif
         cyclesPassed = cpu.Run(mem);
-#ifdef TEST_EXECUTION_PERFORMANCE
+#ifdef PRINT_TESTS_PERFORMANCE
         end = std::chrono::steady_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 #endif
     }
 
     void TearDown() override {
-#ifdef TEST_EXECUTION_PERFORMANCE
+#ifdef PRINT_TESTS_PERFORMANCE
         std::cout << "Execution duration: " << duration / 1e6 << "[s]" << std::endl;
         std::cout << "Cycles count: " << cyclesPassed  << std::endl;
         std::cout << "Cycles/s: " << cyclesPassed / (duration / 1e6)  << std::endl;
