@@ -7,11 +7,10 @@ option(print_tests_performance "Enable performance data output on ASM tests" OFF
 
 # Add the preprocessor definition based on the user's choice
 if(print_tests_performance)
-    add_compile_definitions(TEST_EXECUTION_PERFORMANCE)
+    add_compile_definitions(PRINT_TESTS_PERFORMANCE)
 endif()
 
 include_directories(inc)
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/Operations/*.cpp)
 
 include(FetchContent)
 FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip)
@@ -43,5 +42,9 @@ endforeach()
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_subdirectory(tests/MOS6502)
-add_executable(CPU_Emulator main.cpp ${SRC_FILES})
+file(GLOB tests_dirs "${CMAKE_SOURCE_DIR}/tests/*")
+foreach(tests_dir ${tests_dirs})
+    add_subdirectory(${tests_dir})
+endforeach()
+
+add_executable(CPU_Emulator main.cpp)
