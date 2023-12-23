@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MOS6502.h"
+#include "MOS6502/MOS6502.h"
 
 /**
  * @instruction Store (generic) – Zero Page
