@@ -1,6 +1,7 @@
 #include "I8080.h"
 #include "Operations/I8080_ADD_Ops.h"
 #include "Operations/I8080_ANA_Ops.h"
+#include "Operations/I8080_ROT_Ops.h"
 
 static void I8080_FAKE_NOP(Memory &memory, I8080 &cpu) {}
 
