@@ -28,7 +28,7 @@
 #include "Operations/MOS6502_ADC_Ops.h"
 #include "Operations/MOS6502_SBC_Ops.h"
 
-static void MOS6502_FAKE_NOP(Memory &memory, MOS6502 &cpu) {}
+static void MOS6502_INVALID_OP(Memory &memory, MOS6502 &cpu) {}
 
 using OpSignature = void (*)(Memory &, MOS6502 &);
 
@@ -47,5 +47,5 @@ bool DecodeCommand(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
         return false;
     const auto &Instruction = Ops[opcode];
     Instruction(memory, cpu);
-    return Instruction != MOS6502_FAKE_NOP;
+    return Instruction != MOS6502_INVALID_OP;
 }

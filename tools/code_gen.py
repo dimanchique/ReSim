@@ -1,10 +1,12 @@
 import os
 
+cpu_name = 'I8080'
+
 script_path = __file__
 parent = os.path.split(__file__)[0]
 root = os.path.split(parent)[0]
-read_target = os.path.join(os.path.join(root, 'inc/I8080'), 'I8080_OpCodes.h')
-write_target = os.path.join(os.path.join(root, 'inc/I8080'), 'I8080_OpCodesList.h')
+read_target = os.path.join(os.path.join(root, f'inc/{cpu_name}'), f'{cpu_name}_OpCodes.h')
+write_target = os.path.join(os.path.join(root, f'inc/{cpu_name}'), f'{cpu_name}_OpCodesList.h')
 
 with open(read_target, 'r') as file:
     data = file.readlines()
@@ -18,11 +20,11 @@ for i in data:
     value = int(splitter[1][1:].split(',')[0], 16)
     op_map[key] = value
 
-ops = ['ADD_CALL(FAKE_NOP)'] * 255
+ops = ['ADD_CALL(INVALID_OP)'] * 255
 
 used_instructions = 0
 for i in op_map:
-    if any(item in i for item in ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA']):
+    if any(item in i for item in ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA', 'NOP']):
         ops[op_map[i]] = f'ADD_CALL({i})'
         used_instructions += 1
 

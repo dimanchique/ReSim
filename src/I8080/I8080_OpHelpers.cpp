@@ -3,8 +3,9 @@
 #include "Operations/I8080_ANA_Ops.h"
 #include "Operations/I8080_ROT_Ops.h"
 #include "Operations/I8080_LDA_Ops.h"
+#include "Operations/I8080_NOP_Ops.h"
 
-static void I8080_FAKE_NOP(Memory &memory, I8080 &cpu) {}
+static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 
 using OpSignature = void (*)(Memory &, I8080 &);
 
@@ -23,5 +24,5 @@ bool DecodeCommand(const BYTE opcode, Memory &memory, I8080 &cpu) {
         return false;
     const auto &Instruction = Ops[opcode];
     Instruction(memory, cpu);
-    return Instruction != I8080_FAKE_NOP;
+    return Instruction != I8080_INVALID_OP;
 }
