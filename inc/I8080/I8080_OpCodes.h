@@ -43,7 +43,7 @@ enum I8080_OpCodes : BYTE {
 //  ANI - Logical AND Immediate Data with Accumulator
     ANI = 0xE6,
 
-//  Call - Call
+//  CALL - Call
     CALL = 0xCD,
 
 //  CZ - Call if Zero bit is one

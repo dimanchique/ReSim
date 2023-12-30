@@ -1,0 +1,78 @@
+- [ ] ADD - Add Register or Memory To Accumulator
+- [ ] ADI - ADD Immediate Data to Accumulator
+- [ ] ADC - ADD Register or Memory to Accumulator with Carry
+- [ ] ACI - ADD Immediate Data to Accumulator with Carry
+- [ ] ANA - Logical AND Register or Memory with Accumulator
+- [ ] ANI - Logical AND Immediate Data with Accumulator
+- [ ] CALL - Call
+- [ ] CZ - Call if Zero bit is one
+- [ ] CNZ - Call if Zero bit is zero
+- [ ] CP - Call if Sign bit is zero
+- [ ] CM - Call if Sign bit is one
+- [ ] CC - Call if Carry bit is one
+- [ ] CNC - Call if Carry bit is zero
+- [ ] CPE - Call if Parity Even
+- [ ] CPO - Call if Parity Odd
+- [ ] CMA - Complement Accumulator
+- [ ] CMC - Complement Carry
+- [ ] CMP - Compare Register or Memory with Accumulator
+- [ ] CPI - Compare Immediate Data with Accumulator
+- [ ] DAA - Decimal Adjust Accumulator
+- [ ] DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
+- [ ] DCR - Decrement Register or Memory
+- [ ] DCX - Decrement Register Pair
+- [ ] DI - Disable Interrupts
+- [ ] EI - Enable Interrupts
+- [ ] HLT - Halt CPU
+- [ ] IN - Input data to accumulator from outcome device
+- [ ] INR - Increment Register or Memory
+- [ ] INX - Increment Register Pair
+- [ ] JMP - Jump
+- [ ] JZ - Jump if Zero bit is one
+- [ ] JNZ - Jump if Zero bit is zero
+- [ ] JP - Jump if sign bit is zero
+- [ ] JM - Jump if sign bit is one
+- [ ] JC - Jump if Carry bit is one
+- [ ] JNC - Jump if Carry bit is zero
+- [ ] JPE - Jump if Parity Even
+- [ ] JPO - Jump if Parity Odd
+- [x] LDA - Load Data from Accumulator to Memory
+- [x] LDAX - Load Accumulator data addressed by B and C, or D and E Registers
+- [ ] LHLD - Load H and L Registers from Memory
+- [ ] LXI - Load Immediate data into paired Regitster or SP
+- [ ] MOV - Transfer Data between Regitster or Memory
+- [ ] MVI - Move Immediate Data in specified Register
+- [x] NOP - Cmon. Its just nop
+- [ ] ORA - Logical OR Register or Memory with Accumulator
+- [ ] ORI - Logical OR Immediate Data with Accumulator
+- [ ] OUT - Output data from accumulator to outcome device
+- [ ] PCHL - Insert into program counter data from H and L Registers
+- [ ] POP - Pop Data off Stack
+- [ ] PUSH - Push Data on Stack
+- [x] RAL - Rotate Accumulator through Carry
+- [x] RAR - Rotate Accumulator through Carry
+- [x] RLC - Rotate Accumulator Left
+- [x] RRC - Rotate Accumulator Right
+- [ ] RET - Return
+- [ ] RZ - Return if Zero bit is one
+- [ ] RNZ - Return if Zero bit is zero
+- [ ] RP - Return if Sign bit is zero
+- [ ] RM - Return if Sign bit is one
+- [ ] RC - Return if Carry bit is one
+- [ ] RNC - Return if Carty bit is zero
+- [ ] RPE - Return if Pairity Even
+- [ ] RPO - Return if Pairity Odd
+- [ ] RST - Reset
+- [ ] SPHL - Load SP from H and L Registers
+- [ ] SHLD - Store H and L Regitster in Memory
+- [ ] STA - Store Accumulator Data from Memory
+- [ ] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
+- [ ] STC - Set Carry
+- [ ] SUB - Substract Register or Memory From Accumulator
+- [ ] SUI - Substract Immediate Data from Accumulator
+- [ ] SBB - Substract Register or Memory From Accumulator with Borrow
+- [ ] SBI - Substract Immediate Data from Accumulator with Borrow
+- [ ] XCHG - Exchange Data held in H and L Registers
+- [ ] XTHL - Exchange Stack
+- [ ] XRA - Logical Exclusive-Or Register or Memory with Accumulator
+- [ ] XRI - Logical Exclusive-Or Immediate Data with Accumulator
