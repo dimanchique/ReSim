@@ -5,21 +5,15 @@
 FORCE_INLINE void GenericRotateLeft(I8080 &cpu, bool isThroughCarry){
     const bool Carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
-    cpu.cycles++;
     cpu.A |= isThroughCarry ? cpu.Status.C : Carry;
-    cpu.cycles++;
     cpu.Status.C = Carry;
-    cpu.cycles++;
 }
 
 FORCE_INLINE void GenericRotateRight(I8080 &cpu, bool isThroughCarry){
     const bool Carry = cpu.A & 1;
     cpu.A >>= 1;
-    cpu.cycles++;
     cpu.A |= (isThroughCarry ? cpu.Status.C : Carry) << 7;
-    cpu.cycles++;
     cpu.Status.C = Carry;
-    cpu.cycles++;
 }
 
 FORCE_INLINE void I8080_RLC(Memory &memory, I8080 &cpu) {

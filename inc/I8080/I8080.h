@@ -25,7 +25,7 @@ public:
 
     FORCE_INLINE BYTE FetchByte(const Memory &memory) {
         const BYTE Data = memory[PC++];
-        cycles++;
+        cycles += 3;
         return Data;
     }
 

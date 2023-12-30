@@ -18,11 +18,11 @@ U32 I8080::Run(Memory &memory) {
 
     do {
         Instruction = FetchByte(memory);
-        cycles--;           //leaving only instruction cycles here
         DecodeSuccess = DecodeCommand(Instruction, memory, *this);
+        cycles++;
 
-        if (DecodeSuccess)
-            cycles++;
+        if (!DecodeSuccess)
+            cycles -= 4;
 
     } while (DecodeSuccess);
 

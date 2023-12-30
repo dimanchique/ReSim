@@ -30,4 +30,11 @@ struct BiRegister {
         Value = other.Value;
         return *this;
     }
+
+    WORD AsBigEndianWord() const {
+        WORD resultWord = 0;
+        resultWord |= L << 8;
+        resultWord |= H;
+        return resultWord;
+    }
 };

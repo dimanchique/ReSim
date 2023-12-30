@@ -3,8 +3,8 @@ import os
 script_path = __file__
 parent = os.path.split(__file__)[0]
 root = os.path.split(parent)[0]
-read_target = os.path.join(os.path.join(root, 'inc'), 'MOS6502_OpCodes.h')
-write_target = os.path.join(os.path.join(root, 'inc'), 'MOS6502_OpCodesList.h')
+read_target = os.path.join(os.path.join(root, 'inc/I8080'), 'I8080_OpCodes.h')
+write_target = os.path.join(os.path.join(root, 'inc/I8080'), 'I8080_OpCodesList.h')
 
 with open(read_target, 'r') as file:
     data = file.readlines()
@@ -22,8 +22,9 @@ ops = ['ADD_CALL(FAKE_NOP)'] * 255
 
 used_instructions = 0
 for i in op_map:
-    ops[op_map[i]] = f'ADD_CALL({i})'
-    used_instructions += 1
+    if any(item in i for item in ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA']):
+        ops[op_map[i]] = f'ADD_CALL({i})'
+        used_instructions += 1
 
 print(f"Used instructions: {used_instructions}/{len(op_map.keys())}")
 

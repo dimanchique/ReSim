@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstring>
+#include "Macro.h"
 
 struct Memory {
     explicit Memory(U32 memSize = 1) : size(memSize * 1024) {
@@ -11,11 +12,11 @@ struct Memory {
         delete[] mem;
     }
 
-    BYTE operator[](U32 address) const {
+    FORCE_INLINE BYTE operator[](U32 address) const {
         return mem[address];
     }
 
-    BYTE &operator[](U32 address) {
+    FORCE_INLINE BYTE &operator[](U32 address) {
         return mem[address];
     }
 
@@ -24,7 +25,7 @@ struct Memory {
     }
 
     bool SetMemory(U32 address, const char* data, long long int numBytes) {
-        if(address + numBytes >= size)
+        if(numBytes == 0 || (address + numBytes >= size))
             return false;
         memcpy(mem + address, data, numBytes);
         return true;
