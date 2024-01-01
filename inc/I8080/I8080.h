@@ -40,7 +40,7 @@ public:
 
     FORCE_INLINE BYTE ReadByte(const Memory &memory, const WORD address) {
         const BYTE Data = memory[address];
-        cycles++;
+        cycles += 3;
         return Data;
     }
 
@@ -52,7 +52,7 @@ public:
 
     FORCE_INLINE void WriteByte(Memory &memory, const BYTE value, const WORD address) {
         memory[address] = value;
-        cycles++;
+        cycles += 3;
     }
 
     FORCE_INLINE void WriteWord(Memory &memory, const WORD value, const WORD address) {

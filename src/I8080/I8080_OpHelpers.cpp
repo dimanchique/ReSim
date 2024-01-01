@@ -12,6 +12,7 @@
 #include "Operations/I8080_MOV_H_Ops.h"
 #include "Operations/I8080_MOV_L_Ops.h"
 #include "Operations/I8080_MOV_M_Ops.h"
+#include "Operations/I8080_MVI_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 

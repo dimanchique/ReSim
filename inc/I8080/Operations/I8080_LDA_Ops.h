@@ -4,9 +4,7 @@
 
 FORCE_INLINE void GenericLDA(Memory &memory, I8080 &cpu, WORD memoryAddress){
     const BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
-    cpu.cycles++;
     cpu.A = memoryValue;
-    cpu.cycles++;
 }
 
 FORCE_INLINE void I8080_LDA(Memory &memory, I8080 &cpu) {
