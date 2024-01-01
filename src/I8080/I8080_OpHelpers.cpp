@@ -4,6 +4,14 @@
 #include "Operations/I8080_ROT_Ops.h"
 #include "Operations/I8080_LDA_Ops.h"
 #include "Operations/I8080_NOP_Ops.h"
+#include "Operations/I8080_MOV_A_Ops.h"
+#include "Operations/I8080_MOV_B_Ops.h"
+#include "Operations/I8080_MOV_C_Ops.h"
+#include "Operations/I8080_MOV_D_Ops.h"
+#include "Operations/I8080_MOV_E_Ops.h"
+#include "Operations/I8080_MOV_H_Ops.h"
+#include "Operations/I8080_MOV_L_Ops.h"
+#include "Operations/I8080_MOV_M_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 

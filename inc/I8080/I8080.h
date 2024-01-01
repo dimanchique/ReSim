@@ -14,9 +14,12 @@ public:
     WORD PC;                // Program Counter
     WORD SP;                // Stack Pointer
     BYTE A;                 // Accumulator
-    BiRegister B;
-    BiRegister D;
-    BiRegister H;
+    BYTE B;                 // Paired BC
+    BYTE C;                 //
+    BYTE D;                 // Paired DE
+    BYTE E;                 //
+    BYTE H;                 // Paired HL
+    BYTE L;                 //
     I8080_Status Status;    // Status Register
 
     void Reset(Memory &memory, WORD resetVector = 0x0000) noexcept override;
@@ -139,5 +142,17 @@ public:
     FORCE_INLINE BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress) {
         const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
         return ReadByte(memory, TargetAddress);
+    }
+
+    static FORCE_INLINE WORD SwapRegistersAsWord(BYTE& lsbReg, BYTE& msbReg) {
+        WORD value = 0;
+        value |= lsbReg << 8;
+        value |= msbReg;
+        return value;
+    }
+
+    static FORCE_INLINE void SwapWordToRegisters(WORD value, BYTE& lsbReg, BYTE& msbReg) {
+        msbReg = value & 0xFF;
+        lsbReg = (value >> 8) & 0xFF;
     }
 };
