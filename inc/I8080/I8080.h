@@ -22,7 +22,7 @@ public:
     BYTE L;                 //
     I8080_Status Status;    // Status Register
 
-    void Reset(Memory &memory, WORD resetVector = 0x0000) noexcept override;
+    void Reset(Memory &memory, WORD resetVector) noexcept override;
 
     U32 Run(Memory &memory) override;
 
@@ -56,10 +56,8 @@ public:
     }
 
     FORCE_INLINE void WriteWord(Memory &memory, const WORD value, const WORD address) {
-        memory[address] = value & 0xFF;
-        cycles++;
-        memory[address + 1] = (value >> 8);
-        cycles++;
+        WriteByte(memory, value & 0xFF, address);
+        WriteByte(memory, (value >> 8), address + 1);
     }
 
     FORCE_INLINE void PushProgramCounterToStack(Memory &memory) {
@@ -108,40 +106,6 @@ public:
         SP += 2;
         cycles++;
         return value;
-    }
-
-    FORCE_INLINE BYTE GetZeroPageValue(const Memory& memory) {
-        const BYTE TargetAddress = FetchByte(memory);
-        return ReadByte(memory, TargetAddress);
-    }
-
-    FORCE_INLINE WORD GetZeroPageAddress(const Memory& memory, const BYTE offsetAddress) {
-        const BYTE TargetAddress = FetchByte(memory);
-        cycles++;
-        return TargetAddress + offsetAddress;
-    }
-
-    FORCE_INLINE BYTE GetZeroPageValue(const Memory& memory, const BYTE offsetAddress) {
-        const BYTE TargetAddress = GetZeroPageAddress(memory, offsetAddress);
-        return ReadByte(memory, TargetAddress);
-    }
-
-    FORCE_INLINE BYTE GetAbsValue(const Memory& memory) {
-        const WORD TargetAddress = FetchWord(memory);
-        return ReadByte(memory, TargetAddress);
-    }
-
-    FORCE_INLINE WORD GetAbsAddress(const Memory& memory, const BYTE offsetAddress) {
-        const WORD AbsAddress = FetchWord(memory);
-        const WORD TargetAddress = AbsAddress + offsetAddress;
-        if (IsPageCrossed(TargetAddress, AbsAddress))
-            cycles++;
-        return TargetAddress;
-    }
-
-    FORCE_INLINE BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress) {
-        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
-        return ReadByte(memory, TargetAddress);
     }
 
     static FORCE_INLINE WORD SwapRegistersAsWord(BYTE& lsbReg, BYTE& msbReg) {

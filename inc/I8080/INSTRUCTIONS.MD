@@ -1,7 +1,7 @@
 - [ ] ADD - Add Register or Memory To Accumulator
-- [ ] ADI - ADD Immediate Data to Accumulator
-- [ ] ADC - ADD Register or Memory to Accumulator with Carry
-- [ ] ACI - ADD Immediate Data to Accumulator with Carry
+- [ ] ADI - Add Immediate Data to Accumulator
+- [ ] ADC - Add Register or Memory to Accumulator with Carry
+- [ ] ACI - Add Immediate Data to Accumulator with Carry
 - [ ] ANA - Logical AND Register or Memory with Accumulator
 - [ ] ANI - Logical AND Immediate Data with Accumulator
 - [ ] CALL - Call
@@ -20,13 +20,13 @@
 - [ ] DAA - Decimal Adjust Accumulator
 - [ ] DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
 - [ ] DCR - Decrement Register or Memory
-- [ ] DCX - Decrement Register Pair
+- [x] DCX - Decrement Register Pair
 - [ ] DI - Disable Interrupts
 - [ ] EI - Enable Interrupts
 - [ ] HLT - Halt CPU
 - [ ] IN - Input data to accumulator from outcome device
 - [ ] INR - Increment Register or Memory
-- [ ] INX - Increment Register Pair
+- [x] INX - Increment Register Pair
 - [ ] JMP - Jump
 - [ ] JZ - Jump if Zero bit is one
 - [ ] JNZ - Jump if Zero bit is zero
@@ -42,7 +42,7 @@
 - [ ] LXI - Load Immediate data into paired Regitster or SP
 - [x] MOV - Transfer Data between Regitster or Memory
 - [x] MVI - Move Immediate Data in specified Register
-- [x] NOP - Cmon. Its just nop
+- [x] NOP - No operation
 - [ ] ORA - Logical OR Register or Memory with Accumulator
 - [ ] ORI - Logical OR Immediate Data with Accumulator
 - [ ] OUT - Output data from accumulator to outcome device
@@ -68,10 +68,10 @@
 - [ ] STA - Store Accumulator Data from Memory
 - [ ] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
 - [ ] STC - Set Carry
-- [ ] SUB - Substract Register or Memory From Accumulator
-- [ ] SUI - Substract Immediate Data from Accumulator
-- [ ] SBB - Substract Register or Memory From Accumulator with Borrow
-- [ ] SBI - Substract Immediate Data from Accumulator with Borrow
+- [ ] SUB - Subtract Register or Memory From Accumulator
+- [ ] SUI - Subtract Immediate Data from Accumulator
+- [ ] SBB - Subtract Register or Memory From Accumulator with Borrow
+- [ ] SBI - Subtract Immediate Data from Accumulator with Borrow
 - [ ] XCHG - Exchange Data held in H and L Registers
 - [ ] XTHL - Exchange Stack
 - [ ] XRA - Logical Exclusive-Or Register or Memory with Accumulator
