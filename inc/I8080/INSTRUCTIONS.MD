@@ -19,13 +19,13 @@
 - [ ] CPI - Compare Immediate Data with Accumulator
 - [ ] DAA - Decimal Adjust Accumulator
 - [ ] DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
-- [ ] DCR - Decrement Register or Memory
+- [x] DCR - Decrement Register or Memory
 - [x] DCX - Decrement Register Pair
 - [ ] DI - Disable Interrupts
 - [ ] EI - Enable Interrupts
 - [ ] HLT - Halt CPU
 - [ ] IN - Input data to accumulator from outcome device
-- [ ] INR - Increment Register or Memory
+- [x] INR - Increment Register or Memory
 - [x] INX - Increment Register Pair
 - [ ] JMP - Jump
 - [ ] JZ - Jump if Zero bit is one
@@ -44,7 +44,7 @@
 - [x] MVI - Move Immediate Data in specified Register
 - [x] NOP - No operation
 - [x] ORA - Logical OR Register or Memory with Accumulator
-- [ ] ORI - Logical OR Immediate Data with Accumulator
+- [x] ORI - Logical OR Immediate Data with Accumulator
 - [ ] OUT - Output data from accumulator to outcome device
 - [ ] PCHL - Insert into program counter data from H and L Registers
 - [ ] POP - Pop Data off Stack

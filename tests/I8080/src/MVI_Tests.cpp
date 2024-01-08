@@ -17,11 +17,11 @@ public:
         CheckCyclesCount();
     }
 
-    void MVI_CanMoveToMem(BYTE immediateValue) {
+    void MVI_CanMoveToMem(BYTE immediateValue, WORD memoryAddress) {
         // given:
         mem[0x0000] = I8080_OpCodes::MVI_M;
         mem[0x0001] = immediateValue;
-        WORD holdAddress = I8080::SwapRegistersAsWord(cpu.H, cpu.L);
+        I8080::SwapWordToRegisters(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;
 
@@ -29,7 +29,7 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[holdAddress], immediateValue);
+        EXPECT_EQ(mem[memoryAddress], immediateValue);
         CheckCyclesCount();
     }
 };
@@ -63,5 +63,5 @@ TEST_F(I8080_MVIFixture, MVI_L) {
 }
 
 TEST_F(I8080_MVIFixture, MVI_M) {
-    MVI_CanMoveToMem(0x25);
+    MVI_CanMoveToMem(0x25, 0x1234);
 }

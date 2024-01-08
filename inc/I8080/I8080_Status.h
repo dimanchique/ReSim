@@ -44,6 +44,12 @@ struct I8080_Status{
         }
     }
 
+    FORCE_INLINE void SetAuxiliaryCarryFlag(const BYTE &oldValue, const BYTE &newValue) {
+        const bool oldAuxiliaryCarry = (oldValue >> 3) & 0x1;
+        const bool newAuxiliaryCarry = (newValue >> 3) & 0x1;
+        AC = oldAuxiliaryCarry ^ newAuxiliaryCarry;
+    }
+
     FORCE_INLINE bool GetStatusValue(const BYTE checkArgs) const noexcept {
         return static_cast<BYTE>(*this) & checkArgs;
     }

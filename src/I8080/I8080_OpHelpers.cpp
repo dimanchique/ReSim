@@ -14,8 +14,11 @@
 #include "Operations/I8080_MOV_M_Ops.h"
 #include "Operations/I8080_MVI_Ops.h"
 #include "Operations/I8080_INX_Ops.h"
+#include "Operations/I8080_INR_Ops.h"
 #include "Operations/I8080_DCX_Ops.h"
+#include "Operations/I8080_DCR_Ops.h"
 #include "Operations/I8080_ORA_Ops.h"
+#include "Operations/I8080_ORI_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 
