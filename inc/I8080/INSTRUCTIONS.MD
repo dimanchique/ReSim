@@ -43,7 +43,7 @@
 - [x] MOV - Transfer Data between Regitster or Memory
 - [x] MVI - Move Immediate Data in specified Register
 - [x] NOP - No operation
-- [ ] ORA - Logical OR Register or Memory with Accumulator
+- [x] ORA - Logical OR Register or Memory with Accumulator
 - [ ] ORI - Logical OR Immediate Data with Accumulator
 - [ ] OUT - Output data from accumulator to outcome device
 - [ ] PCHL - Insert into program counter data from H and L Registers
