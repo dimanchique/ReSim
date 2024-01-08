@@ -22,10 +22,10 @@ TEST_F(MOS6502_SEFixture, SEC_IMPL_CanSetCarryFlag) {
     SE_CanSetFlag(SEC_IMPL, MOS6502_Status_C);
 }
 
-TEST_F(MOS6502_SEFixture, SED_IMPL_CanSetCarryFlag) {
+TEST_F(MOS6502_SEFixture, SED_IMPL_CanSetDecimalFlag) {
     SE_CanSetFlag(SED_IMPL, MOS6502_Status_D);
 }
 
-TEST_F(MOS6502_SEFixture, SEI_IMPL_CanSetCarryFlag) {
+TEST_F(MOS6502_SEFixture, SEI_IMPL_CanSetInterruptFlag) {
     SE_CanSetFlag(SEI_IMPL, MOS6502_Status_I);
 }

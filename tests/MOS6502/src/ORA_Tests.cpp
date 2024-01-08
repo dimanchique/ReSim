@@ -2,7 +2,7 @@
 
 class MOS6502_ORAFixture : public MOS6502_TestFixture {
 public:
-    void ORA_IM_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void ORA_IM_CanDoOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::ORA_IM;
@@ -18,7 +18,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_ZP_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void ORA_ZP_CanDoOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::ORA_ZP;
@@ -35,7 +35,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_ZPX_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void ORA_ZPX_CanDoOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         cpu.X = 0x10;
@@ -52,7 +52,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_ABS_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void ORA_ABS_CanDoOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::ORA_ABS;
@@ -70,7 +70,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+    void ORA_ABS_CanDoOR(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = opcode;
@@ -89,107 +89,107 @@ public:
     }
 };
 
-TEST_F(MOS6502_ORAFixture, ORA_IM_CanLoadValue) {
-    ORA_IM_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ORAFixture, ORA_IM_CanDoOR) {
+    ORA_IM_CanDoOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_IM_CanAffectZeroFlag) {
-    ORA_IM_CanLoadValue(0x0, 0x0);
+    ORA_IM_CanDoOR(0x0, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_IM_CanAffectNegativeFlag) {
-    ORA_IM_CanLoadValue(0xFF, 0x0);
+    ORA_IM_CanDoOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ZP_CanLoadValue) {
-    ORA_ZP_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ORAFixture, ORA_ZP_CanDoOR) {
+    ORA_ZP_CanDoOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ZP_CanAffectZeroFlag) {
-    ORA_ZP_CanLoadValue(0x0, 0x0);
+    ORA_ZP_CanDoOR(0x0, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ZP_CanAffectNegativeFlag) {
-    ORA_ZP_CanLoadValue(0xFF, 0x0);
+    ORA_ZP_CanDoOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ZPX_CanLoadValue) {
-    ORA_ZPX_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ORAFixture, ORA_ZPX_CanDoOR) {
+    ORA_ZPX_CanDoOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ZPX_CanAffectZeroFlag) {
-    ORA_ZPX_CanLoadValue(0x0, 0x0);
+    ORA_ZPX_CanDoOR(0x0, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ZPX_CanAffectNegativeFlag) {
-    ORA_ZPX_CanLoadValue(0xFF, 0x0);
+    ORA_ZPX_CanDoOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ABS_CanLoadValue) {
-    ORA_ABS_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ORAFixture, ORA_ABS_CanDoOR) {
+    ORA_ABS_CanDoOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABS_CanAffectZeroFlag) {
-    ORA_ABS_CanLoadValue(0x0, 0x0);
+    ORA_ABS_CanDoOR(0x0, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABS_CanAffectNegativeFlag) {
-    ORA_ABS_CanLoadValue(0xFF, 0x0);
+    ORA_ABS_CanDoOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanLoadValue) {
+TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanDoOR) {
     cpu.X = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0xF, cpu.X);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0xF, cpu.X);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanDoOR_WithExtraCycleOnPageCrossing) {
     cpu.X = 0xFF;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0xF, cpu.X);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0xF, cpu.X);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSX, 0x0, 0x0, cpu.X);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSX, 0x0, 0x0, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0x0, cpu.X);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSX, 0xFF, 0x0, cpu.X);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanLoadValue) {
+TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanDoOR) {
     cpu.Y = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0xF, cpu.Y);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanDoOR_WithExtraCycleOnPageCrossing) {
     cpu.Y = 0xFF;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0xF, cpu.Y);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanAffectZeroFlag) {
     cpu.Y = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSY, 0x0, 0x0, cpu.Y);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSY, 0x0, 0x0, cpu.Y);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ORAFixture, ORA_ABSY_CanAffectNegativeFlag) {
     cpu.Y = 0x05;
-    ORA_ABS_CanLoadValue(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0x0, cpu.Y);
+    ORA_ABS_CanDoOR(MOS6502_OpCodes::ORA_ABSY, 0xFF, 0x0, cpu.Y);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_INDX_CanLoadValue) {
+TEST_F(MOS6502_ORAFixture, ORA_INDX_CanDoOR) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x04;                               // preload 0x04 to X to add it to value we read
@@ -211,7 +211,7 @@ TEST_F(MOS6502_ORAFixture, ORA_INDX_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_INDY_CanLoadValue) {
+TEST_F(MOS6502_ORAFixture, ORA_INDY_CanDoOR) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
@@ -233,7 +233,7 @@ TEST_F(MOS6502_ORAFixture, ORA_INDY_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_ORAFixture, ORA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ORAFixture, ORA_INDY_CanDoOR_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read

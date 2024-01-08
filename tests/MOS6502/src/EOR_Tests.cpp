@@ -2,7 +2,7 @@
 
 class MOS6502_EORFixture : public MOS6502_TestFixture {
 public:
-    void EOR_IM_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void EOR_IM_CanDoExclusiveOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::EOR_IM;
@@ -18,7 +18,7 @@ public:
         CheckCyclesCount();
     }
 
-    void EOR_ZP_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void EOR_ZP_CanDoExclusiveOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::EOR_ZP;
@@ -35,7 +35,7 @@ public:
         CheckCyclesCount();
     }
 
-    void EOR_ZPX_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void EOR_ZPX_CanDoExclusiveOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         cpu.X = 0x10;
@@ -53,7 +53,7 @@ public:
         CheckCyclesCount();
     }
 
-    void EOR_ABS_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void EOR_ABS_CanDoExclusiveOR(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::EOR_ABS;
@@ -71,7 +71,7 @@ public:
         CheckCyclesCount();
     }
 
-    void EOR_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+    void EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = opcode;
@@ -90,107 +90,107 @@ public:
     }
 };
 
-TEST_F(MOS6502_EORFixture, EOR_IM_CanLoadValue) {
-    EOR_IM_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_EORFixture, EOR_IM_CanDoExclusiveOR) {
+    EOR_IM_CanDoExclusiveOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_IM_CanAffectZeroFlag) {
-    EOR_IM_CanLoadValue(0xF, 0xF);
+    EOR_IM_CanDoExclusiveOR(0xF, 0xF);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_IM_CanAffectNegativeFlag) {
-    EOR_IM_CanLoadValue(0xFF, 0x0);
+    EOR_IM_CanDoExclusiveOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ZP_CanLoadValue) {
-    EOR_ZP_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_EORFixture, EOR_ZP_CanDoExclusiveOR) {
+    EOR_ZP_CanDoExclusiveOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ZP_CanAffectZeroFlag) {
-    EOR_ZP_CanLoadValue(0xF, 0xF);
+    EOR_ZP_CanDoExclusiveOR(0xF, 0xF);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ZP_CanAffectNegativeFlag) {
-    EOR_ZP_CanLoadValue(0xFF, 0x0);
+    EOR_ZP_CanDoExclusiveOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ZPX_CanLoadValue) {
-    EOR_ZPX_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_EORFixture, EOR_ZPX_CanDoExclusiveOR) {
+    EOR_ZPX_CanDoExclusiveOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ZPX_CanAffectZeroFlag) {
-    EOR_ZPX_CanLoadValue(0xF, 0xF);
+    EOR_ZPX_CanDoExclusiveOR(0xF, 0xF);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ZPX_CanAffectNegativeFlag) {
-    EOR_ZPX_CanLoadValue(0xFF, 0x0);
+    EOR_ZPX_CanDoExclusiveOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ABS_CanLoadValue) {
-    EOR_ABS_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_EORFixture, EOR_ABS_CanDoExclusiveOR) {
+    EOR_ABS_CanDoExclusiveOR(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABS_CanAffectZeroFlag) {
-    EOR_ABS_CanLoadValue(0xF, 0xF);
+    EOR_ABS_CanDoExclusiveOR(0xF, 0xF);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABS_CanAffectNegativeFlag) {
-    EOR_ABS_CanLoadValue(0xFF, 0x0);
+    EOR_ABS_CanDoExclusiveOR(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ABSX_CanLoadValue) {
+TEST_F(MOS6502_EORFixture, EOR_ABSX_CanDoExclusiveOR) {
     cpu.X = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0xF, cpu.X);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0xF, cpu.X);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ABSX_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_EORFixture, EOR_ABSX_CanDoExclusiveOR_WithExtraCycleOnPageCrossing) {
     cpu.X = 0xFF;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0xF, cpu.X);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0xF, cpu.X);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSX, 0xF, 0xF, cpu.X);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSX, 0xF, 0xF, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0x0, cpu.X);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSX, 0xFF, 0x0, cpu.X);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ABSY_CanLoadValue) {
+TEST_F(MOS6502_EORFixture, EOR_ABSY_CanDoExclusiveOR) {
     cpu.Y = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0xF, cpu.Y);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_EORFixture, EOR_ABSY_CanDoExclusiveOR_WithExtraCycleOnPageCrossing) {
     cpu.Y = 0xFF;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0xF, cpu.Y);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABSY_CanAffectZeroFlag) {
     cpu.Y = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSY, 0xF, 0xF, cpu.Y);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSY, 0xF, 0xF, cpu.Y);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_EORFixture, EOR_ABSY_CanAffectNegativeFlag) {
     cpu.Y = 0x05;
-    EOR_ABS_CanLoadValue(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0x0, cpu.Y);
+    EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes::EOR_ABSY, 0xFF, 0x0, cpu.Y);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_EORFixture, EOR_INDX_CanLoadValue) {
+TEST_F(MOS6502_EORFixture, EOR_INDX_CanDoExclusiveOR) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x04;                               // preload 0x04 to X to add it to value we read
@@ -212,7 +212,7 @@ TEST_F(MOS6502_EORFixture, EOR_INDX_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_EORFixture, EOR_INDY_CanLoadValue) {
+TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
@@ -234,7 +234,7 @@ TEST_F(MOS6502_EORFixture, EOR_INDY_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_EORFixture, EOR_INDY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read

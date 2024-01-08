@@ -3,8 +3,8 @@
 
 class I8080_MOVFixture : public I8080_TestFixture {
 public:
-    void RegToRegMov(I8080_OpCodes opcode, BYTE& destRegister, BYTE& srcRegister, BYTE value);
-    void MemToRegMov(I8080_OpCodes opcode, BYTE& destRegister, WORD srcMemoryAddress, BYTE value);
-    void RegToMemMov(I8080_OpCodes opcode, WORD destMemoryAddress, BYTE value);
-    void NopLikeMov(I8080_OpCodes opcode);
+    void MOV_CanMoveRegToReg(I8080_OpCodes opcode, BYTE& destRegister, BYTE& srcRegister, BYTE value);
+    void MOV_CanMoveMemToReg(I8080_OpCodes opcode, BYTE& destRegister, WORD srcMemoryAddress, BYTE value);
+    void MOV_CanMoveRegToMem(I8080_OpCodes opcode, WORD destMemoryAddress, BYTE value);
+    void MOV_CanDoNopLikeMove(I8080_OpCodes opcode);
 };

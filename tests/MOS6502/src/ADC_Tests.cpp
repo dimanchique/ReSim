@@ -3,7 +3,7 @@
 class MOS6502_ADCFixture : public MOS6502_TestFixture {
 public:
 
-    void ADC_IM_DoAddValue(BYTE initialValue, BYTE memoryValue) {
+    void ADC_CanAddValue(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = ADC_IM;
@@ -20,7 +20,7 @@ public:
 };
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_CanAddValue) {
-    ADC_IM_DoAddValue(0x50, 0x10);
+    ADC_CanAddValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x60);
     EXPECT_FALSE(cpu.Status.C);
@@ -31,7 +31,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_CanAddValue) {
 TEST_F(MOS6502_ADCFixture, ADC_IM_CanAddValue_WithCarryFlag) {
     cpu.Status.C = 1;
 
-    ADC_IM_DoAddValue(0x50, 0x10);
+    ADC_CanAddValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x61);
     EXPECT_FALSE(cpu.Status.C);
@@ -40,7 +40,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_CanAddValue_WithCarryFlag) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_CanAffectNegativeFlag) {
-    ADC_IM_DoAddValue(0x00, 0xFF);
+    ADC_CanAddValue(0x00, 0xFF);
 
     EXPECT_EQ(cpu.A, 0xFF);
     EXPECT_FALSE(cpu.Status.Z);
@@ -50,7 +50,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_CanAffectNegativeFlag) {
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_CanAffectZeroFlag) {
     cpu.Status.C = 1;
-    ADC_IM_DoAddValue(0x00, 0xFF);
+    ADC_CanAddValue(0x00, 0xFF);
 
     EXPECT_EQ(cpu.A, 0x00);
     EXPECT_TRUE(cpu.Status.Z);
@@ -59,7 +59,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_CanAffectZeroFlag) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_1) {
-    ADC_IM_DoAddValue(0x50, 0x10);
+    ADC_CanAddValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x60);
     EXPECT_FALSE(cpu.Status.Z);
@@ -69,7 +69,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_1) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_2) {
-    ADC_IM_DoAddValue(0x50, 0x50);
+    ADC_CanAddValue(0x50, 0x50);
 
     EXPECT_EQ(cpu.A, 0xa0);
     EXPECT_FALSE(cpu.Status.Z);
@@ -79,7 +79,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_2) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_3) {
-    ADC_IM_DoAddValue(0x50, 0x90);
+    ADC_CanAddValue(0x50, 0x90);
 
     EXPECT_EQ(cpu.A, 0xe0);
     EXPECT_FALSE(cpu.Status.Z);
@@ -89,7 +89,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_3) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_4) {
-    ADC_IM_DoAddValue(0x50, 0xd0);
+    ADC_CanAddValue(0x50, 0xd0);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x120);
     EXPECT_FALSE(cpu.Status.Z);
@@ -99,7 +99,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_4) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_5) {
-    ADC_IM_DoAddValue(0xd0, 0x10);
+    ADC_CanAddValue(0xd0, 0x10);
 
     EXPECT_EQ(cpu.A, 0xe0);
     EXPECT_FALSE(cpu.Status.Z);
@@ -109,7 +109,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_5) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_6) {
-    ADC_IM_DoAddValue(0xd0, 0x50);
+    ADC_CanAddValue(0xd0, 0x50);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x120);
     EXPECT_FALSE(cpu.Status.Z);
@@ -119,7 +119,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_6) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_7) {
-    ADC_IM_DoAddValue(0xd0, 0x90);
+    ADC_CanAddValue(0xd0, 0x90);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x160);
     EXPECT_FALSE(cpu.Status.Z);
@@ -129,7 +129,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_7) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_8) {
-    ADC_IM_DoAddValue(0xd0, 0xd0);
+    ADC_CanAddValue(0xd0, 0xd0);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x1a0);
     EXPECT_FALSE(cpu.Status.Z);
@@ -139,7 +139,7 @@ TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_8) {
 }
 
 TEST_F(MOS6502_ADCFixture, ADC_IM_StatusFlagTest_9) {
-    ADC_IM_DoAddValue(0x80, 0xFF);
+    ADC_CanAddValue(0x80, 0xFF);
 
     EXPECT_EQ(cpu.A, (0xFF) & 0x7F);
     EXPECT_FALSE(cpu.Status.Z);

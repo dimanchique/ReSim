@@ -2,7 +2,7 @@
 
 class MOS6502_ANDFixture : public MOS6502_TestFixture {
 public:
-    void AND_IM_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void AND_IM_CanDoAND(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::AND_IM;
@@ -18,7 +18,7 @@ public:
         CheckCyclesCount();
     }
 
-    void AND_ZP_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void AND_ZP_CanDoAND(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::AND_ZP;
@@ -35,7 +35,7 @@ public:
         CheckCyclesCount();
     }
 
-    void AND_ZPX_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void AND_ZPX_CanDoAND(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         cpu.X = 0x10;
@@ -53,7 +53,7 @@ public:
         CheckCyclesCount();
     }
 
-    void AND_ABS_CanLoadValue(BYTE initialValue, BYTE memoryValue) {
+    void AND_ABS_CanDoAND(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = MOS6502_OpCodes::AND_ABS;
@@ -71,7 +71,7 @@ public:
         CheckCyclesCount();
     }
 
-    void AND_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+    void AND_ABS_CanDoAND(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = opcode;
@@ -90,107 +90,107 @@ public:
     }
 };
 
-TEST_F(MOS6502_ANDFixture, AND_IM_CanLoadValue) {
-    AND_IM_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ANDFixture, AND_IM_CanDoAND) {
+    AND_IM_CanDoAND(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_IM_CanAffectZeroFlag) {
-    AND_IM_CanLoadValue(0xFF, 0x0);
+    AND_IM_CanDoAND(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_IM_CanAffectNegativeFlag) {
-    AND_IM_CanLoadValue(0xFF, 0xFF);
+    AND_IM_CanDoAND(0xFF, 0xFF);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ZP_CanLoadValue) {
-    AND_ZP_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ANDFixture, AND_ZP_CanDoAND) {
+    AND_ZP_CanDoAND(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ZP_CanAffectZeroFlag) {
-    AND_ZP_CanLoadValue(0xFF, 0x0);
+    AND_ZP_CanDoAND(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ZP_CanAffectNegativeFlag) {
-    AND_ZP_CanLoadValue(0xFF, 0xFF);
+    AND_ZP_CanDoAND(0xFF, 0xFF);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ZPX_CanLoadValue) {
-    AND_ZPX_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ANDFixture, AND_ZPX_CanDoAND) {
+    AND_ZPX_CanDoAND(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ZPX_CanAffectZeroFlag) {
-    AND_ZPX_CanLoadValue(0xFF, 0x0);
+    AND_ZPX_CanDoAND(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ZPX_CanAffectNegativeFlag) {
-    AND_ZPX_CanLoadValue(0xFF, 0xFF);
+    AND_ZPX_CanDoAND(0xFF, 0xFF);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ABS_CanLoadValue) {
-    AND_ABS_CanLoadValue(0xFF, 0xF);
+TEST_F(MOS6502_ANDFixture, AND_ABS_CanDoAND) {
+    AND_ABS_CanDoAND(0xFF, 0xF);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABS_CanAffectZeroFlag) {
-    AND_ABS_CanLoadValue(0xFF, 0x0);
+    AND_ABS_CanDoAND(0xFF, 0x0);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABS_CanAffectNegativeFlag) {
-    AND_ABS_CanLoadValue(0xFF, 0xFF);
+    AND_ABS_CanDoAND(0xFF, 0xFF);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ABSX_CanLoadValue) {
+TEST_F(MOS6502_ANDFixture, AND_ABSX_CanDoAND) {
     cpu.X = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xF, cpu.X);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xF, cpu.X);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ABSX_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ANDFixture, AND_ABSX_CanDoAND_WithExtraCycleOnPageCrossing) {
     cpu.X = 0xFF;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xF, cpu.X);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xF, cpu.X);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSX, 0xFF, 0x0, cpu.X);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSX, 0xFF, 0x0, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xFF, cpu.X);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSX, 0xFF, 0xFF, cpu.X);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ABSY_CanLoadValue) {
+TEST_F(MOS6502_ANDFixture, AND_ABSY_CanDoAND) {
     cpu.Y = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xF, cpu.Y);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ANDFixture, AND_ABSY_CanDoAND_WithExtraCycleOnPageCrossing) {
     cpu.Y = 0xFF;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xF, cpu.Y);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xF, cpu.Y);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABSY_CanAffectZeroFlag) {
     cpu.Y = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSY, 0xFF, 0x0, cpu.Y);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSY, 0xFF, 0x0, cpu.Y);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_ANDFixture, AND_ABSY_CanAffectNegativeFlag) {
     cpu.Y = 0x05;
-    AND_ABS_CanLoadValue(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xFF, cpu.Y);
+    AND_ABS_CanDoAND(MOS6502_OpCodes::AND_ABSY, 0xFF, 0xFF, cpu.Y);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ANDFixture, AND_INDX_CanLoadValue) {
+TEST_F(MOS6502_ANDFixture, AND_INDX_CanDoAND) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x04;                               // preload 0x04 to X to add it to value we read
@@ -212,7 +212,7 @@ TEST_F(MOS6502_ANDFixture, AND_INDX_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_ANDFixture, AND_INDY_CanLoadValue) {
+TEST_F(MOS6502_ANDFixture, AND_INDY_CanDoAND) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
@@ -234,7 +234,7 @@ TEST_F(MOS6502_ANDFixture, AND_INDY_CanLoadValue) {
     CheckCyclesCount();
 }
 
-TEST_F(MOS6502_ANDFixture, AND_INDY_CanLoadValue_WithExtraCycleOnPageCrossing) {
+TEST_F(MOS6502_ANDFixture, AND_INDY_CanDoAND_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read

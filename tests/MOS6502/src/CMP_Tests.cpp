@@ -3,67 +3,67 @@
 class MOS6502_CMPFixture : public MOS6502_CMFixture {};
 
 TEST_F(MOS6502_CMPFixture, CMP_IM_CanCompare) {
-    CM_IM(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x4);
+    CM_IM_CanCompare(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_IM_CanAffectZeroFlag) {
-    CM_IM(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x10);
+    CM_IM_CanCompare(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x10);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_TRUE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_IM_CanAffectNegativeFlag) {
-    CM_IM(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x11);
+    CM_IM_CanCompare(MOS6502_OpCodes::CMP_IM, cpu.A, 0x10, 0x11);
     EXPECT_FALSE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ZP_CanCompare) {
-    CM_ZP(MOS6502_OpCodes::CMP_ZP, cpu.A, 0x10, 0x4);
+    CM_ZP_CanCompare(MOS6502_OpCodes::CMP_ZP, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ZPX_CanCompare) {
     cpu.X = 0x5;
-    CM_ZP(MOS6502_OpCodes::CMP_ZPX, cpu.A, 0x10, 0x4, cpu.X);
+    CM_ZP_CanCompare(MOS6502_OpCodes::CMP_ZPX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ABS_CanCompare) {
-    CM_ABS(MOS6502_OpCodes::CMP_ABS, cpu.A, 0x10, 0x4);
+    CM_ABS_CanCompare(MOS6502_OpCodes::CMP_ABS, cpu.A, 0x10, 0x4);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ABSX_CanCompare) {
     cpu.X = 0x01;
-    CM_ABS(MOS6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
+    CM_ABS_CanCompare(MOS6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ABSX_CanCompare_WithExtraCycleOnPageCrossing) {
     cpu.X = 0xFF;
-    CM_ABS(MOS6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
+    CM_ABS_CanCompare(MOS6502_OpCodes::CMP_ABSX, cpu.A, 0x10, 0x4, cpu.X);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ABSY_CanCompare) {
     cpu.Y = 0x01;
-    CM_ABS(MOS6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
+    CM_ABS_CanCompare(MOS6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }
 
 TEST_F(MOS6502_CMPFixture, CMP_ABSY_CanCompare_WithExtraCycleOnPageCrossing) {
     cpu.Y = 0xFF;
-    CM_ABS(MOS6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
+    CM_ABS_CanCompare(MOS6502_OpCodes::CMP_ABSY, cpu.A, 0x10, 0x4, cpu.Y);
     EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
 }

@@ -2,7 +2,7 @@
 
 class MOS6502_ASLFixture : public MOS6502_TestFixture {
 public:
-    void ASL_ACC_CanShiftLeft(BYTE value) {
+    void ASL_ACC_CanDoShiftLeft(BYTE value) {
         // given:
         cpu.A = value;
         mem[0xFFFC] = MOS6502_OpCodes::ASL_ACC;
@@ -17,7 +17,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ZP_CanShiftLeft(BYTE value) {
+    void ASL_ZP_CanDoShiftLeft(BYTE value) {
         // given:
         mem[0xFFFC] = MOS6502_OpCodes::ASL_ZP;
         mem[0xFFFD] = 0x42;
@@ -33,7 +33,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ZPX_CanShiftLeft(BYTE value) {
+    void ASL_ZPX_CanDoShiftLeft(BYTE value) {
         // given:
         cpu.X = 0x10;
         mem[0xFFFC] = MOS6502_OpCodes::ASL_ZPX;
@@ -50,7 +50,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ABS_CanShiftLeft(BYTE value) {
+    void ASL_ABS_CanDoShiftLeft(BYTE value) {
         // given:
         mem[0xFFFC] = MOS6502_OpCodes::ASL_ABS;
         mem[0xFFFD] = 0x80;
@@ -67,7 +67,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ABS_CanShiftLeft(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
+    void ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
         // given:
         mem[0xFFFC] = opcode;
         mem[0xFFFD] = 0x02;
@@ -85,80 +85,80 @@ public:
     }
 };
 
-TEST_F(MOS6502_ASLFixture, ASL_ACC_CanShiftLeft) {
-    ASL_ACC_CanShiftLeft(0xFF);
+TEST_F(MOS6502_ASLFixture, ASL_ACC_CanDoShiftLeft) {
+    ASL_ACC_CanDoShiftLeft(0xFF);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ACC_CanAffectZeroFlag) {
-    ASL_ACC_CanShiftLeft(0x80);
+    ASL_ACC_CanDoShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ACC_CanAffectNegativeFlag) {
-    ASL_ACC_CanShiftLeft(0x40);
+    ASL_ACC_CanDoShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ASLFixture, ASL_ZP_CanShiftLeft) {
-    ASL_ZP_CanShiftLeft(0xFF);
+TEST_F(MOS6502_ASLFixture, ASL_ZP_CanDoShiftLeft) {
+    ASL_ZP_CanDoShiftLeft(0xFF);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ZP_CanAffectZeroFlag) {
-    ASL_ZP_CanShiftLeft(0x80);
+    ASL_ZP_CanDoShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ZP_CanAffectNegativeFlag) {
-    ASL_ZP_CanShiftLeft(0x40);
+    ASL_ZP_CanDoShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ASLFixture, ASL_ZPX_CanShiftLeft) {
-    ASL_ZPX_CanShiftLeft(0xFF);
+TEST_F(MOS6502_ASLFixture, ASL_ZPX_CanDoShiftLeft) {
+    ASL_ZPX_CanDoShiftLeft(0xFF);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ZPX_CanAffectZeroFlag) {
-    ASL_ZPX_CanShiftLeft(0x80);
+    ASL_ZPX_CanDoShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ZPX_CanAffectNegativeFlag) {
-    ASL_ZPX_CanShiftLeft(0x40);
+    ASL_ZPX_CanDoShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ASLFixture, ASL_ABS_CanShiftLeft) {
-    ASL_ABS_CanShiftLeft(0xFF);
+TEST_F(MOS6502_ASLFixture, ASL_ABS_CanDoShiftLeft) {
+    ASL_ABS_CanDoShiftLeft(0xFF);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABS_CanAffectZeroFlag) {
-    ASL_ABS_CanShiftLeft(0x80);
+    ASL_ABS_CanDoShiftLeft(0x80);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABS_CanAffectNegativeFlag) {
-    ASL_ABS_CanShiftLeft(0x40);
+    ASL_ABS_CanDoShiftLeft(0x40);
     EXPECT_TRUE(cpu.Status.N);
 }
 
-TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanShiftLeft) {
+TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanDoShiftLeft) {
     cpu.X = 0x05;
-    ASL_ABS_CanShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0xFF, cpu.X);
+    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0xFF, cpu.X);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
-    ASL_ABS_CanShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x80, cpu.X);
+    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x80, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
-    ASL_ABS_CanShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x40, cpu.X);
+    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x40, cpu.X);
     EXPECT_TRUE(cpu.Status.N);
 }
