@@ -1,6 +1,7 @@
 #include "I8080.h"
 #include "Operations/I8080_ADD_Ops.h"
 #include "Operations/I8080_ANA_Ops.h"
+#include "Operations/I8080_ANI_Ops.h"
 #include "Operations/I8080_ROT_Ops.h"
 #include "Operations/I8080_LDA_Ops.h"
 #include "Operations/I8080_NOP_Ops.h"
