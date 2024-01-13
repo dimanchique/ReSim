@@ -74,5 +74,5 @@
 - [ ] SBI - Subtract Immediate Data from Accumulator with Borrow
 - [ ] XCHG - Exchange Data held in H and L Registers
 - [ ] XTHL - Exchange Stack
-- [ ] XRA - Logical Exclusive-Or Register or Memory with Accumulator
-- [ ] XRI - Logical Exclusive-Or Immediate Data with Accumulator
+- [x] XRA - Logical Exclusive-Or Register or Memory with Accumulator
+- [x] XRI - Logical Exclusive-Or Immediate Data with Accumulator
