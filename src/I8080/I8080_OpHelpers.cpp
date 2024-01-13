@@ -20,6 +20,8 @@
 #include "Operations/I8080_DCR_Ops.h"
 #include "Operations/I8080_ORA_Ops.h"
 #include "Operations/I8080_ORI_Ops.h"
+#include "Operations/I8080_SHLD_Ops.h"
+#include "Operations/I8080_LHLD_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 

@@ -2,7 +2,7 @@
 
 #include "I8080/I8080.h"
 
-FORCE_INLINE void GenericINX(I8080 &cpu, WORD* targetRegisterPtr){
+FORCE_INLINE void GenericINX(I8080 &cpu, WORD *targetRegisterPtr) {
     (*targetRegisterPtr)++;
     cpu.cycles++;
 }

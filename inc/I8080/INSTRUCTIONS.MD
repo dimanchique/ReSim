@@ -2,8 +2,8 @@
 - [ ] ADI - Add Immediate Data to Accumulator
 - [ ] ADC - Add Register or Memory to Accumulator with Carry
 - [ ] ACI - Add Immediate Data to Accumulator with Carry
-- [ ] ANA - Logical AND Register or Memory with Accumulator
-- [ ] ANI - Logical AND Immediate Data with Accumulator
+- [x] ANA - Logical AND Register or Memory with Accumulator
+- [x] ANI - Logical AND Immediate Data with Accumulator
 - [ ] CALL - Call
 - [ ] CZ - Call if Zero bit is one
 - [ ] CNZ - Call if Zero bit is zero
@@ -38,9 +38,9 @@
 - [ ] JPO - Jump if Parity Odd
 - [x] LDA - Load Data from Accumulator to Memory
 - [x] LDAX - Load Accumulator data addressed by B and C, or D and E Registers
-- [ ] LHLD - Load H and L Registers from Memory
-- [ ] LXI - Load Immediate data into paired Regitster or SP
-- [x] MOV - Transfer Data between Regitster or Memory
+- [x] LHLD - Load H and L Registers from Memory
+- [ ] LXI - Load Immediate data into paired Register or SP
+- [x] MOV - Transfer Data between Register or Memory
 - [x] MVI - Move Immediate Data in specified Register
 - [x] NOP - No operation
 - [x] ORA - Logical OR Register or Memory with Accumulator
@@ -64,7 +64,7 @@
 - [ ] RPO - Return if Pairity Odd
 - [ ] RST - Reset
 - [ ] SPHL - Load SP from H and L Registers
-- [ ] SHLD - Store H and L Regitster in Memory
+- [x] SHLD - Store H and L Register in Memory
 - [ ] STA - Store Accumulator Data from Memory
 - [ ] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
 - [ ] STC - Set Carry

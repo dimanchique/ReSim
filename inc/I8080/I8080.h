@@ -35,7 +35,7 @@ public:
     FORCE_INLINE WORD FetchWord(const Memory &memory) {
         const BYTE Lo = FetchByte(memory);
         const BYTE Hi = FetchByte(memory);
-        return Lo | (Hi << 8);
+        return Hi | (Lo << 8);
     }
 
     FORCE_INLINE BYTE ReadByte(const Memory &memory, const WORD address) {
