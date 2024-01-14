@@ -13,7 +13,7 @@ endif()
 include_directories(inc)
 
 include(FetchContent)
-FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip)
+FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
 
 set(DATA_DIRECTORY "${CMAKE_SOURCE_DIR}/tools/asm_tests")
 file(GLOB subdirectories "${DATA_DIRECTORY}/*")
