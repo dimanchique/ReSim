@@ -4,6 +4,7 @@
 #include "Operations/I8080_ANI_Ops.h"
 #include "Operations/I8080_ROT_Ops.h"
 #include "Operations/I8080_LDA_Ops.h"
+#include "Operations/I8080_STA_Ops.h"
 #include "Operations/I8080_NOP_Ops.h"
 #include "Operations/I8080_MOV_A_Ops.h"
 #include "Operations/I8080_MOV_B_Ops.h"
