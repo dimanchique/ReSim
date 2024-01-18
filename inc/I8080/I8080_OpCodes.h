@@ -179,13 +179,13 @@ enum I8080_OpCodes : BYTE {
 //  LHLD - Load H and L Registers from Memory
     LHLD = 0x2A,
 
-//  LXI - Load Immediate data into paired Regitster or SP
+//  LXI - Load Immediate data into paired Register or SP
     LXI_B = 0x01,
     LXI_D = 0x11,
     LXI_H = 0x21,
     LXI_SP = 0x31,
 
-//  MOV - Transfer Data between Regitster or Memory
+//  MOV - Transfer Data between Register or Memory
     MOV_A_A = 0x7F,
     MOV_A_B = 0x78,
     MOV_A_C = 0x79,
@@ -324,13 +324,13 @@ enum I8080_OpCodes : BYTE {
 //  RC - Return if Carry bit is one
     RC = 0xD8,
 
-//  RNC - Return if Carty bit is zero
+//  RNC - Return if Carry bit is zero
     RNC = 0xD0,
 
-//  RPE - Return if Pairity Even
+//  RPE - Return if Parity Even
     RPE = 0xE8,
 
-//  RPO - Return if Pairity Odd
+//  RPO - Return if Parity Odd
     RPO = 0xE0,
 
 //  RST - Reset
@@ -346,7 +346,7 @@ enum I8080_OpCodes : BYTE {
 //  SPHL - Load SP from H and L Registers
     SPHL = 0xF9,
 
-//  SHLD - Store H and L Regitster in Memory
+//  SHLD - Store H and L Register in Memory
     SHLD = 0x22,
 
 //  STA - Store Accumulator Data from Memory
@@ -359,7 +359,7 @@ enum I8080_OpCodes : BYTE {
 //  STC - Set Carry
     STC = 0x37,
 
-//  SUB - Substract Register or Memory From Accumulator
+//  SUB - Subtract Register or Memory From Accumulator
     SUB_A = 0x97,
     SUB_B = 0x90,
     SUB_C = 0x91,
@@ -369,10 +369,10 @@ enum I8080_OpCodes : BYTE {
     SUB_L = 0x95,
     SUB_M = 0x96,
 
-//  SUI - Substract Immediate Data from Accumulator
+//  SUI - Subtract Immediate Data from Accumulator
     SUI = 0xD6,
 
-//  SBB - Substract Register or Memory From Accumulator with Borrow
+//  SBB - Subtract Register or Memory From Accumulator with Borrow
     SBB_A = 0x9F,
     SBB_B = 0x98,
     SBB_C = 0x99,
@@ -382,7 +382,7 @@ enum I8080_OpCodes : BYTE {
     SBB_L = 0x9D,
     SBB_M = 0x9E,
 
-//  SBI - Substract Immediate Data from Accumulator with Borrow
+//  SBI - Subtract Immediate Data from Accumulator with Borrow
     SBI = 0xDE,
 
 //  XCHG - Exchange Data held in H and L Registers

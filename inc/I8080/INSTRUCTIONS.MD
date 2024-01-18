@@ -59,9 +59,9 @@
 - [ ] RP - Return if Sign bit is zero
 - [ ] RM - Return if Sign bit is one
 - [ ] RC - Return if Carry bit is one
-- [ ] RNC - Return if Carty bit is zero
-- [ ] RPE - Return if Pairity Even
-- [ ] RPO - Return if Pairity Odd
+- [ ] RNC - Return if Carry bit is zero
+- [ ] RPE - Return if Parity Even
+- [ ] RPO - Return if Parity Odd
 - [ ] RST - Reset
 - [ ] SPHL - Load SP from H and L Registers
 - [x] SHLD - Store H and L Register in Memory
