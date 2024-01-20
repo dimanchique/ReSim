@@ -14,7 +14,7 @@
 - [ ] CPE - Call if Parity Even
 - [ ] CPO - Call if Parity Odd
 - [ ] CMA - Complement Accumulator
-- [ ] CMC - Complement Carry
+- [x] CMC - Complement Carry
 - [ ] CMP - Compare Register or Memory with Accumulator
 - [ ] CPI - Compare Immediate Data with Accumulator
 - [ ] DAA - Decimal Adjust Accumulator
@@ -65,9 +65,9 @@
 - [ ] RST - Reset
 - [ ] SPHL - Load SP from H and L Registers
 - [x] SHLD - Store H and L Register in Memory
-- [ ] STA - Store Accumulator Data from Memory
-- [ ] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
-- [ ] STC - Set Carry
+- [x] STA - Store Accumulator Data from Memory
+- [x] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
+- [x] STC - Set Carry
 - [ ] SUB - Subtract Register or Memory From Accumulator
 - [ ] SUI - Subtract Immediate Data from Accumulator
 - [ ] SBB - Subtract Register or Memory From Accumulator with Borrow
