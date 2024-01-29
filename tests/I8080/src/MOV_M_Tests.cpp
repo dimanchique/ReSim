@@ -29,7 +29,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_MH) {
     // given:
     mem[0x1234] = 0;
     mem[0x0000] = I8080_OpCodes::MOV_M_H;
-    I8080::SwapWordToRegisters(0x1234, cpu.H, cpu.L);
+    I8080::wordToRegisterSwapped(0x1234, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 
@@ -45,7 +45,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_ML) {
     // given:
     mem[0x1234] = 0;
     mem[0x0000] = I8080_OpCodes::MOV_M_L;
-    I8080::SwapWordToRegisters(0x1234, cpu.H, cpu.L);
+    I8080::wordToRegisterSwapped(0x1234, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 

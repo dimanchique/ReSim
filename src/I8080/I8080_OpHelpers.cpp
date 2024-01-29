@@ -27,6 +27,8 @@
 #include "Operations/I8080_LHLD_Ops.h"
 #include "Operations/I8080_STC_Ops.h"
 #include "Operations/I8080_CMC_Ops.h"
+#include "Operations/I8080_XCHG_Ops.h"
+#include "Operations/I8080_XTHL_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 

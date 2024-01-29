@@ -108,14 +108,14 @@ public:
         return value;
     }
 
-    static FORCE_INLINE WORD SwapRegistersAsWord(BYTE& lsbReg, BYTE& msbReg) {
+    static FORCE_INLINE WORD wordRegisterAsWordSwapped(const BYTE& lsbReg, const BYTE& msbReg) {
         WORD value = 0;
         value |= lsbReg << 8;
         value |= msbReg;
         return value;
     }
 
-    static FORCE_INLINE void SwapWordToRegisters(WORD value, BYTE& lsbReg, BYTE& msbReg) {
+    static FORCE_INLINE void wordToRegisterSwapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {
         msbReg = value & 0xFF;
         lsbReg = (value >> 8) & 0xFF;
     }

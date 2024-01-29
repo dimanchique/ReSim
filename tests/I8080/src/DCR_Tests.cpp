@@ -21,7 +21,7 @@ public:
         // given:
         mem[0x0000] = I8080_OpCodes::DCR_M;
         mem[memoryAddress] = initialValue;
-        I8080::SwapWordToRegisters(memoryAddress, cpu.H, cpu.L);
+        I8080::wordToRegisterSwapped(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;
 

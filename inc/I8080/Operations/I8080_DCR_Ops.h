@@ -39,7 +39,7 @@ inline void I8080_DCR_L(Memory &memory, I8080 &cpu) {
 }
 
 FORCE_INLINE void I8080_DCR_M(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::SwapRegistersAsWord(cpu.H, cpu.L);
+    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
     BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
     const BYTE memoryCopy = memoryValue;
     memoryValue -= 1;

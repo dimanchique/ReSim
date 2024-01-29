@@ -24,7 +24,7 @@ public:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;
         mem[0x0000] = I8080_OpCodes::XRA_M;
-        I8080::SwapWordToRegisters(destMemoryAddress, cpu.H, cpu.L);
+        I8080::wordToRegisterSwapped(destMemoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 7;
 

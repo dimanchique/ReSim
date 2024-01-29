@@ -37,6 +37,6 @@ inline void I8080_MVI_L(Memory &memory, I8080 &cpu) {
 
 FORCE_INLINE void I8080_MVI_M(Memory &memory, I8080 &cpu) {
     const BYTE immediateValue = cpu.FetchByte(memory);
-    const WORD memoryAddress = I8080::SwapRegistersAsWord(cpu.H, cpu.L);
+    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
     cpu.WriteByte(memory, immediateValue, memoryAddress);
 }

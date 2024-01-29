@@ -13,11 +13,11 @@ FORCE_INLINE void I8080_LDA(Memory &memory, I8080 &cpu) {
 }
 
 FORCE_INLINE void I8080_LDAX_B(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::SwapRegistersAsWord(cpu.B, cpu.C);
+    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.B, cpu.C);
     GenericLDA(memory, cpu, memoryAddress);
 }
 
 FORCE_INLINE void I8080_LDAX_D(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::SwapRegistersAsWord(cpu.D, cpu.E);
+    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.D, cpu.E);
     GenericLDA(memory, cpu, memoryAddress);
 }

@@ -21,7 +21,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(I8080_OpCodes opcode, BYTE& destRegis
     destRegister = ~value;
     mem[0x0000] = opcode;
     mem[srcMemoryAddress] = value;
-    I8080::SwapWordToRegisters(srcMemoryAddress, cpu.H, cpu.L);
+    I8080::wordToRegisterSwapped(srcMemoryAddress, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 
@@ -37,7 +37,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(I8080_OpCodes opcode, WORD destMemory
     // given:
     mem[destMemoryAddress] = ~value;
     mem[0x0000] = opcode;
-    I8080::SwapWordToRegisters(destMemoryAddress, cpu.H, cpu.L);
+    I8080::wordToRegisterSwapped(destMemoryAddress, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 
