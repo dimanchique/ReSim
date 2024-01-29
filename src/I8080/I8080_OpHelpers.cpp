@@ -1,4 +1,4 @@
-#include "I8080.h"
+#include "I8080_OpHelpers.h"
 #include "Operations/I8080_ADD_Ops.h"
 #include "Operations/I8080_ANA_Ops.h"
 #include "Operations/I8080_ANI_Ops.h"

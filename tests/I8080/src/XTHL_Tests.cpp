@@ -15,8 +15,9 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        const WORD swappedValueH = (cpu.L << 8) | cpu.H;
-        const WORD swappedValueStackPointer = (mem[cpu.SP + 1] << 8) | mem[cpu.SP];
+
+        const WORD swappedValueH = cpu.wordRegisterAsWordUnswapped(cpu.H);
+        const WORD swappedValueStackPointer = cpu.wordRegisterAsWordUnswapped(mem[cpu.SP]);
         EXPECT_NE(swappedValueStackPointer, stackPointerValue);
         EXPECT_NE(swappedValueH, registerValueH);
         EXPECT_EQ(swappedValueStackPointer, registerValueH);

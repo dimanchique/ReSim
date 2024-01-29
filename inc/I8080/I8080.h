@@ -60,54 +60,6 @@ public:
         WriteByte(memory, (value >> 8), address + 1);
     }
 
-    FORCE_INLINE void PushProgramCounterToStack(Memory &memory) {
-        PushWordToStack(memory, PC - 1);
-    }
-
-    FORCE_INLINE WORD PopAddressFromStack(const Memory &memory) {
-        return PopWordFromStack(memory) + 1;
-    }
-
-    FORCE_INLINE void PushStatusToStack(Memory &memory) {
-        WriteByte(memory, Status, SP);
-        SP--;
-        cycles++;
-    }
-
-    FORCE_INLINE void PopStatusFromStack(const Memory &memory) {
-        SP++;
-        cycles++;
-        Status = ReadByte(memory, SP);
-        cycles++;
-    }
-
-    FORCE_INLINE void PushByteToStack(Memory &memory, const BYTE value) {
-        WriteByte(memory, value, SP);
-        SP--;
-        cycles++;
-    }
-
-    FORCE_INLINE BYTE PopByteFromStack(const Memory &memory) {
-        SP++;
-        cycles++;
-        const BYTE value = ReadByte(memory, SP);
-        cycles++;
-        return value;
-    }
-
-    FORCE_INLINE void PushWordToStack(Memory &memory, const WORD value) {
-        WriteWord(memory, value, SP - 1);
-        SP -= 2;
-    }
-
-    FORCE_INLINE WORD PopWordFromStack(const Memory &memory) {
-        const WORD value = ReadWord(memory, SP + 1);
-        cycles++;
-        SP += 2;
-        cycles++;
-        return value;
-    }
-
     static FORCE_INLINE WORD wordRegisterAsWordSwapped(const BYTE& lsbReg, const BYTE& msbReg) {
         WORD value = 0;
         value |= lsbReg << 8;
@@ -115,8 +67,16 @@ public:
         return value;
     }
 
+    static FORCE_INLINE WORD wordRegisterAsWordUnswapped(BYTE& lsbReg) {
+        return *reinterpret_cast<WORD*>(&lsbReg);
+    }
+
     static FORCE_INLINE void wordToRegisterSwapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {
         msbReg = value & 0xFF;
         lsbReg = (value >> 8) & 0xFF;
+    }
+
+    static FORCE_INLINE void wordToRegisterUnswapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {
+        *reinterpret_cast<WORD*>(&lsbReg) = value;
     }
 };

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "I8080/I8080.h"
 
 FORCE_INLINE void GenericORA(I8080 &cpu, const BYTE value) {

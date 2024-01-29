@@ -1,5 +1,4 @@
 #pragma once
-
 #include "I8080/I8080.h"
 
 FORCE_INLINE void GenericMOV_RegToReg(I8080 &cpu, BYTE &destRegister, BYTE &srcRegister) {

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "MOS6502_ST_Ops.h"
 
 /**
