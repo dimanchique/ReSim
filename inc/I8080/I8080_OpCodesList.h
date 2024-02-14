@@ -7,7 +7,7 @@ ADD_CALL(INVALID_OP),    ADD_CALL(LDAX_D),        ADD_CALL(DCX_D),         ADD_C
 ADD_CALL(MVI_E),         ADD_CALL(RAR),           ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    ADD_CALL(SHLD),          
 ADD_CALL(INX_H),         ADD_CALL(INR_H),         ADD_CALL(DCR_H),         ADD_CALL(MVI_H),         ADD_CALL(INVALID_OP),    
 ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    ADD_CALL(LHLD),          ADD_CALL(DCX_H),         ADD_CALL(INR_L),         
-ADD_CALL(DCR_L),         ADD_CALL(MVI_L),         ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    
+ADD_CALL(DCR_L),         ADD_CALL(MVI_L),         ADD_CALL(CMA),           ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    
 ADD_CALL(STA),           ADD_CALL(INX_SP),        ADD_CALL(INR_M),         ADD_CALL(DCR_M),         ADD_CALL(MVI_M),         
 ADD_CALL(STC),           ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    ADD_CALL(LDA),           ADD_CALL(DCX_SP),        
 ADD_CALL(INR_A),         ADD_CALL(DCR_A),         ADD_CALL(MVI_A),         ADD_CALL(CMC),           ADD_CALL(MOV_B_B),       

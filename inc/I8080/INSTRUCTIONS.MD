@@ -13,7 +13,7 @@
 - [ ] CNC - Call if Carry bit is zero
 - [ ] CPE - Call if Parity Even
 - [ ] CPO - Call if Parity Odd
-- [ ] CMA - Complement Accumulator
+- [x] CMA - Complement Accumulator
 - [x] CMC - Complement Carry
 - [ ] CMP - Compare Register or Memory with Accumulator
 - [ ] CPI - Compare Immediate Data with Accumulator

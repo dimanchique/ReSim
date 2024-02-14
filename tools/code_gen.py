@@ -26,7 +26,7 @@ used_instructions = 0
 for i in op_map:
     if any(item in i for item in ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA', 'NOP', 'MOV', 'MVI', 'INX', 'DCX',
                                   'ORA', 'ORI', 'INR', 'DCR', 'ANA', 'ANI', 'LHLD', 'SHLD', 'XRA', 'XRI', 'STA',
-                                  'STC', 'CMC', 'XCHG', 'XTHL']):
+                                  'STC', 'CMC', 'XCHG', 'XTHL', 'CMA']):
         ops[op_map[i]] = f'ADD_CALL({i})'
         used_instructions += 1
 
