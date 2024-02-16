@@ -2,7 +2,7 @@
 
 class I8080_XRAFixture : public I8080_TestFixture {
 public:
-    void XRA_CanDoXorWithRegister(I8080_OpCodes opcode, BYTE accValue, BYTE& targetRegister, BYTE value) {
+    void XRA_CanDoXorWithRegister(const I8080_OpCodes opcode, const BYTE accValue, BYTE& targetRegister, const BYTE value) {
         // given:
         cpu.A = accValue;
         targetRegister = value;
@@ -19,7 +19,7 @@ public:
         CheckCyclesCount();
     }
 
-    void XRA_CanDoXorWithMemory(BYTE accValue, WORD destMemoryAddress, BYTE value){
+    void XRA_CanDoXorWithMemory(const BYTE accValue, const WORD destMemoryAddress, const BYTE value){
         // given:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;

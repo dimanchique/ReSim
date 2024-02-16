@@ -2,7 +2,7 @@
 
 class I8080_INRFixture : public I8080_TestFixture {
 public:
-    void INR_CanIncrementValue(I8080_OpCodes opcode, BYTE& targetRegister, BYTE initialValue) {
+    void INR_CanIncrementValue(const I8080_OpCodes opcode, BYTE& targetRegister, const BYTE initialValue) {
         // given:
         mem[0x0000] = opcode;
         targetRegister = initialValue;
@@ -17,7 +17,7 @@ public:
         CheckCyclesCount();
     }
 
-    void INR_CanIncrementMemory(BYTE initialValue, WORD memoryAddress) {
+    void INR_CanIncrementMemory(const BYTE initialValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = I8080_OpCodes::INR_M;
         mem[memoryAddress] = initialValue;

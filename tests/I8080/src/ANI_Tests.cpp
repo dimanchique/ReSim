@@ -2,7 +2,7 @@
 
 class I8080_ANIFixture : public I8080_TestFixture {
 public:
-    void ANI_CanDoImmediateAnd(BYTE accValue, BYTE memoryValue) {
+    void ANI_CanDoImmediateAnd(const BYTE accValue, const BYTE memoryValue) {
         // given:
         cpu.A = accValue;
         mem[0x0000] = I8080_OpCodes::ANI;

@@ -2,7 +2,7 @@
 
 class I8080_ORAFixture : public I8080_TestFixture {
 public:
-    void ORA_CanDoOrWithRegister(I8080_OpCodes opcode, BYTE accValue, BYTE& targetRegister, BYTE value) {
+    void ORA_CanDoOrWithRegister(const I8080_OpCodes opcode, const BYTE accValue, BYTE& targetRegister, const BYTE value) {
         // given:
         cpu.A = accValue;
         targetRegister = value;
@@ -19,7 +19,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_CanDoOrWithMemory(BYTE accValue, WORD destMemoryAddress, BYTE value){
+    void ORA_CanDoOrWithMemory(const BYTE accValue, const WORD destMemoryAddress, const BYTE value){
         // given:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;

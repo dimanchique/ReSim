@@ -2,7 +2,7 @@
 
 class I8080_XRIFixture : public I8080_TestFixture {
 public:
-    void XRI_CanDoImmediateAnd(BYTE accValue, BYTE memoryValue) {
+    void XRI_CanDoImmediateAnd(const BYTE accValue, const BYTE memoryValue) {
         // given:
         cpu.A = accValue;
         mem[0x0000] = I8080_OpCodes::XRI;

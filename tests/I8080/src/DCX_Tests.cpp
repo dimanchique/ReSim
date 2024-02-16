@@ -2,7 +2,7 @@
 
 class I8080_DCXFixture : public I8080_TestFixture {
 public:
-    void DCX_CanDecrementValue(I8080_OpCodes opcode, const WORD* targetRegisterPtr) {
+    void DCX_CanDecrementValue(const I8080_OpCodes opcode, const WORD* targetRegisterPtr) {
         // given:
         WORD value = *targetRegisterPtr;
         mem[0x0000] = opcode;

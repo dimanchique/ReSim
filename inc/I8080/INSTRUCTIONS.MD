@@ -27,13 +27,13 @@
 - [ ] IN - Input data to accumulator from outcome device
 - [x] INR - Increment Register or Memory
 - [x] INX - Increment Register Pair
-- [ ] JMP - Jump
+- [x] JMP - Jump
 - [ ] JZ - Jump if Zero bit is one
 - [ ] JNZ - Jump if Zero bit is zero
 - [ ] JP - Jump if sign bit is zero
 - [ ] JM - Jump if sign bit is one
-- [ ] JC - Jump if Carry bit is one
-- [ ] JNC - Jump if Carry bit is zero
+- [x] JC - Jump if Carry bit is one
+- [x] JNC - Jump if Carry bit is zero
 - [ ] JPE - Jump if Parity Even
 - [ ] JPO - Jump if Parity Odd
 - [x] LDA - Load Data from Accumulator to Memory

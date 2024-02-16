@@ -25,7 +25,7 @@ struct Memory {
     }
 
     bool SetMemory(U32 address, const char* data, long long int numBytes) {
-        if(numBytes == 0 || (address + numBytes >= size))
+        if (numBytes == 0 || (address + numBytes >= size))
             return false;
         memcpy(mem + address, data, numBytes);
         return true;

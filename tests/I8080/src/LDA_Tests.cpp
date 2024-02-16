@@ -2,7 +2,7 @@
 
 class I8080_LDAFixture : public I8080_TestFixture {
 public:
-    void LDA_CanLoadValue(I8080_OpCodes opcode, BYTE memoryValue, WORD memoryAddress) {
+    void LDA_CanLoadValue(const I8080_OpCodes opcode, const BYTE memoryValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = (memoryAddress >> 8) & 0xFF;
@@ -19,7 +19,7 @@ public:
         CheckCyclesCount();
     }
 
-    void LDAX_CanLoadValue(I8080_OpCodes opcode, BYTE memoryValue, WORD memoryAddress) {
+    void LDAX_CanLoadValue(const I8080_OpCodes opcode, const BYTE memoryValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = opcode;
         mem[memoryAddress] = memoryValue;
@@ -48,7 +48,7 @@ TEST_F(I8080_LDAFixture, LDA_CanLoadValue_3) {
 }
 
 TEST_F(I8080_LDAFixture, LDA_CanLoadValue_4) {
-    LDA_CanLoadValue(I8080_OpCodes::LDA, 0xDA, 0x0003);
+    LDA_CanLoadValue(I8080_OpCodes::LDA, 0xDA, 0x0005);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_1) {
@@ -67,8 +67,8 @@ TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_3) {
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_4) {
-    I8080::wordToRegisterSwapped(0x0001, cpu.B, cpu.C);
-    LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0xDA, 0x0001);
+    I8080::wordToRegisterSwapped(0x0005, cpu.B, cpu.C);
+    LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0xDA, 0x0005);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_1) {
@@ -87,6 +87,6 @@ TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_3) {
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_4) {
-    I8080::wordToRegisterSwapped(0x0001, cpu.D, cpu.E);
-    LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0xDA, 0x0001);
+    I8080::wordToRegisterSwapped(0x0005, cpu.D, cpu.E);
+    LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0xDA, 0x0005);
 }

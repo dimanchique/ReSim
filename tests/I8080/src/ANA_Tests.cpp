@@ -2,7 +2,7 @@
 
 class I8080_ANAFixture : public I8080_TestFixture {
 public:
-    void ANA_CanDoAndWithRegister(I8080_OpCodes opcode, BYTE accValue, BYTE& targetRegister, BYTE value) {
+    void ANA_CanDoAndWithRegister(const I8080_OpCodes opcode, const BYTE accValue, BYTE& targetRegister, const BYTE value) {
         // given:
         cpu.A = accValue;
         targetRegister = value;
@@ -19,7 +19,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ANA_CanDoAndWithMemory(BYTE accValue, WORD destMemoryAddress, BYTE value){
+    void ANA_CanDoAndWithMemory(const BYTE accValue, const WORD destMemoryAddress, const BYTE value){
         // given:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;

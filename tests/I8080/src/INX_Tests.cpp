@@ -2,7 +2,7 @@
 
 class I8080_INXFixture : public I8080_TestFixture {
 public:
-    void INX_CanIncrementValue(I8080_OpCodes opcode, const WORD* targetRegisterPtr) {
+    void INX_CanIncrementValue(const I8080_OpCodes opcode, const WORD* targetRegisterPtr) {
         // given:
         WORD value = *targetRegisterPtr;
         mem[0x0000] = opcode;

@@ -2,7 +2,7 @@
 
 class I8080_DCRFixture : public I8080_TestFixture {
 public:
-    void DCR_CanDecrementValue(I8080_OpCodes opcode, BYTE& targetRegister, BYTE initialValue) {
+    void DCR_CanDecrementValue(const I8080_OpCodes opcode, BYTE& targetRegister, const BYTE initialValue) {
         // given:
         mem[0x0000] = opcode;
         targetRegister = initialValue;
@@ -17,7 +17,7 @@ public:
         CheckCyclesCount();
     }
 
-    void DCR_CanDecrementMemory(BYTE initialValue, WORD memoryAddress) {
+    void DCR_CanDecrementMemory(const BYTE initialValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = I8080_OpCodes::DCR_M;
         mem[memoryAddress] = initialValue;

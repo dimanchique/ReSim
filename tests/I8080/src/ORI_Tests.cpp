@@ -2,7 +2,7 @@
 
 class I8080_ORIFixture : public I8080_TestFixture {
 public:
-    void ORI_CanDoImmediateOr(BYTE accValue, BYTE memoryValue) {
+    void ORI_CanDoImmediateOr(const BYTE accValue, const BYTE memoryValue) {
         // given:
         cpu.A = accValue;
         mem[0x0000] = I8080_OpCodes::ORI;

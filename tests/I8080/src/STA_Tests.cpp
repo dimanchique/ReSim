@@ -2,7 +2,7 @@
 
 class I8080_STAFixture : public I8080_TestFixture {
 public:
-    void STA_CanStoreValue(I8080_OpCodes opcode, BYTE initialValue, WORD memoryAddress) {
+    void STA_CanStoreValue(const I8080_OpCodes opcode, const BYTE initialValue, const WORD memoryAddress) {
         // given:
         cpu.A = initialValue;
         mem[0x0000] = opcode;
@@ -19,7 +19,7 @@ public:
         CheckCyclesCount();
     }
 
-    void STAX_CanStoreValue(I8080_OpCodes opcode, BYTE initialValue, WORD memoryAddress) {
+    void STAX_CanStoreValue(const I8080_OpCodes opcode, const BYTE initialValue, const WORD memoryAddress) {
         // given:
         cpu.A = initialValue;
         mem[0x0000] = opcode;
@@ -48,7 +48,7 @@ TEST_F(I8080_STAFixture, STA_CanStoreValue_3) {
 }
 
 TEST_F(I8080_STAFixture, STA_CanStoreValue_4) {
-    STA_CanStoreValue(I8080_OpCodes::STA, 0xDA, 0x0003);
+    STA_CanStoreValue(I8080_OpCodes::STA, 0xDA, 0x0005);
 }
 
 TEST_F(I8080_STAFixture, STAX_B_CanStoreValue_1) {
@@ -67,8 +67,8 @@ TEST_F(I8080_STAFixture, STAX_B_CanStoreValue_3) {
 }
 
 TEST_F(I8080_STAFixture, STAX_B_CanStoreValue_4) {
-    I8080::wordToRegisterSwapped(0x0001, cpu.B, cpu.C);
-    STAX_CanStoreValue(I8080_OpCodes::STAX_B, 0xDA, 0x0001);
+    I8080::wordToRegisterSwapped(0x0005, cpu.B, cpu.C);
+    STAX_CanStoreValue(I8080_OpCodes::STAX_B, 0xDA, 0x0005);
 }
 
 TEST_F(I8080_STAFixture, STAX_D_CanStoreValue_1) {
@@ -87,6 +87,6 @@ TEST_F(I8080_STAFixture, STAX_D_CanStoreValue_3) {
 }
 
 TEST_F(I8080_STAFixture, STAX_D_CanStoreValue_4) {
-    I8080::wordToRegisterSwapped(0x0001, cpu.D, cpu.E);
-    STAX_CanStoreValue(I8080_OpCodes::STAX_D, 0xDA, 0x0001);
+    I8080::wordToRegisterSwapped(0x0005, cpu.D, cpu.E);
+    STAX_CanStoreValue(I8080_OpCodes::STAX_D, 0xDA, 0x0005);
 }

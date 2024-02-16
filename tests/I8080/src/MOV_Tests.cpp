@@ -1,6 +1,6 @@
 #include "I8080_MOV_Tests.h"
 
-void I8080_MOVFixture::MOV_CanMoveRegToReg(I8080_OpCodes opcode, BYTE& destRegister, BYTE& srcRegister, BYTE value){
+void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE& destRegister, BYTE& srcRegister, const BYTE value){
     // given:
     destRegister = ~value;
     srcRegister = value;
@@ -16,7 +16,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToReg(I8080_OpCodes opcode, BYTE& destRegis
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanMoveMemToReg(I8080_OpCodes opcode, BYTE& destRegister, WORD srcMemoryAddress, BYTE value){
+void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE& destRegister, const WORD srcMemoryAddress, const BYTE value){
     // given:
     destRegister = ~value;
     mem[0x0000] = opcode;
@@ -33,7 +33,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(I8080_OpCodes opcode, BYTE& destRegis
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanMoveRegToMem(I8080_OpCodes opcode, WORD destMemoryAddress, BYTE value){
+void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes opcode, const WORD destMemoryAddress, const BYTE value){
     // given:
     mem[destMemoryAddress] = ~value;
     mem[0x0000] = opcode;
@@ -49,16 +49,16 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(I8080_OpCodes opcode, WORD destMemory
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanDoNopLikeMove(I8080_OpCodes opcode){
+void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes opcode){
     // given:
-    uint64_t preSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers (including status)
+    const uint64_t preSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers (including status)
     mem[0x0000] = opcode;
 
     cyclesExpected = 4;
 
     // when:
     cyclesPassed = cpu.Run(mem);
-    uint64_t postSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers again
+    const uint64_t postSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers again
 
     // then:
     EXPECT_EQ(preSnapshot, postSnapshot); // check everything is the same

@@ -46,7 +46,7 @@ public:
         long long numBytesRead = 0;
 
         const char* data = ReadBinary(filename, numBytesRead);
-        if(!data)
+        if (!data)
             return false;
 
         Reset(memory, startingAddress);
