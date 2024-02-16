@@ -5,8 +5,8 @@ public:
     void XTHL_CanExchangeValues(const WORD stackPointerAddress, const WORD stackPointerValue, const WORD registerValueH) {
         // given:
         cpu.SP = stackPointerAddress;
-        cpu.wordToRegisterSwapped(stackPointerValue, mem[cpu.SP], mem[cpu.SP + 1]);
-        cpu.wordToRegisterSwapped(registerValueH, cpu.H, cpu.L);
+        I8080::wordToRegisterSwapped(stackPointerValue, mem[cpu.SP], mem[cpu.SP + 1]);
+        I8080::wordToRegisterSwapped(registerValueH, cpu.H, cpu.L);
         mem[0x0000] = I8080_OpCodes::XTHL;
 
         cyclesExpected = 16;
@@ -16,8 +16,8 @@ public:
 
         // then:
 
-        const WORD swappedValueH = cpu.wordRegisterAsWordUnswapped(cpu.H);
-        const WORD swappedValueStackPointer = cpu.wordRegisterAsWordUnswapped(mem[cpu.SP]);
+        const WORD swappedValueH = I8080::wordRegisterAsWordUnswapped(cpu.H);
+        const WORD swappedValueStackPointer = I8080::wordRegisterAsWordUnswapped(mem[cpu.SP]);
         EXPECT_NE(swappedValueStackPointer, stackPointerValue);
         EXPECT_NE(swappedValueH, registerValueH);
         EXPECT_EQ(swappedValueStackPointer, registerValueH);

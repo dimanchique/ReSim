@@ -1,7 +1,7 @@
 #pragma once
 #include "I8080/I8080.h"
 
-FORCE_INLINE void GenericSTA(Memory &memory, I8080 &cpu, WORD memoryAddress) {
+FORCE_INLINE void GenericSTA(Memory &memory, I8080 &cpu, const WORD memoryAddress) {
     cpu.WriteByte(memory, cpu.A, memoryAddress);
 }
 

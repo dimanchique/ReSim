@@ -63,7 +63,7 @@
 - [ ] RPE - Return if Parity Even
 - [ ] RPO - Return if Parity Odd
 - [ ] RST - Reset
-- [ ] SPHL - Load SP from H and L Registers
+- [x] SPHL - Load SP from H and L Registers
 - [x] SHLD - Store H and L Register in Memory
 - [x] STA - Store Accumulator Data from Memory
 - [x] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers

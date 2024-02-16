@@ -1,14 +1,14 @@
 #pragma once
 #include "I8080/I8080.h"
 
-FORCE_INLINE void GenericRotateLeft(I8080 &cpu, bool isThroughCarry) {
+FORCE_INLINE void GenericRotateLeft(I8080 &cpu, const bool isThroughCarry) {
     const bool Carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
     cpu.A |= isThroughCarry ? cpu.Status.C : Carry;
     cpu.Status.C = Carry;
 }
 
-FORCE_INLINE void GenericRotateRight(I8080 &cpu, bool isThroughCarry) {
+FORCE_INLINE void GenericRotateRight(I8080 &cpu, const bool isThroughCarry) {
     const bool Carry = cpu.A & 1;
     cpu.A >>= 1;
     cpu.A |= (isThroughCarry ? cpu.Status.C : Carry) << 7;

@@ -1,7 +1,7 @@
 #pragma once
 #include "I8080/I8080.h"
 
-FORCE_INLINE void GenericMOV_RegToReg(I8080 &cpu, BYTE &destRegister, BYTE &srcRegister) {
+FORCE_INLINE void GenericMOV_RegToReg(I8080 &cpu, BYTE &destRegister, const BYTE &srcRegister) {
     destRegister = srcRegister;
     cpu.cycles++;
 }
@@ -11,7 +11,7 @@ FORCE_INLINE void GenericMOV_MemToReg(Memory &memory, I8080 &cpu, BYTE &destRegi
     destRegister = cpu.ReadByte(memory, memoryAddress);
 }
 
-FORCE_INLINE void GenericMOV_RegToMem(Memory &memory, I8080 &cpu, BYTE &srcRegister) {
+FORCE_INLINE void GenericMOV_RegToMem(Memory &memory, I8080 &cpu, const BYTE &srcRegister) {
     const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
     cpu.WriteByte(memory, srcRegister, memoryAddress);
 }
