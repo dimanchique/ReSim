@@ -28,14 +28,14 @@
 - [x] INR - Increment Register or Memory
 - [x] INX - Increment Register Pair
 - [x] JMP - Jump
-- [ ] JZ - Jump if Zero bit is one
-- [ ] JNZ - Jump if Zero bit is zero
-- [ ] JP - Jump if sign bit is zero
-- [ ] JM - Jump if sign bit is one
+- [x] JZ - Jump if Zero bit is one
+- [x] JNZ - Jump if Zero bit is zero
+- [x] JP - Jump if sign bit is zero
+- [x] JM - Jump if sign bit is one
 - [x] JC - Jump if Carry bit is one
 - [x] JNC - Jump if Carry bit is zero
-- [ ] JPE - Jump if Parity Even
-- [ ] JPO - Jump if Parity Odd
+- [x] JPE - Jump if Parity Even
+- [x] JPO - Jump if Parity Odd
 - [x] LDA - Load Data from Accumulator to Memory
 - [x] LDAX - Load Accumulator data addressed by B and C, or D and E Registers
 - [x] LHLD - Load H and L Registers from Memory
