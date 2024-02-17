@@ -18,6 +18,8 @@
 #include "Operations/I8080_JMP_Ops.h"
 #include "Operations/I8080_JC_Ops.h"
 #include "Operations/I8080_JNC_Ops.h"
+#include "Operations/I8080_JZ_Ops.h"
+#include "Operations/I8080_JNZ_Ops.h"
 #include "Operations/I8080_INX_Ops.h"
 #include "Operations/I8080_INR_Ops.h"
 #include "Operations/I8080_DCX_Ops.h"
