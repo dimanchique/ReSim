@@ -80,8 +80,8 @@ public:
         return value;
     }
 
-    static FORCE_INLINE WORD wordRegisterAsWordUnswapped(BYTE& lsbReg) {
-        return *reinterpret_cast<WORD*>(&lsbReg);
+    static FORCE_INLINE WORD* wordRegisterAsWordUnswapped(BYTE& lsbReg) {
+        return reinterpret_cast<WORD*>(&lsbReg);
     }
 
     static FORCE_INLINE void wordToRegisterSwapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {

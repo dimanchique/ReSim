@@ -39,7 +39,7 @@
 - [x] LDA - Load Data from Accumulator to Memory
 - [x] LDAX - Load Accumulator data addressed by B and C, or D and E Registers
 - [x] LHLD - Load H and L Registers from Memory
-- [ ] LXI - Load Immediate data into paired Register or SP
+- [x] LXI - Load Immediate data into paired Register or SP
 - [x] MOV - Transfer Data between Register or Memory
 - [x] MVI - Move Immediate Data in specified Register
 - [x] NOP - No operation

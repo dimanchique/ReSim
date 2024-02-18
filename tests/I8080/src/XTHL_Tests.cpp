@@ -16,8 +16,8 @@ public:
 
         // then:
 
-        const WORD swappedValueH = I8080::wordRegisterAsWordUnswapped(cpu.H);
-        const WORD swappedValueStackPointer = I8080::wordRegisterAsWordUnswapped(mem[cpu.SP]);
+        const WORD swappedValueH = *I8080::wordRegisterAsWordUnswapped(cpu.H);
+        const WORD swappedValueStackPointer = *I8080::wordRegisterAsWordUnswapped(mem[cpu.SP]);
         EXPECT_NE(swappedValueStackPointer, stackPointerValue);
         EXPECT_NE(swappedValueH, registerValueH);
         EXPECT_EQ(swappedValueStackPointer, registerValueH);
