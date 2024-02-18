@@ -37,6 +37,7 @@
 #include "Operations/I8080_SHLD_Ops.h"
 #include "Operations/I8080_LHLD_Ops.h"
 #include "Operations/I8080_SPHL_Ops.h"
+#include "Operations/I8080_PCHL_Ops.h"
 #include "Operations/I8080_STC_Ops.h"
 #include "Operations/I8080_CMC_Ops.h"
 #include "Operations/I8080_CMA_Ops.h"

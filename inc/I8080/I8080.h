@@ -89,7 +89,7 @@ public:
         lsbReg = (value >> 8) & 0xFF;
     }
 
-    static FORCE_INLINE void wordToRegisterUnswapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {
+    static FORCE_INLINE void wordToRegisterUnswapped(const WORD value, BYTE& lsbReg) {
         *reinterpret_cast<WORD*>(&lsbReg) = value;
     }
 };
