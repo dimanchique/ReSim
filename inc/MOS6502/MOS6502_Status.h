@@ -3,8 +3,15 @@
 #include "Types.h"
 #include "Macro.h"
 
-struct MOS6502_Status{
+#define MOS6502_Status_C    (1 << 0)
+#define MOS6502_Status_Z    (1 << 1)
+#define MOS6502_Status_I    (1 << 2)
+#define MOS6502_Status_D    (1 << 3)
+#define MOS6502_Status_B    (1 << 4)
+#define MOS6502_Status_V    (1 << 6)
+#define MOS6502_Status_N    (1 << 7)
 
+struct MOS6502_Status{
     BYTE C  :1;             // Carry Flag
     BYTE Z  :1;             // Zero Flag
     BYTE I  :1;             // Interrupt Disable
@@ -14,13 +21,9 @@ struct MOS6502_Status{
     BYTE V  :1;             // Overflow Flag
     BYTE N  :1;             // Negative Flag
 
-#define MOS6502_Status_C    (1 << 0)
-#define MOS6502_Status_Z    (1 << 1)
-#define MOS6502_Status_I    (1 << 2)
-#define MOS6502_Status_D    (1 << 3)
-#define MOS6502_Status_B    (1 << 4)
-#define MOS6502_Status_V    (1 << 6)
-#define MOS6502_Status_N    (1 << 7)
+    operator BYTE() noexcept {
+        return *(BYTE *) (this);
+    }
 
     operator BYTE() const noexcept {
         return *(BYTE *) (this);
@@ -28,6 +31,7 @@ struct MOS6502_Status{
 
     FORCE_INLINE MOS6502_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
+        NU = 0; // this flag is immutable
         return *this;
     }
 

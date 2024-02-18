@@ -60,6 +60,19 @@ public:
         WriteByte(memory, (value >> 8), address + 1);
     }
 
+    FORCE_INLINE void PushDataOntoStack(Memory &memory, const BYTE& lsb, const BYTE& msb) {
+        WriteByte(memory, lsb, --SP);
+        WriteByte(memory, msb, --SP);
+        cycles++;
+    }
+
+    template<typename T>
+    FORCE_INLINE void PopDataOffStack(Memory &memory, BYTE& lsb, T& msb) {
+        msb = ReadByte(memory, SP++);
+        lsb = ReadByte(memory, SP++);
+        cycles++;
+    }
+
     static FORCE_INLINE WORD wordRegisterAsWordSwapped(const BYTE& lsbReg, const BYTE& msbReg) {
         WORD value = 0;
         value |= lsbReg << 8;

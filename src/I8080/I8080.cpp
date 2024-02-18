@@ -4,6 +4,8 @@
 void I8080::Reset(Memory &memory, const WORD resetVector) noexcept {
     PC = resetVector;
     SP = 0xFFFF;
+    Status = 0;
+    Status.NU1 = 1; // this flag is immutable
 
     // Status value is not defined after reset
     // Accumulator and general-purpose registers are not defined after reset and may contain arbitrary values.

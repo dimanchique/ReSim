@@ -47,8 +47,8 @@
 - [x] ORI - Logical OR Immediate Data with Accumulator
 - [ ] OUT - Output data from accumulator to outcome device
 - [ ] PCHL - Insert into program counter data from H and L Registers
-- [ ] POP - Pop Data off Stack
-- [ ] PUSH - Push Data on Stack
+- [x] POP - Pop Data off Stack
+- [x] PUSH - Push Data on Stack
 - [x] RAL - Rotate Accumulator through Carry
 - [x] RAR - Rotate Accumulator through Carry
 - [x] RLC - Rotate Accumulator Left

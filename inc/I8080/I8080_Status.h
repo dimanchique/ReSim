@@ -3,8 +3,13 @@
 #include "Types.h"
 #include "Macro.h"
 
-struct I8080_Status{
+#define I8080_Status_C          (1 << 0)
+#define I8080_Status_P          (1 << 2)
+#define I8080_Status_AC         (1 << 4)
+#define I8080_Status_Z          (1 << 6)
+#define I8080_Status_S          (1 << 7)
 
+struct I8080_Status{
     BYTE C      :1;             // Carry Flag
     BYTE NU1    :1;             // Not Used
     BYTE P      :1;             // Parity Flag
@@ -14,11 +19,9 @@ struct I8080_Status{
     BYTE Z      :1;             // Zero Flag
     BYTE S      :1;             // Sign Flag
 
-#define I8080_Status_C          (1 << 0)
-#define I8080_Status_P          (1 << 2)
-#define I8080_Status_AC         (1 << 4)
-#define I8080_Status_Z          (1 << 6)
-#define I8080_Status_S          (1 << 7)
+    operator BYTE() noexcept {
+        return *(BYTE *) (this);
+    }
 
     operator BYTE() const noexcept {
         return *(BYTE *) (this);
@@ -26,6 +29,9 @@ struct I8080_Status{
 
     FORCE_INLINE I8080_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
+        NU1 = 1; // these flags are immutable
+        NU2 = 0;
+        NU3 = 0;
         return *this;
     }
 
