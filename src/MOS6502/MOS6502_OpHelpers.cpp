@@ -43,7 +43,7 @@ constexpr static OpSignature Ops[] =
         };
 
 bool DecodeCommand(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
-    if(opcode == 0xFF)
+    if(opcode == 0x02) // one of unused OpCodes so it's pretty much OK to use it a stop flag
         return false;
     const auto &Instruction = Ops[opcode];
     Instruction(memory, cpu);

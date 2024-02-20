@@ -20,8 +20,8 @@ struct Memory {
         return mem[address];
     }
 
-    void Reset() {
-        memset(mem, 0xFF, size);
+    void Reset(const BYTE resetValue) {
+        memset(mem, resetValue, size);
     }
 
     bool SetMemory(U32 address, const char* data, long long int numBytes) {

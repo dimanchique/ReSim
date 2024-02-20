@@ -60,10 +60,21 @@ public:
         WriteByte(memory, (value >> 8), address + 1);
     }
 
+    FORCE_INLINE void PushProgramCounterOntoStack(Memory &memory) {
+        WriteByte(memory, (PC >> 8) & 0xFF, --SP);
+        WriteByte(memory, PC & 0xFF, --SP);
+        cycles++;
+    }
+
     FORCE_INLINE void PushDataOntoStack(Memory &memory, const BYTE& lsb, const BYTE& msb) {
         WriteByte(memory, lsb, --SP);
         WriteByte(memory, msb, --SP);
         cycles++;
+    }
+
+    FORCE_INLINE void PopProgramCounterOffStack(Memory &memory) {
+        PC = ReadWord(memory, SP);
+        SP += 2;
     }
 
     template<typename T>

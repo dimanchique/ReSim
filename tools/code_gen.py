@@ -20,14 +20,16 @@ for i in data:
     value = int(splitter[1][1:].split(',')[0], 16)
     op_map[key] = value
 
-ops = ['ADD_CALL(INVALID_OP)'] * 255
+ops = ['ADD_CALL(INVALID_OP)'] * 256
 
 used_instructions = 0
 for i in op_map:
-    if any(item in i for item in ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA', 'NOP', 'MOV', 'MVI', 'INX', 'DCX',
-                                  'ORA', 'ORI', 'INR', 'DCR', 'ANA', 'ANI', 'LHLD', 'SHLD', 'XRA', 'XRI', 'STA', 'STC',
-                                  'CMC', 'XCHG', 'XTHL', 'CMA', 'SPHL', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JM', 'JP',
-                                  'PUSH', 'POP', 'PCHL', 'LXI']):
+    if any(item + '_' in i or i.endswith(item) for item in
+           ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA', 'LDAX', 'NOP', 'MOV', 'MVI', 'INX', 'DCX',
+            'ORA', 'ORI', 'INR', 'DCR', 'ANA', 'ANI', 'LHLD', 'SHLD', 'XRA', 'XRI', 'STA', 'STAX', 'STC',
+            'CMC', 'XCHG', 'XTHL', 'CMA', 'SPHL', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JM', 'JP', 'JPE', 'JPO',
+            'PUSH', 'POP', 'PCHL', 'LXI', 'CALL', 'RET', 'CZ', 'RZ', 'CNZ', 'RNZ', 'CC', 'RC', 'CPO', 'CPE',
+            'CNC', 'RNC', 'CP', 'RP', 'CM', 'RM', 'RPO', 'RPE', 'RST']):
         ops[op_map[i]] = f'ADD_CALL({i})'
         used_instructions += 1
 

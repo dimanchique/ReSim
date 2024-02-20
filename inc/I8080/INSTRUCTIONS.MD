@@ -4,15 +4,15 @@
 - [ ] ACI - Add Immediate Data to Accumulator with Carry
 - [x] ANA - Logical AND Register or Memory with Accumulator
 - [x] ANI - Logical AND Immediate Data with Accumulator
-- [ ] CALL - Call
-- [ ] CZ - Call if Zero bit is one
-- [ ] CNZ - Call if Zero bit is zero
-- [ ] CP - Call if Sign bit is zero
-- [ ] CM - Call if Sign bit is one
-- [ ] CC - Call if Carry bit is one
-- [ ] CNC - Call if Carry bit is zero
-- [ ] CPE - Call if Parity Even
-- [ ] CPO - Call if Parity Odd
+- [x] CALL - Call
+- [x] CZ - Call if Zero bit is one
+- [x] CNZ - Call if Zero bit is zero
+- [x] CP - Call if Sign bit is zero
+- [x] CM - Call if Sign bit is one
+- [x] CC - Call if Carry bit is one
+- [x] CNC - Call if Carry bit is zero
+- [x] CPE - Call if Parity Even
+- [x] CPO - Call if Parity Odd
 - [x] CMA - Complement Accumulator
 - [x] CMC - Complement Carry
 - [ ] CMP - Compare Register or Memory with Accumulator
@@ -53,16 +53,16 @@
 - [x] RAR - Rotate Accumulator through Carry
 - [x] RLC - Rotate Accumulator Left
 - [x] RRC - Rotate Accumulator Right
-- [ ] RET - Return
-- [ ] RZ - Return if Zero bit is one
-- [ ] RNZ - Return if Zero bit is zero
-- [ ] RP - Return if Sign bit is zero
-- [ ] RM - Return if Sign bit is one
-- [ ] RC - Return if Carry bit is one
-- [ ] RNC - Return if Carry bit is zero
-- [ ] RPE - Return if Parity Even
-- [ ] RPO - Return if Parity Odd
-- [ ] RST - Reset
+- [x] RET - Return
+- [x] RZ - Return if Zero bit is one
+- [x] RNZ - Return if Zero bit is zero
+- [x] RP - Return if Sign bit is zero
+- [x] RM - Return if Sign bit is one
+- [x] RC - Return if Carry bit is one
+- [x] RNC - Return if Carry bit is zero
+- [x] RPE - Return if Parity Even
+- [x] RPO - Return if Parity Odd
+- [x] RST - Reset
 - [x] SPHL - Load SP from H and L Registers
 - [x] SHLD - Store H and L Register in Memory
 - [x] STA - Store Accumulator Data from Memory

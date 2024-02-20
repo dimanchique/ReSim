@@ -44,6 +44,25 @@
 #include "Operations/I8080_CMA_Ops.h"
 #include "Operations/I8080_XCHG_Ops.h"
 #include "Operations/I8080_XTHL_Ops.h"
+#include "Operations/I8080_CALL_Ops.h"
+#include "Operations/I8080_RET_Ops.h"
+#include "Operations/I8080_CZ_Ops.h"
+#include "Operations/I8080_RZ_Ops.h"
+#include "Operations/I8080_CC_Ops.h"
+#include "Operations/I8080_RC_Ops.h"
+#include "Operations/I8080_CP_Ops.h"
+#include "Operations/I8080_RP_Ops.h"
+#include "Operations/I8080_CM_Ops.h"
+#include "Operations/I8080_RM_Ops.h"
+#include "Operations/I8080_CPO_Ops.h"
+#include "Operations/I8080_RPO_Ops.h"
+#include "Operations/I8080_CPE_Ops.h"
+#include "Operations/I8080_RPE_Ops.h"
+#include "Operations/I8080_CNZ_Ops.h"
+#include "Operations/I8080_RNZ_Ops.h"
+#include "Operations/I8080_CNC_Ops.h"
+#include "Operations/I8080_RNC_Ops.h"
+#include "Operations/I8080_RST_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 
@@ -60,7 +79,7 @@ constexpr static OpSignature Ops[] =
         };
 
 bool DecodeCommand(const BYTE opcode, Memory &memory, I8080 &cpu) {
-    if(opcode == 0xFF)
+    if(opcode == 0x08) // one of unused OpCodes so it's pretty much OK to use it a stop flag
         return false;
     const auto &Instruction = Ops[opcode];
     Instruction(memory, cpu);
