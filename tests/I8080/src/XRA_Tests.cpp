@@ -2,7 +2,7 @@
 
 class I8080_XRAFixture : public I8080_TestFixture {
 public:
-    void XRA_CanDoXorWithRegister(const I8080_OpCodes opcode, const BYTE accValue, BYTE& targetRegister, const BYTE value) {
+    void XRA_CanDoXorWithRegister(const I8080_OpCodes opcode, const BYTE accValue, BYTE &targetRegister, const BYTE value) {
         // given:
         cpu.A = accValue;
         targetRegister = value;

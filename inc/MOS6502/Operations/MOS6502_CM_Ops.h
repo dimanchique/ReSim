@@ -9,7 +9,7 @@
  * @param targetRegister Register to compare.
  * @param memoryValue Memory value to compare.
  */
-FORCE_INLINE void GenericCM(MOS6502 &cpu, const BYTE& targetRegister, const BYTE memoryValue) {
+FORCE_INLINE void GenericCM(MOS6502 &cpu, const BYTE &targetRegister, const BYTE memoryValue) {
     const BYTE comparedValue = targetRegister - memoryValue;
     cpu.Status.UpdateStatusByValue(comparedValue, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.SetStatusFlagValue(MOS6502_Status_C, targetRegister >= memoryValue);

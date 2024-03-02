@@ -19,16 +19,16 @@ enum I8080_OpCodes : BYTE {
 
 //  ADC - ADD Register or Memory to Accumulator with Carry
     ADC_A = 0x8F,
-    ADC_B = 0x8F,
-    ADC_C = 0x8F,
-    ADC_D = 0x8F,
-    ADC_E = 0x8F,
-    ADC_H = 0x8F,
-    ADC_L = 0x8F,
-    ADC_M = 0x8F,
+    ADC_B = 0x88,
+    ADC_C = 0x89,
+    ADC_D = 0x8A,
+    ADC_E = 0x8B,
+    ADC_H = 0x8C,
+    ADC_L = 0x8D,
+    ADC_M = 0x8E,
 
 //  ACI - ADD Immediate Data to Accumulator with Carry
-    ACI_d8 = 0xCE,
+    ACI = 0xCE,
 
 //  ANA - Logical AND Register or Memory with Accumulator
     ANA_A = 0xA7,

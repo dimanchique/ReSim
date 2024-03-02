@@ -7,7 +7,7 @@ FORCE_INLINE void I8080_CALL(Memory &memory, I8080 &cpu) {
     cpu.PC = newPC;
 }
 
-FORCE_INLINE void GenericCall_Conditional(Memory &memory, I8080 &cpu, const bool& conditionFlag) {
+FORCE_INLINE void GenericCall_Conditional(Memory &memory, I8080 &cpu, const bool &conditionFlag) {
     const WORD newPC = cpu.FetchWord(memory);
     if (conditionFlag) {
         cpu.PushProgramCounterOntoStack(memory);

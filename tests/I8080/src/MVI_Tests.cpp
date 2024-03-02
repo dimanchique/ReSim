@@ -2,7 +2,7 @@
 
 class I8080_MVIFixture : public I8080_TestFixture {
 public:
-    void MVI_CanMoveToReg(const I8080_OpCodes opcode, const BYTE& targetRegister, const BYTE immediateValue) {
+    void MVI_CanMoveToReg(const I8080_OpCodes opcode, const BYTE &targetRegister, const BYTE immediateValue) {
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = immediateValue;

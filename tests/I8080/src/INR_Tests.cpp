@@ -2,7 +2,7 @@
 
 class I8080_INRFixture : public I8080_TestFixture {
 public:
-    void INR_CanIncrementValue(const I8080_OpCodes opcode, BYTE& targetRegister, const BYTE initialValue) {
+    void INR_CanIncrementValue(const I8080_OpCodes opcode, BYTE &targetRegister, const BYTE initialValue) {
         // given:
         mem[0x0000] = opcode;
         targetRegister = initialValue;

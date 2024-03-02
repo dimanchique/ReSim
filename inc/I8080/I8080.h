@@ -5,8 +5,7 @@
 #include "CPU_Base.h"
 #include "Memory.h"
 
-#define PAGE_SIZE 0xFF
-#define IsPageCrossed(src, dst) ((src ^ dst) >= PAGE_SIZE)
+#define STOP_OPCODE 0x08 // one of unused OpCodes so it's pretty much OK to use it a stop flag
 
 class I8080 final: public CPU_Base{
 public:
@@ -66,7 +65,7 @@ public:
         cycles++;
     }
 
-    FORCE_INLINE void PushDataOntoStack(Memory &memory, const BYTE& lsb, const BYTE& msb) {
+    FORCE_INLINE void PushDataOntoStack(Memory &memory, const BYTE &lsb, const BYTE &msb) {
         WriteByte(memory, lsb, --SP);
         WriteByte(memory, msb, --SP);
         cycles++;

@@ -12,7 +12,7 @@ public:
      * @param [out] fileSize Number of bytes read.
      * @return Char pointer to data (or nullptr if any error).
      */
-    static char* ReadBinary(const char* filename, long long& fileSize) {
+    static char* ReadBinary(const char *filename, long long &fileSize) {
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
         if (!file.is_open()) {
@@ -42,7 +42,7 @@ public:
      * @param startingAddress Starting address to write the binary.
      * @return True if the load was successful; otherwise, false.
      */
-    bool LoadROM(const char *filename, Memory& memory, WORD startingAddress) {
+    bool LoadROM(const char *filename, Memory &memory, WORD startingAddress) {
         long long numBytesRead = 0;
 
         const char* data = ReadBinary(filename, numBytesRead);

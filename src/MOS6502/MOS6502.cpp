@@ -9,8 +9,7 @@ void MOS6502::Reset(Memory &memory, const WORD resetVector) noexcept {
     A = X = Y = 0;
     cycles = 0;
 
-    // one of unused OpCodes so it's pretty much OK to use it a stop flag
-    memory.Reset(0x02);
+    memory.Reset(STOP_OPCODE);
 }
 
 U32 MOS6502::Run(Memory &memory) {

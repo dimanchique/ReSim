@@ -5,7 +5,7 @@ FORCE_INLINE void I8080_JMP(Memory &memory, I8080 &cpu) {
     cpu.PC = cpu.FetchWord(memory);
 }
 
-FORCE_INLINE void GenericJump_Conditional(Memory &memory, I8080 &cpu, const bool& conditionFlag) {
+FORCE_INLINE void GenericJump_Conditional(Memory &memory, I8080 &cpu, const bool &conditionFlag) {
     const WORD newPC = cpu.FetchWord(memory);
     if (conditionFlag)
         cpu.PC = newPC;

@@ -11,8 +11,7 @@ void I8080::Reset(Memory &memory, const WORD resetVector) noexcept {
     // Accumulator and general-purpose registers are not defined after reset and may contain arbitrary values.
     cycles = 0;
 
-    // one of unused OpCodes so it's pretty much OK to use it a stop flag
-    memory.Reset(0x08);
+    memory.Reset(STOP_OPCODE);
 }
 
 U32 I8080::Run(Memory &memory) {

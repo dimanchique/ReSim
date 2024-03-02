@@ -5,7 +5,7 @@ FORCE_INLINE void I8080_RET(Memory &memory, I8080 &cpu) {
     cpu.PopProgramCounterOffStack(memory);
 }
 
-FORCE_INLINE void GenericReturn_Conditional(Memory &memory, I8080 &cpu, const bool& conditionFlag) {
+FORCE_INLINE void GenericReturn_Conditional(Memory &memory, I8080 &cpu, const bool &conditionFlag) {
     if (conditionFlag)
         cpu.PopProgramCounterOffStack(memory);
 }

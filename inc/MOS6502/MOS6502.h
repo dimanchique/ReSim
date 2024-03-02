@@ -4,6 +4,7 @@
 #include "MOS6502_Status.h"
 #include "CPU_Base.h"
 
+#define STOP_OPCODE 0x02 // one of unused OpCodes so it's pretty much OK to use it a stop flag
 #define PAGE_SIZE 0xFF
 #define IsPageCrossed(src, dst) ((src ^ dst) >= PAGE_SIZE)
 
@@ -199,7 +200,7 @@ public:
      * @param memory Memory struct instance.
      * @return Zero Page address value.
      */
-    FORCE_INLINE BYTE GetZeroPageValue(const Memory& memory) {
+    FORCE_INLINE BYTE GetZeroPageValue(const Memory &memory) {
         const BYTE TargetAddress = FetchByte(memory);
         return ReadByte(memory, TargetAddress);
     }

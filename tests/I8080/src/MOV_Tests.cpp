@@ -1,6 +1,6 @@
 #include "I8080_MOV_Tests.h"
 
-void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE& destRegister, BYTE& srcRegister, const BYTE value){
+void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE &destRegister, BYTE &srcRegister, const BYTE value){
     // given:
     destRegister = ~value;
     srcRegister = value;
@@ -16,7 +16,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE& des
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE& destRegister, const WORD srcMemoryAddress, const BYTE value){
+void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE &destRegister, const WORD srcMemoryAddress, const BYTE value){
     // given:
     destRegister = ~value;
     mem[0x0000] = opcode;
