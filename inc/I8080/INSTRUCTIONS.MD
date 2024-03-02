@@ -1,7 +1,7 @@
-- [ ] ADD - Add Register or Memory To Accumulator
-- [ ] ADI - Add Immediate Data to Accumulator
-- [ ] ADC - Add Register or Memory to Accumulator with Carry
-- [ ] ACI - Add Immediate Data to Accumulator with Carry
+- [x] ADD - Add Register or Memory To Accumulator
+- [x] ADI - Add Immediate Data to Accumulator
+- [x] ADC - Add Register or Memory to Accumulator with Carry
+- [x] ACI - Add Immediate Data to Accumulator with Carry
 - [x] ANA - Logical AND Register or Memory with Accumulator
 - [x] ANI - Logical AND Immediate Data with Accumulator
 - [x] CALL - Call
