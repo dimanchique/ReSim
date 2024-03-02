@@ -50,10 +50,15 @@ struct I8080_Status{
         }
     }
 
-    FORCE_INLINE void SetAuxiliaryCarryFlag(const BYTE &oldValue, const BYTE &newValue) {
-        const bool oldAuxiliaryCarry = (oldValue >> 3) & 0x1;
-        const bool newAuxiliaryCarry = (newValue >> 3) & 0x1;
-        AC = oldAuxiliaryCarry ^ newAuxiliaryCarry;
+    FORCE_INLINE void SetAuxiliaryCarryFlagOfAdd(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
+        BYTE carryFlag = initialCarry;
+        BYTE firstOpArg, secondOpArg;
+        for(BYTE idx = 0; idx < 4; ++idx) {
+            firstOpArg = (firstOp >> idx) & 0x01;
+            secondOpArg = (secondOpWithCarry >> idx) & 0x01; // Consider the carry in the second operand
+            carryFlag = ((firstOpArg + secondOpArg + carryFlag) >> 1) & 0x01;
+        }
+        AC = carryFlag;
     }
 
     FORCE_INLINE bool GetStatusValue(const BYTE checkArgs) const noexcept {

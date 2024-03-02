@@ -1,5 +1,6 @@
 #include "I8080_OpHelpers.h"
 #include "Operations/I8080_ADD_Ops.h"
+#include "Operations/I8080_ADC_Ops.h"
 #include "Operations/I8080_ANA_Ops.h"
 #include "Operations/I8080_ANI_Ops.h"
 #include "Operations/I8080_ROT_Ops.h"
@@ -22,8 +23,7 @@
 #include "Operations/I8080_DCR_Ops.h"
 #include "Operations/I8080_ORA_Ops.h"
 #include "Operations/I8080_ORI_Ops.h"
-#include "Operations/I8080_XRA_Ops.h"
-#include "Operations/I8080_XRI_Ops.h"
+#include "Operations/I8080_XR_Ops.h"
 #include "Operations/I8080_POP_Ops.h"
 #include "Operations/I8080_PUSH_Ops.h"
 #include "Operations/I8080_SHLD_Ops.h"
@@ -55,7 +55,7 @@ constexpr static OpSignature Ops[] =
         };
 
 bool DecodeCommand(const BYTE opcode, Memory &memory, I8080 &cpu) {
-    if(opcode == 0x08) // one of unused OpCodes so it's pretty much OK to use it a stop flag
+    if(opcode == STOP_OPCODE)
         return false;
     const auto &Instruction = Ops[opcode];
     Instruction(memory, cpu);

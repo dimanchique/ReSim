@@ -6,7 +6,7 @@ FORCE_INLINE void GenericINR(Memory &memory, I8080 &cpu, BYTE &targetRegister) {
     targetRegister += 1;
     cpu.cycles++;
     cpu.Status.UpdateStatusByValue(targetRegister, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
-    cpu.Status.SetAuxiliaryCarryFlag(targetCopy, targetRegister);
+    cpu.Status.SetAuxiliaryCarryFlagOfAdd(targetCopy, 0x01);
 }
 
 inline void I8080_INR_A(Memory &memory, I8080 &cpu) {
@@ -44,5 +44,5 @@ FORCE_INLINE void I8080_INR_M(Memory &memory, I8080 &cpu) {
     memoryValue += 1;
     cpu.WriteByte(memory, memoryValue, memoryAddress);
     cpu.Status.UpdateStatusByValue(memoryValue, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
-    cpu.Status.SetAuxiliaryCarryFlag(memoryCopy, memoryValue);
+    cpu.Status.SetAuxiliaryCarryFlagOfAdd(memoryCopy, 0x01);
 }
