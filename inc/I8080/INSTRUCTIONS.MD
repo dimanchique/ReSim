@@ -68,8 +68,8 @@
 - [x] STA - Store Accumulator Data from Memory
 - [x] STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
 - [x] STC - Set Carry
-- [ ] SUB - Subtract Register or Memory From Accumulator
-- [ ] SUI - Subtract Immediate Data from Accumulator
+- [x] SUB - Subtract Register or Memory From Accumulator
+- [x] SUI - Subtract Immediate Data from Accumulator
 - [ ] SBB - Subtract Register or Memory From Accumulator with Borrow
 - [ ] SBI - Subtract Immediate Data from Accumulator with Borrow
 - [x] XCHG - Exchange 16-bit data in H/L with 16-bit data in D/E

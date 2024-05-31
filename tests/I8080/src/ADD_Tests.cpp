@@ -2,11 +2,11 @@
 
 class I8080_ADDFixture : public I8080_TestFixture {
 public:
-    void ADD_A_CanDoubleAccumulator(const BYTE initialAccumulator, const BYTE resultAccumulator,
-                                    const I8080_Status resultStatus) {
+    void ADD_A_CanDoubleAccumulator(const BYTE initialValue, const BYTE expectedValue,
+                                    const I8080_Status expectedStatus) {
         // given:
         cpu.Status = 0;
-        cpu.A = initialAccumulator;
+        cpu.A = initialValue;
         mem[0x0000] = I8080_OpCodes::ADD_A;
 
         cyclesExpected = 4;
@@ -15,24 +15,20 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.Status.C, resultStatus.C);
-        EXPECT_EQ(cpu.Status.Z, resultStatus.Z);
-        EXPECT_EQ(cpu.Status.AC, resultStatus.AC);
-        EXPECT_EQ(cpu.Status.P, resultStatus.P);
-        EXPECT_EQ(cpu.Status.S, resultStatus.S);
+        EXPECT_EQ(cpu.A, expectedValue);
+        EXPECT_EQ(cpu.A, expectedValue);
+        CheckStatus(expectedStatus);
         CheckCyclesCount();
     }
 
     void ADD_Register_CanAddRegisterToAccumulator(const I8080_OpCodes opcode,
-                                                  const BYTE initialAccumulator,
-                                                  const BYTE resultAccumulator,
-                                                  const I8080_Status resultStatus,
+                                                  const BYTE initialValue,
+                                                  const BYTE expectedValue,
+                                                  const I8080_Status expectedStatus,
                                                   const U32 cycles = 4) {
         // given:
         cpu.Status = 0;
-        cpu.A = initialAccumulator;
+        cpu.A = initialValue;
         mem[0x0000] = opcode;
 
         cyclesExpected = cycles;
@@ -41,32 +37,28 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.Status.C, resultStatus.C);
-        EXPECT_EQ(cpu.Status.Z, resultStatus.Z);
-        EXPECT_EQ(cpu.Status.AC, resultStatus.AC);
-        EXPECT_EQ(cpu.Status.P, resultStatus.P);
-        EXPECT_EQ(cpu.Status.S, resultStatus.S);
+        EXPECT_EQ(cpu.A, expectedValue);
+        CheckStatus(expectedStatus);
         CheckCyclesCount();
     }
 
     void
     ADD_CanAddMemoryToAccumulator(const BYTE memoryValue,
-                                  const BYTE initialAccumulator,
-                                  const BYTE resultAccumulator,
-                                  const I8080_Status resultStatus) {
+                                  const BYTE initialValue,
+                                  const BYTE expectedValue,
+                                  const I8080_Status expectedStatus) {
         cpu.H = 0x12;
         cpu.L = 0x34;
         mem[0x1234] = memoryValue;
-        ADD_Register_CanAddRegisterToAccumulator(I8080_OpCodes::ADD_M, initialAccumulator, resultAccumulator, resultStatus, 7);
+        ADD_Register_CanAddRegisterToAccumulator(I8080_OpCodes::ADD_M, initialValue, expectedValue, expectedStatus, 7);
     }
 
     void ADI_CanAddImmediateValueToAccumulator(const BYTE memoryValue,
-                                               const BYTE initialAccumulator,
-                                               const BYTE resultAccumulator,
-                                               const I8080_Status resultStatus) {
+                                               const BYTE initialValue,
+                                               const BYTE expectedValue,
+                                               const I8080_Status expectedStatus) {
         mem[0x0001] = memoryValue;
-        ADD_Register_CanAddRegisterToAccumulator(I8080_OpCodes::ADI, initialAccumulator, resultAccumulator, resultStatus, 7);
+        ADD_Register_CanAddRegisterToAccumulator(I8080_OpCodes::ADI, initialValue, expectedValue, expectedStatus, 7);
     }
 };
 

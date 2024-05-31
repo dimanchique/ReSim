@@ -41,12 +41,7 @@ struct I8080_Status{
         if (mask & I8080_Status_S)
             S = (targetRegister & I8080_Status_S) > 0;
         if (mask & I8080_Status_P) {
-            BYTE bitCount = 0;
-            for(BYTE idx = 0; idx < 8; ++idx) {
-                if ((targetRegister >> idx) & 0x1)
-                    bitCount++;
-            }
-            P = ~(bitCount & 0x1);
+            P = !(__builtin_popcount(targetRegister) & 0x01);
         }
     }
 

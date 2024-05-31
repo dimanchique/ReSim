@@ -26,4 +26,12 @@ public:
         else
             EXPECT_EQ(cyclesPassed, customCyclesExpected);
     }
+
+    void CheckStatus(const I8080_Status &targetStatus){
+        EXPECT_EQ(cpu.Status.C, targetStatus.C);
+        EXPECT_EQ(cpu.Status.Z, targetStatus.Z);
+        EXPECT_EQ(cpu.Status.AC, targetStatus.AC);
+        EXPECT_EQ(cpu.Status.P, targetStatus.P);
+        EXPECT_EQ(cpu.Status.S, targetStatus.S);
+    }
 };

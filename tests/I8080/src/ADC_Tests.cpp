@@ -2,12 +2,12 @@
 
 class I8080_ADCFixture : public I8080_TestFixture {
 public:
-    void ADC_A_CanDoubleAccumulator(const BYTE initialAccumulator, const BYTE resultAccumulator,
-                                    const I8080_Status resultStatus, const BYTE carry) {
+    void ADC_A_CanDoubleAccumulator(const BYTE initialValue, const BYTE expectedValue,
+                                    const I8080_Status expectedStatus, const BYTE carry) {
         // given:
         cpu.Status = 0;
         cpu.Status.C = carry;
-        cpu.A = initialAccumulator;
+        cpu.A = initialValue;
         mem[0x0000] = I8080_OpCodes::ADC_A;
 
         cyclesExpected = 4;
@@ -16,26 +16,22 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.Status.C, resultStatus.C);
-        EXPECT_EQ(cpu.Status.Z, resultStatus.Z);
-        EXPECT_EQ(cpu.Status.AC, resultStatus.AC);
-        EXPECT_EQ(cpu.Status.P, resultStatus.P);
-        EXPECT_EQ(cpu.Status.S, resultStatus.S);
+        EXPECT_EQ(cpu.A, expectedValue);
+        EXPECT_EQ(cpu.A, expectedValue);
+        CheckStatus(expectedStatus);
         CheckCyclesCount();
     }
 
     void ADC_Register_CanADCRegisterToAccumulator(const I8080_OpCodes opcode,
-                                                  const BYTE initialAccumulator,
+                                                  const BYTE initialValue,
                                                   const BYTE carry,
-                                                  const BYTE resultAccumulator,
-                                                  const I8080_Status resultStatus,
+                                                  const BYTE expectedValue,
+                                                  const I8080_Status expectedStatus,
                                                   const U32 cycles = 4) {
         // given:
         cpu.Status = 0;
         cpu.Status.C = carry;
-        cpu.A = initialAccumulator;
+        cpu.A = initialValue;
         mem[0x0000] = opcode;
 
         cyclesExpected = cycles;
@@ -44,33 +40,29 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(cpu.A, resultAccumulator);
-        EXPECT_EQ(cpu.Status.C, resultStatus.C);
-        EXPECT_EQ(cpu.Status.Z, resultStatus.Z);
-        EXPECT_EQ(cpu.Status.AC, resultStatus.AC);
-        EXPECT_EQ(cpu.Status.P, resultStatus.P);
-        EXPECT_EQ(cpu.Status.S, resultStatus.S);
+        EXPECT_EQ(cpu.A, expectedValue);
+        CheckStatus(expectedStatus);
         CheckCyclesCount();
     }
 
     void ADC_CanADCMemoryToAccumulator(const BYTE memoryValue,
-                                       const BYTE initialAccumulator,
+                                       const BYTE initialValue,
                                        const BYTE carry,
-                                       const BYTE resultAccumulator,
-                                       const I8080_Status resultStatus) {
+                                       const BYTE expectedValue,
+                                       const I8080_Status expectedStatus) {
         cpu.H = 0x12;
         cpu.L = 0x34;
         mem[0x1234] = memoryValue;
-        ADC_Register_CanADCRegisterToAccumulator(I8080_OpCodes::ADC_M, initialAccumulator, carry, resultAccumulator, resultStatus, 7);
+        ADC_Register_CanADCRegisterToAccumulator(I8080_OpCodes::ADC_M, initialValue, carry, expectedValue, expectedStatus, 7);
     }
 
     void ADI_CanAddImmediateValueToAccumulator(const BYTE memoryValue,
-                                               const BYTE initialAccumulator,
+                                               const BYTE initialValue,
                                                const BYTE carry,
-                                               const BYTE resultAccumulator,
-                                               const I8080_Status resultStatus) {
+                                               const BYTE expectedValue,
+                                               const I8080_Status expectedStatus) {
         mem[0x0001] = memoryValue;
-        ADC_Register_CanADCRegisterToAccumulator(I8080_OpCodes::ACI, initialAccumulator, carry, resultAccumulator, resultStatus, 7);
+        ADC_Register_CanADCRegisterToAccumulator(I8080_OpCodes::ACI, initialValue, carry, expectedValue, expectedStatus, 7);
     }
 };
 
