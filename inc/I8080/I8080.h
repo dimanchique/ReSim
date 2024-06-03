@@ -76,10 +76,9 @@ public:
         SP += 2;
     }
 
-    template<typename T>
-    FORCE_INLINE void PopDataOffStack(Memory &memory, BYTE& lsb, T& msb) {
-        msb = ReadByte(memory, SP++);
-        lsb = ReadByte(memory, SP++);
+    FORCE_INLINE void PopDataOffStack(Memory &memory, BYTE* lsb, BYTE* msb) {
+        *msb = ReadByte(memory, SP++);
+        *lsb = ReadByte(memory, SP++);
         cycles++;
     }
 

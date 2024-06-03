@@ -1,29 +1,37 @@
-## 6502 Emulator
-The 6502 Emulator is a C++ project that is a work in progress, designed for retro computing enthusiasts, developers, and learners.
-This section provides an overview of the key features and the current status of the project:
-### 1. 6502 CPU Emulation
-Our emulator, developed in C++, is in the early stages of development and aims to accurately emulate the MOS Technology 6502 microprocessor.
-While it's a work in progress, it's designed with the goal of achieving compatibility with a wide range of 6502 programs,
-replicating the behavior of the CPU, including its instruction set, addressing modes, and register layout.
-### 2. Debugger with GUI Development
-We have plans to develop a debugger with a graphical user interface to make debugging more intuitive and user-friendly.
-This is an upcoming project, and our aim is to provide features such as breakpoints, register inspection, and memory visualization to assist in the analysis and troubleshooting of 6502 assembly code.
-### 4. Test-Driven Development (TDD) with GTest
-We follow Test-Driven Development practices using Google Test to ensure the reliability and correctness of our code.
-TDD involves writing tests before implementing features, which helps us maintain a high level of code quality and reduces the risk of regressions as the project evolves.
-### 5. Educational Resource
-The 6502 Emulator is intended to serve as a valuable educational resource for:
-* Computer Architecture: Gain hands-on experience with a classic microprocessor and learn about its architecture and operation.
-* Programming: Practice programming in 6502 assembly language and experiment with real-world programs.
-* Emulation: Understand the principles of CPU emulation, memory management, and I/O interaction.
-### 6. No C++ Standard Library (STL) Overhead
-Our emulator is developed in C++ without relying on the C++ Standard Library.
-This design choice minimizes overhead and makes the emulator efficient and lightweight, ideal for low-level emulation tasks.
-### 7. Performance Optimization
-Our ongoing development efforts focus on optimizing the emulator for speed and resource efficiency to provide fast and responsive emulation without sacrificing accuracy.
+# ReSim
+ReSim (RetroSimulator) was originally designed as a 6502 functional simulator, but when 6502 was finished I realised I would like to implement something else.
 
-### Useful Links:
-- [6502 Wiki Page (RU)](https://ru.wikipedia.org/wiki/MOS_Technology_6502)
-- [6502 Wiki Page (EN)](https://en.wikipedia.org/wiki/MOS_Technology_6502)
-- [6502 Reference](http://www.6502.org/users/obelisk/)
-- [6502 Assembler](https://www.masswerk.at/6502/assembler.html)
+> Current development stage: Intel 8080
+
+ReSim is a C++ project designed for retro computing enthusiasts, developers, and learners.
+It gives you an opportunity to work with retro MPUs and test your own ASM programs.
+
+## Key Features
+
+### Cycle accurate execution
+
+ReSim is aimed to accurately emulate each instruction of presented MPUs.
+Cycles counter increments by each action in instruction i.e read/write, load/store, etc.
+> For now, it just says "this set of instructions took X cycles", but my future goal is to implement real cycling feature
+
+### Efficiency under the hood
+
+As far as ReSim is C++ project it has C++ efficiency. I decided to keep project development in a "C with classes" way, i.e. no STL, no lambdas or templates.
+This design choice minimizes overhead and makes the emulator efficient and lightweight, ideal for low-level emulation tasks.
+> MOS6502 programs runs just a 5 times slower than native. 1 GHz emulating speed on a 5GHz CPU (single thread)
+
+### Tests
+
+I was trying to follow TDD principles and covered each instruction by a set of tests using GTest.
+> MOS6502 covered by extra set of ASM tests. I will try to cover each MPU with such tests.
+
+## Limitations
+
+At this moment I don't know how to implement BIOS and hardware IO support.
+This feature is really important because there's no way to run something ore complex like Basic or Tetris.
+For now ReSim is just an execution environment for running little asm programs.
+> You can find MOS6502 CRC32 asm and binaries in tools/asm_tests)
+
+### Special thanks
+This project started as a copy of [DavePoo's 6502 emulator](https://github.com/davepoo/6502Emulator), but the only thing left from his project here is an idea.
+I designed my own way to describe execution flow, instructions layout and architecture. 

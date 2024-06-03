@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(CPU_Emulator)
+project(ReSim)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -47,4 +47,4 @@ foreach(tests_dir ${tests_dirs})
     add_subdirectory(${tests_dir})
 endforeach()
 
-add_executable(CPU_Emulator main.cpp)
+add_executable(ReSim main.cpp)
