@@ -7,7 +7,7 @@ include_directories(
 )
 
 file(GLOB SOURCES
-        TestSuite_MOS6502.cpp
+        #TestSuite_MOS6502.cpp
         ${PROJECT_SOURCE_DIR}/src/MOS6502/*.cpp
         ${PROJECT_SOURCE_DIR}/src/MOS6502/Operations/*.cpp)
 file(GLOB MOS6502_TESTS

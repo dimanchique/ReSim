@@ -42,9 +42,5 @@ endforeach()
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-file(GLOB tests_dirs "${CMAKE_SOURCE_DIR}/tests/*")
-foreach(tests_dir ${tests_dirs})
-    add_subdirectory(${tests_dir})
-endforeach()
-
+add_subdirectory(${CMAKE_SOURCE_DIR}/tests/)
 add_executable(ReSim main.cpp)

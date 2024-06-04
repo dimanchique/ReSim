@@ -7,7 +7,7 @@ include_directories(
 )
 
 file(GLOB SOURCES
-        TestSuite_I8080.cpp
+        #TestSuite_I8080.cpp
         ${PROJECT_SOURCE_DIR}/src/I8080/*.cpp
         ${PROJECT_SOURCE_DIR}/src/I8080/Operations/*.cpp)
 file(GLOB I8080_TESTS
