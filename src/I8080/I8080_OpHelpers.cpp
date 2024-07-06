@@ -20,6 +20,7 @@
 #include "Operations/I8080_INX_Ops.h"
 #include "Operations/I8080_INR_Ops.h"
 #include "Operations/I8080_DCX_Ops.h"
+#include "Operations/I8080_DAA_Ops.h"
 #include "Operations/I8080_DCR_Ops.h"
 #include "Operations/I8080_ORA_Ops.h"
 #include "Operations/I8080_ORI_Ops.h"

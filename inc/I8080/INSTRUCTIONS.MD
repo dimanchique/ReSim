@@ -17,7 +17,7 @@
 - [x] CMC - Complement Carry
 - [x] CMP - Compare Register or Memory with Accumulator
 - [x] CPI - Compare Immediate Data with Accumulator
-- [ ] DAA - Decimal Adjust Accumulator
+- [x] DAA - Decimal Adjust Accumulator
 - [ ] DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
 - [x] DCR - Decrement Register or Memory
 - [x] DCX - Decrement Register Pair
