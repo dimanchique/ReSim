@@ -33,6 +33,7 @@
 #include "Operations/I8080_STC_Ops.h"
 #include "Operations/I8080_CMC_Ops.h"
 #include "Operations/I8080_CMA_Ops.h"
+#include "Operations/I8080_CMP_Ops.h"
 #include "Operations/I8080_XCHG_Ops.h"
 #include "Operations/I8080_XTHL_Ops.h"
 #include "Operations/I8080_JUMP_Ops.h"
