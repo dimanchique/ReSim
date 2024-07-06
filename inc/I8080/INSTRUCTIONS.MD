@@ -70,8 +70,8 @@
 - [x] STC - Set Carry
 - [x] SUB - Subtract Register or Memory From Accumulator
 - [x] SUI - Subtract Immediate Data from Accumulator
-- [ ] SBB - Subtract Register or Memory From Accumulator with Borrow
-- [ ] SBI - Subtract Immediate Data from Accumulator with Borrow
+- [x] SBB - Subtract Register or Memory From Accumulator with Borrow
+- [x] SBI - Subtract Immediate Data from Accumulator with Borrow
 - [x] XCHG - Exchange 16-bit data in H/L with 16-bit data in D/E
 - [x] XTHL - Exchange 16-bit data in H/L with 16-bit data in address from Stack
 - [x] XRA - Logical Exclusive-Or Register or Memory with Accumulator

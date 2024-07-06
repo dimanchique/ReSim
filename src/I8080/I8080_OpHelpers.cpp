@@ -40,6 +40,7 @@
 #include "Operations/I8080_RETURN_Ops.h"
 #include "Operations/I8080_RST_Ops.h"
 #include "Operations/I8080_SUB_Ops.h"
+#include "Operations/I8080_SBB_Ops.h"
 
 static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
 
