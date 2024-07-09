@@ -30,7 +30,7 @@ for i in op_map:
             'CMC', 'XCHG', 'XTHL', 'CMA', 'SPHL', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JM', 'JP', 'JPE', 'JPO',
             'PUSH', 'POP', 'PCHL', 'LXI', 'CALL', 'RET', 'CZ', 'RZ', 'CNZ', 'RNZ', 'CC', 'RC', 'CPO', 'CPE',
             'CNC', 'RNC', 'CP', 'RP', 'CM', 'RM', 'RPO', 'RPE', 'RST', 'ADI', 'ADC', 'ACI', 'SUB', 'SUI', 'SBB', 'CMP',
-            'CPI', 'DAA']):
+            'CPI', 'DAA', 'DAD']):
         ops[op_map[i]] = f'ADD_CALL({i})'
         used_instructions += 1
 
