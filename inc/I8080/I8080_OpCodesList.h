@@ -42,7 +42,7 @@ ADD_CALL(RZ),            ADD_CALL(RET),           ADD_CALL(JZ),            ADD_C
 ADD_CALL(CALL),          ADD_CALL(ACI),           ADD_CALL(RST_1),         ADD_CALL(RNC),           ADD_CALL(POP_D),         
 ADD_CALL(JNC),           ADD_CALL(INVALID_OP),    ADD_CALL(CNC),           ADD_CALL(PUSH_D),        ADD_CALL(SUI),           
 ADD_CALL(RST_2),         ADD_CALL(RC),            ADD_CALL(INVALID_OP),    ADD_CALL(JC),            ADD_CALL(INVALID_OP),    
-ADD_CALL(CC),            ADD_CALL(INVALID_OP),    ADD_CALL(INVALID_OP),    ADD_CALL(RST_3),         ADD_CALL(RPO),           
+ADD_CALL(CC),            ADD_CALL(INVALID_OP),    ADD_CALL(SBI),           ADD_CALL(RST_3),         ADD_CALL(RPO),           
 ADD_CALL(POP_H),         ADD_CALL(JPO),           ADD_CALL(XTHL),          ADD_CALL(CPO),           ADD_CALL(PUSH_H),        
 ADD_CALL(ANI),           ADD_CALL(RST_4),         ADD_CALL(RPE),           ADD_CALL(PCHL),          ADD_CALL(JPE),           
 ADD_CALL(XCHG),          ADD_CALL(CPE),           ADD_CALL(INVALID_OP),    ADD_CALL(XRI),           ADD_CALL(RST_5),         

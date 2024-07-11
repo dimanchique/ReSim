@@ -5,8 +5,18 @@ cpu_name = 'I8080'
 script_path = __file__
 parent = os.path.split(__file__)[0]
 root = os.path.split(parent)[0]
+
 read_target = os.path.join(os.path.join(root, f'inc/{cpu_name}'), f'{cpu_name}_OpCodes.h')
 write_target = os.path.join(os.path.join(root, f'inc/{cpu_name}'), f'{cpu_name}_OpCodesList.h')
+instructions_target = os.path.join(os.path.join(root, f'inc/{cpu_name}'), f'INSTRUCTIONS.MD')
+
+opcodes_list = []
+with open(instructions_target, 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        line = line.replace(' ', '')
+        if line.startswith('-[') and '[x]' in line:
+            opcodes_list.append(line.replace('[x]', '').split('-')[1])
 
 with open(read_target, 'r') as file:
     data = file.readlines()
@@ -24,13 +34,7 @@ ops = ['ADD_CALL(INVALID_OP)'] * 256
 
 used_instructions = 0
 for i in op_map:
-    if any(item + '_' in i or i.endswith(item) for item in
-           ['ANA', 'ADD', 'RAR', 'RAL', 'RLC', 'RRC', 'LDA', 'LDAX', 'NOP', 'MOV', 'MVI', 'INX', 'DCX',
-            'ORA', 'ORI', 'INR', 'DCR', 'ANA', 'ANI', 'LHLD', 'SHLD', 'XRA', 'XRI', 'STA', 'STAX', 'STC',
-            'CMC', 'XCHG', 'XTHL', 'CMA', 'SPHL', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JM', 'JP', 'JPE', 'JPO',
-            'PUSH', 'POP', 'PCHL', 'LXI', 'CALL', 'RET', 'CZ', 'RZ', 'CNZ', 'RNZ', 'CC', 'RC', 'CPO', 'CPE',
-            'CNC', 'RNC', 'CP', 'RP', 'CM', 'RM', 'RPO', 'RPE', 'RST', 'ADI', 'ADC', 'ACI', 'SUB', 'SUI', 'SBB', 'CMP',
-            'CPI', 'DAA', 'DAD']):
+    if any(item + '_' in i or i.endswith(item) for item in opcodes_list):
         ops[op_map[i]] = f'ADD_CALL({i})'
         used_instructions += 1
 
