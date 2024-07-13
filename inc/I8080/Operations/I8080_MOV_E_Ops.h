@@ -18,7 +18,7 @@ inline void I8080_MOV_E_D(Memory &memory, I8080 &cpu) {
 }
 
 inline void I8080_MOV_E_E(Memory &memory, I8080 &cpu) {
-    // nop-like
+    cpu.cycles++; //nop-like
 }
 
 inline void I8080_MOV_E_H(Memory &memory, I8080 &cpu) {

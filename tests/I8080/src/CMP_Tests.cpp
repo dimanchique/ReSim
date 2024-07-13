@@ -178,34 +178,34 @@ TEST_F(I8080_CMPFixture, CMP_L_4) {
     CMP_CanCompareReg(CMP_L, (BYTE)-0x1B, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADD_M_1) {
+TEST_F(I8080_CMPFixture, CMP_M_1) {
     CMP_CanCompareMemory(0x10, 0x10, true, false);
 }
 
-TEST_F(I8080_CMPFixture, ADD_M_2) {
+TEST_F(I8080_CMPFixture, CMP_M_2) {
     CMP_CanCompareMemory(0x0A, 0x05, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADD_M_3) {
+TEST_F(I8080_CMPFixture, CMP_M_3) {
     CMP_CanCompareMemory(0x02, 0x05, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADD_M_4) {
+TEST_F(I8080_CMPFixture, CMP_M_4) {
     CMP_CanCompareMemory((BYTE)-0x1B, 0x05, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADI_1) {
+TEST_F(I8080_CMPFixture, CPI_1) {
     CPI_CanCompareImmediateValue(0x10, 0x10, true, false);
 }
 
-TEST_F(I8080_CMPFixture, ADI_2) {
+TEST_F(I8080_CMPFixture, CPI_2) {
     CPI_CanCompareImmediateValue(0x0A, 0x05, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADI_3) {
+TEST_F(I8080_CMPFixture, CPI_3) {
     CPI_CanCompareImmediateValue(0x02, 0x05, false, false);
 }
 
-TEST_F(I8080_CMPFixture, ADI_4) {
+TEST_F(I8080_CMPFixture, CPI_4) {
     CPI_CanCompareImmediateValue((BYTE)-0x1B, 0x05, false, false);
 }

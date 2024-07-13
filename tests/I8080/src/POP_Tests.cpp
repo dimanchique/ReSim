@@ -13,7 +13,7 @@ public:
         mem[0x123A] = stackLSB;
         mem[0x0000] = opcode;
 
-        cyclesExpected = 11;
+        cyclesExpected = 10;
 
         // when:
         cyclesPassed = cpu.Run(mem);

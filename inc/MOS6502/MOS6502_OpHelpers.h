@@ -16,4 +16,4 @@ struct Memory;
  * @param cpu MOS6502 struct instance.
  * @return Decode success status.
  */
-bool DecodeCommand(BYTE opcode, Memory &memory, MOS6502 &cpu);
+bool DecodeInstruction(BYTE opcode, Memory &memory, MOS6502 &cpu);

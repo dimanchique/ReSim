@@ -2,7 +2,7 @@
 #include "I8080_MOV_Ops.h"
 
 inline void I8080_MOV_A_A(Memory &memory, I8080 &cpu) {
-    // nop-like
+    cpu.cycles++; //nop-like
 }
 
 inline void I8080_MOV_A_B(Memory &memory, I8080 &cpu) {

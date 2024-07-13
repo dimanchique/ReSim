@@ -15,19 +15,13 @@ void I8080::Reset(Memory &memory, const WORD resetVector) noexcept {
 }
 
 U32 I8080::Run(Memory &memory) {
-    bool DecodeSuccess;
-    BYTE Instruction;
+    bool decodeSuccess;
 
     do {
-        Instruction = FetchByte(memory);
-        DecodeSuccess = DecodeCommand(Instruction, memory, *this);
-        cycles++;
+        const BYTE opCode = FetchByte(memory);
+        decodeSuccess = DecodeInstruction(opCode, memory, *this);
+    } while (decodeSuccess);
 
-        if (!DecodeSuccess)
-            cycles -= 4;
-
-    } while (DecodeSuccess);
-
-    PC--;                   //revert extra PC increment for last instruction fetching
+    PC--; // revert extra PC increment for last instruction fetching
     return cycles;
 }

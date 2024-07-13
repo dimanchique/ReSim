@@ -59,10 +59,14 @@ constexpr static OpSignature Ops[] =
 #endif
         };
 
-bool DecodeCommand(const BYTE opcode, Memory &memory, I8080 &cpu) {
-    if(opcode == STOP_OPCODE)
+bool DecodeInstruction(const BYTE opcode, Memory &memory, I8080 &cpu) {
+    const auto &instruction = Ops[opcode];
+    if(opcode == STOP_OPCODE || instruction == I8080_INVALID_OP)
+    {
+        cpu.cycles -= 3; // revert false fetch cycles
         return false;
-    const auto &Instruction = Ops[opcode];
-    Instruction(memory, cpu);
-    return Instruction != I8080_INVALID_OP;
+    }
+    instruction(memory, cpu);
+    cpu.cycles++; // additional decode cycle
+    return true;
 }

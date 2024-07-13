@@ -54,7 +54,7 @@ void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes opcode){
     const uint64_t preSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers (including status)
     mem[0x0000] = opcode;
 
-    cyclesExpected = 4;
+    cyclesExpected = 5;
 
     // when:
     cyclesPassed = cpu.Run(mem);

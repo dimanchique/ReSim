@@ -9,7 +9,7 @@ public:
         I8080::wordToRegisterSwapped(registerValueH, cpu.H, cpu.L);
         mem[0x0000] = I8080_OpCodes::XTHL;
 
-        cyclesExpected = 16;
+        cyclesExpected = 18;
 
         // when:
         cyclesPassed = cpu.Run(mem);

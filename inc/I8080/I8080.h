@@ -79,7 +79,6 @@ public:
     FORCE_INLINE void PopDataOffStack(Memory &memory, BYTE* lsb, BYTE* msb) {
         *msb = ReadByte(memory, SP++);
         *lsb = ReadByte(memory, SP++);
-        cycles++;
     }
 
     static FORCE_INLINE WORD wordRegisterAsWordSwapped(const BYTE& lsbReg, const BYTE& msbReg) {

@@ -42,10 +42,13 @@ constexpr static OpSignature Ops[] =
 #endif
         };
 
-bool DecodeCommand(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
-    if(opcode == STOP_OPCODE)
+bool DecodeInstruction(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
+    const auto &instruction = Ops[opcode];
+    if(opcode == STOP_OPCODE || instruction == MOS6502_INVALID_OP)
+    {
+        cpu.cycles--; // revert fetch cycle
         return false;
-    const auto &Instruction = Ops[opcode];
-    Instruction(memory, cpu);
-    return Instruction != MOS6502_INVALID_OP;
+    }
+    instruction(memory, cpu);
+    return true;
 }

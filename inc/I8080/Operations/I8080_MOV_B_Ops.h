@@ -6,7 +6,7 @@ inline void I8080_MOV_B_A(Memory &memory, I8080 &cpu) {
 }
 
 inline void I8080_MOV_B_B(Memory &memory, I8080 &cpu) {
-    // nop-like
+    cpu.cycles++; //nop-like
 }
 
 inline void I8080_MOV_B_C(Memory &memory, I8080 &cpu) {

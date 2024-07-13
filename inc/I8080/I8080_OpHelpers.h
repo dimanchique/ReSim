@@ -16,4 +16,4 @@ struct Memory;
  * @param cpu I8080 struct instance.
  * @return Decode success status.
  */
-bool DecodeCommand(BYTE opcode, Memory &memory, I8080 &cpu);
+bool DecodeInstruction(BYTE opcode, Memory &memory, I8080 &cpu);

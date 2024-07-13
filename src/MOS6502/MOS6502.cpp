@@ -14,18 +14,12 @@ void MOS6502::Reset(Memory &memory, const WORD resetVector) noexcept {
 
 U32 MOS6502::Run(Memory &memory) {
     bool DecodeSuccess;
-    BYTE Instruction;
 
     do {
-        Instruction = FetchByte(memory);
-        cycles--;           //leaving only instruction cycles here
-        DecodeSuccess = DecodeCommand(Instruction, memory, *this);
-
-        if (DecodeSuccess)
-            cycles++;
-
+        const BYTE opCode = FetchByte(memory);
+        DecodeSuccess = DecodeInstruction(opCode, memory, *this);
     } while (DecodeSuccess);
 
-    PC--;                   //revert extra PC increment for last instruction fetching
+    PC--; //revert extra PC increment for last instruction fetching
     return cycles;
 }
