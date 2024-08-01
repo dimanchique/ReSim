@@ -1,0 +1,101 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 22,
+        "patch": 0
+    },
+    "include": [
+        "../base/ConfigurePresets.json",
+        "../base/BuildPresets.json",
+        "../base/TestPresets.json"
+    ],
+    "configurePresets": [
+        {   "name": "linux",
+            "hidden": true,
+            "inherits": [
+                "linux-base",
+                "default-dirs",
+                "ninja",
+                "clang"
+            ]
+        },
+        {   "name": "linux-release",
+            "displayName": "Release",
+            "description": "x64 ninja",
+            "inherits": [
+                "linux",
+                "release",
+                "without-test"
+            ]
+        },
+        {   "name": "linux-debug-test",
+            "displayName": "Debug test",
+            "description": "x64 ninja with tests",
+            "inherits": [
+                "linux",
+                "debug",
+                "with-test"
+            ]
+        },
+        {   "name": "linux-release-test",
+            "displayName": "Release test",
+            "description": "x64 ninja with tests",
+            "inherits": [
+                "linux",
+                "release",
+                "with-test"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {   "name": "linux-release",
+            "displayName": "Release",
+            "configurePreset": "linux-release",
+            "cleanFirst": true,
+            "inherits": [
+                "linux-base",
+                "release"
+            ]
+        },
+        {   "name": "linux-debug-test",
+            "displayName": "Debug",
+            "configurePreset": "linux-debug-test",
+            "inherits": [
+                "linux-base",
+                "debug"
+            ]
+        },
+        {   "name": "linux-release-test",
+            "displayName": "Release",
+            "configurePreset": "linux-release-test",
+            "inherits": [
+                "linux-base",
+                "release"
+            ]
+        }
+    ],
+    "testPresets": [
+        {   "name": "linux-debug",
+            "inherits": [
+                "linux-base",
+                "debug"
+            ],
+            "configurePreset": "linux-debug-test"
+        },
+        {   "name": "linux-release",
+            "inherits": [
+                "linux-base",
+                "release"
+            ],
+            "configurePreset": "linux-release-test"
+        },
+        {   "name": "linux-benchmark",
+            "inherits": [
+                "linux-base",
+                "benchmark"
+            ],
+            "configurePreset": "linux-release-test"
+        }
+    ]
+}

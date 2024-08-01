@@ -1,30 +1,21 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
+
+message("Configuring I8080 tests...")
 enable_testing()
 
-include_directories(
-        ${PROJECT_SOURCE_DIR}/inc/I8080
-        inc
-)
+file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h)
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
-file(GLOB SOURCES
-        #TestSuite_I8080.cpp
-        ${PROJECT_SOURCE_DIR}/src/I8080/*.cpp
-        ${PROJECT_SOURCE_DIR}/src/I8080/Operations/*.cpp)
-file(GLOB I8080_TESTS
-        src/*.cpp)
+add_executable(i8080-test ${HEADERS} ${SOURCES})
 
-add_executable(
-        TestSuite_I8080
-        ${I8080_TESTS}
-        ${SOURCES}
-)
-
-target_link_libraries(
-        TestSuite_I8080
-        GTest::gtest_main
+target_include_directories(i8080-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+target_link_libraries(i8080-test
+    PRIVATE ReSim::chip::i8080
+    PRIVATE GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(TestSuite_I8080)
+gtest_discover_tests(i8080-test)
 
-target_compile_definitions(TestSuite_I8080 PRIVATE TESTS_SOURCE_DIR="${CMAKE_SOURCE_DIR}/tools/asm_tests/")
+# Cross reference fullpath to original bin files
+target_compile_definitions(i8080-test PRIVATE TESTS_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/asm")

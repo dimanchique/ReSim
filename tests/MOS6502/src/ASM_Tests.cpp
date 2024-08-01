@@ -6,7 +6,7 @@ class MOS6502_ASMFixture : public MOS6502_ASMTestFixture {};
 TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
     // given:
     std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "MOS6502" / "CRC32_test.bin";
+    std::filesystem::path filePath = projectRoot / "CRC32_test.bin";
     SetExecutable(filePath.generic_string(), mem, 0x3000);
 
     for(auto i = 0x1000; i < 0x1100; i++)
@@ -27,7 +27,7 @@ TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
     // given:
     std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "MOS6502" / "CRC16_test.bin";
+    std::filesystem::path filePath = projectRoot / "CRC16_test.bin";
     SetExecutable(filePath.generic_string(), mem, 0x3000);
 
     for(auto i = 0x1000; i < 0x1100; i++)
@@ -46,7 +46,7 @@ TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, CRC8_ComputeTest) {
     // given:
     std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "MOS6502" / "CRC8_test.bin";
+    std::filesystem::path filePath = projectRoot / "CRC8_test.bin";
     SetExecutable(filePath.generic_string(), mem, 0x3000);
 
     for(auto i = 0x1000; i < 0x1100; i++)
@@ -64,7 +64,7 @@ TEST_F(MOS6502_ASMFixture, CRC8_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, MultiplicationBy10_ComputeTest) {
     // given:
     std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "MOS6502" / "MultiplicationBy10_test.bin";
+    std::filesystem::path filePath = projectRoot / "MultiplicationBy10_test.bin";
     SetExecutable(filePath.generic_string(), mem, 0x8000);
 
     cpu.A = 0x12;               // Given: 18

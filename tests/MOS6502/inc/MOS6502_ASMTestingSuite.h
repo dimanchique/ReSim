@@ -1,12 +1,10 @@
 #pragma once
 #include <gtest/gtest.h>
-#include "MOS6502_OpCodes.h"
-#include "MOS6502.h"
-#include "Memory.h"
+#include "MOS6502/MOS6502_OpCodes.h"
+#include "MOS6502/MOS6502.h"
+#include "base/memory.h"
 
-#ifdef PRINT_TESTS_PERFORMANCE
 #include "chrono"
-#endif
 
 class MOS6502_ASMTestFixture : public testing::Test {
 public:
@@ -15,10 +13,8 @@ public:
 
     U32 cyclesPassed = 0;
 
-#ifdef PRINT_TESTS_PERFORMANCE
     std::chrono::steady_clock::time_point begin, end;
     double duration;
-#endif
 
     void SetUp() override {
         cpu.Reset(mem, 0xFFFC);
@@ -30,22 +26,16 @@ public:
     }
 
     void RunTest() {
-#ifdef PRINT_TESTS_PERFORMANCE
         begin = std::chrono::steady_clock::now();
-#endif
         cyclesPassed = cpu.Run(mem);
-#ifdef PRINT_TESTS_PERFORMANCE
         end = std::chrono::steady_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
-#endif
     }
 
     void TearDown() override {
-#ifdef PRINT_TESTS_PERFORMANCE
         std::cout << "Execution duration: " << duration / 1e6 << "[s]" << std::endl;
         std::cout << "Cycles count: " << cyclesPassed  << std::endl;
         std::cout << "Cycles/s: " << cyclesPassed / (duration / 1e6)  << std::endl;
         std::cout << "Frequency: " << cyclesPassed / duration << " MHz" << std::endl;
-#endif
     }
 };

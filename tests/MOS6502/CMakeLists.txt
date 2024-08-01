@@ -1,30 +1,21 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
+
+message("Configuring MOS6502 tests...")
 enable_testing()
 
-include_directories(
-        ${PROJECT_SOURCE_DIR}/inc/MOS6502
-        inc
-)
+file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h)
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
-file(GLOB SOURCES
-        #TestSuite_MOS6502.cpp
-        ${PROJECT_SOURCE_DIR}/src/MOS6502/*.cpp
-        ${PROJECT_SOURCE_DIR}/src/MOS6502/Operations/*.cpp)
-file(GLOB MOS6502_TESTS
-        src/*.cpp)
+add_executable(mos6502-test ${HEADERS} ${SOURCES})
 
-add_executable(
-        TestSuite_MOS6502
-        ${MOS6502_TESTS}
-        ${SOURCES}
-)
-
-target_link_libraries(
-        TestSuite_MOS6502
-        GTest::gtest_main
+target_include_directories(mos6502-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+target_link_libraries(mos6502-test
+    PRIVATE ReSim::chip::mos6502
+    PRIVATE GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(TestSuite_MOS6502)
+gtest_discover_tests(mos6502-test)
 
-target_compile_definitions(TestSuite_MOS6502 PRIVATE TESTS_SOURCE_DIR="${CMAKE_SOURCE_DIR}/tools/asm_tests/")
+# Cross reference fullpath to original bin files
+target_compile_definitions(mos6502-test PRIVATE TESTS_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/asm")

@@ -1,0 +1,103 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 22,
+        "patch": 0
+    },
+    "include": [
+        "../base/ConfigurePresets.json",
+        "../base/BuildPresets.json",
+        "../base/TestPresets.json"
+    ],
+    "configurePresets": [
+        {   "name": "windows",
+            "hidden": true,
+            "inherits" :[
+                "windows-base",
+                "default-dirs",
+                "ninja"
+            ],
+            "cacheVariables": {
+                "CMAKE_CXX_STANDARD": "17"
+            }
+        },
+        {   "name": "windows-release",
+            "displayName": "Release",
+            "description": "x64 ninja",
+            "inherits": [
+                "windows",
+                "release",
+                "without-test"
+            ]
+        },
+        {   "name": "windows-debug-test",
+            "displayName": "Debug",
+            "description": "x64 ninja with tests",
+            "inherits": [
+                "windows",
+                "debug",
+                "with-test"
+            ]
+        },
+        {   "name": "windows-release-test",
+            "displayName": "Release",
+            "description": "x64 ninja with tests",
+            "inherits": [
+                "windows",
+                "release",
+                "with-test"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {   "name": "windows-release",
+            "displayName": "Release",
+            "configurePreset": "windows-release",
+            "cleanFirst": true,
+            "inherits": [
+                "windows-base",
+                "release"
+            ]
+        },
+        {   "name": "windows-debug-test",
+            "displayName": "Debug",
+            "configurePreset": "windows-debug-test",
+            "inherits": [
+                "windows-base",
+                "debug"
+            ]
+        },
+        {   "name": "windows-release-test",
+            "displayName": "Release",
+            "configurePreset": "windows-release-test",
+            "inherits": [
+                "windows-base",
+                "release"
+            ]
+        }
+    ],
+    "testPresets": [
+        {   "name": "windows-debug",
+            "inherits": [
+                "windows-base",
+                "debug"
+            ],
+            "configurePreset": "windows-debug-test"
+        },
+        {   "name": "windows-release",
+            "inherits": [
+                "windows-base",
+                "release"
+            ],
+            "configurePreset": "windows-release-test"
+        },
+        {   "name": "windows-benchmark",
+            "inherits": [
+                "windows-base",
+                "benchmark"
+            ],
+            "configurePreset": "windows-release-test"
+        }
+    ]
+}

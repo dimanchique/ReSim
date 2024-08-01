@@ -1,8 +1,8 @@
 #pragma once
 #include <gtest/gtest.h>
-#include "I8080_OpCodes.h"
-#include "I8080.h"
-#include "Memory.h"
+#include "I8080/I8080_OpCodes.h"
+#include "I8080/I8080.h"
+#include "base/memory.h"
 
 class I8080_TestFixture : public testing::Test {
 public:

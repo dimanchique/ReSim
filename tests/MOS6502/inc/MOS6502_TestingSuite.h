@@ -1,8 +1,8 @@
 #pragma once
 #include <gtest/gtest.h>
-#include "MOS6502_OpCodes.h"
-#include "MOS6502.h"
-#include "Memory.h"
+#include "MOS6502/MOS6502_OpCodes.h"
+#include "MOS6502/MOS6502.h"
+#include "base/memory.h"
 
 class MOS6502_TestFixture : public testing::Test {
 public:

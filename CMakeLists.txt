@@ -1,46 +1,33 @@
-cmake_minimum_required(VERSION 3.24)
-project(ReSim)
+cmake_minimum_required(VERSION 3.22)
 
-set(CMAKE_CXX_STANDARD 17)
+project(
+    ReSim
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
 
-option(print_tests_performance "Enable performance data output on ASM tests" OFF)
-
-# Add the preprocessor definition based on the user's choice
-if(print_tests_performance)
-    add_compile_definitions(PRINT_TESTS_PERFORMANCE)
+if(RESIM_BUILD_SHARED)
+    set(RESIM_BUILD_TYPE SHARED)
+else()
+    set(RESIM_BUILD_TYPE STATIC)
 endif()
 
-include_directories(inc)
+add_subdirectory(core)
+add_subdirectory(base)
+add_subdirectory(chips)
 
-include(FetchContent)
-FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
+if(RESIM_BUILD_TESTING)
+    add_subdirectory(tests)
+    
+    # Enable CTest testing suit at global point
+    enable_testing()
+endif()
 
-set(DATA_DIRECTORY "${CMAKE_SOURCE_DIR}/tools/asm_tests")
-file(GLOB subdirectories "${DATA_DIRECTORY}/*")
-
-set(BINARY_DIR "${CMAKE_BINARY_DIR}")
-
-foreach(subdirectory ${subdirectories})
-    if(IS_DIRECTORY ${subdirectory})
-        # Get the name of the subdirectory
-        get_filename_component(subdir_name ${subdirectory} NAME)
-
-        # Specify the destination folder in the build directory
-        set(destination "${BINARY_DIR}/tools/asm_tests/${subdir_name}")
-
-        # Copy only the files matching the pattern *.bin
-        file(GLOB files_to_copy CONFIGURE_DEPENDS "${subdirectory}/*.bin")
-
-        # Copy the files to the destination
-        foreach(file ${files_to_copy})
-            get_filename_component(filename ${file} NAME)
-            configure_file(${file} ${destination}/${filename} COPYONLY)
-        endforeach()
-    endif()
-endforeach()
-
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
-add_subdirectory(${CMAKE_SOURCE_DIR}/tests/)
+# special main target for experimenting
 add_executable(ReSim main.cpp)
+target_link_libraries(ReSim
+    PRIVATE ReSim::core
+    PRIVATE ReSim::base
+    PRIVATE ReSim::chip::mos6502
+    PRIVATE ReSim::chip::i8080
+)
