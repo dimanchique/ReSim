@@ -3,9 +3,9 @@
 
 inline void I8080_XTHL(Memory &memory, I8080 &cpu) {
     const WORD stackPointerValue = cpu.ReadWord(memory, cpu.SP);
-    const WORD registerValue = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+    const WORD registerValue = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     cpu.cycles++;
     cpu.WriteWord(memory, registerValue, cpu.SP);
-    I8080::wordToRegisterSwapped(stackPointerValue, cpu.H, cpu.L);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(stackPointerValue, cpu.H, cpu.L);
     cpu.cycles++;
 }

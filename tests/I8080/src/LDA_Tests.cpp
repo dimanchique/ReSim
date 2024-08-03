@@ -52,41 +52,41 @@ TEST_F(I8080_LDAFixture, LDA_CanLoadValue_4) {
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_1) {
-    I8080::wordToRegisterSwapped(0x1234, cpu.B, cpu.C);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x1234, cpu.B, cpu.C);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0x25, 0x1234);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_2) {
-    I8080::wordToRegisterSwapped(0x0123, cpu.B, cpu.C);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x0123, cpu.B, cpu.C);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0xFF, 0x0123);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_3) {
-    I8080::wordToRegisterSwapped(0x4444, cpu.B, cpu.C);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x4444, cpu.B, cpu.C);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0xAE, 0x4444);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_B_CanLoadValue_4) {
-    I8080::wordToRegisterSwapped(0x0005, cpu.B, cpu.C);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x0005, cpu.B, cpu.C);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_B, 0xDA, 0x0005);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_1) {
-    I8080::wordToRegisterSwapped(0x1234, cpu.D, cpu.E);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x1234, cpu.D, cpu.E);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0x25, 0x1234);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_2) {
-    I8080::wordToRegisterSwapped(0x0123, cpu.D, cpu.E);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x0123, cpu.D, cpu.E);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0xFF, 0x0123);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_3) {
-    I8080::wordToRegisterSwapped(0x4444, cpu.D, cpu.E);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x4444, cpu.D, cpu.E);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0xAE, 0x4444);
 }
 
 TEST_F(I8080_LDAFixture, LDAX_D_CanLoadValue_4) {
-    I8080::wordToRegisterSwapped(0x0005, cpu.D, cpu.E);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(0x0005, cpu.D, cpu.E);
     LDAX_CanLoadValue(I8080_OpCodes::LDAX_D, 0xDA, 0x0005);
 }

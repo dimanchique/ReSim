@@ -21,7 +21,7 @@ public:
         // given:
         mem[0x0000] = I8080_OpCodes::MVI_M;
         mem[0x0001] = immediateValue;
-        I8080::wordToRegisterSwapped(memoryAddress, cpu.H, cpu.L);
+        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;
 

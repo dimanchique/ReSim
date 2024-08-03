@@ -4,8 +4,8 @@ class I8080_XCHGFixture : public I8080_TestFixture {
 public:
     void XCHG_CanExchangeValues(const WORD initialValueD, const WORD initialValueH) {
         // given:
-        I8080::wordToRegisterSwapped(initialValueD, cpu.D, cpu.E);
-        I8080::wordToRegisterSwapped(initialValueH, cpu.H, cpu.L);
+        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(initialValueD, cpu.D, cpu.E);
+        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(initialValueH, cpu.H, cpu.L);
         mem[0x0000] = I8080_OpCodes::XCHG;
 
         cyclesExpected = 5;
@@ -14,8 +14,8 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        const WORD swappedValueD = I8080::wordRegisterAsWordSwapped(cpu.D, cpu.E);
-        const WORD swappedValueH = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+        const WORD swappedValueD = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.D, cpu.E);
+        const WORD swappedValueH = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
         EXPECT_NE(swappedValueD, initialValueD);
         EXPECT_NE(swappedValueH, initialValueH);
         EXPECT_EQ(initialValueD, swappedValueH);

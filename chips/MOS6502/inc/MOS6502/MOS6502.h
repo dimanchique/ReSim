@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/macro.h"
+#include "core/compilers_macro.h"
 #include "MOS6502_Status.h"
 #include "base/compute.h"
 

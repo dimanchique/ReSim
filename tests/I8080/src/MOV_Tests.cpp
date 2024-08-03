@@ -21,7 +21,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE &des
     destRegister = ~value;
     mem[0x0000] = opcode;
     mem[srcMemoryAddress] = value;
-    I8080::wordToRegisterSwapped(srcMemoryAddress, cpu.H, cpu.L);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(srcMemoryAddress, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 
@@ -37,7 +37,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes opcode, const WOR
     // given:
     mem[destMemoryAddress] = ~value;
     mem[0x0000] = opcode;
-    I8080::wordToRegisterSwapped(destMemoryAddress, cpu.H, cpu.L);
+    ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(destMemoryAddress, cpu.H, cpu.L);
 
     cyclesExpected = 7;
 

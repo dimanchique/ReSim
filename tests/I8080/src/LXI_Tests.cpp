@@ -2,7 +2,7 @@
 
 class I8080_LXIFixture : public I8080_TestFixture {
 public:
-    void LXI_CanLoadImmediateValue(const I8080_OpCodes opcode, const WORD* targetRegisterPtr) {
+    void LXI_CanLoadImmediateValue(const I8080_OpCodes opcode, const WORD& targetRegisterPtr) {
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = 0x01;
@@ -14,27 +14,24 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(*targetRegisterPtr, 0x0103);
+        EXPECT_EQ(targetRegisterPtr, 0x0103);
         CheckCyclesCount();
     }
 };
 
 TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueB) {
-    WORD* registerPtr = I8080::wordRegisterAsWordUnswapped(cpu.B);
-    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_B, registerPtr);
+    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_B, cpu.BC);
 }
 
 TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueD) {
-    WORD* registerPtr = I8080::wordRegisterAsWordUnswapped(cpu.D);
-    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_D, registerPtr);
+    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_D, cpu.DE);
 }
 
 TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueH) {
-    WORD* registerPtr = I8080::wordRegisterAsWordUnswapped(cpu.H);
-    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_H, registerPtr);
+    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_H, cpu.HL);
 }
 
 TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueSP) {
-    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_SP, &cpu.SP);
+    LXI_CanLoadImmediateValue(I8080_OpCodes::LXI_SP, cpu.SP);
 }
 

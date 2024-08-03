@@ -45,10 +45,7 @@ constexpr static OpSignature Ops[] =
 bool DecodeInstruction(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
     const auto &instruction = Ops[opcode];
     if(opcode == STOP_OPCODE || instruction == MOS6502_INVALID_OP)
-    {
-        cpu.cycles--; // revert fetch cycle
         return false;
-    }
     instruction(memory, cpu);
     return true;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/types.h"
-#include "core/macro.h"
+#include "core/compilers_macro.h"
 
 #define MOS6502_Status_C    (1 << 0)
 #define MOS6502_Status_Z    (1 << 1)

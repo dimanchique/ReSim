@@ -1,25 +1,23 @@
 #pragma once
 
-#include "core/macro.h"
 #include "I8080_Status.h"
+#include "core/macro.h"
 #include "base/compute.h"
 #include "base/memory.h"
+#include "function_library/content_manipulation.h"
 
 #define STOP_OPCODE 0x08 // one of unused OpCodes so it's pretty much OK to use it a stop flag
 
 class I8080 final: public Compute{
 public:
 
-    WORD PC;                // Program Counter
-    WORD SP;                // Stack Pointer
-    BYTE A;                 // Accumulator
-    BYTE B;                 // Paired BC
-    BYTE C;                 //
-    BYTE D;                 // Paired DE
-    BYTE E;                 //
-    BYTE H;                 // Paired HL
-    BYTE L;                 //
-    I8080_Status Status;    // Status Register
+    WORD PC;                                // Program Counter
+    WORD SP;                                // Stack Pointer
+    BYTE A;                                 // Accumulator
+    I8080_Status Status;                    // Status Register
+    DECLARE_PAIRED_REG(BYTE, WORD, B, C);   // Paired BC
+    DECLARE_PAIRED_REG(BYTE, WORD, D, E);   // Paired DE
+    DECLARE_PAIRED_REG(BYTE, WORD, H, L);   // Paired HL
 
     void Reset(Memory &memory, WORD resetVector) noexcept override;
 
@@ -79,25 +77,5 @@ public:
     FORCE_INLINE void PopDataOffStack(Memory &memory, BYTE* lsb, BYTE* msb) {
         *msb = ReadByte(memory, SP++);
         *lsb = ReadByte(memory, SP++);
-    }
-
-    static FORCE_INLINE WORD wordRegisterAsWordSwapped(const BYTE& lsbReg, const BYTE& msbReg) {
-        WORD value = 0;
-        value |= lsbReg << 8;
-        value |= msbReg;
-        return value;
-    }
-
-    static FORCE_INLINE WORD* wordRegisterAsWordUnswapped(BYTE& lsbReg) {
-        return reinterpret_cast<WORD*>(&lsbReg);
-    }
-
-    static FORCE_INLINE void wordToRegisterSwapped(const WORD value, BYTE& lsbReg, BYTE& msbReg) {
-        msbReg = value & 0xFF;
-        lsbReg = (value >> 8) & 0xFF;
-    }
-
-    static FORCE_INLINE void wordToRegisterUnswapped(const WORD value, BYTE& lsbReg) {
-        *reinterpret_cast<WORD*>(&lsbReg) = value;
     }
 };

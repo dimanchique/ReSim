@@ -22,6 +22,7 @@ U32 I8080::Run(Memory &memory) {
         decodeSuccess = DecodeInstruction(opCode, memory, *this);
     } while (decodeSuccess);
 
-    PC--; // revert extra PC increment for last instruction fetching
+    cycles -= 3;    // revert false fetch cycles
+    PC--;           // revert extra PC increment for last instruction fetching
     return cycles;
 }

@@ -48,7 +48,7 @@ inline void I8080_SBB_L(Memory &memory, I8080 &cpu) {
 }
 
 inline void I8080_SBB_M(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     const BYTE subValue = cpu.ReadByte(memory, memoryAddress);
     GenericSBBRegister(memory, cpu, subValue);
 }

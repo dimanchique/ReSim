@@ -38,7 +38,7 @@ inline void I8080_INR_L(Memory &memory, I8080 &cpu) {
 }
 
 FORCE_INLINE void I8080_INR_M(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
     const BYTE memoryCopy = memoryValue;
     memoryValue += 1;

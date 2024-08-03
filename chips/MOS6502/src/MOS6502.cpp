@@ -20,6 +20,7 @@ U32 MOS6502::Run(Memory &memory) {
         DecodeSuccess = DecodeInstruction(opCode, memory, *this);
     } while (DecodeSuccess);
 
-    PC--; //revert extra PC increment for last instruction fetching
+    cycles--;       // revert fetch cycle
+    PC--;           //revert extra PC increment for last instruction fetching
     return cycles;
 }

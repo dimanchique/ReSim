@@ -44,7 +44,7 @@ inline void I8080_ADD_L(Memory &memory, I8080 &cpu) {
 }
 
 inline void I8080_ADD_M(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     const BYTE addValue = cpu.ReadByte(memory, memoryAddress);
     GenericAddRegister(memory, cpu, addValue);
 }

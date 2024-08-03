@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/types.h"
-#include "core/macro.h"
+#include "core/compilers_macro.h"
 
 #define I8080_Status_C          (1 << 0)
 #define I8080_Status_P          (1 << 2)
@@ -41,7 +41,12 @@ struct I8080_Status{
         if (mask & I8080_Status_S)
             S = (targetRegister & I8080_Status_S) > 0;
         if (mask & I8080_Status_P) {
-            P = !(__builtin_popcount(targetRegister) & 0x01);
+            BYTE bitCount = 0;
+            for(BYTE idx = 0; idx < 8; ++idx) {
+                if ((targetRegister >> idx) & 0x1)
+                    bitCount++;
+            }
+            P = ~(bitCount & 0x1);
         }
     }
 

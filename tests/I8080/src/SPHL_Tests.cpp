@@ -4,7 +4,7 @@ class I8080_SPHLFixture : public I8080_TestFixture {
 public:
     void SPHL_CanLoadSP(const WORD registerValue) {
         // given:
-        I8080::wordToRegisterSwapped(registerValue, cpu.H, cpu.L);
+        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValue, cpu.H, cpu.L);
         mem[0x0000] = I8080_OpCodes::SPHL;
 
         cyclesExpected = 5;

@@ -51,7 +51,7 @@ FORCE_INLINE void I8080_XRA_L(Memory &memory, I8080 &cpu) {
 }
 
 FORCE_INLINE void I8080_XRA_M(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     const BYTE value = cpu.ReadByte(memory, memoryAddress);
     GenericXRA(cpu, value);
 }

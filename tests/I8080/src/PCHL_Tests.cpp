@@ -6,7 +6,7 @@ public:
         // given:
         cpu.H = lsbAddr;
         cpu.L = msbAddr;
-        const WORD targetAddr = I8080::wordRegisterAsWordSwapped(cpu.H, cpu.L);
+        const WORD targetAddr = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
         mem[0x0000] = I8080_OpCodes::PCHL;
 
         cyclesExpected = 5;
