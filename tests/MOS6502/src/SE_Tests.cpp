@@ -5,7 +5,10 @@ public:
     void SE_CanSetFlag(MOS6502_OpCodes opcode, BYTE statusFlag) {
         // given:
         cpu.Status.SetStatusFlagValue(statusFlag, false);
-        mem[0xFFFC] = opcode;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = opcode;
+        mem[0xFF01] = STOP_OPCODE;
 
         cyclesExpected = 2;
 

@@ -5,9 +5,10 @@ class I8080_JCFixture : public I8080_TestFixture {};
 TEST_F(I8080_JCFixture, JC_CanJumpOnCarrySet) {
     // given:
     cpu.Status.C = 1;
-    mem[0x0000] = I8080_OpCodes::JC;
+    mem[0x0000] = JC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
+    mem[0x3C00] = STOP_OPCODE;
 
     cyclesExpected = 10;
 
@@ -22,9 +23,10 @@ TEST_F(I8080_JCFixture, JC_CanJumpOnCarrySet) {
 TEST_F(I8080_JCFixture, JC_CannotJumpOnCarryReset) {
     // given:
     cpu.Status.C = 0;
-    mem[0x0000] = I8080_OpCodes::JC;
+    mem[0x0000] = JC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
+    mem[0x0003] = STOP_OPCODE;
 
     cyclesExpected = 10;
 
@@ -41,9 +43,10 @@ class I8080_JNCFixture : public I8080_TestFixture {};
 TEST_F(I8080_JNCFixture, JNC_CanJumpOnCarryReset) {
     // given:
     cpu.Status.C = 0;
-    mem[0x0000] = I8080_OpCodes::JNC;
+    mem[0x0000] = JNC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
+    mem[0x3C00] = STOP_OPCODE;
 
     cyclesExpected = 10;
 
@@ -58,9 +61,10 @@ TEST_F(I8080_JNCFixture, JNC_CanJumpOnCarryReset) {
 TEST_F(I8080_JNCFixture, JNC_CannotJumpOnCarrySet) {
     // given:
     cpu.Status.C = 1;
-    mem[0x0000] = I8080_OpCodes::JNC;
+    mem[0x0000] = JNC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
+    mem[0x0003] = STOP_OPCODE;
 
     cyclesExpected = 10;
 

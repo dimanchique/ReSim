@@ -7,6 +7,7 @@ public:
         cpu.A = accValue;
         targetRegister = value;
         mem[0x0000] = opcode;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 4;
 
@@ -23,7 +24,8 @@ public:
         // given:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;
-        mem[0x0000] = I8080_OpCodes::ANA_M;
+        mem[0x0000] = ANA_M;
+        mem[0x0001] = STOP_OPCODE;
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(destMemoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 7;
@@ -40,175 +42,175 @@ public:
 
 // or accumulator with itself is kinda strange but ok
 TEST_F(I8080_ANAFixture, ANA_A) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_A, 0b00100101, cpu.A, 0b00100101); // -> 0b00100101
+    ANA_CanDoAndWithRegister(ANA_A, 0b00100101, cpu.A, 0b00100101); // -> 0b00100101
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_B) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_B, 0b01111111, cpu.B, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_B, 0b01111111, cpu.B, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_B_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_B, 0b00000000, cpu.B, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_B, 0b00000000, cpu.B, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_B_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_B, 0b10000011, cpu.B, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_B, 0b10000011, cpu.B, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_B_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_B, 0b10000001, cpu.B, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_B, 0b10000001, cpu.B, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_C) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_C, 0b01111111, cpu.C, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_C, 0b01111111, cpu.C, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_C_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_C, 0b00000000, cpu.C, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_C, 0b00000000, cpu.C, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_C_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_C, 0b10000011, cpu.C, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_C, 0b10000011, cpu.C, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_C_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_C, 0b10000001, cpu.C, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_C, 0b10000001, cpu.C, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_D) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_D, 0b01111111, cpu.D, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_D, 0b01111111, cpu.D, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_D_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_D, 0b00000000, cpu.D, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_D, 0b00000000, cpu.D, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_D_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_D, 0b10000011, cpu.D, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_D, 0b10000011, cpu.D, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_D_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_D, 0b10000001, cpu.D, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_D, 0b10000001, cpu.D, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_E) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_E, 0b01111111, cpu.E, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_E, 0b01111111, cpu.E, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_E_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_E, 0b00000000, cpu.E, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_E, 0b00000000, cpu.E, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_E_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_E, 0b10000011, cpu.E, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_E, 0b10000011, cpu.E, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_E_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_E, 0b10000001, cpu.E, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_E, 0b10000001, cpu.E, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_H) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_H, 0b01111111, cpu.H, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_H, 0b01111111, cpu.H, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_H_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_H, 0b00000000, cpu.H, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_H, 0b00000000, cpu.H, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_H_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_H, 0b10000011, cpu.H, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_H, 0b10000011, cpu.H, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_H_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_H, 0b10000001, cpu.H, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_H, 0b10000001, cpu.H, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_L) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_L, 0b01111111, cpu.L, 0b00111111); // -> 0b00111111
+    ANA_CanDoAndWithRegister(ANA_L, 0b01111111, cpu.L, 0b00111111); // -> 0b00111111
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_L_Zero) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_L, 0b00000000, cpu.L, 0b00000000); // -> 0b00000000
+    ANA_CanDoAndWithRegister(ANA_L, 0b00000000, cpu.L, 0b00000000); // -> 0b00000000
     EXPECT_FALSE(cpu.Status.S);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_L_Signed_NoParity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_L, 0b10000011, cpu.L, 0b11111111); // -> 0b10000011
+    ANA_CanDoAndWithRegister(ANA_L, 0b10000011, cpu.L, 0b11111111); // -> 0b10000011
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.P);
 }
 
 TEST_F(I8080_ANAFixture, ANA_L_Signed_Parity) {
-    ANA_CanDoAndWithRegister(I8080_OpCodes::ANA_L, 0b10000001, cpu.L, 0b11000011); // -> 0b10000001
+    ANA_CanDoAndWithRegister(ANA_L, 0b10000001, cpu.L, 0b11000011); // -> 0b10000001
     EXPECT_TRUE(cpu.Status.S);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);

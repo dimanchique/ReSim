@@ -18,7 +18,7 @@ public:
     BYTE Y;                 // Y Register
     MOS6502_Status Status;  // Status Register
 
-    void Reset(Memory &memory, WORD resetVector) noexcept override;
+    void Reset(Memory &memory) noexcept override;
 
     U32 Run(Memory &memory) override;
 

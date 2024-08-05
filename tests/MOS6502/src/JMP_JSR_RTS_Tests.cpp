@@ -4,9 +4,12 @@ class MOS6502_JSRFixture : public MOS6502_TestFixture {};
 
 TEST_F(MOS6502_JSRFixture, JSR_ABS_CanJump) {
     // given:
-    mem[0xFFFC] = MOS6502_OpCodes::JSR_ABS;
-    mem[0xFFFD] = 0x42;
-    mem[0xFFFE] = 0x42;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JSR_ABS;
+    mem[0xFF01] = 0x42;
+    mem[0xFF02] = 0x42;
+    mem[0x4242] = STOP_OPCODE;
 
     cyclesExpected = 6;
 
@@ -20,11 +23,14 @@ TEST_F(MOS6502_JSRFixture, JSR_ABS_CanJump) {
 
 TEST_F(MOS6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     // given:
-    mem[0xFFFC] = MOS6502_OpCodes::JSR_ABS;
-    mem[0xFFFD] = 0x42;
-    mem[0xFFFE] = 0x42;
-    mem[0x4242] = MOS6502_OpCodes::LDA_IM;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JSR_ABS;
+    mem[0xFF01] = 0x42;
+    mem[0xFF02] = 0x42;
+    mem[0x4242] = LDA_IM;
     mem[0x4243] = 0x84;
+    mem[0x4244] = STOP_OPCODE;
 
     cyclesExpected = 6 + 2;
 
@@ -43,13 +49,15 @@ class MOS6502_JSR_RTSFixture : public MOS6502_TestFixture {
 
 TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFF00] = MOS6502_OpCodes::JSR_ABS;         // 6 cycles
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
-    mem[0x8000] = MOS6502_OpCodes::RTS_IMPL;        // 6 cycles
-    mem[0xFF03] = MOS6502_OpCodes::LDA_IM;          // 2 cycles
+    mem[0x8000] = RTS_IMPL;        // 6 cycles
+    mem[0xFF03] = LDA_IM;          // 2 cycles
     mem[0xFF04] = 0x42;
+    mem[0xFF05] = STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 2;
 
@@ -63,17 +71,19 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) 
 
 TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFF00] = MOS6502_OpCodes::JSR_ABS;         // 6 cycles
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
-    mem[0x8000] = MOS6502_OpCodes::RTS_IMPL;        // 6 cycles
-    mem[0xFF03] = MOS6502_OpCodes::JSR_ABS;         // 6 cycles
+    mem[0x8000] = RTS_IMPL;        // 6 cycles
+    mem[0xFF03] = JSR_ABS;         // 6 cycles
     mem[0xFF04] = 0x00;
     mem[0xFF05] = 0x42;
-    mem[0x4200] = MOS6502_OpCodes::RTS_IMPL;        // 6 cycles
-    mem[0xFF06] = MOS6502_OpCodes::LDA_IM;          // 2 cycles
+    mem[0x4200] = RTS_IMPL;        // 6 cycles
+    mem[0xFF06] = LDA_IM;          // 2 cycles
     mem[0xFF07] = 0x42;
+    mem[0xFF08] = STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
@@ -87,17 +97,19 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
 
 TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFF00] = MOS6502_OpCodes::JSR_ABS;         // 6 cycles
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JSR_ABS;         // 6 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
-    mem[0x8000] = MOS6502_OpCodes::JSR_ABS;         // 6 cycles
+    mem[0x8000] = JSR_ABS;         // 6 cycles
     mem[0x8001] = 0x00;
     mem[0x8002] = 0x42;
-    mem[0x4200] = MOS6502_OpCodes::RTS_IMPL;        // 6 cycles
-    mem[0x8003] = MOS6502_OpCodes::RTS_IMPL;        // 6 cycles
-    mem[0xFF03] = MOS6502_OpCodes::LDA_IM;          // 2 cycles
+    mem[0x4200] = RTS_IMPL;        // 6 cycles
+    mem[0x8003] = RTS_IMPL;        // 6 cycles
+    mem[0xFF03] = LDA_IM;          // 2 cycles
     mem[0xFF04] = 0x42;
+    mem[0xFF05] = STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
@@ -114,9 +126,12 @@ class MOS6502_JMPFixture : public MOS6502_TestFixture {
 
 TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJump) {
     // given:
-    mem[0xFFFC] = MOS6502_OpCodes::JMP_ABS;
-    mem[0xFFFD] = 0x42;
-    mem[0xFFFE] = 0x42;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JMP_ABS;
+    mem[0xFF01] = 0x42;
+    mem[0xFF02] = 0x42;
+    mem[0x4242] = STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -130,13 +145,15 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJump) {
 
 TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFF00] = MOS6502_OpCodes::JMP_ABS;        // 3 cycles
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JMP_ABS;        // 3 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
-    mem[0x8000] = MOS6502_OpCodes::JMP_ABS;        // 3 cycles
+    mem[0x8000] = JMP_ABS;        // 3 cycles
     mem[0x8001] = 0x03;
     mem[0x8002] = 0xFF;
+    mem[0xFF03] = STOP_OPCODE;
 
     cyclesExpected = 3 + 3;
 
@@ -150,12 +167,14 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
 
 TEST_F(MOS6502_JMPFixture, JMP_IND_CanJump) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFF00] = MOS6502_OpCodes::JMP_IND;        // 5 cycles
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = JMP_IND;        // 5 cycles
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
     mem[0x8000] = 0x03;
     mem[0x8001] = 0xFF;
+    mem[0xFF03] = STOP_OPCODE;
 
     cyclesExpected = 5;
 
@@ -169,13 +188,15 @@ TEST_F(MOS6502_JMPFixture, JMP_IND_CanJump) {
 
 TEST_F(MOS6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
     // given:
-    cpu.Reset(mem, 0xFF00);
-    mem[0xFFFE] = 0x00;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFFFE] = 0x00; // Set interrupt vector
     mem[0xFFFF] = 0x80;
-    mem[0xFF00] = MOS6502_OpCodes::BRK_IMPL;
-    mem[0xFF01] = MOS6502_OpCodes::LDA_IM;
+    mem[0xFF00] = BRK_IMPL;
+    mem[0xFF01] = LDA_IM;
     mem[0xFF02] = 0x80;
-    mem[0x8000] = MOS6502_OpCodes::RTI_IMPL;
+    mem[0xFF03] = STOP_OPCODE;
+    mem[0x8000] = RTI_IMPL;
 
     cyclesExpected = 7 + 2 + 6;
 

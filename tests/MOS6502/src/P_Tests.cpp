@@ -5,7 +5,10 @@ class MOS6502_PFixture : public MOS6502_TestFixture {};
 TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAccumulator) {
     // given:
     cpu.A = 0x42;
-    mem[0xFFFC] = MOS6502_OpCodes::PHA_IMPL;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = PHA_IMPL;
+    mem[0xFF01] = STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -20,9 +23,12 @@ TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAccumulator) {
 TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator) {
     // given:
     cpu.A = 0x42;
-    mem[0xFFFC] = MOS6502_OpCodes::PHA_IMPL;
-    mem[0xFFFD] = MOS6502_OpCodes::TXA_IMPL;
-    mem[0xFFFE] = MOS6502_OpCodes::PLA_IMPL;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = PHA_IMPL;
+    mem[0xFF01] = TXA_IMPL;
+    mem[0xFF02] = PLA_IMPL;
+    mem[0xFF03] = STOP_OPCODE;
 
     cyclesExpected = 3 + 2 + 4;
 
@@ -37,7 +43,10 @@ TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator) {
 TEST_F(MOS6502_PFixture, PHP_IMPL_CanPushStatusRegister) {
     // given:
     cpu.Status = 0x42;                      // just for test
-    mem[0xFFFC] = MOS6502_OpCodes::PHP_IMPL;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = PHP_IMPL;
+    mem[0xFF01] = STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -52,10 +61,13 @@ TEST_F(MOS6502_PFixture, PHP_IMPL_CanPushStatusRegister) {
 TEST_F(MOS6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator) {
     // given:
     cpu.Status = 0x42;
-    mem[0xFFFC] = MOS6502_OpCodes::PHP_IMPL;
-    mem[0xFFFD] = MOS6502_OpCodes::PHA_IMPL;
-    mem[0xFFFE] = MOS6502_OpCodes::PLP_IMPL;
-    mem[0xFFFF] = MOS6502_OpCodes::PLA_IMPL;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = PHP_IMPL;
+    mem[0xFF01] = PHA_IMPL;
+    mem[0xFF02] = PLP_IMPL;
+    mem[0xFF03] = PLA_IMPL;
+    mem[0xFF04] = STOP_OPCODE;
 
     cyclesExpected = 3 + 3 + 4 + 4;
 

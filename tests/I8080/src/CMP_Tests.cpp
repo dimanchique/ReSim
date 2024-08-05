@@ -10,6 +10,7 @@ public:
         // given:
         cpu.A = initialAccumulator;
         mem[0x0000] = opcode;
+        mem[opcode == CPI ? 0x0002 : 0x0001] = STOP_OPCODE;
 
         cyclesExpected = expectedCycles;
 
@@ -30,7 +31,7 @@ public:
         cpu.H = 0x12;
         cpu.L = 0x34;
         mem[0x1234] = memoryValue;
-        CMP_CanCompareReg(I8080_OpCodes::CMP_M, initialAccumulator, expectedZero, expectedCarry, 7);
+        CMP_CanCompareReg(CMP_M, initialAccumulator, expectedZero, expectedCarry, 7);
     }
 
     void CPI_CanCompareImmediateValue(const BYTE initialAccumulator,
@@ -38,7 +39,7 @@ public:
                                       const bool expectedZero,
                                       const bool expectedCarry) {
         mem[0x0001] = memoryValue;
-        CMP_CanCompareReg(I8080_OpCodes::CPI, initialAccumulator, expectedZero, expectedCarry, 7);
+        CMP_CanCompareReg(CPI, initialAccumulator, expectedZero, expectedCarry, 7);
     }
 };
 

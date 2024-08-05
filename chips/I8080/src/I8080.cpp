@@ -1,8 +1,8 @@
 #include "I8080/I8080.h"
 #include "I8080/I8080_OpHelpers.h"
 
-void I8080::Reset(Memory &memory, const WORD resetVector) noexcept {
-    PC = resetVector;
+void I8080::Reset(Memory &memory) noexcept {
+    PC = 0x0000;
     SP = 0xFFFF;
     Status = 0;
     Status.NU1 = 1; // this flag is immutable
@@ -11,7 +11,7 @@ void I8080::Reset(Memory &memory, const WORD resetVector) noexcept {
     // Accumulator and general-purpose registers are not defined after reset and may contain arbitrary values.
     cycles = 0;
 
-    memory.Reset(STOP_OPCODE);
+    memory.Reset();
 }
 
 U32 I8080::Run(Memory &memory) {

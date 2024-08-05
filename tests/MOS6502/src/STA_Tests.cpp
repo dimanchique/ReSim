@@ -27,10 +27,13 @@ TEST_F(MOS6502_STAFixture, STA_ABSY_CanStoreValue) {
 
 TEST_F(MOS6502_STAFixture, STA_INDX_CanStoreValue) {
     // given:
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
     cpu.A = 0x42;
     cpu.X = 0x04;                               // preload 0x04 to X to add it to value we read
-    mem[0xFFFC] = MOS6502_OpCodes::STA_INDX;    // read the 8 bit value from the next mem cell and add X
-    mem[0xFFFD] = 0x02;                         // 0x2 + 0x4 = 0x6
+    mem[0xFF00] = STA_INDX;    // read the 8 bit value from the next mem cell and add X
+    mem[0xFF01] = 0x02;                         // 0x2 + 0x4 = 0x6
+    mem[0xFF02] = STOP_OPCODE;                  //
     mem[0x0006] = 0x00;                         // read the 16 bit Little Endian address from 0x0006-0x0007
     mem[0x0007] = 0x80;                         // read from the address we've got
     mem[0x8000] = 0x00;                         // store A value in this mem cell
@@ -47,10 +50,13 @@ TEST_F(MOS6502_STAFixture, STA_INDX_CanStoreValue) {
 
 TEST_F(MOS6502_STAFixture, STA_INDY_CanStoreValue) {
     // given:
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
-    mem[0xFFFC] = MOS6502_OpCodes::STA_INDY;    // read the 8 bit value from the next mem cell
-    mem[0xFFFD] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
+    mem[0xFF00] = STA_INDY;    // read the 8 bit value from the next mem cell
+    mem[0xFF01] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
+    mem[0xFF02] = STOP_OPCODE;                  //
     mem[0x0002] = 0x00;                         //
     mem[0x0003] = 0x80;                         // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x00;                         // store A value in this mem cell

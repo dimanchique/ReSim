@@ -1,7 +1,4 @@
-#include "core/compilers_macro.h"
-
 #include "base/memory.h"
-
 #include <cstring>
 
 Memory::Memory(U32 memSize) :
@@ -14,13 +11,13 @@ Memory::~Memory() {
     delete[] mem;
 }
 
-void Memory::Reset(const BYTE resetValue) {
-    memset(mem, resetValue, size);
+void Memory::Reset() {
+    memset(mem, 0xFF, size);
 }
 
-bool Memory::SetMemory(U32 address, const char* data, long long int numBytes) {
-    if (numBytes == 0 || (address + numBytes >= size))
+bool Memory::SetMemory(const char* data, long long int numBytes) {
+    if (numBytes == 0 || (numBytes > size))
         return false;
-    std::memcpy(mem + address, data, numBytes);
+    std::memcpy(mem, data, numBytes);
     return true;
 }

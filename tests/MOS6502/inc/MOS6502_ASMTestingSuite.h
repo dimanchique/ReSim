@@ -17,11 +17,11 @@ public:
     double duration;
 
     void SetUp() override {
-        cpu.Reset(mem, 0xFFFC);
+        cpu.Reset(mem);
     }
 
-    void SetExecutable(const std::string &path, Memory &memory, const WORD startingAddress){
-        const bool loadSuccess = cpu.LoadROM(path.c_str(), memory, startingAddress);
+    void SetExecutable(const std::string &path, Memory &memory){
+        const bool loadSuccess = cpu.LoadROM(path.c_str(), memory);
         ASSERT_TRUE(loadSuccess);
     }
 

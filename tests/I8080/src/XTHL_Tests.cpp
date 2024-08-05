@@ -7,7 +7,8 @@ public:
         cpu.SP = stackPointerAddress;
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(stackPointerValue, mem[cpu.SP], mem[cpu.SP + 1]);
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValueH, cpu.H, cpu.L);
-        mem[0x0000] = I8080_OpCodes::XTHL;
+        mem[0x0000] = XTHL;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 18;
 

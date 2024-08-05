@@ -8,7 +8,8 @@ public:
         cpu.Status = 0;
         cpu.Status.C = carry;
         cpu.A = initialValue;
-        mem[0x0000] = I8080_OpCodes::SBB_A;
+        mem[0x0000] = SBB_A;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 4;
 
@@ -33,6 +34,7 @@ public:
         cpu.Status.C = carry;
         cpu.A = initialValue;
         mem[0x0000] = opcode;
+        mem[opcode == SBI ? 0x0002 : 0x0001] = STOP_OPCODE;
 
         cyclesExpected = cycles;
 
@@ -53,7 +55,7 @@ public:
         cpu.H = 0x12;
         cpu.L = 0x34;
         mem[0x1234] = memoryValue;
-        SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBB_M, initialValue, carry, expectedValue, expectedStatus, 7);
+        SBB_Register_CanSBBRegisterToAccumulator(SBB_M, initialValue, carry, expectedValue, expectedStatus, 7);
     }
 
     void SBI_CanSBBImmediateValueFromAccumulator(const BYTE memoryValue,
@@ -62,7 +64,7 @@ public:
                                                const BYTE expectedValue,
                                                const I8080_Status expectedStatus) {
         mem[0x0001] = memoryValue;
-        SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBI, initialValue, carry, expectedValue, expectedStatus, 7);
+        SBB_Register_CanSBBRegisterToAccumulator(SBI, initialValue, carry, expectedValue, expectedStatus, 7);
     }
 };
 
@@ -88,24 +90,64 @@ TEST_F(I8080_SBBFixture, SBB_A_4) {
 
 TEST_F(I8080_SBBFixture, SBB_B_1) {
     cpu.B = 0b00000010;
-    SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBB_B, 0b00000100, 1, 0b00000001,
+    SBB_Register_CanSBBRegisterToAccumulator(SBB_B, 0b00000100, 1, 0b00000001,
                                I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_SBBFixture, SBB_B_2) {
     cpu.B = 0b00000010;
-    SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBB_B, 0b00000100, 0, 0b00000010,
+    SBB_Register_CanSBBRegisterToAccumulator(SBB_B, 0b00000100, 0, 0b00000010,
                                I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_SBBFixture, SBB_B_3) {
     cpu.B = 0b01000010;
-    SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBB_B, 0b00111101, 1, 0b11111010,
+    SBB_Register_CanSBBRegisterToAccumulator(SBB_B, 0b00111101, 1, 0b11111010,
                                I8080_Status{.C = 1, .NU1 = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_SBBFixture, SBB_B_4) {
     cpu.B = 0b01000010;
-    SBB_Register_CanSBBRegisterToAccumulator(I8080_OpCodes::SBB_B, 0b00111101, 0, 0b11111011,
+    SBB_Register_CanSBBRegisterToAccumulator(SBB_B, 0b00111101, 0, 0b11111011,
+                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SBBFixture, SBB_M_1) {
+    SBB_CanSBBMemoryFromAccumulator(0b00000010, 0b00000100, 1, 0b00000001,
+                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
+}
+
+TEST_F(I8080_SBBFixture, SBB_M_2) {
+    SBB_CanSBBMemoryFromAccumulator(0b00000010, 0b00000100, 0, 0b00000010,
+                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
+}
+
+TEST_F(I8080_SBBFixture, SBB_M_3) {
+    SBB_CanSBBMemoryFromAccumulator(0b01000010, 0b00111101, 1, 0b11111010,
+                               I8080_Status{.C = 1, .NU1 = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SBBFixture, SBB_M_4) {
+    SBB_CanSBBMemoryFromAccumulator(0b01000010, 0b00111101, 0, 0b11111011,
+                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SBBFixture, SBI_1) {
+    SBI_CanSBBImmediateValueFromAccumulator(0b00000010, 0b00000100, 1, 0b00000001,
+                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
+}
+
+TEST_F(I8080_SBBFixture, SBI_2) {
+    SBI_CanSBBImmediateValueFromAccumulator(0b00000010, 0b00000100, 0, 0b00000010,
+                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 0});
+}
+
+TEST_F(I8080_SBBFixture, SBI_3) {
+    SBI_CanSBBImmediateValueFromAccumulator(0b01000010, 0b00111101, 1, 0b11111010,
+                               I8080_Status{.C = 1, .NU1 = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SBBFixture, SBI_4) {
+    SBI_CanSBBImmediateValueFromAccumulator(0b01000010, 0b00111101, 0, 0b11111011,
                                              I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
 }

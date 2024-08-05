@@ -12,6 +12,7 @@ public:
         mem[0x1239] = stackMSB;
         mem[0x123A] = stackLSB;
         mem[0x0000] = opcode;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 10;
 
@@ -26,18 +27,18 @@ public:
 };
 
 TEST_F(I8080_POPFixture, POP_CanPOPB) {
-    POP_CanPOP(I8080_OpCodes::POP_B, &cpu.B, &cpu.C);
+    POP_CanPOP(POP_B, &cpu.B, &cpu.C);
 }
 
 TEST_F(I8080_POPFixture, POP_CanPOPD) {
-    POP_CanPOP(I8080_OpCodes::POP_D, &cpu.D, &cpu.E);
+    POP_CanPOP(POP_D, &cpu.D, &cpu.E);
 }
 
 TEST_F(I8080_POPFixture, POP_CanPOPH) {
-    POP_CanPOP(I8080_OpCodes::POP_H, &cpu.H, &cpu.L);
+    POP_CanPOP(POP_H, &cpu.H, &cpu.L);
 }
 
 TEST_F(I8080_POPFixture, POP_CanPOPPSW) {
-    POP_CanPOP(I8080_OpCodes::POP_PSW, &cpu.A, (BYTE*)&cpu.Status);
+    POP_CanPOP(POP_PSW, &cpu.A, (BYTE*)&cpu.Status);
 }
 

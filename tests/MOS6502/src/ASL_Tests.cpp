@@ -5,7 +5,10 @@ public:
     void ASL_ACC_CanDoShiftLeft(BYTE value) {
         // given:
         cpu.A = value;
-        mem[0xFFFC] = MOS6502_OpCodes::ASL_ACC;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = ASL_ACC;
+        mem[0xFF01] = STOP_OPCODE;
 
         cyclesExpected = 2;
 
@@ -19,8 +22,11 @@ public:
 
     void ASL_ZP_CanDoShiftLeft(BYTE value) {
         // given:
-        mem[0xFFFC] = MOS6502_OpCodes::ASL_ZP;
-        mem[0xFFFD] = 0x42;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = ASL_ZP;
+        mem[0xFF01] = 0x42;
+        mem[0xFF02] = STOP_OPCODE;
         mem[0x0042] = value;
 
         cyclesExpected = 5;
@@ -36,9 +42,12 @@ public:
     void ASL_ZPX_CanDoShiftLeft(BYTE value) {
         // given:
         cpu.X = 0x10;
-        mem[0xFFFC] = MOS6502_OpCodes::ASL_ZPX;
-        mem[0xFFFD] = 0x42;
-        mem[(mem[0xFFFD] + cpu.X) & 0xFF] = value;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = ASL_ZPX;
+        mem[0xFF01] = 0x42;
+        mem[0xFF02] = STOP_OPCODE;
+        mem[(mem[0xFF01] + cpu.X) & 0xFF] = value;
 
         cyclesExpected = 6;
 
@@ -46,15 +55,18 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[(mem[0xFFFD] + cpu.X) & 0xFF], BYTE(value << 1));
+        EXPECT_EQ(mem[(mem[0xFF01] + cpu.X) & 0xFF], BYTE(value << 1));
         CheckCyclesCount();
     }
 
     void ASL_ABS_CanDoShiftLeft(BYTE value) {
         // given:
-        mem[0xFFFC] = MOS6502_OpCodes::ASL_ABS;
-        mem[0xFFFD] = 0x80;
-        mem[0xFFFE] = 0x44;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = ASL_ABS;
+        mem[0xFF01] = 0x80;
+        mem[0xFF02] = 0x44;
+        mem[0xFF03] = STOP_OPCODE;
         mem[0x4480] = value;
 
         cyclesExpected = 6;
@@ -69,9 +81,12 @@ public:
 
     void ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
         // given:
-        mem[0xFFFC] = opcode;
-        mem[0xFFFD] = 0x02;
-        mem[0xFFFE] = 0x44;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = opcode;
+        mem[0xFF01] = 0x02;
+        mem[0xFF02] = 0x44;
+        mem[0xFF03] = STOP_OPCODE;
         mem[0x4402 + affectingRegister] = value;
 
         cyclesExpected = 7;
@@ -147,18 +162,18 @@ TEST_F(MOS6502_ASLFixture, ASL_ABS_CanAffectNegativeFlag) {
 
 TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanDoShiftLeft) {
     cpu.X = 0x05;
-    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0xFF, cpu.X);
+    ASL_ABS_CanDoShiftLeft(ASL_ABSX, 0xFF, cpu.X);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanAffectZeroFlag) {
     cpu.X = 0x05;
-    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x80, cpu.X);
+    ASL_ABS_CanDoShiftLeft(ASL_ABSX, 0x80, cpu.X);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_ASLFixture, ASL_ABSX_CanAffectNegativeFlag) {
     cpu.X = 0x05;
-    ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes::ASL_ABSX, 0x40, cpu.X);
+    ASL_ABS_CanDoShiftLeft(ASL_ABSX, 0x40, cpu.X);
     EXPECT_TRUE(cpu.Status.N);
 }

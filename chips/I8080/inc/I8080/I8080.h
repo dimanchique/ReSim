@@ -19,7 +19,7 @@ public:
     DECLARE_PAIRED_REG(BYTE, WORD, D, E);   // Paired DE
     DECLARE_PAIRED_REG(BYTE, WORD, H, L);   // Paired HL
 
-    void Reset(Memory &memory, WORD resetVector) noexcept override;
+    void Reset(Memory &memory) noexcept override;
 
     U32 Run(Memory &memory) override;
 

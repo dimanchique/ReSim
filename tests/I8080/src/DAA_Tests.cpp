@@ -11,7 +11,8 @@ public:
         cpu.A = initialAccumulator;
         cpu.Status.AC = initialAC;
         cpu.Status.C = initialCarry;
-        mem[0x0000] = I8080_OpCodes::DAA;
+        mem[0x0000] = DAA;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 4;
 

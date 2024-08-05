@@ -5,7 +5,8 @@ public:
     void SPHL_CanLoadSP(const WORD registerValue) {
         // given:
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValue, cpu.H, cpu.L);
-        mem[0x0000] = I8080_OpCodes::SPHL;
+        mem[0x0000] = SPHL;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 5;
 

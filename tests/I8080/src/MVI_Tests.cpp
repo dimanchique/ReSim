@@ -6,6 +6,7 @@ public:
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = immediateValue;
+        mem[0x0002] = STOP_OPCODE;
 
         cyclesExpected = 7;
 
@@ -19,8 +20,9 @@ public:
 
     void MVI_CanMoveToMem(const BYTE immediateValue, const WORD memoryAddress) {
         // given:
-        mem[0x0000] = I8080_OpCodes::MVI_M;
+        mem[0x0000] = MVI_M;
         mem[0x0001] = immediateValue;
+        mem[0x0002] = STOP_OPCODE;
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;
@@ -35,31 +37,31 @@ public:
 };
 
 TEST_F(I8080_MVIFixture, MVI_A) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_A, cpu.A, 0x25);
+    MVI_CanMoveToReg(MVI_A, cpu.A, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_B) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_B, cpu.B, 0x25);
+    MVI_CanMoveToReg(MVI_B, cpu.B, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_C) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_C, cpu.C, 0x25);
+    MVI_CanMoveToReg(MVI_C, cpu.C, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_D) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_D, cpu.D, 0x25);
+    MVI_CanMoveToReg(MVI_D, cpu.D, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_E) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_E, cpu.E, 0x25);
+    MVI_CanMoveToReg(MVI_E, cpu.E, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_H) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_H, cpu.H, 0x25);
+    MVI_CanMoveToReg(MVI_H, cpu.H, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_L) {
-    MVI_CanMoveToReg(I8080_OpCodes::MVI_L, cpu.L, 0x25);
+    MVI_CanMoveToReg(MVI_L, cpu.L, 0x25);
 }
 
 TEST_F(I8080_MVIFixture, MVI_M) {

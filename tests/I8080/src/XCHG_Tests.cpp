@@ -6,7 +6,8 @@ public:
         // given:
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(initialValueD, cpu.D, cpu.E);
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(initialValueH, cpu.H, cpu.L);
-        mem[0x0000] = I8080_OpCodes::XCHG;
+        mem[0x0000] = XCHG;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 5;
 

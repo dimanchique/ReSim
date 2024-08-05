@@ -13,7 +13,7 @@ public:
     U32 cyclesExpected;
 
     void SetUp() override {
-        cpu.Reset(mem, 0xFFFC);
+        cpu.Reset(mem);
     }
 
     void TearDown() override {

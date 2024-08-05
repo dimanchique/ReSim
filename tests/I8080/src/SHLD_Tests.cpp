@@ -5,8 +5,9 @@ public:
     void SHLD_CanStoreHL(const WORD registerValue, const WORD memoryAddress) {
         // given:
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValue, cpu.H, cpu.L);
-        mem[0x0000] = I8080_OpCodes::SHLD;
+        mem[0x0000] = SHLD;
         ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(memoryAddress, mem[0x0001], mem[0x0002]);
+        mem[0x0003] = STOP_OPCODE;
 
         cyclesExpected = 16;
 

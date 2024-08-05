@@ -43,15 +43,15 @@ class Compute {
      * @param startingAddress Starting address to write the binary.
      * @return True if the load was successful; otherwise, false.
      */
-    bool LoadROM(const char *filename, Memory &memory, WORD startingAddress) {
+    bool LoadROM(const char *filename, Memory &memory) {
         long long numBytesRead = 0;
 
         const char* data = ReadBinary(filename, numBytesRead);
         if (!data)
             return false;
 
-        Reset(memory, startingAddress);
-        const bool SetSuccess = memory.SetMemory(startingAddress, data, numBytesRead);
+        Reset(memory);
+        const bool SetSuccess = memory.SetMemory(data, numBytesRead);
         delete[] data;
 
         return SetSuccess;
@@ -70,9 +70,8 @@ protected:
      * @brief Resets CPU registers and Stack Pointer to their default values.
      * The Program Counter value after reset depends on the ResetVector value.
      * @param memory Memory struct instance.
-     * @param resetVector Program Counter (PC) value after reset. Default value depends on CPU.
      */
-    virtual void Reset(Memory &memory, WORD resetVector) noexcept = 0;
+    virtual void Reset(Memory &memory) noexcept = 0;
 
 public:
     U32 cycles = 0;

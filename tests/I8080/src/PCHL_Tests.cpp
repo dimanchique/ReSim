@@ -7,7 +7,8 @@ public:
         cpu.H = lsbAddr;
         cpu.L = msbAddr;
         const WORD targetAddr = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-        mem[0x0000] = I8080_OpCodes::PCHL;
+        mem[0x0000] = PCHL;
+        mem[targetAddr] = STOP_OPCODE;
 
         cyclesExpected = 5;
 

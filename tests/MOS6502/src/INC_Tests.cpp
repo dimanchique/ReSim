@@ -2,8 +2,11 @@
 
 void MOS6502_INCFixture::INC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
-    mem[0xFFFC] = opcode;
-    mem[0xFFFD] = 0x42;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = opcode;
+    mem[0xFF01] = 0x42;
+    mem[0xFF02] = STOP_OPCODE;
     mem[0x42 + offsetValueRegister] = memoryValue;
     BYTE targetValue = memoryValue + 1;
 
@@ -20,9 +23,12 @@ void MOS6502_INCFixture::INC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memo
 
 void MOS6502_INCFixture::INC_ABS_CanAffectValue(MOS6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
-    mem[0xFFFC] = opcode;
-    mem[0xFFFD] = 0x00;
-    mem[0xFFFE] = 0x42;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = opcode;
+    mem[0xFF01] = 0x00;
+    mem[0xFF02] = 0x42;
+    mem[0xFF03] = STOP_OPCODE;
     mem[0x4200 + offsetValueRegister] = memoryValue;
     BYTE targetValue = memoryValue + 1;
 
@@ -41,7 +47,10 @@ void MOS6502_INCFixture::INC_IMPL_CanAffectValue(MOS6502_OpCodes opcode, BYTE &t
     // given:
     BYTE initialValue = targetRegister;
     BYTE targetValue = initialValue + 1;
-    mem[0xFFFC] = opcode;
+    mem[0xFFFC] = 0x00;
+    mem[0xFFFD] = 0xFF;
+    mem[0xFF00] = opcode;
+    mem[0xFF01] = STOP_OPCODE;
 
     cyclesExpected = 2;
 

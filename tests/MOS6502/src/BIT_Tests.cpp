@@ -5,8 +5,11 @@ public:
     void BIT_ZP_CanTestMemoryValue(BYTE maskValue, BYTE targetValue) {
         // given:
         cpu.A = maskValue;
-        mem[0xFFFC] = BIT_ZP;
-        mem[0xFFFD] = 0x42;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = BIT_ZP;
+        mem[0xFF01] = 0x42;
+        mem[0xFF02] = STOP_OPCODE;
         mem[0x42] = targetValue;
 
         cyclesExpected = 3;
@@ -23,9 +26,12 @@ public:
     void BIT_ABS_CanTestMemoryValue(BYTE maskValue, BYTE targetValue) {
         // given:
         cpu.A = maskValue;
-        mem[0xFFFC] = BIT_ABS;
-        mem[0xFFFD] = 0x00;
-        mem[0xFFFE] = 0x42;
+        mem[0xFFFC] = 0x00;
+        mem[0xFFFD] = 0xFF;
+        mem[0xFF00] = BIT_ABS;
+        mem[0xFF01] = 0x00;
+        mem[0xFF02] = 0x42;
+        mem[0xFF03] = STOP_OPCODE;
         mem[0x4200] = targetValue;
 
         cyclesExpected = 4;

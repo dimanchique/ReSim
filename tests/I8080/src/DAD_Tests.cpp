@@ -7,6 +7,7 @@ public:
                             const BYTE expectedL,
                             const bool expectedCarry) {
         mem[0x0000] = opCode;
+        mem[0x0001] = STOP_OPCODE;
 
         cyclesExpected = 10;
 

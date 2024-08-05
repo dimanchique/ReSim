@@ -5,8 +5,9 @@ public:
     void XRI_CanDoImmediateAnd(const BYTE accValue, const BYTE memoryValue) {
         // given:
         cpu.A = accValue;
-        mem[0x0000] = I8080_OpCodes::XRI;
+        mem[0x0000] = XRI;
         mem[0x0001] = memoryValue;
+        mem[0x0002] = STOP_OPCODE;
 
         cyclesExpected = 7;
 
