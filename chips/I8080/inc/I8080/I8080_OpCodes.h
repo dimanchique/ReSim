@@ -4,121 +4,89 @@
 
 enum I8080_OpCodes : BYTE {
 
-//  ADD - Add Register or Memory To Accumulator
-    ADD_A = 0x87,
-    ADD_B = 0x80,
-    ADD_C = 0x81,
-    ADD_D = 0x82,
-    ADD_E = 0x83,
-    ADD_H = 0x84,
-    ADD_L = 0x85,
-    ADD_M = 0x86,
+//  Add...
+    ADD_A = 0x87,       //  ...Register or Memory To Accumulator
+    ADD_B = 0x80,       //
+    ADD_C = 0x81,       //
+    ADD_D = 0x82,       //
+    ADD_E = 0x83,       //
+    ADD_H = 0x84,       //
+    ADD_L = 0x85,       //
+    ADD_M = 0x86,       //
+    ADI = 0xC6,         //  ...Immediate Data to Accumulator
+    ADC_A = 0x8F,       //  ...Register or Memory to Accumulator with Carry
+    ADC_B = 0x88,       //
+    ADC_C = 0x89,       //
+    ADC_D = 0x8A,       //
+    ADC_E = 0x8B,       //
+    ADC_H = 0x8C,       //
+    ADC_L = 0x8D,       //
+    ADC_M = 0x8E,       //
+    ACI = 0xCE,         //  ...Immediate Data to Accumulator with Carry
+    DAD_B = 0x09,       //  ...16-bit number stored in B and C
+    DAD_D = 0x19,       //  ...16-bit number stored in D and E
+    DAD_H = 0x29,       //  ...16-bit number stored in H and L
+    DAD_SP = 0x39,      //  ...16-bit number stored in SP
 
-//  ADI - ADD Immediate Data to Accumulator
-    ADI = 0xC6,
-
-//  ADC - ADD Register or Memory to Accumulator with Carry
-    ADC_A = 0x8F,
-    ADC_B = 0x88,
-    ADC_C = 0x89,
-    ADC_D = 0x8A,
-    ADC_E = 0x8B,
-    ADC_H = 0x8C,
-    ADC_L = 0x8D,
-    ADC_M = 0x8E,
-
-//  ACI - ADD Immediate Data to Accumulator with Carry
-    ACI = 0xCE,
-
-//  ANA - Logical AND Register or Memory with Accumulator
-    ANA_A = 0xA7,
-    ANA_B = 0xA0,
-    ANA_C = 0xA1,
-    ANA_D = 0xA2,
-    ANA_E = 0xA3,
-    ANA_H = 0xA4,
-    ANA_L = 0xA5,
-    ANA_M = 0xA6,
-
-//  ANI - Logical AND Immediate Data with Accumulator
-    ANI = 0xE6,
+//  AND...
+    ANA_A = 0xA7,       //  ...Register or Memory with Accumulator
+    ANA_B = 0xA0,       //
+    ANA_C = 0xA1,       //
+    ANA_D = 0xA2,       //
+    ANA_E = 0xA3,       //
+    ANA_H = 0xA4,       //
+    ANA_L = 0xA5,       //
+    ANA_M = 0xA6,       //
+    ANI = 0xE6,         //  ...Immediate Data with Accumulator
 
 //  CALL - Call
     CALL = 0xCD,
 
-//  CZ - Call if Zero bit is one
-    CZ = 0xCC,
+//  Call if...
+    CZ = 0xCC,      //  ...Zero bit is set
+    CNZ = 0xC4,     //  ...Zero bit is reset
+    CM = 0xFC,      //  ...Sign bit is set
+    CP = 0xF4,      //  ...Sign bit is reset
+    CC = 0xDC,      //  ...Carry bit is set
+    CNC = 0xD4,     //  ...Carry bit is reset
+    CPE = 0xEC,     //  ...Parity bit is set (Even)
+    CPO = 0xE4,     //  ...Parity bit is reset (Odd)
 
-//  CNZ - Call if Zero bit is zero
-    CNZ = 0xC4,
+//  Complement...
+    CMA = 0x2F,     //  ...Accumulator
+    CMC = 0x3F,     //  ...Carry
 
-//  CP - Call if Sign bit is zero
-    CP = 0xF4,
-
-//  CM - Call if Sign bit is one
-    CM = 0xFC,
-
-//  CC - Call if Carry bit is one
-    CC = 0xDC,
-
-//  CNC - Call if Carry bit is zero
-    CNC = 0xD4,
-
-//  CPE - Call if Parity Even
-    CPE = 0xEC,
-
-//  CPO - Call if Parity Odd
-    CPO = 0xE4,
-
-//  CMA - Complement Accumulator
-    CMA = 0x2F,
-
-//  CMC - Complement Carry
-    CMC = 0x3F,
-
-//  CMP - Compare Register or Memory with Accumulator
-    CMP_A = 0xBF,
-    CMP_B = 0xB8,
-    CMP_C = 0xB9,
-    CMP_D = 0xBa,
-    CMP_E = 0xBB,
-    CMP_H = 0xBC,
-    CMP_L = 0xBD,
-    CMP_M = 0xBE,
-
-//  CPI - Compare Immediate Data with Accumulator
-    CPI = 0xFE,
+//  Compare...
+    CMP_A = 0xBF,   //  ...Register or Memory with Accumulator
+    CMP_B = 0xB8,   //
+    CMP_C = 0xB9,   //
+    CMP_D = 0xBa,   //
+    CMP_E = 0xBB,   //
+    CMP_H = 0xBC,   //
+    CMP_L = 0xBD,   //
+    CMP_M = 0xBE,   //
+    CPI = 0xFE,     //  ...Immediate Data with Accumulator
 
 //  DAA - Decimal Adjust Accumulator
     DAA = 0x27,
 
-//  DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
-    DAD_B = 0x09,
-    DAD_D = 0x19,
-    DAD_H = 0x29,
-    DAD_SP = 0x39,
+//  Decrement...
+    DCR_A = 0x3D,   //  ...Register or Memory
+    DCR_B = 0x05,   //
+    DCR_C = 0x0D,   //
+    DCR_D = 0x15,   //
+    DCR_E = 0x1D,   //
+    DCR_H = 0x25,   //
+    DCR_L = 0x2D,   //
+    DCR_M = 0x35,   //
+    DCX_B = 0x0B,   //  ...Register Pair
+    DCX_D = 0x1B,   //
+    DCX_H = 0x2B,   //
+    DCX_SP = 0x3B,  //
 
-//  DCR - Decrement Register or Memory
-    DCR_A = 0x3D,
-    DCR_B = 0x05,
-    DCR_C = 0x0D,
-    DCR_D = 0x15,
-    DCR_E = 0x1D,
-    DCR_H = 0x25,
-    DCR_L = 0x2D,
-    DCR_M = 0x35,
-
-//  DCX - Decrement Register Pair
-    DCX_B = 0x0B,
-    DCX_D = 0x1B,
-    DCX_H = 0x2B,
-    DCX_SP = 0x3B,
-
-//  DI - Disable Interrupts
-    DI = 0xF3,
-
-//  EI - Enable Interrupts
-    EI = 0xFB,
+//  Interrupts
+    DI = 0xF3,      //  ...Disable
+    EI = 0xFB,      //  ...Enable
 
 //  HLT - Halt CPU
     HLT = 0x76,
@@ -126,64 +94,45 @@ enum I8080_OpCodes : BYTE {
 //  IN - Input data to accumulator from outcome device
     IN = 0xDB,
 
-//  INR - Increment Register or Memory
-    INR_A = 0x3C,
-    INR_B = 0x04,
-    INR_C = 0x0C,
-    INR_D = 0x14,
-    INR_E = 0x1C,
-    INR_H = 0x24,
-    INR_L = 0x2C,
-    INR_M = 0x34,
+//  OUT - Output data from accumulator to outcome device
+    OUT = 0xD3,
 
-//  INX - Increment Register Pair
-    INX_B = 0x03,
-    INX_D = 0x13,
-    INX_H = 0x23,
-    INX_SP = 0x33,
+//  Increment...
+    INR_A = 0x3C,   //  ...Register or Memory
+    INR_B = 0x04,   //
+    INR_C = 0x0C,   //
+    INR_D = 0x14,   //
+    INR_E = 0x1C,   //
+    INR_H = 0x24,   //
+    INR_L = 0x2C,   //
+    INR_M = 0x34,   //
+    INX_B = 0x03,   //  ...Register Pair
+    INX_D = 0x13,   //
+    INX_H = 0x23,   //
+    INX_SP = 0x33,  //
 
 //  JMP - Jump
     JMP = 0xC3,
 
-//  JZ - Jump if Zero bit is one 
-    JZ = 0xCA,
+//  Jump if...
+    JZ = 0xCC,      //  ...Zero bit is set
+    JNZ = 0xC4,     //  ...Zero bit is reset
+    JM = 0xFC,      //  ...Sign bit is set
+    JP = 0xF4,      //  ...Sign bit is reset
+    JC = 0xDC,      //  ...Carry bit is set
+    JNC = 0xD4,     //  ...Carry bit is reset
+    JPE = 0xEC,     //  ...Parity bit is set (Even)
+    JPO = 0xE4,     //  ...Parity bit is reset (Odd)
 
-//  JNZ - Jump if Zero bit is zero
-    JNZ = 0xC2,
-
-//  JP - Jump if sign bit is zero
-    JP = 0xF2,
-
-//  JM - Jump if sign bit is one
-    JM = 0xFA,
-
-//  JC - Jump if Carry bit is one
-    JC = 0xDa,
-
-//  JNC - Jump if Carry bit is zero
-    JNC = 0xD2,
-
-//  JPE - Jump if Parity Even
-    JPE = 0xEA,
-
-//  JPO - Jump if Parity Odd
-    JPO = 0xE2,
-
-//  LDA - Load Data from Accumulator to Memory
-    LDA = 0x3A,
-
-//  LDAX - Load Accumulator data addressed by B and C, or D and E Registers
-    LDAX_B = 0x0A,
-    LDAX_D = 0x1A,
-
-//  LHLD - Load H and L Registers from Memory
-    LHLD = 0x2A,
-
-//  LXI - Load Immediate data into paired Register or SP
-    LXI_B = 0x01,
-    LXI_D = 0x11,
-    LXI_H = 0x21,
-    LXI_SP = 0x31,
+//  Load...
+    LDA = 0x3A,     //  ...Data from Accumulator to Memory
+    LDAX_B = 0x0A,  //  ...Accumulator data addressed by B and C Registers
+    LDAX_D = 0x1A,  //  ...Accumulator data addressed by D and E Registers
+    LHLD = 0x2A,    //  ...H and L Registers from Memory
+    LXI_B = 0x01,   //  ...Immediate data into BC Register
+    LXI_D = 0x11,   //  ...Immediate data into DE Register
+    LXI_H = 0x21,   //  ...Immediate data into HL Register
+    LXI_SP = 0x31,  //  ...Immediate data into SP Register
 
 //  MOV - Transfer Data between Register or Memory
     MOV_A_A = 0x7F,
@@ -260,7 +209,7 @@ enum I8080_OpCodes : BYTE {
     MVI_L = 0x2E,
     MVI_M = 0x36,
 
-//  NOP - Cmon. Its just nop
+//  NOP - No Operation
     NOP = 0x00,
 
 //  ORA - Logical OR Register or Memory with Accumulator
@@ -275,9 +224,6 @@ enum I8080_OpCodes : BYTE {
 
 //  ORI - Logical OR Immediate Data with Accumulator
     ORI = 0xF6,
-
-//  OUT - Output data from accumulator to outcome device
-    OUT = 0xD3,
 
 //  PCHL - Insert into program counter data from H and L Registers
     PCHL = 0xE9,
@@ -294,44 +240,24 @@ enum I8080_OpCodes : BYTE {
     PUSH_H = 0xE5,
     PUSH_PSW = 0xF5,
 
-//  RAL - Rotate Accumulator through Carry
-    RAL = 0x17,
-
-//  RAR - Rotate Accumulator through Carry
-    RAR = 0x1F,
-
-//  RLC - Rotate Accumulator Left
-    RLC = 0x07,
-
-//  RRC - Rotate Accumulator Right
-    RRC = 0x0F,
+//  Rotate
+    RAL = 0x17,     //  ...Accumulator Left through Carry
+    RAR = 0x1F,     //  ...Accumulator Right through Carry
+    RLC = 0x07,     //  ...Accumulator Left
+    RRC = 0x0F,     //  ...Accumulator Right
 
 //  RET - Return
     RET = 0xC9,
 
-//  RZ - Return if Zero bit is one
-    RZ = 0xC8,
-
-//  RNZ - Return if Zero bit is zero
-    RNZ = 0xC0,
-
-//  RP - Return if Sign bit is zero
-    RP = 0xF0,
-
-//  RM - Return if Sign bit is one
-    RM = 0xF8,
-
-//  RC - Return if Carry bit is one
-    RC = 0xD8,
-
-//  RNC - Return if Carry bit is zero
-    RNC = 0xD0,
-
-//  RPE - Return if Parity Even
-    RPE = 0xE8,
-
-//  RPO - Return if Parity Odd
-    RPO = 0xE0,
+//  Return if...
+    RZ = 0xCC,      //  ...Zero bit is set
+    RNZ = 0xC4,     //  ...Zero bit is reset
+    RM = 0xFC,      //  ...Sign bit is set
+    RP = 0xF4,      //  ...Sign bit is reset
+    RC = 0xDC,      //  ...Carry bit is set
+    RNC = 0xD4,     //  ...Carry bit is reset
+    RPE = 0xEC,     //  ...Parity bit is set (Even)
+    RPO = 0xE4,     //  ...Parity bit is reset (Odd)
 
 //  RST - Reset
     RST_0 = 0xC7,
@@ -346,61 +272,47 @@ enum I8080_OpCodes : BYTE {
 //  SPHL - Load SP from H and L Registers
     SPHL = 0xF9,
 
-//  SHLD - Store H and L Register in Memory
-    SHLD = 0x22,
-
-//  STA - Store Accumulator Data from Memory
-    STA = 0x32,
-
-//  STAX - Store Accumulator data in memory addressed by B and C, or D and E Registers
-    STAX_B = 0x02,
-    STAX_D = 0x12,
+//  Store
+    SHLD = 0x22,    //  ...H and L Register in Memory
+    STA = 0x32,     //  ...Accumulator Data from Memory
+    STAX_B = 0x02,  //  ...Accumulator data in memory addressed by B and C
+    STAX_D = 0x12,  //  ...Accumulator data in memory addressed by D and E
 
 //  STC - Set Carry
     STC = 0x37,
 
-//  SUB - Subtract Register or Memory From Accumulator
-    SUB_A = 0x97,
-    SUB_B = 0x90,
-    SUB_C = 0x91,
-    SUB_D = 0x92,
-    SUB_E = 0x93,
-    SUB_H = 0x94,
-    SUB_L = 0x95,
-    SUB_M = 0x96,
+//  Subtract...
+    SUB_A = 0x97,   //  ...Register or Memory From Accumulator
+    SUB_B = 0x90,   //
+    SUB_C = 0x91,   //
+    SUB_D = 0x92,   //
+    SUB_E = 0x93,   //
+    SUB_H = 0x94,   //
+    SUB_L = 0x95,   //
+    SUB_M = 0x96,   //
+    SUI = 0xD6,     //  ...Immediate Data from Accumulator
+    SBB_A = 0x9F,   //  ...Register or Memory From Accumulator with Borrow
+    SBB_B = 0x98,   //
+    SBB_C = 0x99,   //
+    SBB_D = 0x9A,   //
+    SBB_E = 0x9B,   //
+    SBB_H = 0x9C,   //
+    SBB_L = 0x9D,   //
+    SBB_M = 0x9E,   //
+    SBI = 0xDE,     //  ...Immediate Data from Accumulator with Borrow
 
-//  SUI - Subtract Immediate Data from Accumulator
-    SUI = 0xD6,
+//  Exchange...
+    XCHG = 0xEB,    //  ...Data held in H and L Registers
+    XTHL = 0xE3,    //  ...Stack
 
-//  SBB - Subtract Register or Memory From Accumulator with Borrow
-    SBB_A = 0x9F,
-    SBB_B = 0x98,
-    SBB_C = 0x99,
-    SBB_D = 0x9A,
-    SBB_E = 0x9B,
-    SBB_H = 0x9C,
-    SBB_L = 0x9D,
-    SBB_M = 0x9E,
-
-//  SBI - Subtract Immediate Data from Accumulator with Borrow
-    SBI = 0xDE,
-
-//  XCHG - Exchange Data held in H and L Registers
-    XCHG = 0xEB,
-
-//  XTHL - Exchange Stack
-    XTHL = 0xE3,
-
-//  XRA - Logical Exclusive-Or Register or Memory with Accumulator
-    XRA_A = 0xAF,
-    XRA_B = 0xA8,
-    XRA_C = 0xA9,
-    XRA_D = 0xAA,
-    XRA_E = 0xAB,
-    XRA_H = 0xAc,
-    XRA_L = 0xAD,
-    XRA_M = 0xAE,
-
-//  XRI - Logical Exclusive-Or Immediate Data with Accumulator
-    XRI = 0xEE
+//  Logical Exclusive-Or...
+    XRA_A = 0xAF,   //  ...Register or Memory with Accumulator
+    XRA_B = 0xA8,   //
+    XRA_C = 0xA9,   //
+    XRA_D = 0xAA,   //
+    XRA_E = 0xAB,   //
+    XRA_H = 0xAc,   //
+    XRA_L = 0xAD,   //
+    XRA_M = 0xAE,   //
+    XRI = 0xEE      //  ...Immediate Data with Accumulator
 };
