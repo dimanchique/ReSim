@@ -115,14 +115,14 @@ enum I8080_OpCodes : BYTE {
     JMP = 0xC3,
 
 //  Jump if...
-    JZ = 0xCC,      //  ...Zero bit is set
-    JNZ = 0xC4,     //  ...Zero bit is reset
-    JM = 0xFC,      //  ...Sign bit is set
-    JP = 0xF4,      //  ...Sign bit is reset
-    JC = 0xDC,      //  ...Carry bit is set
-    JNC = 0xD4,     //  ...Carry bit is reset
-    JPE = 0xEC,     //  ...Parity bit is set (Even)
-    JPO = 0xE4,     //  ...Parity bit is reset (Odd)
+    JZ = 0xCA,      //  ...Zero bit is set
+    JNZ = 0xC2,     //  ...Zero bit is reset
+    JM = 0xFA,      //  ...Sign bit is set
+    JP = 0xF2,      //  ...Sign bit is reset
+    JC = 0xDA,      //  ...Carry bit is set
+    JNC = 0xD2,     //  ...Carry bit is reset
+    JPE = 0xEA,     //  ...Parity bit is set (Even)
+    JPO = 0xE2,     //  ...Parity bit is reset (Odd)
 
 //  Load...
     LDA = 0x3A,     //  ...Data from Accumulator to Memory
@@ -250,14 +250,14 @@ enum I8080_OpCodes : BYTE {
     RET = 0xC9,
 
 //  Return if...
-    RZ = 0xCC,      //  ...Zero bit is set
-    RNZ = 0xC4,     //  ...Zero bit is reset
-    RM = 0xFC,      //  ...Sign bit is set
-    RP = 0xF4,      //  ...Sign bit is reset
-    RC = 0xDC,      //  ...Carry bit is set
-    RNC = 0xD4,     //  ...Carry bit is reset
-    RPE = 0xEC,     //  ...Parity bit is set (Even)
-    RPO = 0xE4,     //  ...Parity bit is reset (Odd)
+    RZ = 0xC8,      //  ...Zero bit is set
+    RNZ = 0xC0,     //  ...Zero bit is reset
+    RM = 0xF8,      //  ...Sign bit is set
+    RP = 0xF0,      //  ...Sign bit is reset
+    RC = 0xD8,      //  ...Carry bit is set
+    RNC = 0xD0,     //  ...Carry bit is reset
+    RPE = 0xE8,     //  ...Parity bit is set (Even)
+    RPO = 0xE0,     //  ...Parity bit is reset (Odd)
 
 //  RST - Reset
     RST_0 = 0xC7,
