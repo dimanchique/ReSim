@@ -60,15 +60,4 @@ struct I8080_Status{
         }
         AC = carryFlag;
     }
-
-    FORCE_INLINE bool GetStatusValue(const BYTE checkArgs) const noexcept {
-        return static_cast<BYTE>(*this) & checkArgs;
-    }
-
-    FORCE_INLINE void SetStatusFlagValue(const BYTE statusFlag, const bool value) noexcept {
-        if (value)
-            *(BYTE *) (this) |= statusFlag;
-        else
-            *(BYTE *) (this) &= ~statusFlag;
-    }
 };

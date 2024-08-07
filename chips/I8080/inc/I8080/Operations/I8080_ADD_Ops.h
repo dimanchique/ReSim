@@ -4,8 +4,8 @@
 FORCE_INLINE void GenericAddRegister(Memory &memory, I8080 &cpu, const BYTE &targetRegister) {
     const BYTE initialAccumulator = cpu.A;
     const WORD addResult = cpu.A + targetRegister;
-    cpu.Status.C = (addResult & 0xFF00) > 0;
-    cpu.A = addResult & 0xFF;
+    cpu.Status.C = addResult > 0xFF;
+    cpu.A = addResult;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, targetRegister);
 }
@@ -13,8 +13,8 @@ FORCE_INLINE void GenericAddRegister(Memory &memory, I8080 &cpu, const BYTE &tar
 inline void I8080_ADD_A(Memory &memory, I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     const WORD addResult = cpu.A << 1;
-    cpu.Status.C = (addResult & 0xFF00) > 0;
-    cpu.A = addResult & 0xFF;
+    cpu.Status.C = addResult > 0xFF;
+    cpu.A = addResult;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, initialAccumulator);
 }
