@@ -1,5 +1,5 @@
 #pragma once
-#include "I8080_MOV_Ops.h"
+#include "MOV_Ops.h"
 
 inline void I8080_MOV_H_A(Memory &memory, I8080 &cpu) {
     GenericMOV_RegToReg(cpu, cpu.H, cpu.A);

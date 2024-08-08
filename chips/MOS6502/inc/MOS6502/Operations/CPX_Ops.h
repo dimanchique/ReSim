@@ -1,5 +1,5 @@
 #pragma once
-#include "MOS6502_CM_Ops.h"
+#include "CM_Ops.h"
 
 /**
  * @instruction Compare register X – Immediate

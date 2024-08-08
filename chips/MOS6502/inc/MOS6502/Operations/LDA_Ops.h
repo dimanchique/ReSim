@@ -1,5 +1,5 @@
 #pragma once
-#include "MOS6502_LD_Ops.h"
+#include "LD_Ops.h"
 
 /**
  * @instruction Load Accumulator – Immediate

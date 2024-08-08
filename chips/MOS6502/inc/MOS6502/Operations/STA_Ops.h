@@ -1,5 +1,5 @@
 #pragma once
-#include "MOS6502_ST_Ops.h"
+#include "ST_Ops.h"
 
 /**
  * @instruction Store Accumulator – Zero Page
