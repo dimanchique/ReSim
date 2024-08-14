@@ -1,0 +1,17 @@
+image: ubuntu:22.04
+
+stages:
+  - build
+
+build:
+  stage: build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  before_script:
+  - apt-get update --yes
+  - apt-get install --yes build-essential cmake ninja-build clang gcc libgtest-dev git
+  script:
+    - mkdir build
+    - cd build && cmake .. -DRESIM_BUILD_TESTING=ON -DCMAKE_BULD_TYPE=Release -GNinja
+    - ninja -C .
+    - ctest -V -j 5
