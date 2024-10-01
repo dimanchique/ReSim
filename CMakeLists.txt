@@ -30,4 +30,5 @@ target_link_libraries(ReSim
     PRIVATE ReSim::base
     PRIVATE ReSim::chip::mos6502
     PRIVATE ReSim::chip::i8080
+    PRIVATE ReSim::chip::i8086
 )

@@ -28,9 +28,9 @@
 #include "MOS6502/Operations/ADC_Ops.h"
 #include "MOS6502/Operations/SBC_Ops.h"
 
-static void MOS6502_INVALID_OP(Memory &memory, MOS6502 &cpu) {}
+static void MOS6502_INVALID_OP(Memory&, MOS6502&) {}
 
-using OpSignature = void (*)(Memory &, MOS6502 &);
+using OpSignature = void (*)(Memory&, MOS6502&);
 
 /** Instructions lookup table */
 constexpr static OpSignature Ops[] =

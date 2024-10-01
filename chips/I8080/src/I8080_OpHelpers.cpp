@@ -45,9 +45,9 @@
 #include "I8080/Operations/SUB_Ops.h"
 #include "I8080/Operations/SBB_Ops.h"
 
-static void I8080_INVALID_OP(Memory &memory, I8080 &cpu) {}
+static void I8080_INVALID_OP(Memory&, I8080&) {}
 
-using OpSignature = void (*)(Memory &, I8080 &);
+using OpSignature = void (*)(Memory&, I8080&);
 
 /** Instructions lookup table */
 constexpr static OpSignature Ops[] =

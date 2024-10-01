@@ -1,12 +1,13 @@
 #pragma once
 
 #include "I8080_Status.h"
+#include "I8080_OpCodes.h"
 #include "core/macro.h"
 #include "base/compute.h"
 #include "base/memory.h"
 #include "function_library/content_manipulation.h"
 
-#define STOP_OPCODE 0x08 // one of unused OpCodes so it's pretty much OK to use it a stop flag
+#define STOP_OPCODE I8080_OpCodes::HLT // HLT instruction is pretty OK to use as a STOP opcode
 
 class I8080 final: public Compute{
 public:
