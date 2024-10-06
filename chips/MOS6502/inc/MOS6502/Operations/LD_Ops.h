@@ -20,8 +20,8 @@ FORCE_INLINE void GenericLD(MOS6502 &cpu, BYTE &targetRegister, const BYTE &valu
  * @param targetRegister Register to load to.
  */
 FORCE_INLINE void MOS6502_LD_IM(Memory &memory, MOS6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.FetchByte(memory);
-    GenericLD(cpu, targetRegister, Data);
+    const BYTE data = cpu.FetchByte(memory);
+    GenericLD(cpu, targetRegister, data);
 }
 
 /**
@@ -31,8 +31,8 @@ FORCE_INLINE void MOS6502_LD_IM(Memory &memory, MOS6502 &cpu, BYTE &targetRegist
  * @param targetRegister Register to load to.
  */
 FORCE_INLINE void MOS6502_LD_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.GetZeroPageValue(memory);
-    GenericLD(cpu, targetRegister, Data);
+    const BYTE data = cpu.GetZeroPageValue(memory);
+    GenericLD(cpu, targetRegister, data);
 }
 
 /**
@@ -43,8 +43,8 @@ FORCE_INLINE void MOS6502_LD_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegist
  * @param affectingRegister Address offset register.
  */
 FORCE_INLINE void MOS6502_LD_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetZeroPageValue(memory, affectingRegister);
-    GenericLD(cpu, targetRegister, Data);
+    const BYTE data = cpu.GetZeroPageValue(memory, affectingRegister);
+    GenericLD(cpu, targetRegister, data);
 }
 
 /**
@@ -54,8 +54,8 @@ FORCE_INLINE void MOS6502_LD_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegist
  * @param targetRegister Register to load to.
  */
 FORCE_INLINE void MOS6502_LD_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegister) {
-    const BYTE Data = cpu.GetAbsValue(memory);
-    GenericLD(cpu, targetRegister, Data);
+    const BYTE data = cpu.GetAbsValue(memory);
+    GenericLD(cpu, targetRegister, data);
 }
 
 /**
@@ -66,6 +66,6 @@ FORCE_INLINE void MOS6502_LD_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegis
  * @param affectingRegister Address offset register.
  */
 FORCE_INLINE void MOS6502_LD_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const BYTE Data = cpu.GetAbsValue(memory, affectingRegister);
-    GenericLD(cpu, targetRegister, Data);
+    const BYTE data = cpu.GetAbsValue(memory, affectingRegister);
+    GenericLD(cpu, targetRegister, data);
 }

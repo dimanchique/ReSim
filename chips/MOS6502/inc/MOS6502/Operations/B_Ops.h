@@ -11,12 +11,12 @@
  * @param expectedValue Expected value of status flag.
  */
 FORCE_INLINE void GenericB(Memory &memory, MOS6502 &cpu, const BYTE targetFlag, const bool expectedValue) {
-    const SBYTE Offset = (SBYTE)cpu.FetchByte(memory);
+    const SBYTE offset = (SBYTE)cpu.FetchByte(memory);
     if (targetFlag == expectedValue) {
         cpu.cycles++;
-        if (IsPageCrossed(cpu.PC, cpu.PC + Offset))
+        if (IsPageCrossed(cpu.PC, cpu.PC + offset))
             cpu.cycles++;
-        cpu.PC += Offset;
+        cpu.PC += offset;
     }
 }
 

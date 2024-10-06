@@ -18,8 +18,8 @@ inline void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
-    const WORD TargetAddress = cpu.FetchWord(memory);
-    cpu.PC = cpu.ReadWord(memory, TargetAddress);
+    const WORD targetAddress = cpu.FetchWord(memory);
+    cpu.PC = cpu.ReadWord(memory, targetAddress);
 }
 
 /**
@@ -30,9 +30,9 @@ inline void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
-    const WORD TargetAddress = cpu.FetchWord(memory);
+    const WORD targetAddress = cpu.FetchWord(memory);
     cpu.PushProgramCounterToStack(memory);
-    cpu.PC = TargetAddress;
+    cpu.PC = targetAddress;
     cpu.cycles++;
 }
 

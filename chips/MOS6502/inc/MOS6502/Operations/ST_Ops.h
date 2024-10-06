@@ -9,8 +9,8 @@
  * @param targetRegister Register to store.
  */
 FORCE_INLINE void MOS6502_ST_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegister) {
-    const BYTE TargetAddress = cpu.FetchByte(memory);
-    cpu.WriteByte(memory, targetRegister, TargetAddress);
+    const BYTE targetAddress = cpu.FetchByte(memory);
+    cpu.WriteByte(memory, targetRegister, targetAddress);
 }
 
 /**
@@ -22,8 +22,8 @@ FORCE_INLINE void MOS6502_ST_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegist
  * @param affectingRegister Address offset register.
  */
 FORCE_INLINE void MOS6502_ST_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const BYTE TargetAddress = cpu.GetZeroPageAddress(memory, affectingRegister);
-    cpu.WriteByte(memory, targetRegister, TargetAddress);
+    const BYTE targetAddress = cpu.GetZeroPageAddress(memory, affectingRegister);
+    cpu.WriteByte(memory, targetRegister, targetAddress);
 }
 
 /**
@@ -34,8 +34,8 @@ FORCE_INLINE void MOS6502_ST_ZP(Memory &memory, MOS6502 &cpu, BYTE &targetRegist
  * @param targetRegister Register to store.
  */
 FORCE_INLINE void MOS6502_ST_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegister) {
-    const WORD TargetAddress = cpu.FetchWord(memory);
-    cpu.WriteByte(memory, targetRegister, TargetAddress);
+    const WORD targetAddress = cpu.FetchWord(memory);
+    cpu.WriteByte(memory, targetRegister, targetAddress);
 }
 
 /**
@@ -47,7 +47,7 @@ FORCE_INLINE void MOS6502_ST_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegis
  * @param affectingRegister Address offset register.
  */
 FORCE_INLINE void MOS6502_ST_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const WORD TargetAddress = cpu.GetAbsAddress(memory, affectingRegister);
-    cpu.WriteByte(memory, targetRegister, TargetAddress);
+    const WORD targetAddress = cpu.GetAbsAddress(memory, affectingRegister);
+    cpu.WriteByte(memory, targetRegister, targetAddress);
     cpu.cycles++; // extra cycle required
 }

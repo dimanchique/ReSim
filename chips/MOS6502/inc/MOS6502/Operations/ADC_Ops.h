@@ -10,12 +10,12 @@
  * @param value Value to add.
  */
 FORCE_INLINE void GenericADC(MOS6502 &cpu, const BYTE value) {
-    const bool AreSignBitsTheSame = !((cpu.A ^ value) & MOS6502_Status_N);
-    const WORD Sum = cpu.A + value + cpu.Status.C;
-    cpu.A = Sum;
+    const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
+    const WORD addRes = cpu.A + value + cpu.Status.C;
+    cpu.A = addRes;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.SetStatusFlagValue(MOS6502_Status_C, Sum > 0xFF);
-    cpu.Status.SetStatusFlagValue(MOS6502_Status_V, AreSignBitsTheSame && ((cpu.A ^ value) & MOS6502_Status_N));
+    cpu.Status.SetStatusFlagValue(MOS6502_Status_C, addRes > 0xFF);
+    cpu.Status.SetStatusFlagValue(MOS6502_Status_V, signBitsMatch && ((cpu.A ^ value) & MOS6502_Status_N));
 }
 
 /**

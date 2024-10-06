@@ -67,8 +67,8 @@ inline void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
-    const WORD TargetAddress = cpu.GetIndXAddress(memory);
-    cpu.WriteByte(memory, cpu.A, TargetAddress);
+    const WORD targetAddress = cpu.GetIndXAddress(memory);
+    cpu.WriteByte(memory, cpu.A, targetAddress);
 }
 
 /**
@@ -80,7 +80,7 @@ inline void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_STA_INDY(Memory &memory, MOS6502 &cpu) {
-    const WORD TargetAddress = cpu.GetIndYAddress(memory);
-    cpu.WriteByte(memory, cpu.A, TargetAddress);
+    const WORD targetAddress = cpu.GetIndYAddress(memory);
+    cpu.WriteByte(memory, cpu.A, targetAddress);
     cpu.cycles++; // extra cycle required
 }

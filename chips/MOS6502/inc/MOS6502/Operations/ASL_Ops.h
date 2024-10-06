@@ -15,12 +15,12 @@
  */
 FORCE_INLINE void GenericASL(Memory &memory, MOS6502 &cpu, const WORD address) {
     BYTE memoryValue = cpu.ReadByte(memory, address);
-    const bool Carry = memoryValue & (1 << 7);
+    const bool carry = memoryValue & (1 << 7);
     memoryValue <<= 1;
     cpu.cycles++;
     cpu.WriteByte(memory, memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.C = Carry;
+    cpu.Status.C = carry;
 }
 
 /**
@@ -30,11 +30,11 @@ FORCE_INLINE void GenericASL(Memory &memory, MOS6502 &cpu, const WORD address) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_ASL_ACC(Memory &memory, MOS6502 &cpu) {
-    const bool Carry = cpu.A & (1 << 7);
+    const bool carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
     cpu.cycles++;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.C = Carry;
+    cpu.Status.C = carry;
 }
 
 /**

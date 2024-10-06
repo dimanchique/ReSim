@@ -68,8 +68,8 @@ inline void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
-    const BYTE Data = cpu.GetIndXAddressValue(memory);
-    GenericLD(cpu, cpu.A, Data);
+    const BYTE data = cpu.GetIndXAddressValue(memory);
+    GenericLD(cpu, cpu.A, data);
 }
 
 /**
@@ -79,6 +79,6 @@ inline void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_LDA_INDY(Memory &memory, MOS6502 &cpu) {
-    const BYTE Data = cpu.GetIndYAddressValue(memory);
-    GenericLD(cpu, cpu.A, Data);
+    const BYTE data = cpu.GetIndYAddressValue(memory);
+    GenericLD(cpu, cpu.A, data);
 }

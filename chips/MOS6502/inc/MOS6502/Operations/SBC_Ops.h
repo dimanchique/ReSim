@@ -11,12 +11,12 @@
  * @param value Value to subtract.
  */
 FORCE_INLINE void GenericSBC(MOS6502 &cpu, const BYTE value) {
-    const bool AreSignBitsTheSame = !((cpu.A ^ value) & MOS6502_Status_N);
-    const WORD Sub = cpu.A - value - (1 - cpu.Status.C);
-    cpu.A = Sub;
+    const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
+    const WORD subRes = cpu.A - value - (1 - cpu.Status.C);
+    cpu.A = subRes;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.SetStatusFlagValue(MOS6502_Status_C, Sub > 0xFF);
-    cpu.Status.SetStatusFlagValue(MOS6502_Status_V, AreSignBitsTheSame && ((cpu.A ^ value) & MOS6502_Status_N));
+    cpu.Status.SetStatusFlagValue(MOS6502_Status_C, subRes > 0xFF);
+    cpu.Status.SetStatusFlagValue(MOS6502_Status_V, signBitsMatch && ((cpu.A ^ value) & MOS6502_Status_N));
 }
 
 /**
