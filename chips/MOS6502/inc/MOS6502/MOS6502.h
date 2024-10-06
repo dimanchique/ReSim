@@ -257,17 +257,20 @@ public:
      * @note Call FetchWord.
      * @note Add offset to the fetched word to get a generic Absolute address.
      * @attention Increments cycles count by 2. Increments PC by 2.
-     * @attention Extra cycles count increment if a page cross is detected.
+     * @attention Extra cycles count increment if a page cross is detected
+     * @attention Extra cycles is not applied for ASL/DEC/INC/LSR/ROR/ROL/STA
      * @addressing Absolute,X
      * @addressing Absolute,Y
      * @param memory Memory struct instance.
      * @param offsetAddress Offset memory address value.
      * @return Generic Absolute address.
      */
-    FORCE_INLINE WORD GetAbsAddress(const Memory& memory, const BYTE offsetAddress) {
+    FORCE_INLINE WORD GetAbsAddress(const Memory& memory, const BYTE offsetAddress, bool shouldCheckPageCross = true) {
         const WORD AbsAddress = FetchWord(memory);
         const WORD TargetAddress = AbsAddress + offsetAddress;
-        if (IsPageCrossed(TargetAddress, AbsAddress))
+
+        // add extra cycle if NO page-cross check
+        if (!shouldCheckPageCross || IsPageCrossed(TargetAddress, AbsAddress))
             cycles++;
         return TargetAddress;
     }
@@ -285,8 +288,8 @@ public:
      * @param offsetAddress Offset memory address value.
      * @return Generic Absolute address value.
      */
-    FORCE_INLINE BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress) {
-        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress);
+    FORCE_INLINE BYTE GetAbsValue(const Memory& memory, const BYTE offsetAddress, bool shouldCheckPageCross = true) {
+        const WORD TargetAddress = GetAbsAddress(memory, offsetAddress, shouldCheckPageCross);
         return ReadByte(memory, TargetAddress);
     }
 
@@ -329,15 +332,16 @@ public:
      * @note Add Y to the Effective Address to get (Indirect),Y address.
      * @attention Increments cycles count by 3. Increments PC.
      * @attention Extra cycles count increment if a page cross is detected.
+     * @attention Extra cycles is not applied for EOR/STA instructions
      * @addressing (Indirect),Y
      * @param memory Memory struct instance.
      * @return (Indirect),Y address.
      */
-    FORCE_INLINE WORD GetIndYAddress(const Memory& memory) {
+    FORCE_INLINE WORD GetIndYAddress(const Memory& memory, bool shouldCheckPageCross = true) {
         const BYTE ZeroPageAddress = FetchByte(memory);
         const WORD EffectiveAddress = ReadWord(memory, ZeroPageAddress);
         const WORD TargetAddress = EffectiveAddress + Y;
-        if (IsPageCrossed(TargetAddress, EffectiveAddress))
+        if (shouldCheckPageCross && IsPageCrossed(TargetAddress, EffectiveAddress))
             cycles++;
         return TargetAddress;
     }
@@ -354,8 +358,8 @@ public:
      * @param memory Memory struct instance.
      * @return (Indirect),Y address value.
      */
-    FORCE_INLINE BYTE GetIndYAddressValue(const Memory& memory) {
-        const WORD TargetAddress = GetIndYAddress(memory);
+    FORCE_INLINE BYTE GetIndYAddressValue(const Memory& memory, bool shouldCheckPageCross = true) {
+        const WORD TargetAddress = GetIndYAddress(memory, shouldCheckPageCross);
         return ReadByte(memory, TargetAddress);
     }
 

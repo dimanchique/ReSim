@@ -47,7 +47,6 @@ FORCE_INLINE void MOS6502_ST_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegis
  * @param affectingRegister Address offset register.
  */
 FORCE_INLINE void MOS6502_ST_ABS(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, BYTE affectingRegister) {
-    const WORD targetAddress = cpu.GetAbsAddress(memory, affectingRegister);
+    const WORD targetAddress = cpu.GetAbsAddress(memory, affectingRegister, false);
     cpu.WriteByte(memory, targetRegister, targetAddress);
-    cpu.cycles++; // extra cycle required
 }

@@ -11,8 +11,8 @@
  */
 FORCE_INLINE void GenericT(const BYTE sourceRegister, BYTE &destinationRegister, MOS6502 &cpu) {
     destinationRegister = sourceRegister;
-    cpu.Status.UpdateStatusByValue(destinationRegister, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.cycles++;
+    cpu.Status.UpdateStatusByValue(destinationRegister, MOS6502_Status_Z | MOS6502_Status_N);
 }
 
 /**

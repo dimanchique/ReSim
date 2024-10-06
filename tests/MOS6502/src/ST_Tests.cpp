@@ -64,15 +64,17 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourc
 
 void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
+    WORD targetAddress = 0x8000;
+    WORD displacedAddress = targetAddress + affectingRegister;
+
     sourceRegister = 0x2F;
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
-    mem[0xFF01] = 0x00;
-    mem[0xFF02] = 0x80;
+    mem[0xFF01] = targetAddress & 0xFF;
+    mem[0xFF02] = (targetAddress >> 8) & 0xFF;
     mem[0xFF03] = STOP_OPCODE;
-    WORD TargetAddress = 0x8000 + affectingRegister;
-    mem[TargetAddress] = 0x00;
+    mem[displacedAddress] = 0x00;
 
     cyclesExpected = 5;
 
@@ -80,6 +82,6 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourc
     cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_EQ(mem[TargetAddress], sourceRegister);
+    EXPECT_EQ(mem[displacedAddress], sourceRegister);
     CheckCyclesCount();
 }

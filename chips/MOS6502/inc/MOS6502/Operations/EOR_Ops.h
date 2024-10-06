@@ -98,6 +98,6 @@ inline void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_EOR_INDY(Memory &memory, MOS6502 &cpu) {
-    const BYTE value = cpu.GetIndYAddressValue(memory);
+    const BYTE value = cpu.GetIndYAddressValue(memory, false);
     GenericEOR(cpu, value);
 }

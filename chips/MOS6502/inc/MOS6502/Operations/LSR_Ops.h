@@ -71,7 +71,6 @@ inline void MOS6502_LSR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_LSR_ABSX(Memory &memory, MOS6502 &cpu) {
-    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericLSR(memory, cpu, address);
-    cpu.cycles++; // extra cycle required
 }

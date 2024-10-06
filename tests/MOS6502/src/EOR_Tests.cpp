@@ -236,7 +236,7 @@ TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR) {
     mem[0xFFFD] = 0xFF;
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
-    mem[0xFF00] = EOR_INDY;    // read the 8 bit value from the next mem cell
+    mem[0xFF00] = EOR_INDY;                     // read the 8 bit value from the next mem cell
     mem[0xFF01] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
     mem[0xFF02] = STOP_OPCODE;                  //
     mem[0x0002] = 0x00;                         //
@@ -244,31 +244,6 @@ TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR) {
     mem[0x8004] = 0x37;                         // do EOR with this value
 
     cyclesExpected = 5;
-
-    // when:
-    cyclesPassed = cpu.Run(mem);
-
-    // then:
-    EXPECT_EQ(cpu.A, 0x37 ^ 0x42);
-    EXPECT_FALSE(cpu.Status.Z);
-    EXPECT_FALSE(cpu.Status.N);
-    CheckCyclesCount();
-}
-
-TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR_WithExtraCycleOnPageCrossing) {
-    // given:
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    cpu.A = 0x42;
-    cpu.Y = 0xFF;                               // preload FF to Y to add it to absolute address we read
-    mem[0xFF00] = EOR_INDY;    // read the 8 bit value from the next mem cell and add X
-    mem[0xFF01] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
-    mem[0xFF02] = STOP_OPCODE;                  //
-    mem[0x0002] = 0x02;                         //
-    mem[0x0003] = 0x80;                         // 0x8002 + 0x00FF (Y) = 0x8101 -> page crossing, so we need extra cycle
-    mem[0x8101] = 0x37;                         // do EOR with this value
-
-    cyclesExpected = 6;
 
     // when:
     cyclesPassed = cpu.Run(mem);

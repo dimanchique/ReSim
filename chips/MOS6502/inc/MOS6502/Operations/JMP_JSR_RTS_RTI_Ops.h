@@ -52,7 +52,7 @@ inline void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
  * @instruction Force Interrupt – Implied
  * @details The BRK instruction forces the generation of an interrupt request.
  * The program counter and processor status are pushed on the stack
- * then the IRQ interrupt vector at $FFFE/F is loaded into the PC and the break flag in the status set to one.
+ * then the IRQ interrupt vector at $FFFE/FFFF is loaded into the PC and the break flag in the status set to one.
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */

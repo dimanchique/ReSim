@@ -80,7 +80,7 @@ inline void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_STA_INDY(Memory &memory, MOS6502 &cpu) {
-    const WORD targetAddress = cpu.GetIndYAddress(memory);
+    const WORD targetAddress = cpu.GetIndYAddress(memory, false);
     cpu.WriteByte(memory, cpu.A, targetAddress);
     cpu.cycles++; // extra cycle required
 }

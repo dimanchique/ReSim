@@ -55,9 +55,8 @@ inline void MOS6502_DEC_ABS(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_DEC_ABSX(Memory &memory, MOS6502 &cpu) {
-    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericDEC(memory, cpu, address);
-    cpu.cycles++; // extra cycle required
 }
 
 /**

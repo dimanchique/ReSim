@@ -81,13 +81,16 @@ public:
 
     void ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
         // given:
+        WORD targetAddress = 0x4402;
+        WORD displacedAddress = targetAddress + affectingRegister;
+
         mem[0xFFFC] = 0x00;
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = opcode;
-        mem[0xFF01] = 0x02;
-        mem[0xFF02] = 0x44;
+        mem[0xFF01] = targetAddress & 0xFF;
+        mem[0xFF02] = (targetAddress >> 8) & 0xFF;
         mem[0xFF03] = STOP_OPCODE;
-        mem[0x4402 + affectingRegister] = value;
+        mem[displacedAddress] = value;
 
         cyclesExpected = 7;
 
@@ -95,7 +98,7 @@ public:
         cyclesPassed = cpu.Run(mem);
 
         // then:
-        EXPECT_EQ(mem[0x4402 + affectingRegister], BYTE(value << 1));
+        EXPECT_EQ(mem[displacedAddress], BYTE(value << 1));
         CheckCyclesCount();
     }
 };

@@ -54,7 +54,7 @@ TEST_F(MOS6502_STAFixture, STA_INDY_CanStoreValue) {
     mem[0xFFFD] = 0xFF;
     cpu.A = 0x42;
     cpu.Y = 0x04;                               // preload 0x04 to Y to add it to value we read
-    mem[0xFF00] = STA_INDY;    // read the 8 bit value from the next mem cell
+    mem[0xFF00] = STA_INDY;                     // read the 8 bit value from the next mem cell
     mem[0xFF01] = 0x02;                         // read the 16 bit Little Endian address from 0x0002-0x0003
     mem[0xFF02] = STOP_OPCODE;                  //
     mem[0x0002] = 0x00;                         //

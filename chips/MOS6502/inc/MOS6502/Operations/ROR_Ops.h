@@ -72,7 +72,6 @@ inline void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 inline void MOS6502_ROR_ABSX(Memory &memory, MOS6502 &cpu) {
-    const WORD address = cpu.GetAbsAddress(memory, cpu.X);
+    const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericROR(memory, cpu, address);
-    cpu.cycles++; // extra cycle required
 }

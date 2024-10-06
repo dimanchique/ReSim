@@ -23,23 +23,26 @@ void MOS6502_INCFixture::INC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memo
 
 void MOS6502_INCFixture::INC_ABS_CanAffectValue(MOS6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
+    BYTE targetValue = memoryValue + 1;
+    WORD targetAddress = 0x4200;
+    WORD displacedAddress = targetAddress + offsetValueRegister;
+
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
-    mem[0xFF01] = 0x00;
-    mem[0xFF02] = 0x42;
+    mem[0xFF01] = targetAddress & 0xFF;
+    mem[0xFF02] = (targetAddress >> 8) & 0xFF;
     mem[0xFF03] = STOP_OPCODE;
-    mem[0x4200 + offsetValueRegister] = memoryValue;
-    BYTE targetValue = memoryValue + 1;
+    mem[displacedAddress] = memoryValue;
 
-    cyclesExpected = offsetValueRegister ? 7 : 6;
+    cyclesExpected = opcode == INC_ABSX ? 7 : 6;
 
     // when:
     cyclesPassed = cpu.Run(mem);
 
     // then:
-    EXPECT_NE(mem[0x4200 + offsetValueRegister], memoryValue);
-    EXPECT_EQ(mem[0x4200 + offsetValueRegister], targetValue);
+    EXPECT_NE(mem[displacedAddress], memoryValue);
+    EXPECT_EQ(mem[displacedAddress], targetValue);
     CheckCyclesCount();
 }
 
