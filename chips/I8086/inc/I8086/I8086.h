@@ -73,7 +73,7 @@ public:
             return ll;
         BYTE hh = ReadByte(memory, address + 1);
 
-        // Additional 4 cycles for WORd read of odd address
+        // Additional 4 cycles for WORD read of odd address
         if (address & 0x01)
             cycles += 4;
         return (hh << 8) | ll;

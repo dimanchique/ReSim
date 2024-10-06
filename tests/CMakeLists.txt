@@ -27,5 +27,6 @@ FetchContent_MakeAvailable(googletest)
 # Adding test modules separate
 add_subdirectory(MOS6502)
 add_subdirectory(I8080)
+add_subdirectory(I8086)
 
 enable_testing()

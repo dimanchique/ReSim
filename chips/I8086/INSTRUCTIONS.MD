@@ -6,12 +6,12 @@
 - [ ] ADD_AX_Iv
 - [ ] PUSH_ES
 - [ ] POP_ES
-- [ ] OR_Eb_Gb
-- [ ] OR_Ev_Gv
-- [ ] OR_Gb_Eb
-- [ ] OR_Gv_Ev
-- [ ] OR_AL_Ib
-- [ ] OR_AX_Iv
+- [x] OR_Eb_Gb
+- [x] OR_Ev_Gv
+- [x] OR_Gb_Eb
+- [x] OR_Gv_Ev
+- [x] OR_AL_Ib
+- [x] OR_AX_Iv
 - [ ] PUSH_CS
 - [ ] ADC_Eb_Gb
 - [ ] ADC_Ev_Gv

@@ -1,5 +1,6 @@
 #include "base/memory.h"
 #include "I8086/I8086.h"
+#include "I8086/Operations/OR_Ops.h"
 
 static void I8086_INVALID_OP(BYTE, Memory&, I8086&) {}
 
