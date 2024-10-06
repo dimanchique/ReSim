@@ -11,8 +11,7 @@
  * @param address Address to write back modified value.
  */
 FORCE_INLINE void GenericINC(Memory &memory, MOS6502 &cpu, const WORD address) {
-    BYTE memoryValue = memory[address];
-    cpu.cycles++;
+    BYTE memoryValue = cpu.ReadByte(memory, address);
     memoryValue++;
     cpu.cycles++;
     cpu.WriteByte(memory, memoryValue, address);

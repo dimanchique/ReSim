@@ -11,8 +11,7 @@
  * @param address Address to write back shifted value.
  */
 FORCE_INLINE void GenericROL(Memory &memory, MOS6502 &cpu, const WORD address) {
-    BYTE memoryValue = memory[address];
-    cpu.cycles++;
+    BYTE memoryValue = cpu.ReadByte(memory, address);
     const bool Carry = memoryValue & (1 << 7);
     memoryValue <<= 1;
     memoryValue |= cpu.Status.C;

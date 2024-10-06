@@ -12,8 +12,7 @@
  * @param address Address to write back shifted value.
  */
 FORCE_INLINE void GenericLSR(Memory &memory, MOS6502 &cpu, const WORD address) {
-    BYTE memoryValue = memory[address];
-    cpu.cycles++;
+    BYTE memoryValue = cpu.ReadByte(memory, address);
     const bool Carry = memoryValue & 1;
     memoryValue >>= 1;
     cpu.cycles++;
