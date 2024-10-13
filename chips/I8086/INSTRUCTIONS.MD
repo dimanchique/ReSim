@@ -109,8 +109,8 @@
 - [ ] JGE_Jb
 - [ ] JLE_Jb
 - [ ] JG_Jb
-- [ ] GRP1_Eb_Ib
-- [ ] GRP1_Ev_Iv
+- [x] GRP1_Eb_Ib
+- [x] GRP1_Ev_Iv
 - [ ] GRP1_Eb_Ib
 - [ ] GRP1_Ev_Ib
 - [ ] TEST_Gb_Eb

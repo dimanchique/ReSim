@@ -9,12 +9,12 @@ int main(int argc, char** argv) {
     cpu.AX = 0x0060;
     cpu.DS = 0x4000;
     cpu.BX = 0x009A;
+    cpu.BP = 0x1100;
 
-    memory[0x4009A] = 0x2C;
-    memory[0x4009B] = 0x01;
-
-    memory[0] = 0x09;
-    memory[1] = 0x07;
+    memory[0] = I8086_OpCodes::GRP1_Ev_Iv;
+    memory[1] = 0b11001101;
+    memory[2] = 0x00;
+    memory[3] = 0x09;
 
     cpu.Run(memory);
     return 0;

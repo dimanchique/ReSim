@@ -117,7 +117,7 @@ enum I8086_OpCodes : BYTE {
     JG_Jb = 0x7F,
     GRP1_Eb_Ib = 0x80,
     GRP1_Ev_Iv = 0x81,
-    // GRP1_Eb_Ib = 0x82, //duplicatd 0x80 but...is it ncssary?
+    // GRP1_Eb_Ib = 0x82, //duplicated 0x80 but...is it necessary?
     GRP1_Ev_Ib = 0x83,
     TEST_Gb_Eb = 0x84,
     TEST_Gv_Ev = 0x85,

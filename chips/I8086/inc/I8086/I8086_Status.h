@@ -59,15 +59,4 @@ struct I8086_Status{
             P = ~(bitCount & 0x1);
         }
     }
-
-    FORCE_INLINE void SetAuxiliaryCarryFlagOfAdd(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
-        BYTE carryFlag = initialCarry;
-        BYTE firstOpArg, secondOpArg;
-        for(BYTE idx = 0; idx < 4; ++idx) {
-            firstOpArg = (firstOp >> idx) & 0x01;
-            secondOpArg = (secondOpWithCarry >> idx) & 0x01; // Consider the carry in the second operand
-            carryFlag = ((firstOpArg + secondOpArg + carryFlag) >> 1) & 0x01;
-        }
-        A = carryFlag;
-    }
 };

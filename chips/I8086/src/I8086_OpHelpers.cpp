@@ -1,6 +1,7 @@
 #include "base/memory.h"
 #include "I8086/I8086.h"
 #include "I8086/Operations/OR_Ops.h"
+#include "I8086/Operations/GRP_Ops.h"
 
 static void I8086_INVALID_OP(BYTE, Memory&, I8086&) {}
 
@@ -21,6 +22,5 @@ bool DecodeInstruction(const BYTE opcode, Memory &memory, I8086 &cpu) {
     if(opcode == STOP_OPCODE || instruction == I8086_INVALID_OP)
         return false;
     instruction(opcode, memory, cpu);
-    cpu.cycles++; // additional decode cycle
     return true;
 }

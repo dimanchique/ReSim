@@ -17,28 +17,31 @@ struct ModRegByte {
 };
 
 // Direction
-enum class OperandsOrder {
-    Mem_Reg,
-    Reg_MemReg
+enum class InstructionDirection {
+    Mem_Reg, Reg_MemReg, MemReg_Imm
 };
 
 enum class OperandType {
-    Reg8, Reg16, Mem8, Mem16
+    Reg, Mem
 };
 
 struct OperandInfo {
-    OperandType type{};
+    OperandType type;
 
     union {
-        BYTE *reg8 = nullptr;
-        WORD *reg16;
+        void *reg = nullptr;
         DWORD mem;
     };
 };
 
 struct InstructionData {
-    OperandInfo leftOp;
-    OperandInfo rightOp;
+    union{
+        struct{
+            OperandInfo leftOp;
+            OperandInfo rightOp;
+        } doubleOps;
+        OperandInfo singleOp; // case for GRP instructions
+    };
 };
 
 enum ByteRegisters : BYTE {
@@ -104,13 +107,13 @@ struct ModRegByteConstructor {
         }
 
         // REG field filling
-        // cast regData to byte is enough, enum values are sorted
+        // cast regData to byte is legal, enum values are sorted
         modByte.reg = size == OperandSize::BYTE ?
                       (BYTE)rightOp.regData.byteReg :
                       (BYTE)rightOp.regData.wordReg;
 
         // R/M field filling
-        // if leftOp is reg just cast to byte as in reg field (see statement above)
+        // if leftOp is reg just cast to byte as above section
         if (leftOp.archetype == OperandArchetype::Reg)
         {
             modByte.rm = size == OperandSize::BYTE ?
@@ -120,7 +123,7 @@ struct ModRegByteConstructor {
         // if leftOp is mem we need a "hack"
         else
         {
-            // Direct mode and BP indexed mode both have the save value (0b110) but cast doesn't work in this case
+            // Direct mode and BP indexed mode both have the same value (0b110) but cast doesn't work in this case
             if (leftOp.memData.mode == modeDirect)
                 modByte.rm = (BYTE)modeBP;
             else

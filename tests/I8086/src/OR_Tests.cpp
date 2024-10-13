@@ -107,6 +107,7 @@ TEST_F(I8086_ORFixture, OR_Ev_Gv_FromDirectAddressed_to_BX) {
     modReg.rightOp.regData.wordReg = wBX;
 
     cpu.BX = 0x0060;
+    cyclesExpected = 16 + 6;
     
     const WORD memValue = 0x12C;
     const DWORD memAddress = 0x1000;
@@ -127,6 +128,7 @@ TEST_F(I8086_ORFixture, OR_Ev_Gv_FromBP_Addressed_to_DX_WithDisp) {
 
     cpu.DX = 0x0060;
     cpu.SS = 0x2000; // BP is force-replacing by SS
+    cyclesExpected = 16 + 9;
     
     const WORD memValue = 0x12C;
     const DWORD memAddress = modReg.leftOp.memData.dispValue + (cpu.SS << 4);
@@ -149,6 +151,7 @@ TEST_F(I8086_ORFixture, OR_Ev_Gv_FromBXSI_Addressed_to_AX_WithDisp) {
     cpu.BX = 0x8000;
     cpu.SI = 0x1000;
     cpu.DS = 0x2000;
+    cyclesExpected = 16 + 11;
 
     const WORD memValue = 0x12C;
     const DWORD memAddress = cpu.BX + cpu.SI + modReg.leftOp.memData.dispValue + (cpu.DS << 4);

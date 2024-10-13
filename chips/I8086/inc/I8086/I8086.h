@@ -5,7 +5,6 @@
 #include "core/macro.h"
 #include "base/compute.h"
 #include "base/memory.h"
-#include "function_library/content_manipulation.h"
 #include "I8086_Addressing.h"
 #include <type_traits>
 #include <cassert>
@@ -14,7 +13,7 @@
 
 #define EFFECTIVE_ADDRESS(m, n) (m + (n << 4))
 
-class I8086 final: public Compute{
+class I8086 final : public Compute {
 public:
 
     DECLARE_PAIRED_REG_UNIQUE_NAME(BYTE, WORD, AH, AL, AX); // primary accumulator
@@ -38,7 +37,7 @@ public:
     WORD PC;    // Program Counter
 
     // As far as segment is overriding only by specific instructions we can store default segment DS here as a pointer
-    WORD* currentSegment = &DS;
+    WORD *currentSegment = &DS;
 
     void Reset(Memory &memory) noexcept override;
 
@@ -62,12 +61,12 @@ public:
     }
 
     FORCE_INLINE BYTE ReadByte(Memory &memory, const DWORD &address) {
+        cycles += 4;
         return memory[address];
     }
 
     template<typename T>
     FORCE_INLINE T Read(Memory &memory, const DWORD &address) {
-        cycles += 1;
         BYTE ll = ReadByte(memory, address);
         if constexpr (std::is_same_v<T, BYTE>)
             return ll;
@@ -93,7 +92,10 @@ public:
 
     // Addressing routine
 
-    FORCE_INLINE void OverrideSegmentRegister(WORD* newSegment){
+    // Override segment register
+    // Current segment is a segment used to calculate EFFECTIVE ADDRESS
+    // Default is DS
+    FORCE_INLINE void OverrideSegmentRegister(WORD *newSegment) {
         currentSegment = newSegment;
         cycles += 2;
     }
@@ -101,73 +103,48 @@ public:
     // Direct addressing mode
     // Effective address is taken directly from the displacement field of the instruction
     // Takes 6 cycles
-
     FORCE_INLINE DWORD GetDirectAddress(const Memory &memory) {
         WORD offset = Fetch<WORD>(memory);
         return EFFECTIVE_ADDRESS(offset, *currentSegment);
     }
 
-    template<typename T>
-    FORCE_INLINE T GetDirectAddressValue(Memory &memory) {
-        const DWORD effectiveAddress = GetDirectAddress(memory);
-        return Read<T>(memory, effectiveAddress);
-    }
-
     // Register Indirect addressing mode
     // Effective address is taken directly from index register (BX/BP/SI/DI)
     // Takes 5 cycles
-
     FORCE_INLINE DWORD GetRegisterIndirectAddress(const WORD &indexRegister) {
         return EFFECTIVE_ADDRESS(indexRegister, *currentSegment);
-    }
-
-    template<typename T>
-    FORCE_INLINE T GetRegisterIndirectAddressValue(Memory &memory, const WORD &indexRegister) {
-        const DWORD effectiveAddress = GetRegisterIndirectAddress(indexRegister);
-        return Read<T>(memory, effectiveAddress);
     }
 
     // Base addressing mode
     // The effective address is the sum of a displacement value and the content of base registers BX or BP
     // Takes 5 cycles
     // Additional 4 cycles if displacement presented
-
     FORCE_INLINE DWORD GetBasedAddress(const Memory &memory, const WORD &baseRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
             disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
             cycles += 4;
         }
+        cycles += 4;
+
         // if BP was chosen as a Base register, SS is forced to be used as a segment register
         // See "The 8086 Family Users Manual", p.93 BaseAddressing section
         const WORD *realSegment = (&baseRegister == &BP) ? &SS : currentSegment;
         return EFFECTIVE_ADDRESS((baseRegister + disp), *realSegment);
     }
 
-    template<typename T>
-    FORCE_INLINE T GetBasedAddressValue(Memory &memory, const WORD &baseRegister, const BYTE dispSize = 0) {
-        const DWORD TargetAddress = GetBasedAddress(memory, baseRegister, dispSize);
-        return Read<T>(memory, TargetAddress);
-    }
-
     // Indexed addressing mode
     // The effective address is the sum of a displacement value and the content of index registers SI or DI
     // Takes 5 cycles
     // Additional 4 cycles if displacement presented
-
     FORCE_INLINE DWORD GetIndexedAddress(const Memory &memory, const WORD &indexRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
             disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
             cycles += 4;
         }
+        cycles += 4;
         return EFFECTIVE_ADDRESS((indexRegister + disp), *currentSegment);
-    }
-
-    template<typename T>
-    FORCE_INLINE T GetIndexedAddressValue(Memory &memory, const WORD &indexRegister, const BYTE dispSize = 0) {
-        const DWORD TargetAddress = GetIndexedAddress(memory, indexRegister, dispSize);
-        return Read<T>(memory, TargetAddress);
     }
 
     // Based Indexed addressing mode
@@ -175,20 +152,18 @@ public:
     // Takes 7 cycles for BP+DI / BX+SI
     // Takes 8 cycles for BP+SI / BX+DI
     // Additional 4 cycles if displacement presented
-
-    FORCE_INLINE DWORD GetBasedIndexedAddress(const Memory &memory, const WORD &baseRegister, const WORD &indexRegister, const BYTE dispSize = 0) {
+    FORCE_INLINE DWORD GetBasedIndexedAddress(const Memory &memory, const WORD *baseRegister, const WORD *indexRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
             disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
             cycles += 4;
         }
-        return EFFECTIVE_ADDRESS((baseRegister + indexRegister + disp), *currentSegment);
-    }
-
-    template<typename T>
-    FORCE_INLINE T GetBasedIndexedAddressValue(Memory &memory, const WORD &baseRegister, const WORD &indexRegister, const BYTE dispSize = 0) {
-        const DWORD TargetAddress = GetBasedIndexedAddress(memory, baseRegister, indexRegister, dispSize);
-        return Read<T>(memory, TargetAddress);
+        if ((baseRegister == &BP && indexRegister == &DI) || (baseRegister == &BX && indexRegister == &SI))
+            cycles += 2;
+        else
+            cycles += 3;
+        cycles += 4;
+        return EFFECTIVE_ADDRESS((*baseRegister + *indexRegister + disp), *currentSegment);
     }
 
     // MOD|REG|R/M control byte principles
@@ -249,89 +224,101 @@ public:
     // 110 | DH  | SI
     // 111 | BH  | DI
 
-    InstructionData GetInstructionData(Memory& memory, OperandSize operandSize, OperandsOrder direction, bool isSRegInstruction = false) {
+    InstructionData GetInstructionDataNoFetch(Memory &memory, OperandSize operandSize, InstructionDirection direction, const ModRegByte modReg, bool isSRegInstruction = false) {
         InstructionData instructionData{};
-        const BYTE modByte = Fetch<BYTE>(memory);
-        const ModRegByte modReg = ModRegByte(modByte);
+
+        // Pre-calculate target registers pointers
+        void *regRegPtr = operandSize == OperandSize::BYTE ?
+                          (void *) GetRegBytePtr(modReg.reg) :
+                          (void *) GetRegWordPtr(modReg.reg);
+        void *rmRegPtr = operandSize == OperandSize::BYTE ?
+                         (void *) GetRegBytePtr(modReg.rm) :
+                         (void *) GetRegWordPtr(modReg.rm);
 
         // Reg-Reg instructions
         if (modReg.mod == 0b11) {
-            OperandType regOperands = (operandSize == OperandSize::BYTE) ? OperandType::Reg8 : OperandType::Reg16;
-            instructionData.leftOp.type = instructionData.rightOp.type = regOperands;
+            OperandType regOperands = OperandType::Reg;
+            instructionData.doubleOps.leftOp.type = instructionData.doubleOps.rightOp.type = regOperands;
 
-            if (operandSize == OperandSize::BYTE)
-            {
-                instructionData.leftOp.reg8 = GetRegBytePtr(modReg.rm);
-                instructionData.rightOp.reg8 = GetRegBytePtr(modReg.reg);
+            // MemReg_Imm instruction direction in this branch covers only Register destination
+            // Only one operand needed if instruction direction is MemReg_Imm
+            if (direction == InstructionDirection::MemReg_Imm) {
+                instructionData.singleOp.reg = rmRegPtr;
+                return instructionData;
             }
-            else
-            {
-                instructionData.leftOp.reg16 = GetRegWordPtr(modReg.rm);
-                instructionData.rightOp.reg16 = GetRegWordPtr(modReg.reg);
-            }
+
+            instructionData.doubleOps.leftOp.reg = rmRegPtr;
+            instructionData.doubleOps.rightOp.reg = regRegPtr;
+            return instructionData;
         }
         // Mem-Reg or Reg-Mem instructions
         else {
-            // treat op1 as a Mem and op2 as a Reg
-            // later we will set order properly
-            OperandInfo op1, op2;
-
-            op1.type = (operandSize == OperandSize::BYTE) ? OperandType::Mem8 : OperandType::Mem16;
+            OperandInfo op1;
+            op1.type = OperandType::Mem;
             op1.mem = GetModRegAddress(memory, modReg);
 
-            op2.type = (operandSize == OperandSize::BYTE) ? OperandType::Reg8 : OperandType::Reg16;
-            if (operandSize == OperandSize::BYTE)
-                op2.reg8 = GetRegBytePtr(modReg.reg);
-            else
-                op2.reg16 = GetRegWordPtr(modReg.reg);
+            // MemReg_Imm instruction direction in this branch covers only Memory destination
+            // Only one operand needed if instruction direction is MemReg_Imm
+            if (direction == InstructionDirection::MemReg_Imm) {
+                instructionData.singleOp = op1;
+                return instructionData;
+            }
 
-            instructionData.leftOp = direction == OperandsOrder::Mem_Reg ? op1 : op2;
-            instructionData.rightOp = direction == OperandsOrder::Mem_Reg ? op2 : op1;
+            OperandInfo op2;
+            op2.type = OperandType::Reg;
+            op2.reg = regRegPtr;
+
+            instructionData.doubleOps.leftOp = direction == InstructionDirection::Mem_Reg ? op1 : op2;
+            instructionData.doubleOps.rightOp = direction == InstructionDirection::Mem_Reg ? op2 : op1;
+            return instructionData;
         }
+    }
 
-        return instructionData;
+    InstructionData GetInstructionData(Memory &memory, OperandSize operandSize, InstructionDirection direction, bool isSRegInstruction = false) {
+        const BYTE modByte = Fetch<BYTE>(memory);
+        const ModRegByte modReg = ModRegByte(modByte);
+        return GetInstructionDataNoFetch(memory, operandSize, direction, modReg, isSRegInstruction);
     }
 
     // REG | R/M should be passed
-    BYTE* GetRegBytePtr(BYTE modByte) {
+    BYTE *GetRegBytePtr(BYTE modByte) {
         assert(modByte <= 7);
-        BYTE* regTable[] = {&AL, &CL, &DL, &BL, &AH, &CH, &DH, &BH};
+        BYTE *regTable[] = {&AL, &CL, &DL, &BL, &AH, &CH, &DH, &BH};
         return regTable[modByte];
     }
 
     // REG | R/M should be passed
-    WORD* GetRegWordPtr(BYTE modByte) {
+    WORD *GetRegWordPtr(BYTE modByte) {
         assert(modByte <= 7);
-        WORD* regTable[] = {&AX, &CX, &DX, &BX, &SP, &BP, &SI, &DI};
+        WORD *regTable[] = {&AX, &CX, &DX, &BX, &SP, &BP, &SI, &DI};
         return regTable[modByte];
     }
 
     // REG | R/M should be passed
-    WORD* GetSRegWordPtr(BYTE modByte) {
+    WORD *GetSRegWordPtr(BYTE modByte) {
         assert(modByte <= 7);
-        WORD* regTable[] = {&ES, &CS, &SS, nullptr, nullptr, nullptr, &DS, nullptr};
+        WORD *regTable[] = {&ES, &CS, &SS, nullptr, nullptr, nullptr, &DS, nullptr};
         return regTable[modByte];
     }
 
-    DWORD GetModRegAddress(const Memory& memory, const ModRegByte& modReg) {
+    DWORD GetModRegAddress(const Memory &memory, const ModRegByte &modReg) {
         switch (modReg.rm) {
             case 0b000:
-                return GetBasedIndexedAddress(memory, BX, SI, modReg.mod);
+                return GetBasedIndexedAddress(memory, &BX, &SI, modReg.mod);
             case 0b001:
-                return GetBasedIndexedAddress(memory, BX, DI, modReg.mod);
+                return GetBasedIndexedAddress(memory, &BX, &DI, modReg.mod);
             case 0b010:
-                return GetBasedIndexedAddress(memory, BP, SI, modReg.mod);
+                return GetBasedIndexedAddress(memory, &BP, &SI, modReg.mod);
             case 0b011:
-                return GetBasedIndexedAddress(memory, BP, DI, modReg.mod);
+                return GetBasedIndexedAddress(memory, &BP, &DI, modReg.mod);
             case 0b100:
                 return GetIndexedAddress(memory, SI, modReg.mod);
             case 0b101:
                 return GetIndexedAddress(memory, DI, modReg.mod);
             case 0b110:
-                if (modReg.mod != 0) // special case for 110
-                    return GetBasedAddress(memory, BP, modReg.mod);
-                else
-                    return GetDirectAddress(memory);
+                return (modReg.mod != 0) ? // special case for 110
+                       GetBasedAddress(memory, BP, modReg.mod) :
+                       GetDirectAddress(memory);
             case 0b111:
                 return GetBasedAddress(memory, BX, modReg.mod);
         }
