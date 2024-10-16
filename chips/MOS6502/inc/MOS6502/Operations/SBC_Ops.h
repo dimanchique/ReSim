@@ -24,7 +24,7 @@ FORCE_INLINE void GenericSBC(MOS6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_IM(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);
     GenericSBC(cpu, value);
 }
@@ -34,7 +34,7 @@ inline void MOS6502_SBC_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance
  * @param cpu MOS6502 struct instance
  */
-inline void MOS6502_SBC_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericSBC(cpu, value);
 }
@@ -44,7 +44,7 @@ inline void MOS6502_SBC_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericSBC(cpu, value);
 }
@@ -54,7 +54,7 @@ inline void MOS6502_SBC_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_ABS(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericSBC(cpu, value);
 }
@@ -64,7 +64,7 @@ inline void MOS6502_SBC_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_ABSX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory, cpu.X);
     GenericSBC(cpu, value);
 }
@@ -74,7 +74,7 @@ inline void MOS6502_SBC_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_ABSY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory, cpu.Y);
     GenericSBC(cpu, value);
 }
@@ -84,7 +84,7 @@ inline void MOS6502_SBC_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericSBC(cpu, value);
 }
@@ -94,7 +94,7 @@ inline void MOS6502_SBC_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_SBC_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_SBC_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory);
     GenericSBC(cpu, value);
 }

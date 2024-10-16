@@ -24,7 +24,7 @@ FORCE_INLINE void GenericDEC(Memory &memory, MOS6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEC_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEC_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.FetchByte(memory);
     GenericDEC(memory, cpu, address);
 }
@@ -34,7 +34,7 @@ inline void MOS6502_DEC_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEC_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEC_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
     GenericDEC(memory, cpu, address);
 }
@@ -44,7 +44,7 @@ inline void MOS6502_DEC_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEC_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEC_ABS(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.FetchWord(memory);
     GenericDEC(memory, cpu, address);
 }
@@ -54,7 +54,7 @@ inline void MOS6502_DEC_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEC_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEC_ABSX(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericDEC(memory, cpu, address);
 }
@@ -65,7 +65,7 @@ inline void MOS6502_DEC_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEX_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEX_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.X--;
     cpu.cycles++;
     cpu.Status.UpdateStatusByValue(cpu.X, MOS6502_Status_Z | MOS6502_Status_N);
@@ -77,7 +77,7 @@ inline void MOS6502_DEX_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_DEY_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_DEY_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.Y--;
     cpu.cycles++;
     cpu.Status.UpdateStatusByValue(cpu.Y, MOS6502_Status_Z | MOS6502_Status_N);

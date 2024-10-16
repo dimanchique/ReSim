@@ -108,13 +108,6 @@ public:
         return EFFECTIVE_ADDRESS(offset, *currentSegment);
     }
 
-    // Register Indirect addressing mode
-    // Effective address is taken directly from index register (BX/BP/SI/DI)
-    // Takes 5 cycles
-    FORCE_INLINE DWORD GetRegisterIndirectAddress(const WORD &indexRegister) {
-        return EFFECTIVE_ADDRESS(indexRegister, *currentSegment);
-    }
-
     // Base addressing mode
     // The effective address is the sum of a displacement value and the content of base registers BX or BP
     // Takes 5 cycles

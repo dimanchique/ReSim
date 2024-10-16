@@ -6,35 +6,35 @@ FORCE_INLINE void GenericMVI(Memory &memory, I8080 &cpu, BYTE &targetRegister) {
     targetRegister = immediateValue;
 }
 
-inline void I8080_MVI_A(Memory &memory, I8080 &cpu) {
+void I8080_MVI_A(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.A);
 }
 
-inline void I8080_MVI_B(Memory &memory, I8080 &cpu) {
+void I8080_MVI_B(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.B);
 }
 
-inline void I8080_MVI_C(Memory &memory, I8080 &cpu) {
+void I8080_MVI_C(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.C);
 }
 
-inline void I8080_MVI_D(Memory &memory, I8080 &cpu) {
+void I8080_MVI_D(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.D);
 }
 
-inline void I8080_MVI_E(Memory &memory, I8080 &cpu) {
+void I8080_MVI_E(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.E);
 }
 
-inline void I8080_MVI_H(Memory &memory, I8080 &cpu) {
+void I8080_MVI_H(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.H);
 }
 
-inline void I8080_MVI_L(Memory &memory, I8080 &cpu) {
+void I8080_MVI_L(Memory &memory, I8080 &cpu) {
     GenericMVI(memory, cpu, cpu.L);
 }
 
-FORCE_INLINE void I8080_MVI_M(Memory &memory, I8080 &cpu) {
+void I8080_MVI_M(Memory &memory, I8080 &cpu) {
     const BYTE immediateValue = cpu.FetchByte(memory);
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     cpu.WriteByte(memory, immediateValue, memoryAddress);

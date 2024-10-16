@@ -9,35 +9,35 @@ FORCE_INLINE void GenericINR(Memory &memory, I8080 &cpu, BYTE &targetRegister) {
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(targetCopy, 0x01);
 }
 
-inline void I8080_INR_A(Memory &memory, I8080 &cpu) {
+void I8080_INR_A(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.A);
 }
 
-inline void I8080_INR_B(Memory &memory, I8080 &cpu) {
+void I8080_INR_B(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.B);
 }
 
-inline void I8080_INR_C(Memory &memory, I8080 &cpu) {
+void I8080_INR_C(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.C);
 }
 
-inline void I8080_INR_D(Memory &memory, I8080 &cpu) {
+void I8080_INR_D(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.D);
 }
 
-inline void I8080_INR_E(Memory &memory, I8080 &cpu) {
+void I8080_INR_E(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.E);
 }
 
-inline void I8080_INR_H(Memory &memory, I8080 &cpu) {
+void I8080_INR_H(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.H);
 }
 
-inline void I8080_INR_L(Memory &memory, I8080 &cpu) {
+void I8080_INR_L(Memory &memory, I8080 &cpu) {
     GenericINR(memory, cpu, cpu.L);
 }
 
-FORCE_INLINE void I8080_INR_M(Memory &memory, I8080 &cpu) {
+void I8080_INR_M(Memory &memory, I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
     const BYTE memoryCopy = memoryValue;

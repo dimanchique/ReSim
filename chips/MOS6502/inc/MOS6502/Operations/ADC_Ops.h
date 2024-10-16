@@ -23,7 +23,7 @@ FORCE_INLINE void GenericADC(MOS6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_IM(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);
     GenericADC(cpu, value);
 }
@@ -33,7 +33,7 @@ inline void MOS6502_ADC_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericADC(cpu, value);
 }
@@ -43,7 +43,7 @@ inline void MOS6502_ADC_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericADC(cpu, value);
 }
@@ -53,7 +53,7 @@ inline void MOS6502_ADC_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_ABS(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericADC(cpu, value);
 }
@@ -74,7 +74,7 @@ FORCE_INLINE void MOS6502_ADC_ABS(Memory &memory, MOS6502 &cpu, BYTE affectingRe
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_ADC_ABS(memory, cpu, cpu.X);
 }
 
@@ -83,7 +83,7 @@ inline void MOS6502_ADC_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_ADC_ABS(memory, cpu, cpu.Y);
 }
 
@@ -92,7 +92,7 @@ inline void MOS6502_ADC_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericADC(cpu, value);
 }
@@ -102,7 +102,7 @@ inline void MOS6502_ADC_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ADC_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ADC_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory);
     GenericADC(cpu, value);
 }

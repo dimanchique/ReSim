@@ -10,18 +10,18 @@ FORCE_INLINE void GenericDAD(I8080 &cpu, const WORD targetRegisterPtr) {
     cpu.Status.C = (result >> 16) > 0;
 }
 
-FORCE_INLINE void I8080_DAD_B(Memory &memory, I8080 &cpu) {
+void I8080_DAD_B(Memory &memory, I8080 &cpu) {
     GenericDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.B, cpu.C));
 }
 
-FORCE_INLINE void I8080_DAD_D(Memory &memory, I8080 &cpu) {
+void I8080_DAD_D(Memory &memory, I8080 &cpu) {
     GenericDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.D, cpu.E));
 }
 
-FORCE_INLINE void I8080_DAD_H(Memory &memory, I8080 &cpu) {
+void I8080_DAD_H(Memory &memory, I8080 &cpu) {
     GenericDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L));
 }
 
-FORCE_INLINE void I8080_DAD_SP(Memory &memory, I8080 &cpu) {
+void I8080_DAD_SP(Memory &memory, I8080 &cpu) {
     GenericDAD(cpu, cpu.SP);
 }

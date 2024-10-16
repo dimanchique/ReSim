@@ -14,7 +14,7 @@ FORCE_INLINE void GenericSBBRegister(Memory &memory, I8080 &cpu, const BYTE &tar
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, twosComplement);
 }
 
-inline void I8080_SBB_A(Memory &memory, I8080 &cpu) {
+void I8080_SBB_A(Memory &memory, I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     const WORD subResult = (WORD)cpu.A + (~cpu.A + 1 + cpu.Status.C);
     cpu.Status.C = ((subResult & 0x0100) != 0);
@@ -23,37 +23,37 @@ inline void I8080_SBB_A(Memory &memory, I8080 &cpu) {
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, initialAccumulator);
 }
 
-inline void I8080_SBB_B(Memory &memory, I8080 &cpu) {
+void I8080_SBB_B(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.B);
 }
 
-inline void I8080_SBB_C(Memory &memory, I8080 &cpu) {
+void I8080_SBB_C(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.C);
 }
 
-inline void I8080_SBB_D(Memory &memory, I8080 &cpu) {
+void I8080_SBB_D(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.D);
 }
 
-inline void I8080_SBB_E(Memory &memory, I8080 &cpu) {
+void I8080_SBB_E(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.E);
 }
 
-inline void I8080_SBB_H(Memory &memory, I8080 &cpu) {
+void I8080_SBB_H(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.H);
 }
 
-inline void I8080_SBB_L(Memory &memory, I8080 &cpu) {
+void I8080_SBB_L(Memory &memory, I8080 &cpu) {
     GenericSBBRegister(memory, cpu, cpu.L);
 }
 
-inline void I8080_SBB_M(Memory &memory, I8080 &cpu) {
+void I8080_SBB_M(Memory &memory, I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     const BYTE subValue = cpu.ReadByte(memory, memoryAddress);
     GenericSBBRegister(memory, cpu, subValue);
 }
 
-inline void I8080_SBI(Memory &memory, I8080 &cpu) {
+void I8080_SBI(Memory &memory, I8080 &cpu) {
     const BYTE subValue = cpu.FetchByte(memory);
     GenericSBBRegister(memory, cpu, subValue);
 }

@@ -27,7 +27,7 @@ FORCE_INLINE void GenericROR(Memory &memory, MOS6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ROR_ACC(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ACC(Memory &memory, MOS6502 &cpu) {
     const bool carry = cpu.A & 1;
     cpu.A >>= 1;
     cpu.A |= cpu.Status.C << 7;
@@ -41,7 +41,7 @@ inline void MOS6502_ROR_ACC(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ROR_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.FetchByte(memory);
     GenericROR(memory, cpu, address);
 }
@@ -51,7 +51,7 @@ inline void MOS6502_ROR_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ROR_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
     GenericROR(memory, cpu, address);
 }
@@ -61,7 +61,7 @@ inline void MOS6502_ROR_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.FetchWord(memory);
     GenericROR(memory, cpu, address);
 }
@@ -71,7 +71,7 @@ inline void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ROR_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ABSX(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericROR(memory, cpu, address);
 }

@@ -23,7 +23,7 @@ FORCE_INLINE void GenericT(const BYTE sourceRegister, BYTE &destinationRegister,
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TAX_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TAX_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericT(cpu.A, cpu.X, cpu);
 }
 
@@ -35,7 +35,7 @@ inline void MOS6502_TAX_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TXA_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TXA_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericT(cpu.X, cpu.A, cpu);
 }
 
@@ -47,7 +47,7 @@ inline void MOS6502_TXA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TAY_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TAY_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericT(cpu.A, cpu.Y, cpu);
 }
 
@@ -59,7 +59,7 @@ inline void MOS6502_TAY_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TYA_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TYA_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericT(cpu.Y, cpu.A, cpu);
 }
 
@@ -71,7 +71,7 @@ inline void MOS6502_TYA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TSX_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TSX_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericT(cpu.SP, cpu.X, cpu);
 }
 
@@ -82,7 +82,7 @@ inline void MOS6502_TSX_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_TXS_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TXS_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.SP = cpu.X;
     cpu.cycles++;
 }

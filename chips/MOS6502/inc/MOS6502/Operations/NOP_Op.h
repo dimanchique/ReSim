@@ -8,6 +8,6 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-FORCE_INLINE void MOS6502_NOP_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_NOP_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.cycles++;
 }

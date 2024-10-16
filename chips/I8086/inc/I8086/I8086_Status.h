@@ -15,18 +15,18 @@
 
 struct I8086_Status{
     WORD C      :1;             // Carry Flag
-    WORD NU1    :1;             // Not Used
+    WORD        :1;             // Not Used
     WORD P      :1;             // Parity Flag
-    WORD NU2    :1;             // Not Used
+    WORD        :1;             // Not Used
     WORD A      :1;             // Auxiliary Carry Flag
-    WORD NU3    :1;             // Not Used
+    WORD        :1;             // Not Used
     WORD Z      :1;             // Zero Flag
     WORD S      :1;             // Sign Flag
     WORD T      :1;             // Trap Flag
     WORD I      :1;             // Interrupt Flag
     WORD D      :1;             // Direction Flag
     WORD O      :1;             // Overflow Flag
-    WORD NU4    :4;             // Not Used
+    WORD        :4;             // Not Used
 
     operator WORD() noexcept {
         return *(WORD *) (this);
@@ -38,10 +38,6 @@ struct I8086_Status{
 
     FORCE_INLINE I8086_Status &operator=(const WORD referenceByte) {
         *(WORD *) (this) = referenceByte;
-        NU1 = 1; // these flags are immutable
-        NU2 = 0;
-        NU3 = 0;
-        NU4 = 0;
         return *this;
     }
 

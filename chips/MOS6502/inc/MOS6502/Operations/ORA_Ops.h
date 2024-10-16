@@ -18,7 +18,7 @@ FORCE_INLINE void GenericORA(MOS6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_IM(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);
     GenericORA(cpu, value);
 }
@@ -28,7 +28,7 @@ inline void MOS6502_ORA_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericORA(cpu, value);
 }
@@ -38,7 +38,7 @@ inline void MOS6502_ORA_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericORA(cpu, value);
 }
@@ -48,7 +48,7 @@ inline void MOS6502_ORA_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_ABS(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericORA(cpu, value);
 }
@@ -69,7 +69,7 @@ FORCE_INLINE void MOS6502_ORA_ABS(Memory &memory, MOS6502 &cpu, BYTE affectingRe
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_ORA_ABS(memory, cpu, cpu.X);
 }
 
@@ -78,7 +78,7 @@ inline void MOS6502_ORA_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_ORA_ABS(memory, cpu, cpu.Y);
 }
 
@@ -87,7 +87,7 @@ inline void MOS6502_ORA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericORA(cpu, value);
 }
@@ -97,7 +97,7 @@ inline void MOS6502_ORA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ORA_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ORA_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory);
     GenericORA(cpu, value);
 }

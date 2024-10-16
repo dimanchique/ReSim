@@ -15,18 +15,18 @@ FORCE_INLINE void GenericRotateRight(I8080 &cpu, const bool isThroughCarry) {
     cpu.Status.C = carry;
 }
 
-FORCE_INLINE void I8080_RLC(Memory &memory, I8080 &cpu) {
+void I8080_RLC(Memory &memory, I8080 &cpu) {
     GenericRotateLeft(cpu, false);
 }
 
-FORCE_INLINE void I8080_RRC(Memory &memory, I8080 &cpu) {
+void I8080_RRC(Memory &memory, I8080 &cpu) {
     GenericRotateRight(cpu, false);
 }
 
-FORCE_INLINE void I8080_RAL(Memory &memory, I8080 &cpu) {
+void I8080_RAL(Memory &memory, I8080 &cpu) {
     GenericRotateLeft(cpu, true);
 }
 
-FORCE_INLINE void I8080_RAR(Memory &memory, I8080 &cpu) {
+void I8080_RAR(Memory &memory, I8080 &cpu) {
     GenericRotateRight(cpu, true);
 }

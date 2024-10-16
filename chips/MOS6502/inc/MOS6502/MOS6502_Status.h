@@ -17,7 +17,7 @@ struct MOS6502_Status{
     BYTE I  :1;             // Interrupt Disable
     BYTE D  :1;             // Decimal Mode
     BYTE B  :1;             // Break Command
-    BYTE NU :1;             // Not Used
+    BYTE    :1;             // Not Used
     BYTE V  :1;             // Overflow Flag
     BYTE N  :1;             // Negative Flag
 
@@ -31,7 +31,6 @@ struct MOS6502_Status{
 
     FORCE_INLINE MOS6502_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
-        NU = 0; // this flag is immutable
         return *this;
     }
 

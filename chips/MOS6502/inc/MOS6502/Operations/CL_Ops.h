@@ -17,7 +17,7 @@ FORCE_INLINE void GenericCL(MOS6502 &cpu, const BYTE statusFlag) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CLC_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLC_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericCL(cpu, MOS6502_Status_C);
 }
 
@@ -26,7 +26,7 @@ inline void MOS6502_CLC_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CLD_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLD_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericCL(cpu, MOS6502_Status_D);
 }
 
@@ -35,7 +35,7 @@ inline void MOS6502_CLD_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CLI_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLI_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericCL(cpu, MOS6502_Status_I);
 }
 
@@ -44,6 +44,6 @@ inline void MOS6502_CLI_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CLV_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLV_IMPL(Memory &memory, MOS6502 &cpu) {
     GenericCL(cpu, MOS6502_Status_V);
 }

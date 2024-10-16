@@ -70,145 +70,145 @@ public:
 
 TEST_F(I8080_ADCFixture, ADC_A_1) {
     ADC_A_CanDoubleAccumulator(0b00000001, 0b00000010,
-                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0}, 0);
+                               I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0}, 0);
 }
 
 TEST_F(I8080_ADCFixture, ADC_A_2) {
     ADC_A_CanDoubleAccumulator(0b10000000, 0b00000001,
-                               I8080_Status{.C = 1, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0}, 1);
+                               I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 0}, 1);
 }
 
 TEST_F(I8080_ADCFixture, ADC_A_3) {
     ADC_A_CanDoubleAccumulator(0b00000000, 0b00000000,
-                               I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 1, .S = 0}, 0);
+                               I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 1, .S = 0}, 0);
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_1) {
     cpu.B = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00111101, 0, 0b01111111,
-                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                               I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_2) {
     cpu.B = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00111101, 1, 0b10000000,
-                               I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
+                               I8080_Status{.C = 0, .P = 0, .AC = 1, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_3) {
     cpu.B = 0b00000001;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00000001, 0, 0b00000010,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_4) {
     cpu.B = 0b10000000;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b10000000, 1, 0b00000001,
-                                             I8080_Status{.C = 1, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_5) {
     cpu.B = 0b00000000;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00000000, 0, 0b00000000,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 1, .S = 0});
+                                             I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 1, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_6) {
     cpu.B = 0b11110000;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00001111, 1, 0b00000000,
-                                             I8080_Status{.C = 1, .NU1 = 1, .P = 1, .AC = 1, .Z = 1, .S = 0});
+                                             I8080_Status{.C = 1, .P = 1, .AC = 1, .Z = 1, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_7) {
     cpu.B = 0b11111111;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b00000000, 0, 0b11111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
+                                             I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_8) {
     cpu.B = 0b01010101;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b01010101, 0, 0b10101010,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
+                                             I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_9) {
     cpu.B = 0b11111111;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b11111111, 1, 0b11111111,
-                                             I8080_Status{.C = 1, .NU1 = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+                                             I8080_Status{.C = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_B_10) {
     cpu.B = 0b00000001;
     ADC_Register_CanADCRegisterToAccumulator(ADC_B, 0b11111110, 0, 0b11111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
+                                             I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_C_1) {
     cpu.C = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_C, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_D_1) {
     cpu.D = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_D, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_E_1) {
     cpu.E = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_E, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_H_1) {
     cpu.H = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_H, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_L_1) {
     cpu.L = 0b01000010;
     ADC_Register_CanADCRegisterToAccumulator(ADC_L, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_M_1) {
     ADC_CanADCMemoryToAccumulator(0b01000010, 0b00111101, 0, 0b01111111,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_M_2) {
     ADC_CanADCMemoryToAccumulator(0b01000010, 0b00111101, 1, 0b10000000,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 1, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADC_M_3) {
     ADC_CanADCMemoryToAccumulator(0b00000001, 0b00000001, 0, 0b00000010,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_M_4) {
     ADC_CanADCMemoryToAccumulator(0b10000000, 0b10000000, 1, 0b00000001,
-                                             I8080_Status{.C = 1, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                             I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADC_M_5) {
     ADC_CanADCMemoryToAccumulator(0b00000000, 0b00000000, 0, 0b00000000,
-                                             I8080_Status{.C = 0, .NU1 = 1, .P = 1, .AC = 0, .Z = 1, .S = 0});
+                                             I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 1, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADI_1) {
     ADI_CanAddImmediateValueToAccumulator(0b01000010, 0b00111101, 0, 0b01111111,
-                                          I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                          I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_ADCFixture, ADI_2) {
     ADI_CanAddImmediateValueToAccumulator(0b01000010, 0b00111101, 1, 0b10000000,
-                                          I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 1, .Z = 0, .S = 1});
+                                          I8080_Status{.C = 0, .P = 0, .AC = 1, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_ADCFixture, ADI_3) {
     ADI_CanAddImmediateValueToAccumulator(0b00000001, 0b00000001, 0, 0b00000010,
-                                          I8080_Status{.C = 0, .NU1 = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
+                                          I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }

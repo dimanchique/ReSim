@@ -6,7 +6,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_IM(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_IM(memory, cpu, cpu.A);
 }
 
@@ -15,7 +15,7 @@ inline void MOS6502_CMP_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ZP(memory, cpu, cpu.A);
 }
 
@@ -24,7 +24,7 @@ inline void MOS6502_CMP_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_ZPX(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ZPX(memory, cpu, cpu.A);
 }
 
@@ -33,7 +33,7 @@ inline void MOS6502_CMP_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ABS(memory, cpu, cpu.A);
 }
 
@@ -42,7 +42,7 @@ inline void MOS6502_CMP_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ABS(memory, cpu, cpu.A, cpu.X);
 }
 
@@ -51,7 +51,7 @@ inline void MOS6502_CMP_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ABS(memory, cpu, cpu.A, cpu.Y);
 }
 
@@ -60,7 +60,7 @@ inline void MOS6502_CMP_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericCM(cpu, cpu.A, value);
 }
@@ -70,7 +70,7 @@ inline void MOS6502_CMP_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CMP_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CMP_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory);
     GenericCM(cpu, cpu.A, value);
 }

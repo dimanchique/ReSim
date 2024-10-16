@@ -8,7 +8,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ZP(memory, cpu, cpu.A);
 }
 
@@ -19,7 +19,7 @@ inline void MOS6502_STA_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_ZPX(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ZP(memory, cpu, cpu.A, cpu.X);
 }
 
@@ -30,7 +30,7 @@ inline void MOS6502_STA_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ABS(memory, cpu, cpu.A);
 }
 
@@ -42,7 +42,7 @@ inline void MOS6502_STA_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ABS(memory, cpu, cpu.A, cpu.X);
 }
 
@@ -54,7 +54,7 @@ inline void MOS6502_STA_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ABS(memory, cpu, cpu.A, cpu.Y);
 }
 
@@ -66,7 +66,7 @@ inline void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
     const WORD targetAddress = cpu.GetIndXAddress(memory);
     cpu.WriteByte(memory, cpu.A, targetAddress);
 }
@@ -79,7 +79,7 @@ inline void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STA_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STA_INDY(Memory &memory, MOS6502 &cpu) {
     const WORD targetAddress = cpu.GetIndYAddress(memory, false);
     cpu.WriteByte(memory, cpu.A, targetAddress);
     cpu.cycles++; // extra cycle required

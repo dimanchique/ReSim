@@ -7,7 +7,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
     cpu.PC = cpu.FetchWord(memory);
 }
 
@@ -17,7 +17,7 @@ inline void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
+void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
     const WORD targetAddress = cpu.FetchWord(memory);
     cpu.PC = cpu.ReadWord(memory, targetAddress);
 }
@@ -29,7 +29,7 @@ inline void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
     const WORD targetAddress = cpu.FetchWord(memory);
     cpu.PushProgramCounterToStack(memory);
     cpu.PC = targetAddress;
@@ -43,7 +43,7 @@ inline void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.PC = cpu.PopAddressFromStack(memory);
     cpu.cycles++;
 }
@@ -56,7 +56,7 @@ inline void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_BRK_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_BRK_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.PushProgramCounterToStack(memory);
     cpu.PushStatusToStack(memory);
     cpu.PC = cpu.ReadWord(memory, 0xFFFE);
@@ -71,7 +71,7 @@ inline void MOS6502_BRK_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_RTI_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_RTI_IMPL(Memory &memory, MOS6502 &cpu) {
     cpu.PopStatusFromStack(memory);
     cpu.PC = cpu.PopAddressFromStack(memory);
     cpu.Status.SetStatusFlagValue(MOS6502_Status_B, false);

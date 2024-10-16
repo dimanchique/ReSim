@@ -18,7 +18,7 @@ FORCE_INLINE void GenericAND(MOS6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_IM(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);
     GenericAND(cpu, value);
 }
@@ -28,7 +28,7 @@ inline void MOS6502_AND_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericAND(cpu, value);
 }
@@ -38,7 +38,7 @@ inline void MOS6502_AND_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericAND(cpu, value);
 }
@@ -48,7 +48,7 @@ inline void MOS6502_AND_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_ABS(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericAND(cpu, value);
 }
@@ -69,7 +69,7 @@ FORCE_INLINE void MOS6502_AND_ABS(Memory &memory, MOS6502 &cpu, BYTE affectingRe
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_AND_ABS(memory, cpu, cpu.X);
 }
 
@@ -78,7 +78,7 @@ inline void MOS6502_AND_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_AND_ABS(memory, cpu, cpu.Y);
 }
 
@@ -87,7 +87,7 @@ inline void MOS6502_AND_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericAND(cpu, value);
 }
@@ -97,7 +97,7 @@ inline void MOS6502_AND_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_AND_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_AND_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory);
     GenericAND(cpu, value);
 }

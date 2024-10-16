@@ -367,7 +367,7 @@ public:
      * @brief Convert StackPointer (BYTE) to Address (WORD).
      * @return Converted WORD address.
      */
-    [[nodiscard]] inline WORD StackPointerToAddress() const noexcept {
+    [[nodiscard]] FORCE_INLINE WORD StackPointerToAddress() const noexcept {
         return 0x100 + SP;
     }
 };

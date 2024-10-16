@@ -6,7 +6,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CPY_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CPY_IM(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_IM(memory, cpu, cpu.Y);
 }
 
@@ -15,7 +15,7 @@ inline void MOS6502_CPY_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CPY_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CPY_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ZP(memory, cpu, cpu.Y);
 }
 
@@ -24,6 +24,6 @@ inline void MOS6502_CPY_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_CPY_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CPY_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_CM_ABS(memory, cpu, cpu.Y);
 }

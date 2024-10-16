@@ -27,7 +27,7 @@ FORCE_INLINE void GenericLSR(Memory &memory, MOS6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LSR_ACC(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LSR_ACC(Memory &memory, MOS6502 &cpu) {
     const bool carry = cpu.A & 1;
     cpu.A >>= 1;
     cpu.cycles++;
@@ -40,7 +40,7 @@ inline void MOS6502_LSR_ACC(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LSR_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LSR_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.FetchByte(memory);
     GenericLSR(memory, cpu, address);
 }
@@ -50,7 +50,7 @@ inline void MOS6502_LSR_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LSR_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LSR_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
     GenericLSR(memory, cpu, address);
 }
@@ -60,7 +60,7 @@ inline void MOS6502_LSR_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LSR_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LSR_ABS(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.FetchWord(memory);
     GenericLSR(memory, cpu, address);
 }
@@ -70,7 +70,7 @@ inline void MOS6502_LSR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LSR_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LSR_ABSX(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericLSR(memory, cpu, address);
 }

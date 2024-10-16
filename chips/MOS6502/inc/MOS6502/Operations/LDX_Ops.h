@@ -7,7 +7,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDX_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDX_IM(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_IM(memory, cpu, cpu.X);
 }
 
@@ -17,7 +17,7 @@ inline void MOS6502_LDX_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDX_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDX_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ZP(memory, cpu, cpu.X);
 }
 
@@ -27,7 +27,7 @@ inline void MOS6502_LDX_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDX_ZPY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDX_ZPY(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ZP(memory, cpu, cpu.X, cpu.Y);
 }
 
@@ -37,7 +37,7 @@ inline void MOS6502_LDX_ZPY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDX_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDX_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ABS(memory, cpu, cpu.X);
 }
 
@@ -47,6 +47,6 @@ inline void MOS6502_LDX_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDX_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDX_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ABS(memory, cpu, cpu.X, cpu.Y);
 }

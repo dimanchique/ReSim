@@ -8,7 +8,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STY_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STY_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ZP(memory, cpu, cpu.Y);
 }
 
@@ -19,7 +19,7 @@ inline void MOS6502_STY_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STY_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STY_ZPX(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ZP(memory, cpu, cpu.Y, cpu.X);
 }
 
@@ -30,6 +30,6 @@ inline void MOS6502_STY_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_STY_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_STY_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_ST_ABS(memory, cpu, cpu.Y);
 }

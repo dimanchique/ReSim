@@ -29,7 +29,7 @@ FORCE_INLINE void GenericASL(Memory &memory, MOS6502 &cpu, const WORD address) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ASL_ACC(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ASL_ACC(Memory &memory, MOS6502 &cpu) {
     const bool carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
     cpu.cycles++;
@@ -42,7 +42,7 @@ inline void MOS6502_ASL_ACC(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ASL_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ASL_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.FetchByte(memory);
     GenericASL(memory, cpu, address);
 }
@@ -52,7 +52,7 @@ inline void MOS6502_ASL_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ASL_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ASL_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE address = cpu.GetZeroPageAddress(memory, cpu.X);
     GenericASL(memory, cpu, address);
 }
@@ -62,7 +62,7 @@ inline void MOS6502_ASL_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ASL_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ASL_ABS(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.FetchWord(memory);
     GenericASL(memory, cpu, address);
 }
@@ -72,7 +72,7 @@ inline void MOS6502_ASL_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_ASL_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ASL_ABSX(Memory &memory, MOS6502 &cpu) {
     const WORD address = cpu.GetAbsAddress(memory, cpu.X, false);
     GenericASL(memory, cpu, address);
 }

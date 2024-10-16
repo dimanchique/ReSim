@@ -18,7 +18,7 @@ FORCE_INLINE void GenericEOR(MOS6502 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_IM(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.FetchByte(memory);
     GenericEOR(cpu, value);
 }
@@ -28,7 +28,7 @@ inline void MOS6502_EOR_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_ZP(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory);
     GenericEOR(cpu, value);
 }
@@ -38,7 +38,7 @@ inline void MOS6502_EOR_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_ZPX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetZeroPageValue(memory, cpu.X);
     GenericEOR(cpu, value);
 }
@@ -48,7 +48,7 @@ inline void MOS6502_EOR_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_ABS(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetAbsValue(memory);
     GenericEOR(cpu, value);
 }
@@ -69,7 +69,7 @@ FORCE_INLINE void MOS6502_EOR_ABS(Memory &memory, MOS6502 &cpu, BYTE affectingRe
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_EOR_ABS(memory, cpu, cpu.X);
 }
 
@@ -78,7 +78,7 @@ inline void MOS6502_EOR_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_EOR_ABS(memory, cpu, cpu.Y);
 }
 
@@ -87,7 +87,7 @@ inline void MOS6502_EOR_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndXAddressValue(memory);
     GenericEOR(cpu, value);
 }
@@ -97,7 +97,7 @@ inline void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_EOR_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_EOR_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE value = cpu.GetIndYAddressValue(memory, false);
     GenericEOR(cpu, value);
 }

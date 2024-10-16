@@ -11,11 +11,11 @@
 
 struct I8080_Status{
     BYTE C      :1;             // Carry Flag
-    BYTE NU1    :1;             // Not Used
+    BYTE        :1;             // Not Used
     BYTE P      :1;             // Parity Flag
-    BYTE NU2    :1;             // Not Used
+    BYTE        :1;             // Not Used
     BYTE AC     :1;             // Auxiliary Carry Flag
-    BYTE NU3    :1;             // Not Used
+    BYTE        :1;             // Not Used
     BYTE Z      :1;             // Zero Flag
     BYTE S      :1;             // Sign Flag
 
@@ -29,9 +29,6 @@ struct I8080_Status{
 
     FORCE_INLINE I8080_Status &operator=(const BYTE referenceByte) {
         *(BYTE *) (this) = referenceByte;
-        NU1 = 1; // these flags are immutable
-        NU2 = 0;
-        NU3 = 0;
         return *this;
     }
 

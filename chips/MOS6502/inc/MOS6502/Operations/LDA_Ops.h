@@ -7,7 +7,7 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_IM(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_IM(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_IM(memory, cpu, cpu.A);
 }
 
@@ -17,7 +17,7 @@ inline void MOS6502_LDA_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_ZP(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_ZP(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ZP(memory, cpu, cpu.A);
 }
 
@@ -27,7 +27,7 @@ inline void MOS6502_LDA_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_ZPX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_ZPX(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ZP(memory, cpu, cpu.A, cpu.X);
 }
 
@@ -37,7 +37,7 @@ inline void MOS6502_LDA_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_ABS(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_ABS(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ABS(memory, cpu, cpu.A);
 }
 
@@ -47,7 +47,7 @@ inline void MOS6502_LDA_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_ABSX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_ABSX(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ABS(memory, cpu, cpu.A, cpu.X);
 }
 
@@ -57,7 +57,7 @@ inline void MOS6502_LDA_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
     MOS6502_LD_ABS(memory, cpu, cpu.A, cpu.Y);
 }
 
@@ -67,7 +67,7 @@ inline void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
     const BYTE data = cpu.GetIndXAddressValue(memory);
     GenericLD(cpu, cpu.A, data);
 }
@@ -78,7 +78,7 @@ inline void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-inline void MOS6502_LDA_INDY(Memory &memory, MOS6502 &cpu) {
+void MOS6502_LDA_INDY(Memory &memory, MOS6502 &cpu) {
     const BYTE data = cpu.GetIndYAddressValue(memory);
     GenericLD(cpu, cpu.A, data);
 }

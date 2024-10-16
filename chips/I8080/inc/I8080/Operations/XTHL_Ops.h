@@ -1,7 +1,7 @@
 #pragma once
 #include "I8080/I8080.h"
 
-inline void I8080_XTHL(Memory &memory, I8080 &cpu) {
+void I8080_XTHL(Memory &memory, I8080 &cpu) {
     const WORD stackPointerValue = cpu.ReadWord(memory, cpu.SP);
     const WORD registerValue = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     cpu.cycles++;
