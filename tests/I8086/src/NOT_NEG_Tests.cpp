@@ -58,8 +58,8 @@ TEST_F(I8086_NOT_NEG_Fixture, NEG_CX_Reg) {
     const BYTE reg = wCX;
     cpu.Status.C = 0;
     cpu.CX = 0b11001100'11001100;
-    const WORD refValue = 0b00110011'11001100;
+    const WORD refValue = 0b00110011'00110100;
 
-    TestRegisterInstruction(&cpu.CX, refValue, GRP3a_Eb, &reg, GRP3a_NOT, 16);
-    EXPECT_EQ(cpu.Status.C, 0);
+    TestRegisterInstruction(&cpu.CX, refValue, GRP3b_Ev, &reg, GRP3b_NEG, 16);
+    EXPECT_EQ(cpu.Status.C, 1);
 }

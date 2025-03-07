@@ -71,12 +71,6 @@ public:
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modRegByte;
 
-        if (modReg.leftOp.memData.dispSize > 0) {
-            mem[effectiveAddress++] = modReg.leftOp.memData.dispValue & 0xFF;
-            if (modReg.leftOp.memData.dispSize > 1)
-                mem[effectiveAddress++] = (modReg.leftOp.memData.dispValue >> 8) & 0xFF;
-        }
-
         mem[effectiveAddress++] = STOP_OPCODE;
         cyclesExpected = executeCyclesExpected;
 
