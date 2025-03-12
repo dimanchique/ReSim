@@ -3,7 +3,6 @@
 #include "core/types.h"
 
 struct MOS6502;
-struct Memory;
 
 /**
  * @brief Instruction decoder.
@@ -14,8 +13,7 @@ struct Memory;
  * - Instruction is not INVALID_OP
  *      - unexpected OpCode was fetched
  * @param opcode Instruction opcode to look for.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @return Decode success.
  */
-bool DecodeInstruction(BYTE opcode, Memory &memory, MOS6502 &cpu);
+bool DecodeInstruction(BYTE opcode, MOS6502 &cpu);

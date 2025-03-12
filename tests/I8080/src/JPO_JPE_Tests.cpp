@@ -13,7 +13,7 @@ TEST_F(I8080_JPEFixture, JPE_CanJumpOnParitySet) {
     cyclesExpected = 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x3C00);
@@ -31,7 +31,7 @@ TEST_F(I8080_JPEFixture, JPE_CannotJumpOnParityReset) {
     cyclesExpected = 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0003);
@@ -51,7 +51,7 @@ TEST_F(I8080_JPOFixture, JPO_CanJumpOnParityReset) {
     cyclesExpected = 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x3C00);
@@ -69,7 +69,7 @@ TEST_F(I8080_JPOFixture, JPO_CannotJumpOnParitySet) {
     cyclesExpected = 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0003);

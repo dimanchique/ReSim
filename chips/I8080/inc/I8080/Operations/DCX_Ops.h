@@ -20,7 +20,7 @@ FORCE_INLINE void PerformDCX(I8080 &cpu, WORD &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCX_B(Memory &memory, I8080 &cpu) {
+void I8080_DCX_B(I8080 &cpu) {
     PerformDCX(cpu, cpu.BC);
 }
 
@@ -29,7 +29,7 @@ void I8080_DCX_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCX_D(Memory &memory, I8080 &cpu) {
+void I8080_DCX_D(I8080 &cpu) {
     PerformDCX(cpu, cpu.DE);
 }
 
@@ -38,7 +38,7 @@ void I8080_DCX_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCX_H(Memory &memory, I8080 &cpu) {
+void I8080_DCX_H(I8080 &cpu) {
     PerformDCX(cpu, cpu.HL);
 }
 
@@ -47,6 +47,6 @@ void I8080_DCX_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCX_SP(Memory &memory, I8080 &cpu) {
+void I8080_DCX_SP(I8080 &cpu) {
     PerformDCX(cpu, cpu.SP);
 }

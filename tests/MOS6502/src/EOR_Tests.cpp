@@ -14,7 +14,7 @@ public:
         cyclesExpected = 2;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, memoryValue ^ initialValue);
@@ -34,7 +34,7 @@ public:
         cyclesExpected = 3;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, memoryValue ^ initialValue);
@@ -55,7 +55,7 @@ public:
         cyclesExpected = 4;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, memoryValue ^ initialValue);
@@ -76,7 +76,7 @@ public:
         cyclesExpected = 4;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, memoryValue ^ initialValue);
@@ -97,7 +97,7 @@ public:
         cyclesExpected = IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, memoryValue ^ initialValue);
@@ -221,7 +221,7 @@ TEST_F(MOS6502_EORFixture, EOR_INDX_CanDoExclusiveOR) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x37 ^ 0x42);
@@ -246,7 +246,7 @@ TEST_F(MOS6502_EORFixture, EOR_INDY_CanDoExclusiveOR) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x37 ^ 0x42);

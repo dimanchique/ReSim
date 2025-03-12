@@ -9,8 +9,8 @@
  * @param cpu I8080 struct instance.
  * @param memoryAddress Given memory location.
  */
-FORCE_INLINE void PerformLDA(Memory &memory, I8080 &cpu, const WORD memoryAddress) {
-    const BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
+FORCE_INLINE void PerformLDA(I8080 &cpu, const WORD memoryAddress) {
+    const BYTE memoryValue = cpu.ReadByte(memoryAddress);
     cpu.A = memoryValue;
 }
 
@@ -20,9 +20,9 @@ FORCE_INLINE void PerformLDA(Memory &memory, I8080 &cpu, const WORD memoryAddres
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LDA(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord(memory);
-    PerformLDA(memory, cpu, memoryAddress);
+void I8080_LDA(I8080 &cpu) {
+    const WORD memoryAddress = cpu.FetchWord();
+    PerformLDA(cpu, memoryAddress);
 }
 
 /**
@@ -31,9 +31,9 @@ void I8080_LDA(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LDAX_B(Memory &memory, I8080 &cpu) {
+void I8080_LDAX_B(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.B, cpu.C);
-    PerformLDA(memory, cpu, memoryAddress);
+    PerformLDA(cpu, memoryAddress);
 }
 
 /**
@@ -42,7 +42,7 @@ void I8080_LDAX_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LDAX_D(Memory &memory, I8080 &cpu) {
+void I8080_LDAX_D(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.D, cpu.E);
-    PerformLDA(memory, cpu, memoryAddress);
+    PerformLDA(cpu, memoryAddress);
 }

@@ -9,8 +9,8 @@
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformAND(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
-    const BYTE value = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformAND(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
+    const BYTE value = cpu.GetAddressingModeValue(addressing);
 
     cpu.A &= value;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
@@ -22,8 +22,8 @@ FORCE_INLINE void PerformAND(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_IM(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_AND_IM(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -32,8 +32,8 @@ void MOS6502_AND_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_AND_ZP(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -42,8 +42,8 @@ void MOS6502_AND_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_AND_ZPX(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -52,8 +52,8 @@ void MOS6502_AND_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_AND_ABS(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -62,8 +62,8 @@ void MOS6502_AND_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_AND_ABSX(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -72,8 +72,8 @@ void MOS6502_AND_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_AND_ABSY(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -82,8 +82,8 @@ void MOS6502_AND_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_AND_INDX(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -92,6 +92,6 @@ void MOS6502_AND_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_AND_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformAND(memory, cpu, MOS6502_AddressingMode::Indirect_Y);
+void MOS6502_AND_INDY(MOS6502 &cpu) {
+    PerformAND(cpu, MOS6502_AddressingMode::Indirect_Y);
 }

@@ -9,8 +9,8 @@
  * @param cpu I8080 struct instance.
  * @param targetRegister Register for storing immediate value.
  */
-FORCE_INLINE void PerformLXI(Memory &memory, I8080 &cpu, WORD& targetRegister) {
-    targetRegister = cpu.FetchWord(memory);
+FORCE_INLINE void PerformLXI(I8080 &cpu, WORD& targetRegister) {
+    targetRegister = cpu.FetchWord();
 }
 
 /**
@@ -19,8 +19,8 @@ FORCE_INLINE void PerformLXI(Memory &memory, I8080 &cpu, WORD& targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LXI_B(Memory &memory, I8080 &cpu) {
-    PerformLXI(memory, cpu, cpu.BC);
+void I8080_LXI_B(I8080 &cpu) {
+    PerformLXI(cpu, cpu.BC);
 }
 
 /**
@@ -29,8 +29,8 @@ void I8080_LXI_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LXI_D(Memory &memory, I8080 &cpu) {
-    PerformLXI(memory, cpu, cpu.DE);
+void I8080_LXI_D(I8080 &cpu) {
+    PerformLXI(cpu, cpu.DE);
 }
 
 /**
@@ -39,8 +39,8 @@ void I8080_LXI_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LXI_H(Memory &memory, I8080 &cpu) {
-    PerformLXI(memory, cpu, cpu.HL);
+void I8080_LXI_H(I8080 &cpu) {
+    PerformLXI(cpu, cpu.HL);
 }
 
 /**
@@ -49,6 +49,6 @@ void I8080_LXI_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LXI_SP(Memory &memory, I8080 &cpu) {
-    PerformLXI(memory, cpu, cpu.SP);
+void I8080_LXI_SP(I8080 &cpu) {
+    PerformLXI(cpu, cpu.SP);
 }

@@ -26,7 +26,7 @@ FORCE_INLINE void PerformSUB(I8080 &cpu, const BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_A(Memory &memory, I8080 &cpu) {
+void I8080_SUB_A(I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     cpu.Status.C = 0;
     cpu.A = 0; // because A - A always 0
@@ -40,7 +40,7 @@ void I8080_SUB_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_B(Memory &memory, I8080 &cpu) {
+void I8080_SUB_B(I8080 &cpu) {
     PerformSUB(cpu, cpu.B);
 }
 
@@ -50,7 +50,7 @@ void I8080_SUB_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_C(Memory &memory, I8080 &cpu) {
+void I8080_SUB_C(I8080 &cpu) {
     PerformSUB(cpu, cpu.C);
 }
 
@@ -60,7 +60,7 @@ void I8080_SUB_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_D(Memory &memory, I8080 &cpu) {
+void I8080_SUB_D(I8080 &cpu) {
     PerformSUB(cpu, cpu.D);
 }
 
@@ -70,7 +70,7 @@ void I8080_SUB_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_E(Memory &memory, I8080 &cpu) {
+void I8080_SUB_E(I8080 &cpu) {
     PerformSUB(cpu, cpu.E);
 }
 
@@ -80,7 +80,7 @@ void I8080_SUB_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_H(Memory &memory, I8080 &cpu) {
+void I8080_SUB_H(I8080 &cpu) {
     PerformSUB(cpu, cpu.H);
 }
 
@@ -90,7 +90,7 @@ void I8080_SUB_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_L(Memory &memory, I8080 &cpu) {
+void I8080_SUB_L(I8080 &cpu) {
     PerformSUB(cpu, cpu.L);
 }
 
@@ -100,9 +100,9 @@ void I8080_SUB_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUB_M(Memory &memory, I8080 &cpu) {
+void I8080_SUB_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE subValue = cpu.ReadByte(memory, memoryAddress);
+    const BYTE subValue = cpu.ReadByte(memoryAddress);
     PerformSUB(cpu, subValue);
 }
 
@@ -112,7 +112,7 @@ void I8080_SUB_M(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SUI(Memory &memory, I8080 &cpu) {
-    const BYTE subValue = cpu.FetchByte(memory);
+void I8080_SUI(I8080 &cpu) {
+    const BYTE subValue = cpu.FetchByte();
     PerformSUB(cpu, subValue);
 }

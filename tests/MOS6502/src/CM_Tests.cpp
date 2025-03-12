@@ -12,7 +12,7 @@ void MOS6502_CMFixture::CM_IM_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
@@ -31,7 +31,7 @@ void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
@@ -50,7 +50,7 @@ void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
@@ -70,7 +70,7 @@ void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRe
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
@@ -90,7 +90,7 @@ void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRe
     cyclesExpected = IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();

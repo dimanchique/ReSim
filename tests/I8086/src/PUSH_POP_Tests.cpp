@@ -27,7 +27,7 @@ TEST_F(I8086_PUSH_POP_Fixture, PUSH_AX_BX_CX_DX_POP_AX_BX_CX_DX) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.AX, value_4);
@@ -60,7 +60,7 @@ TEST_F(I8086_PUSH_POP_Fixture, PUSH_ES_SS_DS_POP_ES_SS_DS) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.ES, cpu.CS);

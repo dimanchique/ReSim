@@ -3,8 +3,8 @@
 #include "I8086_Status.h"
 #include "I8086_OpCodes.h"
 #include "core/macro.h"
-#include "base/compute.h"
-#include "base/memory.h"
+#include "compute.h"
+#include "memory.h"
 #include "I8086_Addressing.h"
 #include <cassert>
 
@@ -38,38 +38,40 @@ public:
     // As far as segment is overriding only by specific instructions we can store default segment DS here as a pointer
     WORD *currentSegment = &DS;
 
-    void Reset(Memory &memory) noexcept override;
+    void Reset() noexcept override;
 
-    U32 Run(Memory &memory) override;
+    U32 Run() override;
 
-    FORCE_INLINE BYTE FetchByte(const Memory &memory) {
+    bool Step() override;
+
+    FORCE_INLINE BYTE FetchByte() {
         const DWORD EffectiveAddress = EFFECTIVE_ADDRESS(PC, CS);
         PC++;
         cycles++;
-        return memory[EffectiveAddress];
+        return bus->Read(EffectiveAddress);
     }
 
     template<typename T>
-    FORCE_INLINE T Fetch(const Memory &memory) {
+    FORCE_INLINE T Fetch() {
         cycles += 1;
-        const BYTE ll = FetchByte(memory);
+        const BYTE ll = FetchByte();
         if (std::is_same_v<T, BYTE>)
             return ll;
-        const BYTE hh = FetchByte(memory);
+        const BYTE hh = FetchByte();
         return (hh << 8) | ll;
     }
 
-    FORCE_INLINE BYTE ReadByte(Memory &memory, const DWORD address) {
+    FORCE_INLINE BYTE ReadByte(const DWORD address) {
         cycles += 4;
-        return memory[address];
+        return bus->Read(address);
     }
 
     template<typename T>
-    FORCE_INLINE T Read(Memory &memory, const DWORD address) {
-        const BYTE ll = ReadByte(memory, address);
+    FORCE_INLINE T Read(const DWORD address) {
+        const BYTE ll = ReadByte(address);
         if (std::is_same_v<T, BYTE>)
             return ll;
-        const BYTE hh = ReadByte(memory, address + 1);
+        const BYTE hh = ReadByte(address + 1);
 
         // Additional 4 cycles for WORD read of odd address
         if (address & 0x01)
@@ -77,31 +79,31 @@ public:
         return (hh << 8) | ll;
     }
 
-    FORCE_INLINE void WriteByte(Memory &memory, const DWORD address, const BYTE value) {
-        memory[address] = value;
+    FORCE_INLINE void WriteByte(const DWORD address, const BYTE value) {
+        bus->Write(address, value);
     }
 
     template<typename T>
-    FORCE_INLINE void Write(Memory &memory, const DWORD address, const T value) {
-        WriteByte(memory, address, value & 0xFF);
+    FORCE_INLINE void Write(const DWORD address, const T value) {
+        WriteByte(address, value & 0xFF);
         if (std::is_same_v<T, BYTE>)
             return;
-        WriteByte(memory, address + 1, (value >> 8) & 0xFF);
+        WriteByte(address + 1, (value >> 8) & 0xFF);
     }
 
-    FORCE_INLINE void PushDataToStack(Memory &memory, const WORD data) {
+    FORCE_INLINE void PushDataToStack(const WORD data) {
         DWORD stackPointerAddress = EFFECTIVE_ADDRESS(SP, SS);
-        Write<BYTE>(memory, --stackPointerAddress, (data & 0xFF00) >> 8);
+        Write<BYTE>(--stackPointerAddress, (data & 0xFF00) >> 8);
         SP--;
-        Write<BYTE>(memory, --stackPointerAddress, data & 0xFF);
+        Write<BYTE>(--stackPointerAddress, data & 0xFF);
         SP--;
     }
 
-    FORCE_INLINE WORD PopDataFromStack(Memory &memory) {
+    FORCE_INLINE WORD PopDataFromStack() {
         DWORD stackPointerAddress = EFFECTIVE_ADDRESS(SP, SS);
-        const BYTE ll = ReadByte(memory, stackPointerAddress++);
+        const BYTE ll = ReadByte(stackPointerAddress++);
         SP++;
-        const BYTE hh = ReadByte(memory, stackPointerAddress++);
+        const BYTE hh = ReadByte(stackPointerAddress++);
         SP++;
         return hh << 8 | ll;
     }
@@ -173,7 +175,7 @@ public:
     // 111 | BH  | DI
 
     template<typename T>
-    InstructionData<T> GetInstructionDataNoFetch(Memory &memory, const OperandSize operandSize, const InstructionDirection direction, const ModRegByte modReg, bool isSRegInstruction = false) {
+    InstructionData<T> GetInstructionDataNoFetch(const OperandSize operandSize, const InstructionDirection direction, const ModRegByte modReg, bool isSRegInstruction = false) {
         InstructionData<T> instructionData{};
 
         // Pre-calculate target registers pointers
@@ -206,7 +208,7 @@ public:
         else {
             OperandInfo<T> op1;
             op1.type = OperandType::Mem;
-            op1.operand.mem = GetModRegAddress(memory, modReg);
+            op1.operand.mem = GetModRegAddress(modReg);
             op1.get = AddressGet;
             op1.set = AddressSet;
 
@@ -230,54 +232,54 @@ public:
     }
 
     template<typename T>
-    InstructionData<T> GetInstructionData(Memory &memory, const OperandSize operandSize, const InstructionDirection direction, const bool isSRegInstruction = false) {
-        const BYTE modByte = Fetch<BYTE>(memory);
+    InstructionData<T> GetInstructionData(const OperandSize operandSize, const InstructionDirection direction, const bool isSRegInstruction = false) {
+        const BYTE modByte = Fetch<BYTE>();
         const ModRegByte modReg = ModRegByte::FromByte(modByte);
-        return GetInstructionDataNoFetch<T>(memory, operandSize, direction, modReg, isSRegInstruction);
+        return GetInstructionDataNoFetch<T>(operandSize, direction, modReg, isSRegInstruction);
     }
 
-    DWORD GetModRegAddress(const Memory &memory, const ModRegByte &modReg) {
+    DWORD GetModRegAddress(const ModRegByte &modReg) {
         switch (modReg.rm) {
             case 0b000:
-                return GetBasedIndexedAddress(memory, &BX, &SI, modReg.mod);
+                return GetBasedIndexedAddress(&BX, &SI, modReg.mod);
             case 0b001:
-                return GetBasedIndexedAddress(memory, &BX, &DI, modReg.mod);
+                return GetBasedIndexedAddress(&BX, &DI, modReg.mod);
             case 0b010:
-                return GetBasedIndexedAddress(memory, &BP, &SI, modReg.mod);
+                return GetBasedIndexedAddress(&BP, &SI, modReg.mod);
             case 0b011:
-                return GetBasedIndexedAddress(memory, &BP, &DI, modReg.mod);
+                return GetBasedIndexedAddress(&BP, &DI, modReg.mod);
             case 0b100:
-                return GetIndexedAddress(memory, SI, modReg.mod);
+                return GetIndexedAddress(SI, modReg.mod);
             case 0b101:
-                return GetIndexedAddress(memory, DI, modReg.mod);
+                return GetIndexedAddress(DI, modReg.mod);
             case 0b110:
                 return (modReg.mod != 0) ? // special case for 110
-                       GetBasedAddress(memory, BP, modReg.mod) :
-                       GetDirectAddress(memory);
+                       GetBasedAddress(BP, modReg.mod) :
+                       GetDirectAddress();
             case 0b111:
-                return GetBasedAddress(memory, BX, modReg.mod);
+                return GetBasedAddress(BX, modReg.mod);
         }
         throw InvalidInstruction();
     }
 
     // Getters/Setters for instruction data operands
     template<typename T>
-    static void AddressSet(I8086 &cpu, Memory &memory, const void *address, T value) {
-        cpu.Write(memory, *(DWORD *) address, value);
+    static void AddressSet(I8086 &cpu, const void *address, T value) {
+        cpu.Write(*(DWORD *) address, value);
     }
 
     template<typename T>
-    static T AddressGet(I8086 &cpu, Memory &memory, const void *address) {
-        return cpu.Read<T>(memory, *(DWORD *) address);
-    }
-
-    template<typename T>
-    static void RegisterSet(I8086 &cpu, Memory &memory, const void *destReg, T value) {
+    static void RegisterSet(I8086 &cpu, const void *destReg, T value) {
         *(T *) *(uintptr_t *) destReg = value;
     }
 
     template<typename T>
-    static T RegisterGet(I8086 &cpu, Memory &memory, const void *srcReg) {
+    static T AddressGet(I8086 &cpu, const void *address) {
+        return cpu.Read<T>(*(DWORD *) address);
+    }
+
+    template<typename T>
+    static T RegisterGet(I8086 &cpu, const void *srcReg) {
         return *(T *) *(uintptr_t *) srcReg; // srcReg is passed as a pointer to void pointer
     }
 
@@ -285,8 +287,8 @@ public:
     // Direct addressing mode
     // Effective address is taken directly from the displacement field of the instruction
     // Takes 6 cycles
-    FORCE_INLINE DWORD GetDirectAddress(const Memory &memory) {
-        const WORD offset = Fetch<WORD>(memory);
+    FORCE_INLINE DWORD GetDirectAddress() {
+        const WORD offset = Fetch<WORD>();
         return EFFECTIVE_ADDRESS(offset, *currentSegment);
     }
 
@@ -294,10 +296,10 @@ public:
     // The effective address is the sum of a displacement value and the content of base registers BX or BP
     // Takes 5 cycles
     // Additional 4 cycles if displacement presented
-    FORCE_INLINE DWORD GetBasedAddress(const Memory &memory, const WORD &baseRegister, const BYTE dispSize = 0) {
+    FORCE_INLINE DWORD GetBasedAddress(const WORD &baseRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
-            disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
+            disp += dispSize == 2 ? Fetch<WORD>() : Fetch<BYTE>();
             cycles += 4;
         }
         cycles += 4;
@@ -312,10 +314,10 @@ public:
     // The effective address is the sum of a displacement value and the content of index registers SI or DI
     // Takes 5 cycles
     // Additional 4 cycles if displacement presented
-    FORCE_INLINE DWORD GetIndexedAddress(const Memory &memory, const WORD &indexRegister, const BYTE dispSize = 0) {
+    FORCE_INLINE DWORD GetIndexedAddress(const WORD &indexRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
-            disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
+            disp += dispSize == 2 ? Fetch<WORD>() : Fetch<BYTE>();
             cycles += 4;
         }
         cycles += 4;
@@ -327,10 +329,10 @@ public:
     // Takes 7 cycles for BP+DI / BX+SI
     // Takes 8 cycles for BP+SI / BX+DI
     // Additional 4 cycles if displacement presented
-    FORCE_INLINE DWORD GetBasedIndexedAddress(const Memory &memory, const WORD *baseRegister, const WORD *indexRegister, const BYTE dispSize = 0) {
+    FORCE_INLINE DWORD GetBasedIndexedAddress(const WORD *baseRegister, const WORD *indexRegister, const BYTE dispSize = 0) {
         WORD disp = 0;
         if (dispSize != 0) {
-            disp += dispSize == 2 ? Fetch<WORD>(memory) : Fetch<BYTE>(memory);
+            disp += dispSize == 2 ? Fetch<WORD>() : Fetch<BYTE>();
             cycles += 4;
         }
         if ((baseRegister == &BP && indexRegister == &DI) || (baseRegister == &BX && indexRegister == &SI))

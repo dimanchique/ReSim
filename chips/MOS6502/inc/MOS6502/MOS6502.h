@@ -2,7 +2,7 @@
 
 #include "core/compilers_macro.h"
 #include "MOS6502_Status.h"
-#include "base/compute.h"
+#include "compute.h"
 #include "MOS6502_AddressingMode.h"
 
 #define STOP_OPCODE 0x02 /**< One of unused MOS6502 opcodes used to stop execution of finite programs */
@@ -32,9 +32,11 @@ public:
     BYTE Y;                 /**< Y Register */
     MOS6502_Status Status;  /**< Status Register */
 
-    void Reset(Memory &memory) noexcept override;
+    void Reset() noexcept override;
 
-    U32 Run(Memory &memory) override;
+    U32 Run() override;
+
+    bool Step() override;
 
     /**
      * @brief Fetch byte from memory address PC points to.
@@ -42,8 +44,8 @@ public:
      * @param memory Memory struct instance.
      * @return Fetched byte.
      */
-    FORCE_INLINE BYTE FetchByte(const Memory &memory) {
-        const BYTE Data = memory[PC++];
+    FORCE_INLINE BYTE FetchByte() {
+        const BYTE Data = bus->Read(PC++);
         cycles++;
         return Data;
     }
@@ -57,9 +59,9 @@ public:
      * @param memory Memory struct instance.
      * @return Fetched word.
      */
-    FORCE_INLINE WORD FetchWord(const Memory &memory) {
-        const BYTE Lo = FetchByte(memory);
-        const BYTE Hi = FetchByte(memory);
+    FORCE_INLINE WORD FetchWord() {
+        const BYTE Lo = FetchByte();
+        const BYTE Hi = FetchByte();
         return Lo | (Hi << 8);
     }
 
@@ -70,8 +72,8 @@ public:
      * @param address Address to read from.
      * @return Read byte.
      */
-    FORCE_INLINE BYTE ReadByte(const Memory &memory, const WORD address) {
-        const BYTE Data = memory[address];
+    FORCE_INLINE BYTE ReadByte(const WORD address) {
+        const BYTE Data = bus->Read(address);
         cycles++;
         return Data;
     }
@@ -86,9 +88,9 @@ public:
      * @param address Address to read from.
      * @return Fetched word.
      */
-    FORCE_INLINE WORD ReadWord(const Memory &memory, const WORD address) {
-        const BYTE Lo = ReadByte(memory, address);
-        const BYTE Hi = ReadByte(memory, address + 1);
+    FORCE_INLINE WORD ReadWord(const WORD address) {
+        const BYTE Lo = ReadByte(address);
+        const BYTE Hi = ReadByte(address + 1);
         return Lo | (Hi << 8);
     }
 
@@ -99,8 +101,8 @@ public:
      * @param value Value to write.
      * @param address Address to write to.
      */
-    FORCE_INLINE void WriteByte(Memory &memory, const BYTE value, const WORD address) {
-        memory[address] = value;
+    FORCE_INLINE void WriteByte(const BYTE value, const WORD address) {
+        bus->Write(address, value);
         cycles++;
     }
 
@@ -114,9 +116,9 @@ public:
      * @param value Value to write.
      * @param address Address to write to.
      */
-    FORCE_INLINE void WriteWord(Memory &memory, const WORD value, const WORD address) {
-        WriteByte(memory, value & 0xFF, address);
-        WriteByte(memory, (value >> 8), address + 1);
+    FORCE_INLINE void WriteWord(const WORD value, const WORD address) {
+        WriteByte(value & 0xFF, address);
+        WriteByte((value >> 8), address + 1);
     }
 
     /**
@@ -124,8 +126,8 @@ public:
      * @see PushWordToStack
      * @param memory Memory struct instance.
      */
-    FORCE_INLINE void PushProgramCounterToStack(Memory &memory) {
-        PushWordToStack(memory, PC - 1);
+    FORCE_INLINE void PushProgramCounterToStack() {
+        PushWordToStack(PC - 1);
     }
 
     /**
@@ -135,8 +137,8 @@ public:
      * @param memory Memory struct instance.
      * @return Popped address.
      */
-    FORCE_INLINE WORD PopAddressFromStack(const Memory &memory) {
-        return PopWordFromStack(memory) + 1;
+    FORCE_INLINE WORD PopAddressFromStack() {
+        return PopWordFromStack() + 1;
     }
 
     /**
@@ -145,8 +147,8 @@ public:
      * @see WriteByte
      * @param memory Memory struct instance.
      */
-    FORCE_INLINE void PushStatusToStack(Memory &memory) {
-        WriteByte(memory, Status.Value, StackPointerToAddress());
+    FORCE_INLINE void PushStatusToStack() {
+        WriteByte(Status.Value, StackPointerToAddress());
         SP--;
         cycles++;
     }
@@ -157,10 +159,10 @@ public:
      * @see ReadByte
      * @param memory Memory struct instance.
      */
-    FORCE_INLINE void PopStatusFromStack(const Memory &memory) {
+    FORCE_INLINE void PopStatusFromStack() {
         SP++;
         cycles++;
-        Status.Value = ReadByte(memory, StackPointerToAddress());
+        Status.Value = ReadByte(StackPointerToAddress());
         cycles++;
     }
 
@@ -171,8 +173,8 @@ public:
      * @param memory Memory struct instance.
      * @param value Value to push to stack.
      */
-    FORCE_INLINE void PushByteToStack(Memory &memory, const BYTE value) {
-        WriteByte(memory, value, StackPointerToAddress());
+    FORCE_INLINE void PushByteToStack(const BYTE value) {
+        WriteByte(value, StackPointerToAddress());
         SP--;
         cycles++;
     }
@@ -184,10 +186,10 @@ public:
      * @param memory Memory struct instance.
      * @return Popped value.
      */
-    FORCE_INLINE BYTE PopByteFromStack(const Memory &memory) {
+    FORCE_INLINE BYTE PopByteFromStack() {
         SP++;
         cycles++;
-        const BYTE value = ReadByte(memory, StackPointerToAddress());
+        const BYTE value = ReadByte(StackPointerToAddress());
         cycles++;
         return value;
     }
@@ -199,8 +201,8 @@ public:
      * @param memory Memory struct instance.
      * @param value Value to push to stack.
      */
-    FORCE_INLINE void PushWordToStack(Memory &memory, const WORD value) {
-        WriteWord(memory, value, StackPointerToAddress() - 1);
+    FORCE_INLINE void PushWordToStack(const WORD value) {
+        WriteWord(value, StackPointerToAddress() - 1);
         SP -= 2;
     }
 
@@ -211,8 +213,8 @@ public:
      * @param memory Memory struct instance.
      * @return Popped value.
      */
-    FORCE_INLINE WORD PopWordFromStack(const Memory &memory) {
-        const WORD value = ReadWord(memory, StackPointerToAddress() + 1);
+    FORCE_INLINE WORD PopWordFromStack() {
+        const WORD value = ReadWord(StackPointerToAddress() + 1);
         cycles++;
         SP += 2;
         cycles++;
@@ -240,7 +242,7 @@ public:
      * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
      * @return Target address.
      */
-    FORCE_INLINE WORD GetAddressingModeAddress(const Memory &memory, MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
+    FORCE_INLINE WORD GetAddressingModeAddress(MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
         BYTE offsetValue = 0;
         switch (addressing) {
             case MOS6502_AddressingMode::ZeroPage_X:
@@ -262,19 +264,19 @@ public:
             case MOS6502_AddressingMode::Immediate:
                 return  PC++;
             case MOS6502_AddressingMode::ZeroPage:
-                return FetchByte(memory);
+                return FetchByte();
             case MOS6502_AddressingMode::ZeroPage_X:
             case MOS6502_AddressingMode::ZeroPage_Y:
-                return GetZeroPageIndexedAddress(memory, offsetValue);
+                return GetZeroPageIndexedAddress(offsetValue);
             case MOS6502_AddressingMode::Absolute:
-                return FetchWord(memory);
+                return FetchWord();
             case MOS6502_AddressingMode::Absolute_X:
             case MOS6502_AddressingMode::Absolute_Y:
-                return GetAbsIndexedAddress(memory, offsetValue, shouldCheckPageCross);
+                return GetAbsIndexedAddress(offsetValue, shouldCheckPageCross);
             case MOS6502_AddressingMode::Indirect_X:
-                return GetIndXAddress(memory);
+                return GetIndXAddress();
             case MOS6502_AddressingMode::Indirect_Y:
-                return GetIndYAddress(memory, shouldCheckPageCross);
+                return GetIndYAddress(shouldCheckPageCross);
         }
         throw; // unexpected
     }
@@ -287,9 +289,9 @@ public:
      * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
      * @return Memory value.
      */
-    FORCE_INLINE BYTE GetAddressingModeValue(const Memory &memory, MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
-        const WORD address = GetAddressingModeAddress(memory, addressing, shouldCheckPageCross);
-        return ReadByte(memory, address);
+    FORCE_INLINE BYTE GetAddressingModeValue(MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
+        const WORD address = GetAddressingModeAddress(addressing, shouldCheckPageCross);
+        return ReadByte(address);
     }
 
 private:
@@ -305,8 +307,8 @@ private:
      * @param offsetValue Address offset value.
      * @return Zero Page Indexed address.
      */
-    FORCE_INLINE WORD GetZeroPageIndexedAddress(const Memory &memory, const BYTE offsetValue) {
-        const BYTE baseAddress = FetchByte(memory);
+    FORCE_INLINE WORD GetZeroPageIndexedAddress(const BYTE offsetValue) {
+        const BYTE baseAddress = FetchByte();
         cycles++;
         return (BYTE)(baseAddress + offsetValue);
     }
@@ -324,8 +326,8 @@ private:
      * @param offsetValue Address offset value.
      * @return Absolute Indexed address.
      */
-    FORCE_INLINE WORD GetAbsIndexedAddress(const Memory &memory, const BYTE offsetValue, bool shouldCheckPageCross = true) {
-        const WORD baseAddress = FetchWord(memory);
+    FORCE_INLINE WORD GetAbsIndexedAddress(const BYTE offsetValue, bool shouldCheckPageCross = true) {
+        const WORD baseAddress = FetchWord();
         const WORD effectiveAddress = baseAddress + offsetValue;
 
         // add extra cycle if NO page-cross check
@@ -345,10 +347,10 @@ private:
      * @param memory Memory struct instance.
      * @return (Indirect,X) address.
      */
-    FORCE_INLINE WORD GetIndXAddress(const Memory &memory) {
-        const BYTE baseAddress = FetchByte(memory) + X;
+    FORCE_INLINE WORD GetIndXAddress() {
+        const BYTE baseAddress = FetchByte() + X;
         cycles++;
-        return ReadWord(memory, baseAddress);
+        return ReadWord(baseAddress);
     }
 
     /**
@@ -364,9 +366,9 @@ private:
      * @param memory Memory struct instance.
      * @return (Indirect),Y address.
      */
-    FORCE_INLINE WORD GetIndYAddress(const Memory &memory, bool shouldCheckPageCross = true) {
-        const BYTE baseAddressPtr = FetchByte(memory);
-        const WORD baseAddress = ReadWord(memory, baseAddressPtr);
+    FORCE_INLINE WORD GetIndYAddress(bool shouldCheckPageCross = true) {
+        const BYTE baseAddressPtr = FetchByte();
+        const WORD baseAddress = ReadWord(baseAddressPtr);
         const WORD effectiveAddress = baseAddress + Y;
         if (shouldCheckPageCross && IsPageCrossed(effectiveAddress, baseAddress))
             cycles++;

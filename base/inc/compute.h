@@ -1,6 +1,7 @@
 #pragma once
 
-#include "base/memory.h"
+#include "memory.h"
+#include "bus.h"
 
 #include <iostream>
 #include <fstream>
@@ -55,27 +56,36 @@ class Compute {
         if (!data)
             return false;
 
-        Reset(memory);
+        Reset();
         const bool SetSuccess = memory.SetMemory(data, numBytesRead);
         delete[] data;
 
         return SetSuccess;
     }
 
+    void SetBusInstance(Bus* new_bus) { bus = new_bus; }
+    Bus* GetBus() { return bus; }
+
 protected:
 
     /**
-     * @brief CPU execution loop function. Stops execution on invalid instruction.
-     * @param memory Memory struct instance.
-     * @return Cycles count.
+     * @brief Resets CPU to its default values.
      */
-    virtual U32 Run(Memory &memory) = 0;
+    virtual void Reset() noexcept = 0;
 
     /**
-     * @brief Resets CPU to its default values.
-     * @param memory Memory struct instance.
+     * @brief CPU execution loop function. Stops execution on invalid instruction.
+     * @return Cycles count.
      */
-    virtual void Reset(Memory &memory) noexcept = 0;
+    virtual U32 Run() = 0;
+
+    /**
+     * @brief CPU execution step function. Executes one instruction.
+     * @return fetch success.
+     */
+    virtual bool Step() = 0;
+
+    Bus* bus = nullptr;
 
 public:
     U32 cycles = 0;

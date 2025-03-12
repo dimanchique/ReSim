@@ -2,18 +2,22 @@
 #include <gtest/gtest.h>
 #include "I8080/I8080_OpCodes.h"
 #include "I8080/I8080.h"
-#include "base/memory.h"
+#include "memory.h"
 
 class I8080_TestFixture : public testing::Test {
 public:
     Memory mem{64};
     I8080 cpu{};
+    Bus bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;
 
     void SetUp() override {
-        cpu.Reset(mem);
+        mem.Reset();
+        cpu.Reset();
+        cpu.SetBusInstance(&bus);
+        cpu.GetBus()->SetBusRegion(0x0000, 0xFFFF, &mem);
     }
 
     void TearDown() override {

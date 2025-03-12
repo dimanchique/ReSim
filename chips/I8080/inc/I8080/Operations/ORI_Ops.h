@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ORI(Memory &memory, I8080 &cpu) {
-    const BYTE memoryValue = cpu.FetchByte(memory);
+void I8080_ORI(I8080 &cpu) {
+    const BYTE memoryValue = cpu.FetchByte();
     cpu.A |= memoryValue;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
 }

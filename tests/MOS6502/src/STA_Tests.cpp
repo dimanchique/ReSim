@@ -41,7 +41,7 @@ TEST_F(MOS6502_STAFixture, STA_INDX_CanStoreValue) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x8000], cpu.A);
@@ -64,7 +64,7 @@ TEST_F(MOS6502_STAFixture, STA_INDY_CanStoreValue) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x8004], cpu.A);

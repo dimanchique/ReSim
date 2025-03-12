@@ -11,8 +11,8 @@
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformSBC(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
-    const BYTE value = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformSBC(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
+    const BYTE value = cpu.GetAddressingModeValue(addressing);
 
     const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
     const WORD subRes = cpu.A - value - (1 - cpu.Status.C);
@@ -28,8 +28,8 @@ FORCE_INLINE void PerformSBC(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_IM(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_SBC_IM(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -38,8 +38,8 @@ void MOS6502_SBC_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance
  * @param cpu MOS6502 struct instance
  */
-void MOS6502_SBC_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_SBC_ZP(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -48,8 +48,8 @@ void MOS6502_SBC_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_SBC_ZPX(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -58,8 +58,8 @@ void MOS6502_SBC_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_SBC_ABS(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -68,8 +68,8 @@ void MOS6502_SBC_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_SBC_ABSX(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -78,8 +78,8 @@ void MOS6502_SBC_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_SBC_ABSY(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -88,8 +88,8 @@ void MOS6502_SBC_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_SBC_INDX(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -98,6 +98,6 @@ void MOS6502_SBC_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_SBC_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformSBC(memory, cpu, MOS6502_AddressingMode::Indirect_Y);
+void MOS6502_SBC_INDY(MOS6502 &cpu) {
+    PerformSBC(cpu, MOS6502_AddressingMode::Indirect_Y);
 }

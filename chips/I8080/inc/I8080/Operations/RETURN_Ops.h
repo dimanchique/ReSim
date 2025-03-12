@@ -11,9 +11,9 @@
  * @param cpu I8080 struct instance.
  * @param conditionFlag Condition flag value if instruction is conditional (default true).
  */
-FORCE_INLINE void PerformReturn(Memory &memory, I8080 &cpu, const bool conditionFlag = true) {
+FORCE_INLINE void PerformReturn(I8080 &cpu, const bool conditionFlag = true) {
     if (conditionFlag)
-        cpu.PopProgramCounterFromStack(memory);
+        cpu.PopProgramCounterFromStack();
 }
 
 /**
@@ -22,8 +22,8 @@ FORCE_INLINE void PerformReturn(Memory &memory, I8080 &cpu, const bool condition
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RET(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu);
+void I8080_RET(I8080 &cpu) {
+    PerformReturn(cpu);
 }
 
 /**
@@ -32,8 +32,8 @@ void I8080_RET(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RC(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, cpu.Status.C);
+void I8080_RC(I8080 &cpu) {
+    PerformReturn(cpu, cpu.Status.C);
 }
 
 /**
@@ -42,8 +42,8 @@ void I8080_RC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RNC(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, !cpu.Status.C);
+void I8080_RNC(I8080 &cpu) {
+    PerformReturn(cpu, !cpu.Status.C);
 }
 
 /**
@@ -52,8 +52,8 @@ void I8080_RNC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RM(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, cpu.Status.S);
+void I8080_RM(I8080 &cpu) {
+    PerformReturn(cpu, cpu.Status.S);
 }
 
 /**
@@ -62,8 +62,8 @@ void I8080_RM(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RP(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, !cpu.Status.S);
+void I8080_RP(I8080 &cpu) {
+    PerformReturn(cpu, !cpu.Status.S);
 }
 
 /**
@@ -72,8 +72,8 @@ void I8080_RP(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RZ(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, cpu.Status.Z);
+void I8080_RZ(I8080 &cpu) {
+    PerformReturn(cpu, cpu.Status.Z);
 }
 
 /**
@@ -82,8 +82,8 @@ void I8080_RZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RNZ(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, !cpu.Status.Z);
+void I8080_RNZ(I8080 &cpu) {
+    PerformReturn(cpu, !cpu.Status.Z);
 }
 
 /**
@@ -92,8 +92,8 @@ void I8080_RNZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RPE(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, cpu.Status.P);
+void I8080_RPE(I8080 &cpu) {
+    PerformReturn(cpu, cpu.Status.P);
 }
 
 /**
@@ -102,6 +102,6 @@ void I8080_RPE(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RPO(Memory &memory, I8080 &cpu) {
-    PerformReturn(memory, cpu, !cpu.Status.P);
+void I8080_RPO(I8080 &cpu) {
+    PerformReturn(cpu, !cpu.Status.P);
 }

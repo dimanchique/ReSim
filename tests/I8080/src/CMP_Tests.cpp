@@ -15,7 +15,7 @@ public:
         cyclesExpected = expectedCycles;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.Status.Z, expectedZero);

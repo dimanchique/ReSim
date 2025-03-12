@@ -7,8 +7,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_IM(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_CMP_IM(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -17,8 +17,8 @@ void MOS6502_CMP_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_CMP_ZP(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -27,8 +27,8 @@ void MOS6502_CMP_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_CMP_ZPX(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -37,8 +37,8 @@ void MOS6502_CMP_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_CMP_ABS(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -47,8 +47,8 @@ void MOS6502_CMP_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_CMP_ABSX(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -57,8 +57,8 @@ void MOS6502_CMP_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_CMP_ABSY(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -67,8 +67,8 @@ void MOS6502_CMP_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_CMP_INDX(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -77,6 +77,6 @@ void MOS6502_CMP_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CMP_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformCMP(memory, cpu, MOS6502_AddressingMode::Indirect_Y);
+void MOS6502_CMP_INDY(MOS6502 &cpu) {
+    PerformCMP(cpu, MOS6502_AddressingMode::Indirect_Y);
 }

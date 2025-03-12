@@ -17,7 +17,7 @@ public:
         cyclesExpected = 10;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(stackLSB, *lsb);
@@ -41,4 +41,3 @@ TEST_F(I8080_POPFixture, POP_CanPOPH) {
 TEST_F(I8080_POPFixture, POP_CanPOPPSW) {
     POP_CanPOP(POP_PSW, &cpu.A, (BYTE*)&cpu.Status);
 }
-

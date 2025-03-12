@@ -24,7 +24,7 @@ FORCE_INLINE void PerformT(const BYTE sourceRegister, BYTE &destinationRegister,
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TAX_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TAX_IMPL(MOS6502 &cpu) {
     PerformT(cpu.A, cpu.X, cpu);
 }
 
@@ -37,7 +37,7 @@ void MOS6502_TAX_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TXA_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TXA_IMPL(MOS6502 &cpu) {
     PerformT(cpu.X, cpu.A, cpu);
 }
 
@@ -50,7 +50,7 @@ void MOS6502_TXA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TAY_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TAY_IMPL(MOS6502 &cpu) {
     PerformT(cpu.A, cpu.Y, cpu);
 }
 
@@ -63,7 +63,7 @@ void MOS6502_TAY_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TYA_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TYA_IMPL(MOS6502 &cpu) {
     PerformT(cpu.Y, cpu.A, cpu);
 }
 
@@ -76,7 +76,7 @@ void MOS6502_TYA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TSX_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TSX_IMPL(MOS6502 &cpu) {
     PerformT(cpu.SP, cpu.X, cpu);
 }
 
@@ -88,7 +88,7 @@ void MOS6502_TSX_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_TXS_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_TXS_IMPL(MOS6502 &cpu) {
     cpu.SP = cpu.X;
     cpu.cycles++;
 }

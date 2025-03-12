@@ -22,9 +22,9 @@ FORCE_INLINE void PerformRegToRegMOV(I8080 &cpu, BYTE &destRegister, const BYTE 
  * @param cpu I8080 struct instance.
  * @param destRegister Destination register.
  */
-FORCE_INLINE void PerformMemToRegMOV(Memory &memory, I8080 &cpu, BYTE &destRegister) {
+FORCE_INLINE void PerformMemToRegMOV(I8080 &cpu, BYTE &destRegister) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    destRegister = cpu.ReadByte(memory, memoryAddress);
+    destRegister = cpu.ReadByte(memoryAddress);
 }
 
 /**
@@ -35,7 +35,7 @@ FORCE_INLINE void PerformMemToRegMOV(Memory &memory, I8080 &cpu, BYTE &destRegis
  * @param cpu I8080 struct instance.
  * @param srcRegister Source register.
  */
-FORCE_INLINE void PerformRegToMemMOV(Memory &memory, I8080 &cpu, const BYTE &srcRegister) {
+FORCE_INLINE void PerformRegToMemMOV(I8080 &cpu, const BYTE &srcRegister) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    cpu.WriteByte(memory, srcRegister, memoryAddress);
+    cpu.WriteByte(srcRegister, memoryAddress);
 }

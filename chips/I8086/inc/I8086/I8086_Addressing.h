@@ -12,10 +12,10 @@ public:
 };
 
 template<typename T>
-using OperandSetter = void (*)(I8086 &, Memory &, const void *, T);
+using OperandSetter = void (*)(I8086 &, const void *, T);
 
 template<typename T>
-using OperandGetter = T(*)(I8086 &, Memory &, const void *);
+using OperandGetter = T(*)(I8086 &, const void *);
 
 struct ModRegByte {
     union {

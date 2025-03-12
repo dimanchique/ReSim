@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
-    cpu.PC = cpu.FetchWord(memory);
+void MOS6502_JMP_ABS(MOS6502 &cpu) {
+    cpu.PC = cpu.FetchWord();
 }
 
 /**
@@ -19,9 +19,9 @@ void MOS6502_JMP_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
-    const WORD targetAddress = cpu.FetchWord(memory);
-    cpu.PC = cpu.ReadWord(memory, targetAddress);
+void MOS6502_JMP_IND(MOS6502 &cpu) {
+    const WORD targetAddress = cpu.FetchWord();
+    cpu.PC = cpu.ReadWord(targetAddress);
 }
 
 /**
@@ -32,9 +32,9 @@ void MOS6502_JMP_IND(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
-    const WORD targetAddress = cpu.FetchWord(memory);
-    cpu.PushProgramCounterToStack(memory);
+void MOS6502_JSR_ABS(MOS6502 &cpu) {
+    const WORD targetAddress = cpu.FetchWord();
+    cpu.PushProgramCounterToStack();
     cpu.PC = targetAddress;
     cpu.cycles++;
 }
@@ -47,8 +47,8 @@ void MOS6502_JSR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PC = cpu.PopAddressFromStack(memory);
+void MOS6502_RTS_IMPL(MOS6502 &cpu) {
+    cpu.PC = cpu.PopAddressFromStack();
     cpu.cycles++;
 }
 
@@ -62,10 +62,10 @@ void MOS6502_RTS_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BRK_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PushProgramCounterToStack(memory);
-    cpu.PushStatusToStack(memory);
-    cpu.PC = cpu.ReadWord(memory, 0xFFFE);
+void MOS6502_BRK_IMPL(MOS6502 &cpu) {
+    cpu.PushProgramCounterToStack();
+    cpu.PushStatusToStack();
+    cpu.PC = cpu.ReadWord(0xFFFE);
     cpu.Status.B = true;
     cpu.cycles--; // temporary fix extra cycle
 }
@@ -79,9 +79,9 @@ void MOS6502_BRK_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_RTI_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PopStatusFromStack(memory);
-    cpu.PC = cpu.PopAddressFromStack(memory);
+void MOS6502_RTI_IMPL(MOS6502 &cpu) {
+    cpu.PopStatusFromStack();
+    cpu.PC = cpu.PopAddressFromStack();
     cpu.Status.B = false;
     cpu.cycles--; // temporary fix extra cycle
 }

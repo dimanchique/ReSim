@@ -14,7 +14,7 @@ TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_1) {
     cyclesExpected = 16;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(0x22, cpu.L);
@@ -34,11 +34,10 @@ TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_2) {
     cyclesExpected = 16;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(0xFF, cpu.L);
     EXPECT_EQ(0x03, cpu.H);
     CheckCyclesCount();
 }
-

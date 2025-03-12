@@ -11,9 +11,9 @@
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  */
-FORCE_INLINE void PerformST(Memory &memory, MOS6502 &cpu, const BYTE &targetRegister, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross) {
-    const WORD targetAddress = cpu.GetAddressingModeAddress(memory, addressing, shouldCheckPageCross);
-    cpu.WriteByte(memory, targetRegister, targetAddress);
+FORCE_INLINE void PerformST(MOS6502 &cpu, const BYTE &targetRegister, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross) {
+    const WORD targetAddress = cpu.GetAddressingModeAddress(addressing, shouldCheckPageCross);
+    cpu.WriteByte(targetRegister, targetAddress);
 }
 
 /**
@@ -25,8 +25,8 @@ FORCE_INLINE void PerformST(Memory &memory, MOS6502 &cpu, const BYTE &targetRegi
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  */
-FORCE_INLINE void PerformSTA(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
-    PerformST(memory, cpu, cpu.A, addressing, shouldCheckPageCross);
+FORCE_INLINE void PerformSTA(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
+    PerformST(cpu, cpu.A, addressing, shouldCheckPageCross);
 }
 
 
@@ -40,8 +40,8 @@ FORCE_INLINE void PerformSTA(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  * @param targetRegister Register to store from.
  */
-FORCE_INLINE void PerformSTX(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
-    PerformST(memory, cpu, cpu.X, addressing, shouldCheckPageCross);
+FORCE_INLINE void PerformSTX(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
+    PerformST(cpu, cpu.X, addressing, shouldCheckPageCross);
 }
 
 
@@ -55,6 +55,6 @@ FORCE_INLINE void PerformSTX(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  * @param targetRegister Register to store from.
  */
-FORCE_INLINE void PerformSTY(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
-    PerformST(memory, cpu, cpu.Y, addressing, shouldCheckPageCross);
+FORCE_INLINE void PerformSTY(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
+    PerformST(cpu, cpu.Y, addressing, shouldCheckPageCross);
 }

@@ -18,7 +18,7 @@ FORCE_INLINE void PerformCL(MOS6502 &cpu, const BYTE statusFlag) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CLC_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLC_IMPL(MOS6502 &cpu) {
     PerformCL(cpu, MOS6502_Status_C);
 }
 
@@ -28,7 +28,7 @@ void MOS6502_CLC_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CLD_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLD_IMPL(MOS6502 &cpu) {
     PerformCL(cpu, MOS6502_Status_D);
 }
 
@@ -38,7 +38,7 @@ void MOS6502_CLD_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CLI_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLI_IMPL(MOS6502 &cpu) {
     PerformCL(cpu, MOS6502_Status_I);
 }
 
@@ -48,6 +48,6 @@ void MOS6502_CLI_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CLV_IMPL(Memory &memory, MOS6502 &cpu) {
+void MOS6502_CLV_IMPL(MOS6502 &cpu) {
     PerformCL(cpu, MOS6502_Status_V);
 }

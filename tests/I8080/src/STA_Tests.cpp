@@ -13,7 +13,7 @@ public:
         cyclesExpected = 13;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[memoryAddress], cpu.A);
@@ -29,7 +29,7 @@ public:
         cyclesExpected = 7;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[memoryAddress], cpu.A);

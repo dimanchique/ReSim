@@ -10,9 +10,8 @@ TEST_F(I8080_NOPFixture, NOP_CanTakeCycles) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
 }
-

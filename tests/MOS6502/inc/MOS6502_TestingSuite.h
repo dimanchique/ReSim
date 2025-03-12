@@ -2,18 +2,22 @@
 #include <gtest/gtest.h>
 #include "MOS6502/MOS6502_OpCodes.h"
 #include "MOS6502/MOS6502.h"
-#include "base/memory.h"
+#include "memory.h"
 
 class MOS6502_TestFixture : public testing::Test {
 public:
     Memory mem{64};
     MOS6502 cpu{};
+    Bus bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;
 
     void SetUp() override {
-        cpu.Reset(mem);
+        mem.Reset();
+        cpu.Reset();
+        cpu.SetBusInstance(&bus);
+        cpu.GetBus()->SetBusRegion(0x0000, 0xFFFF, &mem);
     }
 
     void TearDown() override {

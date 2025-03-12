@@ -7,9 +7,9 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_LHLD(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord(memory);
-    const WORD memoryValue = cpu.ReadWord(memory, memoryAddress);
+void I8080_LHLD(I8080 &cpu) {
+    const WORD memoryAddress = cpu.FetchWord();
+    const WORD memoryValue = cpu.ReadWord(memoryAddress);
     cpu.L = memoryValue & 0xFF;
     cpu.H = (memoryValue >> 8) & 0xFF;
 }

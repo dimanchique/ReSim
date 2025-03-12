@@ -11,8 +11,8 @@
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformBIT(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
-    const BYTE mask = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformBIT(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
+    const BYTE mask = cpu.GetAddressingModeValue(addressing);
 
     const BYTE value = cpu.A & mask;
     cpu.Status.Z = value == 0;
@@ -26,8 +26,8 @@ FORCE_INLINE void PerformBIT(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BIT_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformBIT(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_BIT_ZP(MOS6502 &cpu) {
+    PerformBIT(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -36,6 +36,6 @@ void MOS6502_BIT_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BIT_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformBIT(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_BIT_ABS(MOS6502 &cpu) {
+    PerformBIT(cpu, MOS6502_AddressingMode::Absolute);
 }

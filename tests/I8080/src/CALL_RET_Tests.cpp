@@ -13,7 +13,7 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturn) {
     cyclesExpected = 17 + 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0003);
@@ -35,7 +35,7 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturnMultipleTimes) {
     cyclesExpected = 17 + 10 + 17 + 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0003);
@@ -57,7 +57,7 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturnMultipleTimesInARow) {
     cyclesExpected = 17 + 10 + 17 + 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0006);

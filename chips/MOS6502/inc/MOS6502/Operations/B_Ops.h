@@ -10,8 +10,8 @@
  * @param checkFlag Status flag to check.
  * @param expectedValue Expected value of status flag.
  */
-FORCE_INLINE void PerformB(Memory &memory, MOS6502 &cpu, const BYTE checkFlag, const bool expectedValue) {
-    const SBYTE offset = (SBYTE)cpu.FetchByte(memory);
+FORCE_INLINE void PerformB(MOS6502 &cpu, const BYTE checkFlag, const bool expectedValue) {
+    const SBYTE offset = (SBYTE)cpu.FetchByte();
     if (checkFlag == expectedValue) {
         cpu.cycles++;
         if (IsPageCrossed(cpu.PC, cpu.PC + offset))
@@ -28,8 +28,8 @@ FORCE_INLINE void PerformB(Memory &memory, MOS6502 &cpu, const BYTE checkFlag, c
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BCC_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.C, false);
+void MOS6502_BCC_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.C, false);
 }
 
 /**
@@ -40,8 +40,8 @@ void MOS6502_BCC_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BCS_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.C, true);
+void MOS6502_BCS_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.C, true);
 }
 
 /**
@@ -52,8 +52,8 @@ void MOS6502_BCS_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BEQ_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.Z, true);
+void MOS6502_BEQ_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.Z, true);
 }
 
 /**
@@ -64,8 +64,8 @@ void MOS6502_BEQ_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BNE_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.Z, false);
+void MOS6502_BNE_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.Z, false);
 }
 
 /**
@@ -76,8 +76,8 @@ void MOS6502_BNE_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BMI_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.N, true);
+void MOS6502_BMI_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.N, true);
 }
 
 /**
@@ -88,8 +88,8 @@ void MOS6502_BMI_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BPL_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.N, false);
+void MOS6502_BPL_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.N, false);
 }
 
 /**
@@ -100,8 +100,8 @@ void MOS6502_BPL_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BVC_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.V, false);
+void MOS6502_BVC_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.V, false);
 }
 
 /**
@@ -112,6 +112,6 @@ void MOS6502_BVC_REL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_BVS_REL(Memory &memory, MOS6502 &cpu) {
-    PerformB(memory, cpu, cpu.Status.V, true);
+void MOS6502_BVS_REL(MOS6502 &cpu) {
+    PerformB(cpu, cpu.Status.V, true);
 }

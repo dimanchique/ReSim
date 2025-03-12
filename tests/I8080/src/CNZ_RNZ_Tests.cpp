@@ -23,7 +23,7 @@ public:
         mem[targetPC] = STOP_OPCODE;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.PC, targetPC);

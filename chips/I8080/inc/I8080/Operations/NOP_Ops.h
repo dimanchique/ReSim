@@ -8,4 +8,4 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_NOP(Memory &memory, I8080 &cpu) {}
+void I8080_NOP(I8080 &cpu) {}

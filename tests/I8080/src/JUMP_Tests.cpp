@@ -12,7 +12,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJump) {
     cyclesExpected = 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x3C00);
@@ -32,7 +32,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJumpMultipleTimes) {
     cyclesExpected = 10 + 10;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x0004);

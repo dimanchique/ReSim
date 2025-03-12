@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SHLD(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord(memory);
+void I8080_SHLD(I8080 &cpu) {
+    const WORD memoryAddress = cpu.FetchWord();
     const WORD storeValue = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    cpu.WriteWord(memory, storeValue, memoryAddress);
+    cpu.WriteWord(storeValue, memoryAddress);
 }

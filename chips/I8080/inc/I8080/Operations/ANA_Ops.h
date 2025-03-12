@@ -19,7 +19,7 @@ FORCE_INLINE void PerformANA(I8080 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_A(Memory &memory, I8080 &cpu) {
+void I8080_ANA_A(I8080 &cpu) {
     PerformANA(cpu, cpu.A);
 }
 
@@ -29,7 +29,7 @@ void I8080_ANA_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_B(Memory &memory, I8080 &cpu) {
+void I8080_ANA_B(I8080 &cpu) {
     PerformANA(cpu, cpu.B);
 }
 
@@ -39,7 +39,7 @@ void I8080_ANA_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_C(Memory &memory, I8080 &cpu) {
+void I8080_ANA_C(I8080 &cpu) {
     PerformANA(cpu, cpu.C);
 }
 
@@ -49,7 +49,7 @@ void I8080_ANA_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_D(Memory &memory, I8080 &cpu) {
+void I8080_ANA_D(I8080 &cpu) {
     PerformANA(cpu, cpu.D);
 }
 
@@ -59,7 +59,7 @@ void I8080_ANA_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_E(Memory &memory, I8080 &cpu) {
+void I8080_ANA_E(I8080 &cpu) {
     PerformANA(cpu, cpu.E);
 }
 
@@ -69,7 +69,7 @@ void I8080_ANA_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_H(Memory &memory, I8080 &cpu) {
+void I8080_ANA_H(I8080 &cpu) {
     PerformANA(cpu, cpu.H);
 }
 
@@ -79,7 +79,7 @@ void I8080_ANA_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_L(Memory &memory, I8080 &cpu) {
+void I8080_ANA_L(I8080 &cpu) {
     PerformANA(cpu, cpu.L);
 }
 
@@ -89,8 +89,8 @@ void I8080_ANA_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ANA_M(Memory &memory, I8080 &cpu) {
+void I8080_ANA_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE value = cpu.ReadByte(memory, memoryAddress);
+    const BYTE value = cpu.ReadByte(memoryAddress);
     PerformANA(cpu, value);
 }

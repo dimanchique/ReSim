@@ -1,7 +1,7 @@
 #include "I8086/I8086.h"
 #include "I8086/I8086_OpHelpers.h"
 
-void I8086::Reset(Memory &memory) noexcept {
+void I8086::Reset() noexcept {
     PC = 0x0000;
     CS = 0xFFFF;
     DS = 0x0000;
@@ -11,16 +11,18 @@ void I8086::Reset(Memory &memory) noexcept {
 
     // Accumulator and general-purpose registers are not defined after reset and may contain arbitrary values.
     cycles = 0;
-
-    memory.Reset();
 }
 
-U32 I8086::Run(Memory &memory) {
+bool I8086::Step() {
+    const BYTE opCode = Fetch<BYTE>();
+    return DecodeInstruction(opCode, *this);
+}
+
+U32 I8086::Run() {
     bool decodeSuccess;
 
     do {
-        const BYTE opCode = Fetch<BYTE>(memory);
-        decodeSuccess = DecodeInstruction(opCode, memory, *this);
+        decodeSuccess = Step();
     } while (decodeSuccess);
 
     cycles -= 3;    // revert false fetch cycles

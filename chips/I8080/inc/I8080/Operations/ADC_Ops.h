@@ -25,7 +25,7 @@ FORCE_INLINE void PerformAddWithCarry(I8080 &cpu, const BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_A(Memory &memory, I8080 &cpu) {
+void I8080_ADC_A(I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     const WORD addResult = (cpu.A << 1) + cpu.Status.C;
     const BYTE cachedCarry = cpu.Status.C;
@@ -41,7 +41,7 @@ void I8080_ADC_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_B(Memory &memory, I8080 &cpu) {
+void I8080_ADC_B(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.B);
 }
 
@@ -51,7 +51,7 @@ void I8080_ADC_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_C(Memory &memory, I8080 &cpu) {
+void I8080_ADC_C(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.C);
 }
 
@@ -61,7 +61,7 @@ void I8080_ADC_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_D(Memory &memory, I8080 &cpu) {
+void I8080_ADC_D(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.D);
 }
 
@@ -71,7 +71,7 @@ void I8080_ADC_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_E(Memory &memory, I8080 &cpu) {
+void I8080_ADC_E(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.E);
 }
 
@@ -81,7 +81,7 @@ void I8080_ADC_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_H(Memory &memory, I8080 &cpu) {
+void I8080_ADC_H(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.H);
 }
 
@@ -91,7 +91,7 @@ void I8080_ADC_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_L(Memory &memory, I8080 &cpu) {
+void I8080_ADC_L(I8080 &cpu) {
     PerformAddWithCarry(cpu, cpu.L);
 }
 
@@ -101,9 +101,9 @@ void I8080_ADC_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADC_M(Memory &memory, I8080 &cpu) {
+void I8080_ADC_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE addValue = cpu.ReadByte(memory, memoryAddress);
+    const BYTE addValue = cpu.ReadByte(memoryAddress);
     PerformAddWithCarry(cpu, addValue);
 }
 
@@ -113,7 +113,7 @@ void I8080_ADC_M(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ACI(Memory &memory, I8080 &cpu) {
-    const BYTE addValue = cpu.FetchByte(memory);
+void I8080_ACI(I8080 &cpu) {
+    const BYTE addValue = cpu.FetchByte();
     PerformAddWithCarry(cpu, addValue);
 }

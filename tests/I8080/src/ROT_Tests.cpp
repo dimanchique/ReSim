@@ -16,19 +16,19 @@ public:
         cyclesExpected = 4;
 
         const BYTE newCarry = direction == RotateDirection::LEFT ?
-                        (value >> 7) & 1 :
-                        value & 1;
+                              (value >> 7) & 1 :
+                              value & 1;
 
         const BYTE carryBit = throughCarry ?
-                cpu.Status.C :
-                newCarry;
+                              cpu.Status.C :
+                              newCarry;
 
         const BYTE newA = direction == RotateDirection::LEFT ?
-               BYTE(value << 1) | carryBit :
-               BYTE(value >> 1) | (carryBit << 7);
+                          BYTE(value << 1) | carryBit :
+                          BYTE(value >> 1) | (carryBit << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, newA);

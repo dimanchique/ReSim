@@ -10,7 +10,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE &des
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(destRegister, value);
@@ -28,7 +28,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE &des
     cyclesExpected = 7;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(destRegister, value);
@@ -45,7 +45,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes opcode, const WOR
     cyclesExpected = 7;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[destMemoryAddress], value);
@@ -61,7 +61,7 @@ void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes opcode){
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
     const uint64_t postSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers again
 
     // then:

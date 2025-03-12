@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_PHA_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PushByteToStack(memory, cpu.A);
+void MOS6502_PHA_IMPL(MOS6502 &cpu) {
+    cpu.PushByteToStack(cpu.A);
 }
 
 /**
@@ -20,8 +20,8 @@ void MOS6502_PHA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_PLA_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.A = cpu.PopByteFromStack(memory);
+void MOS6502_PLA_IMPL(MOS6502 &cpu) {
+    cpu.A = cpu.PopByteFromStack();
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
 }
 
@@ -32,8 +32,8 @@ void MOS6502_PLA_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_PHP_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PushStatusToStack(memory);
+void MOS6502_PHP_IMPL(MOS6502 &cpu) {
+    cpu.PushStatusToStack();
 }
 
 /**
@@ -44,6 +44,6 @@ void MOS6502_PHP_IMPL(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_PLP_IMPL(Memory &memory, MOS6502 &cpu) {
-    cpu.PopStatusFromStack(memory);
+void MOS6502_PLP_IMPL(MOS6502 &cpu) {
+    cpu.PopStatusFromStack();
 }

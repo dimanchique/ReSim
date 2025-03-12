@@ -14,7 +14,7 @@ public:
         cyclesExpected = 2;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         CheckCyclesCount();
@@ -163,7 +163,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ZP_CanSubtractValue) {
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -187,7 +187,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ZPX_CanSubtractValue) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -211,7 +211,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABS_CanSubtractValue) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -236,7 +236,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSX_CanSubtractValue) {
     cyclesExpected = IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -261,7 +261,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSY_CanSubtractValue) {
     cyclesExpected = IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -288,7 +288,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDX_CanSubtractValue) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -314,7 +314,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
@@ -340,7 +340,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue_WithExtraCycleOnPageCrossin
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);

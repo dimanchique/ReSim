@@ -13,7 +13,7 @@ public:
         cyclesExpected = 2;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, BYTE(value << 1));
@@ -32,7 +32,7 @@ public:
         cyclesExpected = 5;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[0x0042], BYTE(value << 1));
@@ -52,7 +52,7 @@ public:
         cyclesExpected = 6;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[(mem[0xFF01] + cpu.X) & 0xFF], BYTE(value << 1));
@@ -72,7 +72,7 @@ public:
         cyclesExpected = 6;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[0x4480], BYTE(value << 1));
@@ -95,7 +95,7 @@ public:
         cyclesExpected = 7;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[displacedAddress], BYTE(value << 1));

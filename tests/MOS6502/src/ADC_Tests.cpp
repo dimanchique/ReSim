@@ -15,7 +15,7 @@ public:
         cyclesExpected = 2;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         CheckCyclesCount();
@@ -164,7 +164,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ZP_CanAddValue) {
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -188,7 +188,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ZPX_CanAddValue) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -212,7 +212,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABS_CanAddValue) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -237,7 +237,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABSX_CanAddValue) {
     cyclesExpected = IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -262,7 +262,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABSY_CanAddValue) {
     cyclesExpected = IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -289,7 +289,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDX_CanAddValue) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -315,7 +315,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDY_CanAddValue) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);
@@ -341,7 +341,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDY_CanAddValue_WithExtraCycleOnPageCrossing) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x44);

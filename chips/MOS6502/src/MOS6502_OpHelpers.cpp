@@ -28,9 +28,9 @@
 #include "MOS6502/Operations/ADC_Ops.h"
 #include "MOS6502/Operations/SBC_Ops.h"
 
-static void MOS6502_INVALID_OP(Memory&, MOS6502&) {}
+static void MOS6502_INVALID_OP(MOS6502&) {}
 
-using OpSignature = void (*)(Memory&, MOS6502&);
+using OpSignature = void (*)(MOS6502&);
 
 /** Instructions lookup table */
 constexpr static OpSignature Ops[] =
@@ -42,10 +42,10 @@ constexpr static OpSignature Ops[] =
 #endif
         };
 
-bool DecodeInstruction(const BYTE opcode, Memory &memory, MOS6502 &cpu) {
+bool DecodeInstruction(const BYTE opcode, MOS6502 &cpu) {
     const auto &instruction = Ops[opcode];
     if(opcode == STOP_OPCODE || instruction == MOS6502_INVALID_OP)
         return false;
-    instruction(memory, cpu);
+    instruction(cpu);
     return true;
 }

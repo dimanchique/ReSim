@@ -13,7 +13,7 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DAA(Memory &memory, I8080 &cpu) {
+void I8080_DAA(I8080 &cpu) {
     BYTE slice = cpu.A & 0xF;
     if (slice > 9 || cpu.Status.AC)
     {

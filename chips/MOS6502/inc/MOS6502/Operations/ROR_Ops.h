@@ -10,15 +10,15 @@
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  */
-FORCE_INLINE void PerformROR(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
-    const WORD address = cpu.GetAddressingModeAddress(memory, addressing, shouldCheckPageCross);
+FORCE_INLINE void PerformROR(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
+    const WORD address = cpu.GetAddressingModeAddress(addressing, shouldCheckPageCross);
 
-    BYTE memoryValue = cpu.ReadByte(memory, address);
+    BYTE memoryValue = cpu.ReadByte(address);
     const bool carry = memoryValue & 1;
     memoryValue >>= 1;
     memoryValue |= cpu.Status.C << 7;
     cpu.cycles++;
-    cpu.WriteByte(memory, memoryValue, address);
+    cpu.WriteByte(memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.C = carry;
 }
@@ -29,7 +29,7 @@ FORCE_INLINE void PerformROR(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ROR_ACC(Memory &memory, MOS6502 &cpu) {
+void MOS6502_ROR_ACC(MOS6502 &cpu) {
     const bool carry = cpu.A & 1;
     cpu.A >>= 1;
     cpu.A |= cpu.Status.C << 7;
@@ -44,8 +44,8 @@ void MOS6502_ROR_ACC(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ROR_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformROR(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_ROR_ZP(MOS6502 &cpu) {
+    PerformROR(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -54,8 +54,8 @@ void MOS6502_ROR_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ROR_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformROR(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_ROR_ZPX(MOS6502 &cpu) {
+    PerformROR(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -64,8 +64,8 @@ void MOS6502_ROR_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformROR(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_ROR_ABS(MOS6502 &cpu) {
+    PerformROR(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -74,6 +74,6 @@ void MOS6502_ROR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ROR_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformROR(memory, cpu, MOS6502_AddressingMode::Absolute_X, false);
+void MOS6502_ROR_ABSX(MOS6502 &cpu) {
+    PerformROR(cpu, MOS6502_AddressingMode::Absolute_X, false);
 }

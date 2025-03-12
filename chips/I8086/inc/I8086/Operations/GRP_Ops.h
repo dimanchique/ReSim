@@ -10,16 +10,16 @@
 #include "INC_DEC_Ops.h"
 
 template<typename T>
-using GRP_CallbackSignature = void (*)(I8086&, Memory&, const ModRegByte&);
+using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
 
 template<typename T>
-void GRP_InvalidCall(I8086&, Memory&, const ModRegByte&) {
+void GRP_InvalidCall(I8086&, const ModRegByte&) {
     throw InvalidInstruction();
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP1_Ex_Ix(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -33,20 +33,20 @@ FORCE_INLINE void I8086_GRP1_Ex_Ix(Memory &memory, I8086 &cpu) {
             &GRP_InvalidCall<T>     // 111 -> CMP
     };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP1_Eb_Ib(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP1_Ex_Ix<BYTE>(memory, cpu);
+void I8086_GRP1_Eb_Ib(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP1_Ex_Ix<BYTE>(cpu);
 }
 
-void I8086_GRP1_Ev_Iv(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP1_Ex_Ix<WORD>(memory, cpu);
+void I8086_GRP1_Ev_Iv(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP1_Ex_Ix<WORD>(cpu);
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP2_Ex_1(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP2_Ex_1(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -60,20 +60,20 @@ FORCE_INLINE void I8086_GRP2_Ex_1(Memory &memory, I8086 &cpu) {
             &SAR_ByOne<T>           // 111 -> SAR
     };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP2_Eb_1(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP2_Ex_1<BYTE>(memory, cpu);
+void I8086_GRP2_Eb_1(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP2_Ex_1<BYTE>(cpu);
 }
 
-void I8086_GRP2_Ev_1(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP2_Ex_1<WORD>(memory, cpu);
+void I8086_GRP2_Ev_1(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP2_Ex_1<WORD>(cpu);
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP2_Ex_CL(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP2_Ex_CL(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -87,20 +87,20 @@ FORCE_INLINE void I8086_GRP2_Ex_CL(Memory &memory, I8086 &cpu) {
             &SAR_ByCL<T>            // 111 -> SAR
     };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP2_Eb_CL(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP2_Ex_CL<BYTE>(memory, cpu);
+void I8086_GRP2_Eb_CL(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP2_Ex_CL<BYTE>(cpu);
 }
 
-void I8086_GRP2_Ev_CL(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP2_Ex_CL<WORD>(memory, cpu);
+void I8086_GRP2_Ev_CL(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP2_Ex_CL<WORD>(cpu);
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP3x_Ex(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP3x_Ex(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -114,20 +114,20 @@ FORCE_INLINE void I8086_GRP3x_Ex(Memory &memory, I8086 &cpu) {
             &GRP_InvalidCall<T>             // 111 -> IDIV
     };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP3a_Eb(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP3x_Ex<BYTE>(memory, cpu);
+void I8086_GRP3a_Eb(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP3x_Ex<BYTE>(cpu);
 }
 
-void I8086_GRP3b_Ev(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP3x_Ex<WORD>(memory, cpu);
+void I8086_GRP3b_Ev(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP3x_Ex<WORD>(cpu);
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP4_Ex(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP4_Ex(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -141,16 +141,16 @@ FORCE_INLINE void I8086_GRP4_Ex(Memory &memory, I8086 &cpu) {
         &GRP_InvalidCall<T>,    // 111 -> INVALID
 };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP4_Eb(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP4_Ex<BYTE>(memory, cpu);
+void I8086_GRP4_Eb(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP4_Ex<BYTE>(cpu);
 }
 
 template<typename T>
-FORCE_INLINE void I8086_GRP5_Ex(Memory &memory, I8086 &cpu) {
-    const BYTE modByte = cpu.Fetch<BYTE>(memory);
+FORCE_INLINE void I8086_GRP5_Ex(I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
@@ -164,9 +164,9 @@ FORCE_INLINE void I8086_GRP5_Ex(Memory &memory, I8086 &cpu) {
         &GRP_InvalidCall<T>,    // 111 -> INVALID
 };
 
-    callMap[modReg.reg](cpu, memory, modReg);
+    callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP5_Ev(BYTE OpCode, Memory &memory, I8086 &cpu) {
-    I8086_GRP5_Ex<WORD>(memory, cpu);
+void I8086_GRP5_Ev(BYTE OpCode, I8086 &cpu) {
+    I8086_GRP5_Ex<WORD>(cpu);
 }

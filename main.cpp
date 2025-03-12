@@ -16,6 +16,6 @@ int main(int argc, char** argv) {
     memory[2] = 0x00;
     memory[3] = 0x09;
 
-    cpu.Run(memory);
+    cpu.Run();
     return 0;
 }

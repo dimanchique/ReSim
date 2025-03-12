@@ -12,7 +12,7 @@ public:
         cyclesExpected = 10;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(targetRegisterPtr, 0x0103);
@@ -35,4 +35,3 @@ TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueH) {
 TEST_F(I8080_LXIFixture, LXI_CanLoadImidiateValueSP) {
     LXI_CanLoadImmediateValue(LXI_SP, cpu.SP);
 }
-

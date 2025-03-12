@@ -13,7 +13,7 @@ void MOS6502_DECFixture::DEC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memo
     cyclesExpected = offsetValueRegister ? 6 : 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_NE(mem[0x42 + offsetValueRegister], memoryValue);
@@ -38,7 +38,7 @@ void MOS6502_DECFixture::DEC_ABS_CanAffectValue(MOS6502_OpCodes opcode, BYTE mem
     cyclesExpected = opcode == DEC_ABSX ? 7 : 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_NE(mem[displacedAddress], memoryValue);
@@ -58,7 +58,7 @@ void MOS6502_DECFixture::DEC_IMPL_CanAffectValue(MOS6502_OpCodes opcode, BYTE &t
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_NE(targetRegister, initialValue);

@@ -9,8 +9,8 @@
  * @param cpu I8080 struct instance.
  * @param memoryAddress Memory location to store Accumulator.
  */
-FORCE_INLINE void PerformSTA(Memory &memory, I8080 &cpu, const WORD memoryAddress) {
-    cpu.WriteByte(memory, cpu.A, memoryAddress);
+FORCE_INLINE void PerformSTA(I8080 &cpu, const WORD memoryAddress) {
+    cpu.WriteByte(cpu.A, memoryAddress);
 }
 
 /**
@@ -19,9 +19,9 @@ FORCE_INLINE void PerformSTA(Memory &memory, I8080 &cpu, const WORD memoryAddres
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_STA(Memory &memory, I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord(memory);
-    PerformSTA(memory, cpu, memoryAddress);
+void I8080_STA(I8080 &cpu) {
+    const WORD memoryAddress = cpu.FetchWord();
+    PerformSTA(cpu, memoryAddress);
 }
 
 /**
@@ -30,9 +30,9 @@ void I8080_STA(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_STAX_B(Memory &memory, I8080 &cpu) {
+void I8080_STAX_B(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.B, cpu.C);
-    PerformSTA(memory, cpu, memoryAddress);
+    PerformSTA(cpu, memoryAddress);
 }
 
 /**
@@ -41,7 +41,7 @@ void I8080_STAX_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_STAX_D(Memory &memory, I8080 &cpu) {
+void I8080_STAX_D(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.D, cpu.E);
-    PerformSTA(memory, cpu, memoryAddress);
+    PerformSTA(cpu, memoryAddress);
 }

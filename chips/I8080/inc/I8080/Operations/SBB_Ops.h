@@ -29,7 +29,7 @@ FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_A(Memory &memory, I8080 &cpu) {
+void I8080_SBB_A(I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     const WORD subResult = (WORD)cpu.A + (~cpu.A + 1 + cpu.Status.C);
     cpu.Status.C = ((subResult & 0x0100) != 0);
@@ -44,7 +44,7 @@ void I8080_SBB_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_B(Memory &memory, I8080 &cpu) {
+void I8080_SBB_B(I8080 &cpu) {
     PerformSBB(cpu, cpu.B);
 }
 
@@ -54,7 +54,7 @@ void I8080_SBB_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_C(Memory &memory, I8080 &cpu) {
+void I8080_SBB_C(I8080 &cpu) {
     PerformSBB(cpu, cpu.C);
 }
 
@@ -64,7 +64,7 @@ void I8080_SBB_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_D(Memory &memory, I8080 &cpu) {
+void I8080_SBB_D(I8080 &cpu) {
     PerformSBB(cpu, cpu.D);
 }
 
@@ -74,7 +74,7 @@ void I8080_SBB_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_E(Memory &memory, I8080 &cpu) {
+void I8080_SBB_E(I8080 &cpu) {
     PerformSBB(cpu, cpu.E);
 }
 
@@ -84,7 +84,7 @@ void I8080_SBB_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_H(Memory &memory, I8080 &cpu) {
+void I8080_SBB_H(I8080 &cpu) {
     PerformSBB(cpu, cpu.H);
 }
 
@@ -94,7 +94,7 @@ void I8080_SBB_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_L(Memory &memory, I8080 &cpu) {
+void I8080_SBB_L(I8080 &cpu) {
     PerformSBB(cpu, cpu.L);
 }
 
@@ -104,9 +104,9 @@ void I8080_SBB_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBB_M(Memory &memory, I8080 &cpu) {
+void I8080_SBB_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE subValue = cpu.ReadByte(memory, memoryAddress);
+    const BYTE subValue = cpu.ReadByte(memoryAddress);
     PerformSBB(cpu, subValue);
 }
 
@@ -116,7 +116,7 @@ void I8080_SBB_M(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SBI(Memory &memory, I8080 &cpu) {
-    const BYTE subValue = cpu.FetchByte(memory);
+void I8080_SBI(I8080 &cpu) {
+    const BYTE subValue = cpu.FetchByte();
     PerformSBB(cpu, subValue);
 }

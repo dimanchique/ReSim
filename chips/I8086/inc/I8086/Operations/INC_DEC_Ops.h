@@ -9,17 +9,17 @@ namespace INC_DEC {
     using CallbackSignature = T(I8086&, T);
 
     template<typename T>
-    FORCE_INLINE void INC_DEC(I8086& cpu, Memory& memory, const ModRegByte& modReg, CallbackSignature<T> *callback) {
+    FORCE_INLINE void INC_DEC(I8086& cpu, const ModRegByte& modReg, CallbackSignature<T> *callback) {
         InstructionResult<T> instructionResult{};
         const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
-        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(memory, opSize, InstructionDirection::MemReg_Imm, modReg);
+        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
 
         if (instructionData.leftOp.type == OperandType::Reg && std::is_same_v<T, WORD>)
             throw InvalidInstruction();
 
-        const T operand = instructionData.singleOp.get(cpu, memory, &instructionData.singleOp.operand);
+        const T operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
         T opRes = callback(cpu, operand);
-        instructionData.singleOp.set(cpu, memory, &instructionData.singleOp.operand, opRes);
+        instructionData.singleOp.set(cpu, &instructionData.singleOp.operand, opRes);
     }
 
     FORCE_INLINE void INC_DEC(I8086& cpu, const BYTE regIdx, CallbackSignature<WORD> *callback) {
@@ -50,23 +50,23 @@ T PerformDEC(I8086& cpu, T value) {
 }
 
 template<typename T>
-void INC_GRP4_Eb(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, memory, modReg, &PerformINC);
+void INC_GRP4_Eb(I8086& cpu, const ModRegByte& modReg) {
+    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformINC);
 }
 
 template<typename T>
-void DEC_GRP4_Eb(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, memory, modReg, &PerformDEC);
+void DEC_GRP4_Eb(I8086& cpu, const ModRegByte& modReg) {
+    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformDEC);
 }
 
 template<typename T>
-void INC_GRP5_Ev(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, memory, modReg, &PerformINC);
+void INC_GRP5_Ev(I8086& cpu, const ModRegByte& modReg) {
+    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformINC);
 }
 
 template<typename T>
-void DEC_GRP5_Ev(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, memory, modReg, &PerformDEC);
+void DEC_GRP5_Ev(I8086& cpu, const ModRegByte& modReg) {
+    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformDEC);
 }
 
 // Word Register Inc/Dec 0x40 + Reg
@@ -75,35 +75,35 @@ void I8086_INC_WORD(const BYTE OpCode, I8086 &cpu) {
     INC_DEC::INC_DEC(cpu, OpCode - INC_AX, &PerformINC);
 }
 
-void I8086_INC_AX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_AX(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_CX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_CX(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_DX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_DX(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_BX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_BX(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_SP(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_SP(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_BP(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_BP(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_SI(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_SI(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
-void I8086_INC_DI(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_INC_DI(BYTE OpCode, I8086 &cpu) {
     I8086_INC_WORD(OpCode, cpu);
 }
 
@@ -111,34 +111,34 @@ void I8086_DEC_WORD(const BYTE OpCode, I8086 &cpu) {
     INC_DEC::INC_DEC(cpu, OpCode - DEC_AX, &PerformDEC);
 }
 
-void I8086_DEC_AX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_AX(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_CX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_CX(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_DX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_DX(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_BX(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_BX(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_SP(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_SP(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_BP(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_BP(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_SI(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_SI(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }
 
-void I8086_DEC_DI(BYTE OpCode, Memory &memory, I8086 &cpu) {
+void I8086_DEC_DI(BYTE OpCode, I8086 &cpu) {
     I8086_DEC_WORD(OpCode, cpu);
 }

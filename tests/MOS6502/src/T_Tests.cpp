@@ -11,7 +11,7 @@ void MOS6502_TFixture::T_IMPL_CanTransferValue(MOS6502_OpCodes opcode, BYTE &sou
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(destinationRegister, sourceRegister);

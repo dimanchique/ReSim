@@ -14,11 +14,11 @@
  * @param isConditional Whether instruction is conditional or not (default false).
  * @param conditionFlag Condition flag value if instruction is conditional (default false).
  */
-FORCE_INLINE void PerformCall(Memory &memory, I8080 &cpu, const bool isConditional = false, const bool conditionFlag = false) {
-    const WORD newPC = cpu.FetchWord(memory);
+FORCE_INLINE void PerformCall(I8080 &cpu, const bool isConditional = false, const bool conditionFlag = false) {
+    const WORD newPC = cpu.FetchWord();
     // isConditional is normally false (by default), and we need to do CALL, but if it's not - check conditionFlag first
     if (!isConditional || conditionFlag) {
-        cpu.PushProgramCounterToStack(memory);
+        cpu.PushProgramCounterToStack();
         cpu.PC = newPC;
     }
     if (isConditional)
@@ -32,8 +32,8 @@ FORCE_INLINE void PerformCall(Memory &memory, I8080 &cpu, const bool isCondition
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CALL(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu);
+void I8080_CALL(I8080 &cpu) {
+    PerformCall(cpu);
 }
 
 /**
@@ -42,8 +42,8 @@ void I8080_CALL(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CC(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, cpu.Status.C);
+void I8080_CC(I8080 &cpu) {
+    PerformCall(cpu, true, cpu.Status.C);
 }
 
 /**
@@ -52,8 +52,8 @@ void I8080_CC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CNC(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, !cpu.Status.C);
+void I8080_CNC(I8080 &cpu) {
+    PerformCall(cpu, true, !cpu.Status.C);
 }
 
 /**
@@ -62,8 +62,8 @@ void I8080_CNC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CM(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, cpu.Status.S);
+void I8080_CM(I8080 &cpu) {
+    PerformCall(cpu, true, cpu.Status.S);
 }
 
 /**
@@ -72,8 +72,8 @@ void I8080_CM(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CP(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, !cpu.Status.S);
+void I8080_CP(I8080 &cpu) {
+    PerformCall(cpu, true, !cpu.Status.S);
 }
 
 /**
@@ -82,8 +82,8 @@ void I8080_CP(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CZ(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, cpu.Status.Z);
+void I8080_CZ(I8080 &cpu) {
+    PerformCall(cpu, true, cpu.Status.Z);
 }
 
 /**
@@ -92,8 +92,8 @@ void I8080_CZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CNZ(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, !cpu.Status.Z);
+void I8080_CNZ(I8080 &cpu) {
+    PerformCall(cpu, true, !cpu.Status.Z);
 }
 
 /**
@@ -102,8 +102,8 @@ void I8080_CNZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CPE(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, cpu.Status.P);
+void I8080_CPE(I8080 &cpu) {
+    PerformCall(cpu, true, cpu.Status.P);
 }
 
 /**
@@ -112,6 +112,6 @@ void I8080_CPE(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CPO(Memory &memory, I8080 &cpu) {
-    PerformCall(memory, cpu, true, !cpu.Status.P);
+void I8080_CPO(I8080 &cpu) {
+    PerformCall(cpu, true, !cpu.Status.P);
 }

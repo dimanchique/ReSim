@@ -18,8 +18,6 @@ add_subdirectory(chips)
 
 if(RESIM_BUILD_TESTING)
     add_subdirectory(tests)
-    
-    # Enable CTest testing suit at global point
     enable_testing()
 endif()
 

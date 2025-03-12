@@ -10,8 +10,8 @@
  * @param targetRegister Register to compare with.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformCM(Memory &memory, MOS6502 &cpu, const BYTE &targetRegister, const MOS6502_AddressingMode addressing) {
-    const BYTE memoryValue = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformCM(MOS6502 &cpu, const BYTE &targetRegister, const MOS6502_AddressingMode addressing) {
+    const BYTE memoryValue = cpu.GetAddressingModeValue(addressing);
 
     const BYTE compareResult = targetRegister - memoryValue;
     cpu.Status.UpdateStatusByValue(compareResult, MOS6502_Status_Z | MOS6502_Status_N);
@@ -26,8 +26,8 @@ FORCE_INLINE void PerformCM(Memory &memory, MOS6502 &cpu, const BYTE &targetRegi
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformCMP(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformCM(memory, cpu, cpu.A, addressing);
+FORCE_INLINE void PerformCMP(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformCM(cpu, cpu.A, addressing);
 }
 
 /**
@@ -38,8 +38,8 @@ FORCE_INLINE void PerformCMP(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformCPX(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformCM(memory, cpu, cpu.X, addressing);
+FORCE_INLINE void PerformCPX(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformCM(cpu, cpu.X, addressing);
 }
 
 /**
@@ -50,6 +50,6 @@ FORCE_INLINE void PerformCPX(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformCPY(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformCM(memory, cpu, cpu.Y, addressing);
+FORCE_INLINE void PerformCPY(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformCM(cpu, cpu.Y, addressing);
 }

@@ -10,8 +10,8 @@
  * @param targetRegister Register to load to.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformLD(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, const MOS6502_AddressingMode addressing) {
-    const BYTE value = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformLD(MOS6502 &cpu, BYTE &targetRegister, const MOS6502_AddressingMode addressing) {
+    const BYTE value = cpu.GetAddressingModeValue(addressing);
 
     targetRegister = value;
     cpu.Status.UpdateStatusByValue(targetRegister, MOS6502_Status_Z | MOS6502_Status_N);
@@ -25,8 +25,8 @@ FORCE_INLINE void PerformLD(Memory &memory, MOS6502 &cpu, BYTE &targetRegister, 
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformLDA(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformLD(memory, cpu, cpu.A, addressing);
+FORCE_INLINE void PerformLDA(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformLD(cpu, cpu.A, addressing);
 }
 
 /**
@@ -37,8 +37,8 @@ FORCE_INLINE void PerformLDA(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformLDX(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformLD(memory, cpu, cpu.X, addressing);
+FORCE_INLINE void PerformLDX(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformLD(cpu, cpu.X, addressing);
 }
 
 /**
@@ -49,6 +49,6 @@ FORCE_INLINE void PerformLDX(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformLDY(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing){
-    PerformLD(memory, cpu, cpu.Y, addressing);
+FORCE_INLINE void PerformLDY(MOS6502 &cpu, const MOS6502_AddressingMode addressing){
+    PerformLD(cpu, cpu.Y, addressing);
 }

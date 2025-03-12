@@ -14,7 +14,7 @@ void MOS6502_BFixture::B_REL_CanBranch(MOS6502_OpCodes opcode, BYTE targetStatus
     cyclesExpected = 2 + 1 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x15);
@@ -33,7 +33,7 @@ void MOS6502_BFixture::B_REL_CannotBranch(MOS6502_OpCodes opcode, BYTE targetSta
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x4002);
@@ -54,7 +54,7 @@ void MOS6502_BFixture::B_REL_CanBranch_WithPageCrossing(MOS6502_OpCodes opcode, 
     cyclesExpected = 2 + 2 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x15);

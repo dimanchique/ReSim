@@ -12,7 +12,7 @@ public:
         cyclesExpected = 16;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[memoryAddress], cpu.L);
@@ -28,4 +28,3 @@ TEST_F(I8080_SHLDFixture, SHLD_CanStoreHL_1) {
 TEST_F(I8080_SHLDFixture, SHLD_CanStoreHL_2) {
     SHLD_CanStoreHL(0xAE29, 0x010A);
 }
-

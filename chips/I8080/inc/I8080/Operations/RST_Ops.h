@@ -11,8 +11,8 @@
  * @param cpu I8080 struct instance.
  * @param resetVector Reset Vector.
  */
-FORCE_INLINE void PerformRST(Memory &memory, I8080 &cpu, const BYTE resetVector) {
-    cpu.PushProgramCounterToStack(memory);
+FORCE_INLINE void PerformRST(I8080 &cpu, const BYTE resetVector) {
+    cpu.PushProgramCounterToStack();
     cpu.PC = (WORD)(resetVector << 3);
 }
 
@@ -22,8 +22,8 @@ FORCE_INLINE void PerformRST(Memory &memory, I8080 &cpu, const BYTE resetVector)
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_0(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b000);
+void I8080_RST_0(I8080 &cpu) {
+    PerformRST(cpu, 0b000);
 }
 
 /**
@@ -32,8 +32,8 @@ void I8080_RST_0(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_1(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b001);
+void I8080_RST_1(I8080 &cpu) {
+    PerformRST(cpu, 0b001);
 }
 
 /**
@@ -42,8 +42,8 @@ void I8080_RST_1(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_2(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b010);
+void I8080_RST_2(I8080 &cpu) {
+    PerformRST(cpu, 0b010);
 }
 
 /**
@@ -52,8 +52,8 @@ void I8080_RST_2(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_3(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b011);
+void I8080_RST_3(I8080 &cpu) {
+    PerformRST(cpu, 0b011);
 }
 
 /**
@@ -62,8 +62,8 @@ void I8080_RST_3(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_4(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b100);
+void I8080_RST_4(I8080 &cpu) {
+    PerformRST(cpu, 0b100);
 }
 
 /**
@@ -72,8 +72,8 @@ void I8080_RST_4(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_5(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b101);
+void I8080_RST_5(I8080 &cpu) {
+    PerformRST(cpu, 0b101);
 }
 
 /**
@@ -82,8 +82,8 @@ void I8080_RST_5(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_6(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b110);
+void I8080_RST_6(I8080 &cpu) {
+    PerformRST(cpu, 0b110);
 }
 
 /**
@@ -92,6 +92,6 @@ void I8080_RST_6(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RST_7(Memory &memory, I8080 &cpu) {
-    PerformRST(memory, cpu, 0b111);
+void I8080_RST_7(I8080 &cpu) {
+    PerformRST(cpu, 0b111);
 }

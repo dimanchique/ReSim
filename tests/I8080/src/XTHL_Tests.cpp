@@ -13,10 +13,9 @@ public:
         cyclesExpected = 18;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
-
         const WORD swappedValueH = cpu.HL;
         const WORD swappedValueStackPointer = *reinterpret_cast<WORD*>(&mem[cpu.SP]);
         EXPECT_NE(swappedValueStackPointer, stackPointerValue);

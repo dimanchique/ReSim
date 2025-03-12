@@ -7,8 +7,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDX_IM(Memory &memory, MOS6502 &cpu) {
-    PerformLDX(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_LDX_IM(MOS6502 &cpu) {
+    PerformLDX(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -17,8 +17,8 @@ void MOS6502_LDX_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDX_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformLDX(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_LDX_ZP(MOS6502 &cpu) {
+    PerformLDX(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -27,8 +27,8 @@ void MOS6502_LDX_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDX_ZPY(Memory &memory, MOS6502 &cpu) {
-    PerformLDX(memory, cpu, MOS6502_AddressingMode::ZeroPage_Y);
+void MOS6502_LDX_ZPY(MOS6502 &cpu) {
+    PerformLDX(cpu, MOS6502_AddressingMode::ZeroPage_Y);
 }
 
 /**
@@ -37,8 +37,8 @@ void MOS6502_LDX_ZPY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDX_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformLDX(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_LDX_ABS(MOS6502 &cpu) {
+    PerformLDX(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -47,6 +47,6 @@ void MOS6502_LDX_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDX_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformLDX(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_LDX_ABSY(MOS6502 &cpu) {
+    PerformLDX(cpu, MOS6502_AddressingMode::Absolute_Y);
 }

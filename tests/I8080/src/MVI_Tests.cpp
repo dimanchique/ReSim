@@ -11,7 +11,7 @@ public:
         cyclesExpected = 7;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(targetRegister, immediateValue);
@@ -28,7 +28,7 @@ public:
         cyclesExpected = 10;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[memoryAddress], immediateValue);

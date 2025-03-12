@@ -20,7 +20,7 @@ public:
         cyclesExpected = executeCyclesExpected;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         // Temporary disabled until cycles counter will be fixed

@@ -9,8 +9,8 @@
  * @param cpu I8080 struct instance.
  * @param targetRegister Register for storing new value.
  */
-FORCE_INLINE void PerformMVI(Memory &memory, I8080 &cpu, BYTE &targetRegister) {
-    const BYTE immediateValue = cpu.FetchByte(memory);
+FORCE_INLINE void PerformMVI(I8080 &cpu, BYTE &targetRegister) {
+    const BYTE immediateValue = cpu.FetchByte();
     targetRegister = immediateValue;
 }
 
@@ -19,8 +19,8 @@ FORCE_INLINE void PerformMVI(Memory &memory, I8080 &cpu, BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_A(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.A);
+void I8080_MVI_A(I8080 &cpu) {
+    PerformMVI(cpu, cpu.A);
 }
 
 /**
@@ -28,8 +28,8 @@ void I8080_MVI_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_B(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.B);
+void I8080_MVI_B(I8080 &cpu) {
+    PerformMVI(cpu, cpu.B);
 }
 
 /**
@@ -37,8 +37,8 @@ void I8080_MVI_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_C(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.C);
+void I8080_MVI_C(I8080 &cpu) {
+    PerformMVI(cpu, cpu.C);
 }
 
 /**
@@ -46,8 +46,8 @@ void I8080_MVI_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_D(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.D);
+void I8080_MVI_D(I8080 &cpu) {
+    PerformMVI(cpu, cpu.D);
 }
 
 /**
@@ -55,8 +55,8 @@ void I8080_MVI_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_E(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.E);
+void I8080_MVI_E(I8080 &cpu) {
+    PerformMVI(cpu, cpu.E);
 }
 
 /**
@@ -64,8 +64,8 @@ void I8080_MVI_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_H(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.H);
+void I8080_MVI_H(I8080 &cpu) {
+    PerformMVI(cpu, cpu.H);
 }
 
 /**
@@ -73,8 +73,8 @@ void I8080_MVI_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_L(Memory &memory, I8080 &cpu) {
-    PerformMVI(memory, cpu, cpu.L);
+void I8080_MVI_L(I8080 &cpu) {
+    PerformMVI(cpu, cpu.L);
 }
 
 /**
@@ -84,8 +84,8 @@ void I8080_MVI_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MVI_M(Memory &memory, I8080 &cpu) {
-    const BYTE immediateValue = cpu.FetchByte(memory);
+void I8080_MVI_M(I8080 &cpu) {
+    const BYTE immediateValue = cpu.FetchByte();
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    cpu.WriteByte(memory, immediateValue, memoryAddress);
+    cpu.WriteByte(immediateValue, memoryAddress);
 }

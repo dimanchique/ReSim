@@ -7,8 +7,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_STA_ZP(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -17,8 +17,8 @@ void MOS6502_STA_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_STA_ZPX(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -27,8 +27,8 @@ void MOS6502_STA_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_STA_ABS(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -37,8 +37,8 @@ void MOS6502_STA_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::Absolute_X, false);
+void MOS6502_STA_ABSX(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::Absolute_X, false);
 }
 
 /**
@@ -47,8 +47,8 @@ void MOS6502_STA_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::Absolute_Y, false);
+void MOS6502_STA_ABSY(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::Absolute_Y, false);
 }
 
 /**
@@ -57,8 +57,8 @@ void MOS6502_STA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_STA_INDX(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -68,7 +68,7 @@ void MOS6502_STA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_STA_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformSTA(memory, cpu, MOS6502_AddressingMode::Indirect_Y, false);
+void MOS6502_STA_INDY(MOS6502 &cpu) {
+    PerformSTA(cpu, MOS6502_AddressingMode::Indirect_Y, false);
     cpu.cycles++; // extra cycle required
 }

@@ -35,7 +35,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_MH) {
     cyclesExpected = 7;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x1234], 0x12);
@@ -52,7 +52,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_ML) {
     cyclesExpected = 7;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x1234], 0x34);

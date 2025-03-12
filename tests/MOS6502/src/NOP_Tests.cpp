@@ -12,9 +12,8 @@ TEST_F(MOS6502_NOPFixture, NOP_IMPL_CanTakeCycles) {
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     CheckCyclesCount();
 }
-

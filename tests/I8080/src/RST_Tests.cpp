@@ -10,7 +10,7 @@ public:
         cyclesExpected = 11;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.PC, (WORD)(address << 3));

@@ -10,8 +10,8 @@
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
-FORCE_INLINE void PerformADC(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
-    const BYTE value = cpu.GetAddressingModeValue(memory, addressing);
+FORCE_INLINE void PerformADC(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
+    const BYTE value = cpu.GetAddressingModeValue(addressing);
 
     const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
     const WORD addRes = cpu.A + value + cpu.Status.C;
@@ -27,8 +27,8 @@ FORCE_INLINE void PerformADC(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_IM(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_ADC_IM(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -37,8 +37,8 @@ void MOS6502_ADC_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_ADC_ZP(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -47,8 +47,8 @@ void MOS6502_ADC_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_ADC_ZPX(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -57,8 +57,8 @@ void MOS6502_ADC_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_ADC_ABS(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -67,8 +67,8 @@ void MOS6502_ADC_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_ADC_ABSX(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -77,8 +77,8 @@ void MOS6502_ADC_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_ADC_ABSY(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -87,8 +87,8 @@ void MOS6502_ADC_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_ADC_INDX(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -97,6 +97,6 @@ void MOS6502_ADC_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_ADC_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformADC(memory, cpu, MOS6502_AddressingMode::Indirect_Y);
+void MOS6502_ADC_INDY(MOS6502 &cpu) {
+    PerformADC(cpu, MOS6502_AddressingMode::Indirect_Y);
 }

@@ -7,8 +7,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CPY_IM(Memory &memory, MOS6502 &cpu) {
-    PerformCPY(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_CPY_IM(MOS6502 &cpu) {
+    PerformCPY(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -17,8 +17,8 @@ void MOS6502_CPY_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CPY_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformCPY(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_CPY_ZP(MOS6502 &cpu) {
+    PerformCPY(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -27,6 +27,6 @@ void MOS6502_CPY_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_CPY_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformCPY(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_CPY_ABS(MOS6502 &cpu) {
+    PerformCPY(cpu, MOS6502_AddressingMode::Absolute);
 }

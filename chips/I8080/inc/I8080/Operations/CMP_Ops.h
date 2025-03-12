@@ -11,7 +11,7 @@
  * @param cpu I8080 struct instance.
  * @param targetRegister Value to compare Accumulator with
  */
-FORCE_INLINE void PerformComparison(Memory &memory, I8080 &cpu, const BYTE &targetRegister) {
+FORCE_INLINE void PerformComparison(I8080 &cpu, const BYTE &targetRegister) {
     const BYTE comparisonResult = cpu.A - targetRegister;
     cpu.Status.UpdateStatusByValue(comparisonResult, I8080_Status_Z | I8080_Status_C);
 }
@@ -22,7 +22,7 @@ FORCE_INLINE void PerformComparison(Memory &memory, I8080 &cpu, const BYTE &targ
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_A(Memory &memory, I8080 &cpu) {
+void I8080_CMP_A(I8080 &cpu) {
     cpu.Status.Z = 1;
     cpu.Status.C = 0;
 }
@@ -32,8 +32,8 @@ void I8080_CMP_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_B(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.B);
+void I8080_CMP_B(I8080 &cpu) {
+    PerformComparison(cpu, cpu.B);
 }
 
 /**
@@ -41,8 +41,8 @@ void I8080_CMP_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_C(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.C);
+void I8080_CMP_C(I8080 &cpu) {
+    PerformComparison(cpu, cpu.C);
 }
 
 /**
@@ -50,8 +50,8 @@ void I8080_CMP_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_D(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.D);
+void I8080_CMP_D(I8080 &cpu) {
+    PerformComparison(cpu, cpu.D);
 }
 
 /**
@@ -59,8 +59,8 @@ void I8080_CMP_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_E(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.E);
+void I8080_CMP_E(I8080 &cpu) {
+    PerformComparison(cpu, cpu.E);
 }
 
 /**
@@ -68,8 +68,8 @@ void I8080_CMP_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_H(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.H);
+void I8080_CMP_H(I8080 &cpu) {
+    PerformComparison(cpu, cpu.H);
 }
 
 /**
@@ -77,8 +77,8 @@ void I8080_CMP_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_L(Memory &memory, I8080 &cpu) {
-    PerformComparison(memory, cpu, cpu.L);
+void I8080_CMP_L(I8080 &cpu) {
+    PerformComparison(cpu, cpu.L);
 }
 
 /**
@@ -87,10 +87,10 @@ void I8080_CMP_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMP_M(Memory &memory, I8080 &cpu) {
+void I8080_CMP_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE cmpValue = cpu.ReadByte(memory, memoryAddress);
-    PerformComparison(memory, cpu, cmpValue);
+    const BYTE cmpValue = cpu.ReadByte(memoryAddress);
+    PerformComparison(cpu, cmpValue);
 }
 
 /**
@@ -98,7 +98,7 @@ void I8080_CMP_M(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CPI(Memory &memory, I8080 &cpu) {
-    const BYTE cmpValue = cpu.FetchByte(memory);
-    PerformComparison(memory, cpu, cmpValue);
+void I8080_CPI(I8080 &cpu) {
+    const BYTE cmpValue = cpu.FetchByte();
+    PerformComparison(cpu, cmpValue);
 }

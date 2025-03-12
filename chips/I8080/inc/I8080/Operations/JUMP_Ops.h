@@ -11,8 +11,8 @@
  * @param cpu I8080 struct instance.
  * @param conditionFlag Condition flag value if instruction is conditional (default true).
  */
-FORCE_INLINE void PerformJump(Memory &memory, I8080 &cpu, const bool conditionFlag = true) {
-    const WORD newPC = cpu.FetchWord(memory);
+FORCE_INLINE void PerformJump(I8080 &cpu, const bool conditionFlag = true) {
+    const WORD newPC = cpu.FetchWord();
     if (conditionFlag)
         cpu.PC = newPC;
 }
@@ -23,8 +23,8 @@ FORCE_INLINE void PerformJump(Memory &memory, I8080 &cpu, const bool conditionFl
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JMP(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu);
+void I8080_JMP(I8080 &cpu) {
+    PerformJump(cpu);
 }
 
 /**
@@ -33,8 +33,8 @@ void I8080_JMP(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JC(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, cpu.Status.C);
+void I8080_JC(I8080 &cpu) {
+    PerformJump(cpu, cpu.Status.C);
 }
 
 /**
@@ -43,8 +43,8 @@ void I8080_JC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JNC(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, !cpu.Status.C);
+void I8080_JNC(I8080 &cpu) {
+    PerformJump(cpu, !cpu.Status.C);
 }
 
 /**
@@ -53,8 +53,8 @@ void I8080_JNC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JM(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, cpu.Status.S);
+void I8080_JM(I8080 &cpu) {
+    PerformJump(cpu, cpu.Status.S);
 }
 
 /**
@@ -63,8 +63,8 @@ void I8080_JM(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JP(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, !cpu.Status.S);
+void I8080_JP(I8080 &cpu) {
+    PerformJump(cpu, !cpu.Status.S);
 }
 
 /**
@@ -73,8 +73,8 @@ void I8080_JP(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JZ(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, cpu.Status.Z);
+void I8080_JZ(I8080 &cpu) {
+    PerformJump(cpu, cpu.Status.Z);
 }
 
 /**
@@ -83,8 +83,8 @@ void I8080_JZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JNZ(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, !cpu.Status.Z);
+void I8080_JNZ(I8080 &cpu) {
+    PerformJump(cpu, !cpu.Status.Z);
 }
 
 /**
@@ -93,8 +93,8 @@ void I8080_JNZ(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JPE(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, cpu.Status.P);
+void I8080_JPE(I8080 &cpu) {
+    PerformJump(cpu, cpu.Status.P);
 }
 
 /**
@@ -103,6 +103,6 @@ void I8080_JPE(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_JPO(Memory &memory, I8080 &cpu) {
-    PerformJump(memory, cpu, !cpu.Status.P);
+void I8080_JPO(I8080 &cpu) {
+    PerformJump(cpu, !cpu.Status.P);
 }

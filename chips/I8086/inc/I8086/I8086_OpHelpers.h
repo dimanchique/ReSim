@@ -3,7 +3,6 @@
 #include "core/types.h"
 
 class I8086;
-struct Memory;
 
 /**
  * @brief Instruction decoder.
@@ -16,4 +15,4 @@ struct Memory;
  * @param cpu I8086 struct instance.
  * @return Decode success status.
  */
-bool DecodeInstruction(BYTE opcode, Memory &memory, I8086 &cpu);
+bool DecodeInstruction(BYTE opcode, I8086 &cpu);

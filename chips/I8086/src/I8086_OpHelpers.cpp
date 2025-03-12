@@ -1,4 +1,4 @@
-#include "base/memory.h"
+#include "memory.h"
 #include "I8086/I8086.h"
 #include "I8086/Operations/NOP_Ops.h"
 #include "I8086/Operations/GRP_Ops.h"
@@ -11,9 +11,9 @@
 #include "I8086/Operations/PUSH_POP_Ops.h"
 #include "I8086/Operations/MOV_Imm_Ops.h"
 
-static void I8086_INVALID_OP(BYTE, Memory&, I8086&) {}
+static void I8086_INVALID_OP(BYTE, I8086&) {}
 
-using OpSignature = void (*)(BYTE, Memory&, I8086&);
+using OpSignature = void (*)(BYTE, I8086&);
 
 /** Instructions lookup table */
 constexpr static OpSignature Ops[] =
@@ -25,10 +25,10 @@ constexpr static OpSignature Ops[] =
 #endif
         };
 
-bool DecodeInstruction(const BYTE opcode, Memory &memory, I8086 &cpu) {
+bool DecodeInstruction(const BYTE opcode, I8086 &cpu) {
     const auto &instruction = Ops[opcode];
     if(opcode == STOP_OPCODE || instruction == I8086_INVALID_OP)
         return false;
-    instruction(opcode, memory, cpu);
+    instruction(opcode, cpu);
     return true;
 }

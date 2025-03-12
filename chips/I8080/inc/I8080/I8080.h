@@ -3,8 +3,8 @@
 #include "I8080_Status.h"
 #include "I8080_OpCodes.h"
 #include "core/macro.h"
-#include "base/compute.h"
-#include "base/memory.h"
+#include "compute.h"
+#include "memory.h"
 #include "function_library/content_manipulation.h"
 
 #define STOP_OPCODE I8080_OpCodes::HLT /**< HALT instruction opcode used to stop execution of finite programs */
@@ -34,9 +34,11 @@ public:
     DECLARE_PAIRED_REG(BYTE, WORD, D, E);   /**< Paired DE Register */
     DECLARE_PAIRED_REG(BYTE, WORD, H, L);   /**< Paired HL Register */
 
-    void Reset(Memory &memory) noexcept override;
+    void Reset() noexcept override;
 
-    U32 Run(Memory &memory) override;
+    U32 Run() override;
+
+    bool Step() override;
 
     /**
      * @brief Fetch byte from memory address PC points to.
@@ -44,8 +46,8 @@ public:
      * @param memory Memory struct instance.
      * @return Fetched byte.
      */
-    FORCE_INLINE BYTE FetchByte(const Memory &memory) {
-        const BYTE Data = memory[PC++];
+    FORCE_INLINE BYTE FetchByte() {
+        const BYTE Data = bus->Read(PC++);
         cycles += 3;
         return Data;
     }
@@ -59,9 +61,9 @@ public:
      * @param memory Memory struct instance.
      * @return Fetched word.
      */
-    FORCE_INLINE WORD FetchWord(const Memory &memory) {
-        const BYTE Lo = FetchByte(memory);
-        const BYTE Hi = FetchByte(memory);
+    FORCE_INLINE WORD FetchWord() {
+        const BYTE Lo = FetchByte();
+        const BYTE Hi = FetchByte();
         return Hi | (Lo << 8);
     }
 
@@ -72,8 +74,8 @@ public:
      * @param address Address to read from.
      * @return Read byte.
      */
-    FORCE_INLINE BYTE ReadByte(const Memory &memory, const WORD address) {
-        const BYTE Data = memory[address];
+    FORCE_INLINE BYTE ReadByte(const WORD address) {
+        const BYTE Data = bus->Read(address);
         cycles += 3;
         return Data;
     }
@@ -88,9 +90,9 @@ public:
      * @param address Address to read from.
      * @return Fetched word.
      */
-    FORCE_INLINE WORD ReadWord(const Memory &memory, const WORD address) {
-        const BYTE Lo = ReadByte(memory, address);
-        const BYTE Hi = ReadByte(memory, address + 1);
+    FORCE_INLINE WORD ReadWord(const WORD address) {
+        const BYTE Lo = ReadByte(address);
+        const BYTE Hi = ReadByte(address + 1);
         return Lo | (Hi << 8);
     }
 
@@ -101,8 +103,8 @@ public:
      * @param value Value to write.
      * @param address Address to write to.
      */
-    FORCE_INLINE void WriteByte(Memory &memory, const BYTE value, const WORD address) {
-        memory[address] = value;
+    FORCE_INLINE void WriteByte(const BYTE value, const WORD address) {
+        bus->Write(address, value);
         cycles += 3;
     }
 
@@ -116,9 +118,9 @@ public:
      * @param value Value to write.
      * @param address Address to write to.
      */
-    FORCE_INLINE void WriteWord(Memory &memory, const WORD value, const WORD address) {
-        WriteByte(memory, value & 0xFF, address);
-        WriteByte(memory, (value >> 8), address + 1);
+    FORCE_INLINE void WriteWord(const WORD value, const WORD address) {
+        WriteByte(value & 0xFF, address);
+        WriteByte((value >> 8), address + 1);
     }
 
     /**
@@ -128,9 +130,9 @@ public:
      * @param lsb Low byte to push.
      * @param msb High byte to push.
      */
-    FORCE_INLINE void PushDataToStack(Memory &memory, const BYTE &lsb, const BYTE &msb) {
-        WriteByte(memory, lsb, --SP);
-        WriteByte(memory, msb, --SP);
+    FORCE_INLINE void PushDataToStack(const BYTE &lsb, const BYTE &msb) {
+        WriteByte(lsb, --SP);
+        WriteByte(msb, --SP);
         cycles++;
     }
 
@@ -139,8 +141,8 @@ public:
      * @note Increments cycles count by 7. Decrements the Stack Pointer by 2.
      * @param memory Memory struct instance.
      */
-    FORCE_INLINE void PushProgramCounterToStack(Memory &memory) {
-        PushDataToStack(memory, (PC >> 8) & 0xFF, PC & 0xFF);
+    FORCE_INLINE void PushProgramCounterToStack() {
+        PushDataToStack((PC >> 8) & 0xFF, PC & 0xFF);
     }
 
     /**
@@ -149,8 +151,8 @@ public:
      * @note Increments cycles count by 3. Increments the Stack Pointer by 2.
      * @param memory Memory struct instance.
      */
-    FORCE_INLINE void PopProgramCounterFromStack(Memory &memory) {
-        PC = ReadWord(memory, SP);
+    FORCE_INLINE void PopProgramCounterFromStack() {
+        PC = ReadWord(SP);
         SP += 2;
     }
 
@@ -162,8 +164,8 @@ public:
      * @param lsb Low byte ref to write-back to.
      * @param msb High byte ref to write-back to.
      */
-    FORCE_INLINE void PopDataFromStack(Memory &memory, BYTE* lsb, BYTE* msb) {
-        *msb = ReadByte(memory, SP++);
-        *lsb = ReadByte(memory, SP++);
+    FORCE_INLINE void PopDataFromStack(BYTE* lsb, BYTE* msb) {
+        *msb = ReadByte(SP++);
+        *lsb = ReadByte(SP++);
     }
 };

@@ -11,7 +11,7 @@ TEST_F(I8080_CMAFixture, CMA_CanComplimentAccumulator) {
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_NE(initialAccumulator, cpu.A);

@@ -14,7 +14,7 @@ TEST_F(MOS6502_JSRFixture, JSR_ABS_CanJump) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x4242);
@@ -35,7 +35,7 @@ TEST_F(MOS6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     cyclesExpected = 6 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x84);
@@ -62,7 +62,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) 
     cyclesExpected = 6 + 6 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -88,7 +88,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -114,7 +114,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x42);
@@ -136,7 +136,7 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJump) {
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0x4242);
@@ -158,7 +158,7 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     cyclesExpected = 3 + 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0xFF03);
@@ -179,7 +179,7 @@ TEST_F(MOS6502_JMPFixture, JMP_IND_CanJump) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.PC, 0xFF03);
@@ -201,7 +201,7 @@ TEST_F(MOS6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
     cyclesExpected = 7 + 2 + 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x80);

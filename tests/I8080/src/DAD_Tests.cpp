@@ -12,7 +12,7 @@ public:
         cyclesExpected = 10;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.H, expectedH);

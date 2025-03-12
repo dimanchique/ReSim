@@ -24,7 +24,7 @@ FORCE_INLINE void PerformDAD(I8080 &cpu, const WORD targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DAD_B(Memory &memory, I8080 &cpu) {
+void I8080_DAD_B(I8080 &cpu) {
     PerformDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.B, cpu.C));
 }
 
@@ -34,7 +34,7 @@ void I8080_DAD_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DAD_D(Memory &memory, I8080 &cpu) {
+void I8080_DAD_D(I8080 &cpu) {
     PerformDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.D, cpu.E));
 }
 
@@ -44,7 +44,7 @@ void I8080_DAD_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DAD_H(Memory &memory, I8080 &cpu) {
+void I8080_DAD_H(I8080 &cpu) {
     PerformDAD(cpu, ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L));
 }
 
@@ -54,6 +54,6 @@ void I8080_DAD_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DAD_SP(Memory &memory, I8080 &cpu) {
+void I8080_DAD_SP(I8080 &cpu) {
     PerformDAD(cpu, cpu.SP);
 }

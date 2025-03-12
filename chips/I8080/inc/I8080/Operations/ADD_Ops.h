@@ -24,7 +24,7 @@ FORCE_INLINE void PerformAdd(I8080 &cpu, const BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_A(Memory &memory, I8080 &cpu) {
+void I8080_ADD_A(I8080 &cpu) {
     const BYTE initialAccumulator = cpu.A;
     const WORD addResult = cpu.A << 1;
     cpu.Status.C = addResult > 0xFF;
@@ -39,7 +39,7 @@ void I8080_ADD_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_B(Memory &memory, I8080 &cpu) {
+void I8080_ADD_B(I8080 &cpu) {
     PerformAdd(cpu, cpu.B);
 }
 
@@ -49,7 +49,7 @@ void I8080_ADD_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_C(Memory &memory, I8080 &cpu) {
+void I8080_ADD_C(I8080 &cpu) {
     PerformAdd(cpu, cpu.C);
 }
 
@@ -59,7 +59,7 @@ void I8080_ADD_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_D(Memory &memory, I8080 &cpu) {
+void I8080_ADD_D(I8080 &cpu) {
     PerformAdd(cpu, cpu.D);
 }
 
@@ -69,7 +69,7 @@ void I8080_ADD_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_E(Memory &memory, I8080 &cpu) {
+void I8080_ADD_E(I8080 &cpu) {
     PerformAdd(cpu, cpu.E);
 }
 
@@ -79,7 +79,7 @@ void I8080_ADD_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_H(Memory &memory, I8080 &cpu) {
+void I8080_ADD_H(I8080 &cpu) {
     PerformAdd(cpu, cpu.H);
 }
 
@@ -89,7 +89,7 @@ void I8080_ADD_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_L(Memory &memory, I8080 &cpu) {
+void I8080_ADD_L(I8080 &cpu) {
     PerformAdd(cpu, cpu.L);
 }
 
@@ -99,9 +99,9 @@ void I8080_ADD_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADD_M(Memory &memory, I8080 &cpu) {
+void I8080_ADD_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE addValue = cpu.ReadByte(memory, memoryAddress);
+    const BYTE addValue = cpu.ReadByte(memoryAddress);
     PerformAdd(cpu, addValue);
 }
 
@@ -111,7 +111,7 @@ void I8080_ADD_M(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_ADI(Memory &memory, I8080 &cpu) {
-    const BYTE addValue = cpu.FetchByte(memory);
+void I8080_ADI(I8080 &cpu) {
+    const BYTE addValue = cpu.FetchByte();
     PerformAdd(cpu, addValue);
 }

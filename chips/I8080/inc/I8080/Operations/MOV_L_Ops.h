@@ -6,7 +6,7 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_A(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_A(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.A);
 }
 
@@ -15,7 +15,7 @@ void I8080_MOV_L_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_B(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_B(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.B);
 }
 
@@ -24,7 +24,7 @@ void I8080_MOV_L_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_C(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_C(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.C);
 }
 
@@ -33,7 +33,7 @@ void I8080_MOV_L_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_D(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_D(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.D);
 }
 
@@ -42,7 +42,7 @@ void I8080_MOV_L_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_E(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_E(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.E);
 }
 
@@ -51,7 +51,7 @@ void I8080_MOV_L_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_H(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_H(I8080 &cpu) {
     PerformRegToRegMOV(cpu, cpu.L, cpu.H);
 }
 
@@ -61,7 +61,7 @@ void I8080_MOV_L_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_L(Memory &memory, I8080 &cpu) {
+void I8080_MOV_L_L(I8080 &cpu) {
     cpu.cycles++; //nop-like
 }
 
@@ -70,6 +70,6 @@ void I8080_MOV_L_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_MOV_L_M(Memory &memory, I8080 &cpu) {
-    PerformMemToRegMOV(memory, cpu, cpu.L);
+void I8080_MOV_L_M(I8080 &cpu) {
+    PerformMemToRegMOV(cpu, cpu.L);
 }

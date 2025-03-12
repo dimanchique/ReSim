@@ -4,22 +4,26 @@
 #include "I8086/I8086_OpCodes.h"
 #include "ModRegConstructor.h"
 #include "I8086/I8086.h"
-#include "base/memory.h"
+#include "memory.h"
 
 class I8086_TestFixture : public testing::Test {
 public:
     Memory mem{1024};
     I8086 cpu{};
+    Bus bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;
     DWORD effectiveAddress;
 
     void SetUp() override {
-        cpu.Reset(mem);
+        mem.Reset();
+        cpu.Reset();
+        cpu.SetBusInstance(&bus);
         cpu.PC = 0x1000;
         cpu.CS = 0x1000;
         effectiveAddress = cpu.PC + (cpu.CS << 4);
+        cpu.GetBus()->SetBusRegion(0x0000, 0xFFFFFFFF, &mem);
     }
 
     void TearDown() override {

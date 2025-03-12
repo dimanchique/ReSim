@@ -13,7 +13,7 @@ class I8086_MOV_Ix_Fixture : public I8086_TestFixture {
             mem[effectiveAddress++] = (immValue >> 8) & 0xFF;
         mem[effectiveAddress] = STOP_OPCODE;
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(*regPtr, immValue);

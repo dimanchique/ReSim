@@ -14,7 +14,7 @@ public:
         cyclesExpected = 4;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, expectedValue);
@@ -39,7 +39,7 @@ public:
         cyclesExpected = cycles;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, expectedValue);

@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_POP_B(Memory &memory, I8080 &cpu) {
-    cpu.PopDataFromStack(memory, &cpu.B, &cpu.C);
+void I8080_POP_B(I8080 &cpu) {
+    cpu.PopDataFromStack(&cpu.B, &cpu.C);
 }
 
 /**
@@ -19,8 +19,8 @@ void I8080_POP_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_POP_D(Memory &memory, I8080 &cpu) {
-    cpu.PopDataFromStack(memory, &cpu.D, &cpu.E);
+void I8080_POP_D(I8080 &cpu) {
+    cpu.PopDataFromStack(&cpu.D, &cpu.E);
 }
 
 /**
@@ -30,8 +30,8 @@ void I8080_POP_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_POP_H(Memory &memory, I8080 &cpu) {
-    cpu.PopDataFromStack(memory, &cpu.H, &cpu.L);
+void I8080_POP_H(I8080 &cpu) {
+    cpu.PopDataFromStack(&cpu.H, &cpu.L);
 }
 
 /**
@@ -41,6 +41,6 @@ void I8080_POP_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_POP_PSW(Memory &memory, I8080 &cpu) {
-    cpu.PopDataFromStack(memory, &cpu.A, (BYTE *) &cpu.Status);
+void I8080_POP_PSW(I8080 &cpu) {
+    cpu.PopDataFromStack(&cpu.A, (BYTE *) &cpu.Status);
 }

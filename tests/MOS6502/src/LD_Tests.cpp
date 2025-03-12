@@ -14,7 +14,7 @@ void MOS6502_LDFixture::LD_IM_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_NE(targetRegister, OldValue);
@@ -33,7 +33,7 @@ void MOS6502_LDFixture::LD_IM_CanAffectZeroFlag(MOS6502_OpCodes opcode) {
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_TRUE(cpu.Status.Z);
@@ -52,7 +52,7 @@ void MOS6502_LDFixture::LD_IM_CanAffectNegativeFlag(MOS6502_OpCodes opcode) {
     cyclesExpected = 2;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_FALSE(cpu.Status.Z);
@@ -72,7 +72,7 @@ void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(targetRegister, 0x37);
@@ -93,7 +93,7 @@ void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(targetRegister, 0x37);
@@ -115,7 +115,7 @@ void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE &target
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(targetRegister, 0x37);
@@ -137,7 +137,7 @@ void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE &target
     cyclesExpected = IsPageCrossed(0x4402 + affectingRegister, 0x4402) ? 5 : 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(targetRegister, 0x37);

@@ -6,11 +6,11 @@ project(
     LANGUAGES CXX
 )
 
-file(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/inc/base/*.h)
-file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/inc/*.h)
 
-add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${HEADERS})
 add_library(ReSim::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/inc)
 

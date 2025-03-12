@@ -7,14 +7,14 @@ namespace ROL_RCL_SAL_SHL {
     using CallbackSignature = T(I8086 &, T, const BYTE *);
 
     template<typename T>
-    FORCE_INLINE void RXL_ByX(I8086 &cpu, Memory &memory, const ModRegByte &modReg, CallbackSignature<T> *callback, BYTE *countPtr = nullptr) {
+    FORCE_INLINE void RXL_ByX(I8086 &cpu, const ModRegByte &modReg, CallbackSignature<T> *callback, BYTE *countPtr = nullptr) {
         InstructionResult<T> instructionResult{};
         const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
-        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(memory, opSize, InstructionDirection::MemReg_Imm, modReg);
+        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
 
-        const T operand = instructionData.singleOp.get(cpu, memory, &instructionData.singleOp.operand);
+        const T operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
         T opRes = callback(cpu, operand, countPtr);
-        instructionData.singleOp.set(cpu, memory, &instructionData.singleOp.operand, opRes);
+        instructionData.singleOp.set(cpu, &instructionData.singleOp.operand, opRes);
     }
 }
 
@@ -75,31 +75,31 @@ T PerformSAL_SHL(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-void ROL_ByOne(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformROL);
+void ROL_ByOne(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformROL);
 }
 
 template<typename T>
-void ROL_ByCL(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformROL, &cpu.CL);
+void ROL_ByCL(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformROL, &cpu.CL);
 }
 
 template<typename T>
-void RCL_ByOne(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformRCL);
+void RCL_ByOne(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformRCL);
 }
 
 template<typename T>
-void RCL_ByCL(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformRCL, &cpu.CL);
+void RCL_ByCL(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformRCL, &cpu.CL);
 }
 
 template<typename T>
-void SAL_SHL_ByOne(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformSAL_SHL);
+void SAL_SHL_ByOne(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformSAL_SHL);
 }
 
 template<typename T>
-void SAL_SHL_ByCL(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, memory, modReg, &PerformSAL_SHL, &cpu.CL);
+void SAL_SHL_ByCL(I8086& cpu, const ModRegByte& modReg) {
+    ROL_RCL_SAL_SHL::RXL_ByX<T>(cpu, modReg, &PerformSAL_SHL, &cpu.CL);
 }

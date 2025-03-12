@@ -11,7 +11,7 @@ public:
         cyclesExpected = 5;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         value -= 1;

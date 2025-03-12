@@ -7,14 +7,14 @@ namespace NOT_NEG {
     using CallbackSignature = T(I8086&, T);
 
     template<typename T>
-    FORCE_INLINE void NOT_NEG(I8086& cpu, Memory& memory, const ModRegByte& modReg, CallbackSignature<T> *callback) {
+    FORCE_INLINE void NOT_NEG(I8086& cpu, const ModRegByte& modReg, CallbackSignature<T> *callback) {
         InstructionResult<T> instructionResult{};
         const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
-        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(memory, opSize, InstructionDirection::MemReg_Imm, modReg);
+        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
 
-        const T operand = instructionData.singleOp.get(cpu, memory, &instructionData.singleOp.operand);
+        const T operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
         T opRes = callback(cpu, operand);
-        instructionData.singleOp.set(cpu, memory, &instructionData.singleOp.operand, opRes);
+        instructionData.singleOp.set(cpu, &instructionData.singleOp.operand, opRes);
     }
 }
 
@@ -36,11 +36,11 @@ T PerformNOT(I8086& cpu, T value) {
 }
 
 template<typename T>
-void I8086_NEG(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    NOT_NEG::NOT_NEG<T>(cpu, memory, modReg, &PerformNEG);
+void I8086_NEG(I8086& cpu, const ModRegByte& modReg) {
+    NOT_NEG::NOT_NEG<T>(cpu, modReg, &PerformNEG);
 }
 
 template<typename T>
-void I8086_NOT(I8086& cpu, Memory& memory, const ModRegByte& modReg) {
-    NOT_NEG::NOT_NEG<T>(cpu, memory, modReg, &PerformNOT);
+void I8086_NOT(I8086& cpu, const ModRegByte& modReg) {
+    NOT_NEG::NOT_NEG<T>(cpu, modReg, &PerformNOT);
 }

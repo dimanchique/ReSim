@@ -8,8 +8,8 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_PUSH_B(Memory &memory, I8080 &cpu) {
-    cpu.PushDataToStack(memory, cpu.B, cpu.C);
+void I8080_PUSH_B(I8080 &cpu) {
+    cpu.PushDataToStack(cpu.B, cpu.C);
 }
 
 /**
@@ -19,8 +19,8 @@ void I8080_PUSH_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_PUSH_D(Memory &memory, I8080 &cpu) {
-    cpu.PushDataToStack(memory, cpu.D, cpu.E);
+void I8080_PUSH_D(I8080 &cpu) {
+    cpu.PushDataToStack(cpu.D, cpu.E);
 }
 
 /**
@@ -30,8 +30,8 @@ void I8080_PUSH_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_PUSH_H(Memory &memory, I8080 &cpu) {
-    cpu.PushDataToStack(memory, cpu.H, cpu.L);
+void I8080_PUSH_H(I8080 &cpu) {
+    cpu.PushDataToStack(cpu.H, cpu.L);
 }
 
 /**
@@ -41,6 +41,6 @@ void I8080_PUSH_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_PUSH_PSW(Memory &memory, I8080 &cpu) {
-    cpu.PushDataToStack(memory, cpu.A, cpu.Status.Value);
+void I8080_PUSH_PSW(I8080 &cpu) {
+    cpu.PushDataToStack(cpu.A, cpu.Status.Value);
 }

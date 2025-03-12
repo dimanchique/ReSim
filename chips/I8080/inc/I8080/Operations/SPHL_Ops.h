@@ -9,7 +9,7 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_SPHL(Memory &memory, I8080 &cpu) {
+void I8080_SPHL(I8080 &cpu) {
     cpu.SP = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
     cpu.cycles++;
 }

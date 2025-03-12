@@ -11,7 +11,7 @@ public:
         cyclesExpected = 5;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.SP, registerValue);
@@ -30,4 +30,3 @@ TEST_F(I8080_SPHLFixture, SPHL_CanLoadSP_2) {
 TEST_F(I8080_SPHLFixture, SPHL_CanLoadSP_3) {
     SPHL_CanLoadSP(0x506C);
 }
-

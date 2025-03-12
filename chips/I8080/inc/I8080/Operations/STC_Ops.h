@@ -8,6 +8,6 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_STC(Memory &memory, I8080 &cpu) {
+void I8080_STC(I8080 &cpu) {
     cpu.Status.C = 1;
 }

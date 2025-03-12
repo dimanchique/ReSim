@@ -13,7 +13,7 @@ public:
         cyclesExpected = 5;
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.PC, targetAddr);
@@ -32,4 +32,3 @@ TEST_F(I8080_PCHLFixture, PCHL_CanLoadPC_2) {
 TEST_F(I8080_PCHLFixture, PCHL_CanLoadPC_3) {
     PCHL_CanLoadPC(0x0A, 0x55);
 }
-

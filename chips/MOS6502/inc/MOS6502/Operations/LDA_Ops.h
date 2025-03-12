@@ -7,8 +7,8 @@
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_IM(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_LDA_IM(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -17,8 +17,8 @@ void MOS6502_LDA_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_LDA_ZP(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -27,8 +27,8 @@ void MOS6502_LDA_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_LDA_ZPX(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -37,8 +37,8 @@ void MOS6502_LDA_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_LDA_ABS(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -47,8 +47,8 @@ void MOS6502_LDA_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_LDA_ABSX(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -57,8 +57,8 @@ void MOS6502_LDA_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_LDA_ABSY(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -67,8 +67,8 @@ void MOS6502_LDA_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_LDA_INDX(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -77,6 +77,6 @@ void MOS6502_LDA_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_LDA_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformLDA(memory, cpu, MOS6502_AddressingMode::Indirect_Y);
+void MOS6502_LDA_INDY(MOS6502 &cpu) {
+    PerformLDA(cpu, MOS6502_AddressingMode::Indirect_Y);
 }

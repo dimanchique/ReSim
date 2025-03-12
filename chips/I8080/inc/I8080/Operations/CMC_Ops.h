@@ -8,6 +8,6 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_CMC(Memory &memory, I8080 &cpu) {
+void I8080_CMC(I8080 &cpu) {
     cpu.Status.C = !cpu.Status.C;
 }

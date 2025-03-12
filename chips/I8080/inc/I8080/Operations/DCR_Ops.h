@@ -21,7 +21,7 @@ FORCE_INLINE void PerformDCR(I8080 &cpu, BYTE &targetRegister) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_A(Memory &memory, I8080 &cpu) {
+void I8080_DCR_A(I8080 &cpu) {
     PerformDCR(cpu, cpu.A);
 }
 
@@ -30,7 +30,7 @@ void I8080_DCR_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_B(Memory &memory, I8080 &cpu) {
+void I8080_DCR_B(I8080 &cpu) {
     PerformDCR(cpu, cpu.B);
 }
 
@@ -39,7 +39,7 @@ void I8080_DCR_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_C(Memory &memory, I8080 &cpu) {
+void I8080_DCR_C(I8080 &cpu) {
     PerformDCR(cpu, cpu.C);
 }
 
@@ -48,7 +48,7 @@ void I8080_DCR_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_D(Memory &memory, I8080 &cpu) {
+void I8080_DCR_D(I8080 &cpu) {
     PerformDCR(cpu, cpu.D);
 }
 
@@ -57,7 +57,7 @@ void I8080_DCR_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_E(Memory &memory, I8080 &cpu) {
+void I8080_DCR_E(I8080 &cpu) {
     PerformDCR(cpu, cpu.E);
 }
 
@@ -66,7 +66,7 @@ void I8080_DCR_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_H(Memory &memory, I8080 &cpu) {
+void I8080_DCR_H(I8080 &cpu) {
     PerformDCR(cpu, cpu.H);
 }
 
@@ -75,7 +75,7 @@ void I8080_DCR_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_L(Memory &memory, I8080 &cpu) {
+void I8080_DCR_L(I8080 &cpu) {
     PerformDCR(cpu, cpu.L);
 }
 
@@ -86,12 +86,12 @@ void I8080_DCR_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_DCR_M(Memory &memory, I8080 &cpu) {
+void I8080_DCR_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    BYTE memoryValue = cpu.ReadByte(memory, memoryAddress);
+    BYTE memoryValue = cpu.ReadByte(memoryAddress);
     const BYTE memoryCopy = memoryValue;
     memoryValue = (BYTE)(memoryValue + 0xFF); // +(-1) is better than -1
-    cpu.WriteByte(memory, memoryValue, memoryAddress);
+    cpu.WriteByte(memoryValue, memoryAddress);
     cpu.Status.UpdateStatusByValue(memoryValue, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(memoryCopy, 0xFF);
 }

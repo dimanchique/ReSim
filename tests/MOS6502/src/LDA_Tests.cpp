@@ -67,7 +67,7 @@ TEST_F(MOS6502_LDAFixture, LDA_INDX_CanLoadValue) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -91,7 +91,7 @@ TEST_F(MOS6502_LDAFixture, LDA_INDY_CanLoadValue) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);
@@ -115,7 +115,7 @@ TEST_F(MOS6502_LDAFixture, LDA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(cpu.A, 0x37);

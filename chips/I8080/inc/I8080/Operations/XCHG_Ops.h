@@ -8,7 +8,7 @@
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XCHG(Memory &memory, I8080 &cpu) {
+void I8080_XCHG(I8080 &cpu) {
     const WORD tmp = cpu.DE;
     cpu.DE = cpu.HL;
     cpu.HL = tmp;

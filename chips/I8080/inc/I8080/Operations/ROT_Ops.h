@@ -43,7 +43,7 @@ FORCE_INLINE void PerformRotateRight(I8080 &cpu, const bool isThroughCarry) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RLC(Memory &memory, I8080 &cpu) {
+void I8080_RLC(I8080 &cpu) {
     PerformRotateLeft(cpu, false);
 }
 
@@ -53,7 +53,7 @@ void I8080_RLC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RRC(Memory &memory, I8080 &cpu) {
+void I8080_RRC(I8080 &cpu) {
     PerformRotateRight(cpu, false);
 }
 
@@ -63,7 +63,7 @@ void I8080_RRC(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RAL(Memory &memory, I8080 &cpu) {
+void I8080_RAL(I8080 &cpu) {
     PerformRotateLeft(cpu, true);
 }
 
@@ -73,6 +73,6 @@ void I8080_RAL(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_RAR(Memory &memory, I8080 &cpu) {
+void I8080_RAR(I8080 &cpu) {
     PerformRotateRight(cpu, true);
 }

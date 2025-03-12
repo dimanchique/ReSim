@@ -16,7 +16,7 @@ public:
         BYTE NewA = BYTE(value >> 1) | (OldCarry << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(cpu.A, NewA);
@@ -39,7 +39,7 @@ public:
         BYTE NewA = BYTE(value >> 1) | (OldCarry << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[0x0042], NewA);
@@ -63,7 +63,7 @@ public:
         BYTE NewA = BYTE(value >> 1) | (OldCarry << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[(mem[0xFF01] + cpu.X) & 0xFF], NewA);
@@ -87,7 +87,7 @@ public:
         BYTE NewA = BYTE(value >> 1) | (OldCarry << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[0x4401], NewA);
@@ -114,7 +114,7 @@ public:
         BYTE NewA = BYTE(value >> 1) | (OldCarry << 7);
 
         // when:
-        cyclesPassed = cpu.Run(mem);
+        cyclesPassed = cpu.Run();
 
         // then:
         EXPECT_EQ(mem[displacedAddress], NewA);

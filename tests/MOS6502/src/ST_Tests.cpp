@@ -13,7 +13,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &source
     cyclesExpected = 3;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x0080], sourceRegister);
@@ -34,7 +34,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &source
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[TargetAddress], sourceRegister);
@@ -55,7 +55,7 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourc
     cyclesExpected = 4;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[0x8000], sourceRegister);
@@ -79,7 +79,7 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourc
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_EQ(mem[displacedAddress], sourceRegister);

@@ -10,8 +10,8 @@
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
  */
-FORCE_INLINE void PerformEOR(Memory &memory, MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
-    const BYTE value = cpu.GetAddressingModeValue(memory, addressing, shouldCheckPageCross);
+FORCE_INLINE void PerformEOR(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true) {
+    const BYTE value = cpu.GetAddressingModeValue(addressing, shouldCheckPageCross);
 
     cpu.A ^= value;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
@@ -23,8 +23,8 @@ FORCE_INLINE void PerformEOR(Memory &memory, MOS6502 &cpu, const MOS6502_Address
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_IM(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Immediate);
+void MOS6502_EOR_IM(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Immediate);
 }
 
 /**
@@ -33,8 +33,8 @@ void MOS6502_EOR_IM(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_ZP(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::ZeroPage);
+void MOS6502_EOR_ZP(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::ZeroPage);
 }
 
 /**
@@ -43,8 +43,8 @@ void MOS6502_EOR_ZP(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_ZPX(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::ZeroPage_X);
+void MOS6502_EOR_ZPX(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::ZeroPage_X);
 }
 
 /**
@@ -53,8 +53,8 @@ void MOS6502_EOR_ZPX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_ABS(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Absolute);
+void MOS6502_EOR_ABS(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Absolute);
 }
 
 /**
@@ -63,8 +63,8 @@ void MOS6502_EOR_ABS(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_ABSX(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Absolute_X);
+void MOS6502_EOR_ABSX(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Absolute_X);
 }
 
 /**
@@ -73,8 +73,8 @@ void MOS6502_EOR_ABSX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_ABSY(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Absolute_Y);
+void MOS6502_EOR_ABSY(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Absolute_Y);
 }
 
 /**
@@ -83,8 +83,8 @@ void MOS6502_EOR_ABSY(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Indirect_X);
+void MOS6502_EOR_INDX(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Indirect_X);
 }
 
 /**
@@ -93,6 +93,6 @@ void MOS6502_EOR_INDX(Memory &memory, MOS6502 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
-void MOS6502_EOR_INDY(Memory &memory, MOS6502 &cpu) {
-    PerformEOR(memory, cpu, MOS6502_AddressingMode::Indirect_Y, false);
+void MOS6502_EOR_INDY(MOS6502 &cpu) {
+    PerformEOR(cpu, MOS6502_AddressingMode::Indirect_Y, false);
 }

@@ -84,7 +84,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDX_CanCompare) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_TRUE(cpu.Status.C);
@@ -108,7 +108,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare) {
     cyclesExpected = 5;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_TRUE(cpu.Status.C);
@@ -132,7 +132,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare_WithExtraCycleOnPageCrossing) {
     cyclesExpected = 6;
 
     // when:
-    cyclesPassed = cpu.Run(mem);
+    cyclesPassed = cpu.Run();
 
     // then:
     EXPECT_TRUE(cpu.Status.C);

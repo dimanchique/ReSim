@@ -36,9 +36,9 @@ FORCE_INLINE void PerformXRA(I8080 &cpu, const BYTE value) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRI(Memory &memory, I8080 &cpu) {
+void I8080_XRI(I8080 &cpu) {
     const BYTE targetCopy = cpu.A;
-    const BYTE memoryValue = cpu.FetchByte(memory);
+    const BYTE memoryValue = cpu.FetchByte();
     cpu.A ^= memoryValue;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
     SetAuxiliaryCarryFlagOfXOR(cpu, targetCopy, cpu.A);
@@ -51,7 +51,7 @@ void I8080_XRI(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_A(Memory &memory, I8080 &cpu) {
+void I8080_XRA_A(I8080 &cpu) {
     PerformXRA(cpu, cpu.A);
 }
 
@@ -62,7 +62,7 @@ void I8080_XRA_A(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_B(Memory &memory, I8080 &cpu) {
+void I8080_XRA_B(I8080 &cpu) {
     PerformXRA(cpu, cpu.B);
 }
 
@@ -73,7 +73,7 @@ void I8080_XRA_B(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_C(Memory &memory, I8080 &cpu) {
+void I8080_XRA_C(I8080 &cpu) {
     PerformXRA(cpu, cpu.C);
 }
 
@@ -84,7 +84,7 @@ void I8080_XRA_C(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_D(Memory &memory, I8080 &cpu) {
+void I8080_XRA_D(I8080 &cpu) {
     PerformXRA(cpu, cpu.D);
 }
 
@@ -95,7 +95,7 @@ void I8080_XRA_D(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_E(Memory &memory, I8080 &cpu) {
+void I8080_XRA_E(I8080 &cpu) {
     PerformXRA(cpu, cpu.E);
 }
 
@@ -106,7 +106,7 @@ void I8080_XRA_E(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_H(Memory &memory, I8080 &cpu) {
+void I8080_XRA_H(I8080 &cpu) {
     PerformXRA(cpu, cpu.H);
 }
 
@@ -117,7 +117,7 @@ void I8080_XRA_H(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_L(Memory &memory, I8080 &cpu) {
+void I8080_XRA_L(I8080 &cpu) {
     PerformXRA(cpu, cpu.L);
 }
 
@@ -128,8 +128,8 @@ void I8080_XRA_L(Memory &memory, I8080 &cpu) {
  * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
-void I8080_XRA_M(Memory &memory, I8080 &cpu) {
+void I8080_XRA_M(I8080 &cpu) {
     const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
-    const BYTE value = cpu.ReadByte(memory, memoryAddress);
+    const BYTE value = cpu.ReadByte(memoryAddress);
     PerformXRA(cpu, value);
 }
