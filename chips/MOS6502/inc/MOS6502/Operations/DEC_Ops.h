@@ -6,7 +6,6 @@
  * @details Subtracts one from the value held at a specified memory location
  * setting the zero and negative flags as appropriate.
  * @short M,Z,N = M-1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -24,7 +23,6 @@ FORCE_INLINE void PerformDEC(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Decrement Memory
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEC_ZP(MOS6502 &cpu) {
@@ -34,7 +32,6 @@ void MOS6502_DEC_ZP(MOS6502 &cpu) {
 /**
  * @brief Decrement Memory
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEC_ZPX(MOS6502 &cpu) {
@@ -44,7 +41,6 @@ void MOS6502_DEC_ZPX(MOS6502 &cpu) {
 /**
  * @brief Decrement Memory
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEC_ABS(MOS6502 &cpu) {
@@ -54,7 +50,6 @@ void MOS6502_DEC_ABS(MOS6502 &cpu) {
 /**
  * @brief Decrement Memory
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEC_ABSX(MOS6502 &cpu) {
@@ -65,7 +60,6 @@ void MOS6502_DEC_ABSX(MOS6502 &cpu) {
  * @brief Decrement X Register
  * @addressing Implied
  * @short X,Z,N = X-1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEX_IMPL(MOS6502 &cpu) {
@@ -78,7 +72,6 @@ void MOS6502_DEX_IMPL(MOS6502 &cpu) {
  * @brief Decrement Y Register
  * @addressing Implied
  * @short Y,Z,N = Y-1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_DEY_IMPL(MOS6502 &cpu) {

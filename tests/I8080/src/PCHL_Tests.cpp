@@ -6,7 +6,7 @@ public:
         // given:
         cpu.H = lsbAddr;
         cpu.L = msbAddr;
-        const WORD targetAddr = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+        const WORD targetAddr = (cpu.H << 8) | cpu.L;
         mem[0x0000] = PCHL;
         mem[targetAddr] = STOP_OPCODE;
 

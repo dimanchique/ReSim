@@ -22,7 +22,6 @@ FORCE_INLINE void PerformAddWithCarry(I8080 &cpu, const BYTE &targetRegister) {
  * @brief Add Accumulator To Accumulator With Carry (special case)
  * @details The content of the Accumulator plus the content of the Carry bit is added to the contents of the Accumulator.
  * @short A,C,Z,S,P,AC = A+Carry+A
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_A(I8080 &cpu) {
@@ -38,7 +37,6 @@ void I8080_ADC_A(I8080 &cpu) {
 /**
  * @brief Add B To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+B
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_B(I8080 &cpu) {
@@ -48,7 +46,6 @@ void I8080_ADC_B(I8080 &cpu) {
 /**
  * @brief Add C To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+C
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_C(I8080 &cpu) {
@@ -58,7 +55,6 @@ void I8080_ADC_C(I8080 &cpu) {
 /**
  * @brief Add D To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+D
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_D(I8080 &cpu) {
@@ -68,7 +64,6 @@ void I8080_ADC_D(I8080 &cpu) {
 /**
  * @brief Add E To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+E
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_E(I8080 &cpu) {
@@ -78,7 +73,6 @@ void I8080_ADC_E(I8080 &cpu) {
 /**
  * @brief Add H To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_H(I8080 &cpu) {
@@ -88,7 +82,6 @@ void I8080_ADC_H(I8080 &cpu) {
 /**
  * @brief Add L To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+L
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_L(I8080 &cpu) {
@@ -98,11 +91,10 @@ void I8080_ADC_L(I8080 &cpu) {
 /**
  * @brief Add Memory To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADC_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     const BYTE addValue = cpu.ReadByte(memoryAddress);
     PerformAddWithCarry(cpu, addValue);
 }
@@ -110,7 +102,6 @@ void I8080_ADC_M(I8080 &cpu) {
 /**
  * @brief Add Immediate To Accumulator With Carry
  * @short A,C,Z,S,P,AC = A+Carry+Memory (immediate value)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ACI(I8080 &cpu) {

@@ -6,7 +6,6 @@
  * @details The 16-bit number held in the specified register pair is decremented by one.
  * @short Register = Register-1
  * @note Condition bits are not affected
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  * @param targetRegister Register to decrement.
  */
@@ -17,7 +16,6 @@ FORCE_INLINE void PerformDCX(I8080 &cpu, WORD &targetRegister) {
 
 /**
  * @brief Decrement BC
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCX_B(I8080 &cpu) {
@@ -26,7 +24,6 @@ void I8080_DCX_B(I8080 &cpu) {
 
 /**
  * @brief Decrement DE
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCX_D(I8080 &cpu) {
@@ -35,7 +32,6 @@ void I8080_DCX_D(I8080 &cpu) {
 
 /**
  * @brief Decrement HL
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCX_H(I8080 &cpu) {
@@ -44,7 +40,6 @@ void I8080_DCX_H(I8080 &cpu) {
 
 /**
  * @brief Decrement SP
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCX_SP(I8080 &cpu) {

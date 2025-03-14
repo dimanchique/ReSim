@@ -4,7 +4,7 @@ class I8080_SPHLFixture : public I8080_TestFixture {
 public:
     void SPHL_CanLoadSP(const WORD registerValue) {
         // given:
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValue, cpu.H, cpu.L);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValue, cpu.H, cpu.L);
         mem[0x0000] = SPHL;
         mem[0x0001] = STOP_OPCODE;
 

@@ -7,10 +7,9 @@
  * of the L register replace the least significant 8 bits of the program counter.
  * This causes program execution to continue at the address contained in the Hand L registers.
  * @short PC = HL
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_PCHL(I8080 &cpu) {
-    cpu.PC = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    cpu.PC = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     cpu.cycles++;
 }

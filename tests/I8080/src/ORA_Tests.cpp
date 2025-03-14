@@ -26,7 +26,7 @@ public:
         mem[destMemoryAddress] = value;
         mem[0x0000] = ORA_M;
         mem[0x0001] = STOP_OPCODE;
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(destMemoryAddress, cpu.H, cpu.L);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(destMemoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 7;
 

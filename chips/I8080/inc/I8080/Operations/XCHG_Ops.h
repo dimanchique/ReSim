@@ -5,7 +5,6 @@
  * @brief Exchange
  * @details Exchange DE register value with HL register value.
  * @short DE <-> HL
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XCHG(I8080 &cpu) {

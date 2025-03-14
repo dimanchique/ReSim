@@ -7,7 +7,6 @@
  * together with the not of the carry bit.
  * If overflow occurs the carry bit is clear, this enables multiple byte subtraction to be performed.
  * @short A,Z,C,N = A-M-(1-C)
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
@@ -25,7 +24,6 @@ FORCE_INLINE void PerformSBC(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Subtract with Carry
  * @addressing Immediate
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_IM(MOS6502 &cpu) {
@@ -45,7 +43,6 @@ void MOS6502_SBC_ZP(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_ZPX(MOS6502 &cpu) {
@@ -55,7 +52,6 @@ void MOS6502_SBC_ZPX(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_ABS(MOS6502 &cpu) {
@@ -65,7 +61,6 @@ void MOS6502_SBC_ABS(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_ABSX(MOS6502 &cpu) {
@@ -75,7 +70,6 @@ void MOS6502_SBC_ABSX(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing Absolute,Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_ABSY(MOS6502 &cpu) {
@@ -85,7 +79,6 @@ void MOS6502_SBC_ABSY(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing (Indirect,X)
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_INDX(MOS6502 &cpu) {
@@ -95,7 +88,6 @@ void MOS6502_SBC_INDX(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing (Indirect),Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_INDY(MOS6502 &cpu) {

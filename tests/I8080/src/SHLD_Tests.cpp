@@ -4,9 +4,9 @@ class I8080_SHLDFixture : public I8080_TestFixture {
 public:
     void SHLD_CanStoreHL(const WORD registerValue, const WORD memoryAddress) {
         // given:
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValue, cpu.H, cpu.L);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValue, cpu.H, cpu.L);
         mem[0x0000] = SHLD;
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(memoryAddress, mem[0x0001], mem[0x0002]);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, mem[0x0001], mem[0x0002]);
         mem[0x0003] = STOP_OPCODE;
 
         cyclesExpected = 16;

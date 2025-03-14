@@ -33,7 +33,6 @@ FORCE_INLINE void PerformXRA(I8080 &cpu, const BYTE value) {
  * @brief XOR Accumulator with Immediate value
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRI(I8080 &cpu) {
@@ -48,7 +47,6 @@ void I8080_XRI(I8080 &cpu) {
  * @brief XOR Accumulator with A
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_A(I8080 &cpu) {
@@ -59,7 +57,6 @@ void I8080_XRA_A(I8080 &cpu) {
  * @brief XOR Accumulator with B
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_B(I8080 &cpu) {
@@ -70,7 +67,6 @@ void I8080_XRA_B(I8080 &cpu) {
  * @brief XOR Accumulator with C
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_C(I8080 &cpu) {
@@ -81,7 +77,6 @@ void I8080_XRA_C(I8080 &cpu) {
  * @brief XOR Accumulator with D
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_D(I8080 &cpu) {
@@ -92,7 +87,6 @@ void I8080_XRA_D(I8080 &cpu) {
  * @brief XOR Accumulator with E
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_E(I8080 &cpu) {
@@ -103,7 +97,6 @@ void I8080_XRA_E(I8080 &cpu) {
  * @brief XOR Accumulator with H
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_H(I8080 &cpu) {
@@ -114,7 +107,6 @@ void I8080_XRA_H(I8080 &cpu) {
  * @brief XOR Accumulator with L
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_L(I8080 &cpu) {
@@ -125,11 +117,10 @@ void I8080_XRA_L(I8080 &cpu) {
  * @brief XOR Accumulator with Memory value
  * @details Exchange HL register value with a stack top value.
  * @short HL <-> memory[SP]
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_XRA_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     const BYTE value = cpu.ReadByte(memoryAddress);
     PerformXRA(cpu, value);
 }

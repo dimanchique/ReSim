@@ -39,9 +39,8 @@ public:
     bool Step() override;
 
     /**
-     * @brief Fetch byte from memory address PC points to.
+     * @brief Fetch byte from a bus using address PC points to.
      * @note Increments PC and cycles count.
-     * @param memory Memory struct instance.
      * @return Fetched byte.
      */
     FORCE_INLINE BYTE FetchByte() {
@@ -51,12 +50,11 @@ public:
     }
 
     /**
-     * @brief Fetch word from memory address PC points to.
+     * @brief Fetch word from a bus using address PC points to.
      * @note Increments PC by 2. Increments cycles count by 2.
      * @attention MOS6502 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @return Fetched word.
      */
     FORCE_INLINE WORD FetchWord() {
@@ -66,9 +64,8 @@ public:
     }
 
     /**
-     * @brief Read byte from memory.
+     * @brief Read byte from a bus.
      * @note Increments cycles count.
-     * @param memory Memory struct instance.
      * @param address Address to read from.
      * @return Read byte.
      */
@@ -79,12 +76,11 @@ public:
     }
 
     /**
-     * @brief Read word from memory.
+     * @brief Read word from a bus.
      * @note Increments cycles count by 2.
      * @attention MOS6502 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @param address Address to read from.
      * @return Fetched word.
      */
@@ -95,9 +91,8 @@ public:
     }
 
     /**
-     * @brief Write a byte to memory.
+     * @brief Write a byte to a bus.
      * @note Increments cycles count.
-     * @param memory Memory struct instance.
      * @param value Value to write.
      * @param address Address to write to.
      */
@@ -107,12 +102,11 @@ public:
     }
 
     /**
-     * @brief Write a word to memory.
+     * @brief Write a word to a bus.
      * @note Increments cycles count by 2.
      * @attention MOS6502 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @param value Value to write.
      * @param address Address to write to.
      */
@@ -124,7 +118,6 @@ public:
     /**
      * @brief Push Program Counter (PC) register value to stack.
      * @see PushWordToStack
-     * @param memory Memory struct instance.
      */
     FORCE_INLINE void PushProgramCounterToStack() {
         PushWordToStack(PC - 1);
@@ -134,7 +127,6 @@ public:
      * @brief Pop an address from stack.
      * @note Increments cycles count by 2. Increments the Stack Pointer by 2.
      * @see PopWordFromStack
-     * @param memory Memory struct instance.
      * @return Popped address.
      */
     FORCE_INLINE WORD PopAddressFromStack() {
@@ -145,7 +137,6 @@ public:
      * @brief Push Status register value to stack.
      * @note Increments cycles count by 2. Decrements the Stack Pointer.
      * @see WriteByte
-     * @param memory Memory struct instance.
      */
     FORCE_INLINE void PushStatusToStack() {
         WriteByte(Status.Value, StackPointerToAddress());
@@ -157,7 +148,6 @@ public:
      * @brief Pop Status register value from the stack.
      * @note Increments cycles count by 3. Increments the Stack Pointer.
      * @see ReadByte
-     * @param memory Memory struct instance.
      */
     FORCE_INLINE void PopStatusFromStack() {
         SP++;
@@ -170,7 +160,6 @@ public:
      * @brief Push a byte to stack.
      * @note Increments cycles count by 2. Decrements the Stack Pointer.
      * @see WriteByte
-     * @param memory Memory struct instance.
      * @param value Value to push to stack.
      */
     FORCE_INLINE void PushByteToStack(const BYTE value) {
@@ -183,7 +172,6 @@ public:
      * @brief Pop a byte from stack.
      * @note Increments cycles count by 3. Increments the Stack Pointer.
      * @see ReadByte
-     * @param memory Memory struct instance.
      * @return Popped value.
      */
     FORCE_INLINE BYTE PopByteFromStack() {
@@ -198,7 +186,6 @@ public:
      * @brief Push a word to stack.
      * @note Increments cycles count by 2. Decrements the Stack Pointer by 2.
      * @see WriteWord
-     * @param memory Memory struct instance.
      * @param value Value to push to stack.
      */
     FORCE_INLINE void PushWordToStack(const WORD value) {
@@ -210,14 +197,12 @@ public:
      * @brief Pop a word from stack.
      * @note Increments cycles count by 4. Increments the Stack Pointer by 2.
      * @see ReadWord
-     * @param memory Memory struct instance.
      * @return Popped value.
      */
     FORCE_INLINE WORD PopWordFromStack() {
         const WORD value = ReadWord(StackPointerToAddress() + 1);
-        cycles++;
+        cycles += 2;
         SP += 2;
-        cycles++;
         return value;
     }
 
@@ -237,7 +222,6 @@ public:
     /**
      * @brief Get address based on given addressing mode
      * @note Offset value is calculating automatically if addressing mode is indexed.
-     * @param memory Memory struct instance.
      * @param addressing MOS6502 Addressing mode.
      * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
      * @return Target address.
@@ -284,7 +268,6 @@ public:
     /**
      * @brief Get value based on given addressing mode
      * @note Offset value is calculating automatically if addressing mode is indexed.
-     * @param memory Memory struct instance.
      * @param addressing MOS6502 Addressing mode.
      * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
      * @return Memory value.
@@ -303,7 +286,6 @@ private:
      * @addressing Zero Page,X
      * Zero Page,Y
      * @see FetchByte
-     * @param memory Memory struct instance.
      * @param offsetValue Address offset value.
      * @return Zero Page Indexed address.
      */
@@ -322,7 +304,6 @@ private:
      * @addressing Absolute,X
      * Absolute,Y
      * @see FetchWord
-     * @param memory Memory struct instance.
      * @param offsetValue Address offset value.
      * @return Absolute Indexed address.
      */
@@ -344,7 +325,6 @@ private:
      * @addressing (Indirect,X)
      * @see FetchByte
      * @see ReadWord
-     * @param memory Memory struct instance.
      * @return (Indirect,X) address.
      */
     FORCE_INLINE WORD GetIndXAddress() {
@@ -363,7 +343,6 @@ private:
      * @addressing (Indirect),Y
      * @see FetchByte
      * @see ReadWord
-     * @param memory Memory struct instance.
      * @return (Indirect),Y address.
      */
     FORCE_INLINE WORD GetIndYAddress(bool shouldCheckPageCross = true) {

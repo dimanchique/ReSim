@@ -5,7 +5,6 @@
  * @brief Increment Memory Implementation
  * @details Adds one to the value held at a specified memory location setting the zero and negative flags as appropriate.
  * @short M,Z,N = M+1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -23,7 +22,6 @@ FORCE_INLINE void PerformINC(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Increment Memory
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INC_ZP(MOS6502 &cpu) {
@@ -33,7 +31,6 @@ void MOS6502_INC_ZP(MOS6502 &cpu) {
 /**
  * @brief Increment Memory
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INC_ZPX(MOS6502 &cpu) {
@@ -43,7 +40,6 @@ void MOS6502_INC_ZPX(MOS6502 &cpu) {
 /**
  * @brief Increment Memory
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INC_ABS(MOS6502 &cpu) {
@@ -53,7 +49,6 @@ void MOS6502_INC_ABS(MOS6502 &cpu) {
 /**
  * @brief Increment Memory
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INC_ABSX(MOS6502 &cpu) {
@@ -64,7 +59,6 @@ void MOS6502_INC_ABSX(MOS6502 &cpu) {
  * @brief Increment X Register
  * @addressing Implied
  * @short X,Z,N = X+1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INX_IMPL(MOS6502 &cpu) {
@@ -77,7 +71,6 @@ void MOS6502_INX_IMPL(MOS6502 &cpu) {
  * @brief Increment Y Register
  * @addressing Implied
  * @short Y,Z,N = Y+1
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_INY_IMPL(MOS6502 &cpu) {

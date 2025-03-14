@@ -4,7 +4,6 @@
 /**
  * @brief Store Accumulator
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_ZP(MOS6502 &cpu) {
@@ -14,7 +13,6 @@ void MOS6502_STA_ZP(MOS6502 &cpu) {
 /**
  * @brief Store Accumulator
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_ZPX(MOS6502 &cpu) {
@@ -24,7 +22,6 @@ void MOS6502_STA_ZPX(MOS6502 &cpu) {
 /**
  * @brief Store Accumulator
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_ABS(MOS6502 &cpu) {
@@ -34,7 +31,6 @@ void MOS6502_STA_ABS(MOS6502 &cpu) {
 /**
  * @brief Store Accumulator
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_ABSX(MOS6502 &cpu) {
@@ -44,7 +40,6 @@ void MOS6502_STA_ABSX(MOS6502 &cpu) {
 /**
  * @brief Store Accumulator
  * @addressing Absolute,Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_ABSY(MOS6502 &cpu) {
@@ -54,7 +49,6 @@ void MOS6502_STA_ABSY(MOS6502 &cpu) {
 /**
  * @brief Store Accumulator
  * @addressing (Indirect,X)
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_INDX(MOS6502 &cpu) {
@@ -65,7 +59,6 @@ void MOS6502_STA_INDX(MOS6502 &cpu) {
  * @brief Store Accumulator
  * @addressing (Indirect),Y
  * @todo fix cycles count mismatch
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_STA_INDY(MOS6502 &cpu) {

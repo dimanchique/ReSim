@@ -23,7 +23,6 @@ FORCE_INLINE void PerformSUB(I8080 &cpu, const BYTE &targetRegister) {
  * @brief Subtract Accumulator From Accumulator (special case)
  * @details The two's compliment content of the Accumulator plus the content of the Carry bit is subtracted from the contents of the Accumulator.
  * @short A,C,Z,S,P,AC = A+(-A)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_A(I8080 &cpu) {
@@ -37,7 +36,6 @@ void I8080_SUB_A(I8080 &cpu) {
 /**
  * @brief Subtract B From Accumulator
  * @short A,C,Z,S,P,AC = A+(-B)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_B(I8080 &cpu) {
@@ -47,7 +45,6 @@ void I8080_SUB_B(I8080 &cpu) {
 /**
  * @brief Subtract C From Accumulator
  * @short A,C,Z,S,P,AC = A+(-C)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_C(I8080 &cpu) {
@@ -57,7 +54,6 @@ void I8080_SUB_C(I8080 &cpu) {
 /**
  * @brief Subtract D From Accumulator
  * @short A,C,Z,S,P,AC = A+(-D)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_D(I8080 &cpu) {
@@ -67,7 +63,6 @@ void I8080_SUB_D(I8080 &cpu) {
 /**
  * @brief Subtract E From Accumulator
  * @short A,C,Z,S,P,AC = A+(-E)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_E(I8080 &cpu) {
@@ -77,7 +72,6 @@ void I8080_SUB_E(I8080 &cpu) {
 /**
  * @brief Subtract H From Accumulator
  * @short A,C,Z,S,P,AC = A+(-H)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_H(I8080 &cpu) {
@@ -87,7 +81,6 @@ void I8080_SUB_H(I8080 &cpu) {
 /**
  * @brief Subtract L From Accumulator
  * @short A,C,Z,S,P,AC = A+(-L)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_L(I8080 &cpu) {
@@ -97,11 +90,10 @@ void I8080_SUB_L(I8080 &cpu) {
 /**
  * @brief Subtract Memory From Accumulator
  * @short A,C,Z,S,P,AC = A+(-Memory)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUB_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     const BYTE subValue = cpu.ReadByte(memoryAddress);
     PerformSUB(cpu, subValue);
 }
@@ -109,7 +101,6 @@ void I8080_SUB_M(I8080 &cpu) {
 /**
  * @brief Subtract Immediate From Accumulator
  * @short A,C,Z,S,P,AC = A+(-Memory) (immediate value)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SUI(I8080 &cpu) {

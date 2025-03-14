@@ -24,7 +24,7 @@
 - [ ] DI - Disable Interrupts
 - [ ] EI - Enable Interrupts
 - [ ] HLT - Halt CPU
-- [ ] IN - Input data to accumulator from outcome device
+- [x] IN - Input data to accumulator from outcome device
 - [x] INR - Increment Register or Memory
 - [x] INX - Increment Register Pair
 - [x] JMP - Jump
@@ -45,7 +45,7 @@
 - [x] NOP - No operation
 - [x] ORA - Logical OR Register or Memory with Accumulator
 - [x] ORI - Logical OR Immediate Data with Accumulator
-- [ ] OUT - Output data from accumulator to outcome device
+- [x] OUT - Output data from accumulator to outcome device
 - [x] PCHL - Insert into program counter data from H and L Registers
 - [x] POP - Pop Data off Stack
 - [x] PUSH - Push Data on Stack

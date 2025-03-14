@@ -4,7 +4,6 @@
 /**
  * @brief Compare register X
  * @addressing Immediate
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CPX_IM(MOS6502 &cpu) {
@@ -14,7 +13,6 @@ void MOS6502_CPX_IM(MOS6502 &cpu) {
 /**
  * @brief Compare register X
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CPX_ZP(MOS6502 &cpu) {
@@ -24,7 +22,6 @@ void MOS6502_CPX_ZP(MOS6502 &cpu) {
 /**
  * @brief Compare register X
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CPX_ABS(MOS6502 &cpu) {

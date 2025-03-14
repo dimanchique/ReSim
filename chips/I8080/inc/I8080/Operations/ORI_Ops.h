@@ -5,7 +5,6 @@
  * @brief Logical OR Immediate value
  * @details A logical OR Immediate is performed, bit by bit, on the Accumulator contents using immediate value.
  * @short A,S,P,Z = A|MemImm
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ORI(I8080 &cpu) {

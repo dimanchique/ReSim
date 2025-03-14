@@ -18,6 +18,8 @@ bool I8086::Step() {
     return DecodeInstruction(opCode, *this);
 }
 
+
+// I8086 sync tick system will be integrated when cycles count system will be implemented
 U32 I8086::Run() {
     bool decodeSuccess;
 

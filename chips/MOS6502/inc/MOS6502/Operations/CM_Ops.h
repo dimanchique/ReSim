@@ -5,7 +5,6 @@
  * @brief Compare Implementation
  * @details This instruction compares the contents of the targetRegister with memoryValue
  * and sets the zero and carry flags as appropriate.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param targetRegister Register to compare with.
  * @param addressing MOS6502 Addressing mode.
@@ -22,7 +21,6 @@ FORCE_INLINE void PerformCM(MOS6502 &cpu, const BYTE &targetRegister, const MOS6
  * @brief Compare Accumulator (generic)
  * @details This instruction compares the contents of the Accumulator with memoryValue
  * and sets the zero and carry flags as appropriate.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
@@ -34,7 +32,6 @@ FORCE_INLINE void PerformCMP(MOS6502 &cpu, const MOS6502_AddressingMode addressi
  * @brief Compare X Register (generic)
  * @details This instruction compares the contents of the Accumulator with memoryValue
  * and sets the zero and carry flags as appropriate.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
@@ -46,7 +43,6 @@ FORCE_INLINE void PerformCPX(MOS6502 &cpu, const MOS6502_AddressingMode addressi
  * @brief Compare Y Register (generic)
  * @details This instruction compares the contents of the Accumulator with memoryValue
  * and sets the zero and carry flags as appropriate.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */

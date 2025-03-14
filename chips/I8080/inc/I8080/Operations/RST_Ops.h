@@ -7,7 +7,6 @@
  * @details The contents of the program counter are pushed onto the stack, providing a return address for later use by a RETURN instruction.
  * Program execution continues at memory address depending on a reset vector value.
  * @short PC = resetVector << 3
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  * @param resetVector Reset Vector.
  */
@@ -19,7 +18,6 @@ FORCE_INLINE void PerformRST(I8080 &cpu, const BYTE resetVector) {
 /**
  * @brief Reset 0
  * @details Perform RST with a '0' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_0(I8080 &cpu) {
@@ -29,7 +27,6 @@ void I8080_RST_0(I8080 &cpu) {
 /**
  * @brief Reset 1
  * @details Perform RST with a '1' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_1(I8080 &cpu) {
@@ -39,7 +36,6 @@ void I8080_RST_1(I8080 &cpu) {
 /**
  * @brief Reset 2
  * @details Perform RST with a '2' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_2(I8080 &cpu) {
@@ -49,7 +45,6 @@ void I8080_RST_2(I8080 &cpu) {
 /**
  * @brief Reset 3
  * @details Perform RST with a '3' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_3(I8080 &cpu) {
@@ -59,7 +54,6 @@ void I8080_RST_3(I8080 &cpu) {
 /**
  * @brief Reset 4
  * @details Perform RST with a '4' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_4(I8080 &cpu) {
@@ -69,7 +63,6 @@ void I8080_RST_4(I8080 &cpu) {
 /**
  * @brief Reset 5
  * @details Perform RST with a '5' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_5(I8080 &cpu) {
@@ -79,7 +72,6 @@ void I8080_RST_5(I8080 &cpu) {
 /**
  * @brief Reset 6
  * @details Perform RST with a '6' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_6(I8080 &cpu) {
@@ -89,7 +81,6 @@ void I8080_RST_6(I8080 &cpu) {
 /**
  * @brief Reset 7
  * @details Perform RST with a '7' reset vector
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RST_7(I8080 &cpu) {

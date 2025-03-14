@@ -8,8 +8,7 @@
 class Bus {
 public:
     void SetBusRegion(QWORD startAddr, QWORD endAddr, IO_Device* io_device) {
-        auto it = regions.lower_bound(startAddr);
-        if (it != regions.end()) {
+        if (auto it = regions.lower_bound(startAddr); it != regions.end()) {
             regions[startAddr - 1] = it->second;
         }
 
@@ -34,17 +33,17 @@ public:
 private:
 
     void ExecuteOnDevice(QWORD address, const std::function<void(IO_Device*, QWORD)>& callback) {
-        if (regions.find(address) != regions.end()) {
-            callback(regions[address], address);
-            return;
-        }
-
-        auto it = regions.upper_bound(address);
-        if (it != regions.end()) {
+        if (auto it = regions.find(address); it != regions.end()) {
             callback(it->second, address);
             return;
         }
 
+        if (auto it = regions.upper_bound(address); it != regions.end()) {
+            callback(it->second, address);
+            return;
+        }
+
+        // if device is not present then do nothing, no need to throw exception
         throw std::out_of_range("No device mapped to address " + std::to_string(address));
     }
 

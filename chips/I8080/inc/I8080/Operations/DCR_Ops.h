@@ -18,7 +18,6 @@ FORCE_INLINE void PerformDCR(I8080 &cpu, BYTE &targetRegister) {
 
 /**
  * @brief Decrement Accumulator
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_A(I8080 &cpu) {
@@ -27,7 +26,6 @@ void I8080_DCR_A(I8080 &cpu) {
 
 /**
  * @brief Decrement B
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_B(I8080 &cpu) {
@@ -36,7 +34,6 @@ void I8080_DCR_B(I8080 &cpu) {
 
 /**
  * @brief Decrement C
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_C(I8080 &cpu) {
@@ -45,7 +42,6 @@ void I8080_DCR_C(I8080 &cpu) {
 
 /**
  * @brief Decrement D
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_D(I8080 &cpu) {
@@ -54,7 +50,6 @@ void I8080_DCR_D(I8080 &cpu) {
 
 /**
  * @brief Decrement E
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_E(I8080 &cpu) {
@@ -63,7 +58,6 @@ void I8080_DCR_E(I8080 &cpu) {
 
 /**
  * @brief Decrement H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_H(I8080 &cpu) {
@@ -72,7 +66,6 @@ void I8080_DCR_H(I8080 &cpu) {
 
 /**
  * @brief Decrement L
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_L(I8080 &cpu) {
@@ -83,11 +76,10 @@ void I8080_DCR_L(I8080 &cpu) {
  * @brief Decrement Memory value
  * @details The specified memory byte is decremented by one.
  * @short Mem,S,P,Z = Memory-1
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_DCR_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     BYTE memoryValue = cpu.ReadByte(memoryAddress);
     const BYTE memoryCopy = memoryValue;
     memoryValue = (BYTE)(memoryValue + 0xFF); // +(-1) is better than -1

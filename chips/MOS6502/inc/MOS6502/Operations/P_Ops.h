@@ -5,7 +5,6 @@
  * @brief Push Accumulator
  * @addressing Implied
  * @details Pushes a copy of the accumulator on to the stack.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_PHA_IMPL(MOS6502 &cpu) {
@@ -17,7 +16,6 @@ void MOS6502_PHA_IMPL(MOS6502 &cpu) {
  * @addressing Implied
  * @details Pulls an 8 bit value from the stack and into the accumulator.
  * The zero and negative flags are set as appropriate.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_PLA_IMPL(MOS6502 &cpu) {
@@ -29,7 +27,6 @@ void MOS6502_PLA_IMPL(MOS6502 &cpu) {
  * @brief Push Processor Status
  * @addressing Implied
  * @details Pushes a copy of the status flags on to the stack.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_PHP_IMPL(MOS6502 &cpu) {
@@ -41,7 +38,6 @@ void MOS6502_PHP_IMPL(MOS6502 &cpu) {
  * @addressing Implied
  * @details Pulls an 8 bit value from the stack and into the processor flags.
  * The flags will take on new states as determined by the value pulled.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_PLP_IMPL(MOS6502 &cpu) {

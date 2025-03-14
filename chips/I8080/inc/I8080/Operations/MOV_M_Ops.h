@@ -3,7 +3,6 @@
 
 /**
  * @brief MOV from A to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_A(I8080 &cpu) {
@@ -12,7 +11,6 @@ void I8080_MOV_M_A(I8080 &cpu) {
 
 /**
  * @brief MOV from B to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_B(I8080 &cpu) {
@@ -21,7 +19,6 @@ void I8080_MOV_M_B(I8080 &cpu) {
 
 /**
  * @brief MOV from C to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_C(I8080 &cpu) {
@@ -30,7 +27,6 @@ void I8080_MOV_M_C(I8080 &cpu) {
 
 /**
  * @brief MOV from D to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_D(I8080 &cpu) {
@@ -39,7 +35,6 @@ void I8080_MOV_M_D(I8080 &cpu) {
 
 /**
  * @brief MOV from E to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_E(I8080 &cpu) {
@@ -48,7 +43,6 @@ void I8080_MOV_M_E(I8080 &cpu) {
 
 /**
  * @brief MOV from H to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_H(I8080 &cpu) {
@@ -57,7 +51,6 @@ void I8080_MOV_M_H(I8080 &cpu) {
 
 /**
  * @brief MOV from L to Memory
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_M_L(I8080 &cpu) {

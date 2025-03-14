@@ -8,7 +8,6 @@
  * The effect of this operation is to multiply the memory contents by 2 (ignoring 2's complement considerations),
  * setting the carry if the result will not fit in 8 bits.
  * @short A,Z,C,N = M*2 or M,Z,C,N = M*2
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -28,7 +27,6 @@ FORCE_INLINE void PerformASL(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Arithmetic Shift Left Accumulator
  * @details Same as PerformASL, but with Accumulator as target.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ASL_ACC(MOS6502 &cpu) {
@@ -42,7 +40,6 @@ void MOS6502_ASL_ACC(MOS6502 &cpu) {
 /**
  * @brief Arithmetic Shift Left
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ASL_ZP(MOS6502 &cpu) {
@@ -52,7 +49,6 @@ void MOS6502_ASL_ZP(MOS6502 &cpu) {
 /**
  * @brief Arithmetic Shift Left
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ASL_ZPX(MOS6502 &cpu) {
@@ -62,7 +58,6 @@ void MOS6502_ASL_ZPX(MOS6502 &cpu) {
 /**
  * @brief Arithmetic Shift Left
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ASL_ABS(MOS6502 &cpu) {
@@ -72,7 +67,6 @@ void MOS6502_ASL_ABS(MOS6502 &cpu) {
 /**
  * @brief Arithmetic Shift Left
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ASL_ABSX(MOS6502 &cpu) {

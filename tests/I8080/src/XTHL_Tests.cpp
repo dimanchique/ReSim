@@ -5,8 +5,9 @@ public:
     void XTHL_CanExchangeValues(const WORD stackPointerAddress, const WORD stackPointerValue, const WORD registerValueH) {
         // given:
         cpu.SP = stackPointerAddress;
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(stackPointerValue, mem[cpu.SP], mem[cpu.SP + 1]);
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(registerValueH, cpu.H, cpu.L);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(stackPointerValue, mem[cpu.SP],
+                                                                    mem[cpu.SP + 1]);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValueH, cpu.H, cpu.L);
         mem[0x0000] = XTHL;
         mem[0x0001] = STOP_OPCODE;
 

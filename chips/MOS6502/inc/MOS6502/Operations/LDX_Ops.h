@@ -4,7 +4,6 @@
 /**
  * @brief Load X Register
  * @addressing Immediate
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LDX_IM(MOS6502 &cpu) {
@@ -14,7 +13,6 @@ void MOS6502_LDX_IM(MOS6502 &cpu) {
 /**
  * @brief Load X Register
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LDX_ZP(MOS6502 &cpu) {
@@ -24,7 +22,6 @@ void MOS6502_LDX_ZP(MOS6502 &cpu) {
 /**
  * @brief Load X Register
  * @addressing Zero Page,Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LDX_ZPY(MOS6502 &cpu) {
@@ -34,7 +31,6 @@ void MOS6502_LDX_ZPY(MOS6502 &cpu) {
 /**
  * @brief Load X Register
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LDX_ABS(MOS6502 &cpu) {
@@ -44,7 +40,6 @@ void MOS6502_LDX_ABS(MOS6502 &cpu) {
 /**
  * @brief Load X Register
  * @addressing Absolute,Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LDX_ABSY(MOS6502 &cpu) {

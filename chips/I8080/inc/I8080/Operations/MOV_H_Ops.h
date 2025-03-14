@@ -3,7 +3,6 @@
 
 /**
  * @brief MOV from A to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_A(I8080 &cpu) {
@@ -12,7 +11,6 @@ void I8080_MOV_H_A(I8080 &cpu) {
 
 /**
  * @brief MOV from B to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_B(I8080 &cpu) {
@@ -21,7 +19,6 @@ void I8080_MOV_H_B(I8080 &cpu) {
 
 /**
  * @brief MOV from C to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_C(I8080 &cpu) {
@@ -30,7 +27,6 @@ void I8080_MOV_H_C(I8080 &cpu) {
 
 /**
  * @brief MOV from D to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_D(I8080 &cpu) {
@@ -39,7 +35,6 @@ void I8080_MOV_H_D(I8080 &cpu) {
 
 /**
  * @brief MOV from E to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_E(I8080 &cpu) {
@@ -49,7 +44,6 @@ void I8080_MOV_H_E(I8080 &cpu) {
 /**
  * @brief MOV from H to H
  * @details This instruction is nop-like instruction
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_H(I8080 &cpu) {
@@ -58,7 +52,6 @@ void I8080_MOV_H_H(I8080 &cpu) {
 
 /**
  * @brief MOV from L to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
  void I8080_MOV_H_L(I8080 &cpu) {
@@ -67,7 +60,6 @@ void I8080_MOV_H_H(I8080 &cpu) {
 
 /**
  * @brief MOV from Memory to H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_H_M(I8080 &cpu) {

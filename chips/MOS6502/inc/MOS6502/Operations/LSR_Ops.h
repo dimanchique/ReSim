@@ -6,7 +6,6 @@
  * @details Each of the bits in A or M is shift one place to the right.
  * The bit that was in bit 0 is shifted into the carry flag. Bit 7 is set to zero.
  * @short A,C,Z,N = A/2 or M,C,Z,N = M/2
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -26,7 +25,6 @@ FORCE_INLINE void PerformLSR(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Logical Shift Right Accumulator
  * @details Same as PerformLSR, but with Accumulator as target.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LSR_ACC(MOS6502 &cpu) {
@@ -40,7 +38,6 @@ void MOS6502_LSR_ACC(MOS6502 &cpu) {
 /**
  * @brief Logical Shift Right
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LSR_ZP(MOS6502 &cpu) {
@@ -50,7 +47,6 @@ void MOS6502_LSR_ZP(MOS6502 &cpu) {
 /**
  * @brief Logical Shift Right
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LSR_ZPX(MOS6502 &cpu) {
@@ -60,7 +56,6 @@ void MOS6502_LSR_ZPX(MOS6502 &cpu) {
 /**
  * @brief Logical Shift Right
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LSR_ABS(MOS6502 &cpu) {
@@ -70,7 +65,6 @@ void MOS6502_LSR_ABS(MOS6502 &cpu) {
 /**
  * @brief Logical Shift Right
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_LSR_ABSX(MOS6502 &cpu) {

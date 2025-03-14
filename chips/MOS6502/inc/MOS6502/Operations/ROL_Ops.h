@@ -5,7 +5,6 @@
  * @brief Rotate Left Implementation
  * @details Move each of the bits in either A or M one place to the left.
  * Bit 0 is filled with the current value of the carry flag whilst the old bit 7 becomes the new carry flag value.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -41,7 +40,6 @@ void MOS6502_ROL_ACC(MOS6502 &cpu) {
 /**
  * @brief Rotate Left
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ROL_ZP(MOS6502 &cpu) {
@@ -51,7 +49,6 @@ void MOS6502_ROL_ZP(MOS6502 &cpu) {
 /**
  * @brief Rotate Left
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ROL_ZPX(MOS6502 &cpu) {
@@ -61,7 +58,6 @@ void MOS6502_ROL_ZPX(MOS6502 &cpu) {
 /**
  * @brief Rotate Left
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ROL_ABS(MOS6502 &cpu) {
@@ -71,7 +67,6 @@ void MOS6502_ROL_ABS(MOS6502 &cpu) {
 /**
  * @brief Rotate Left
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ROL_ABSX(MOS6502 &cpu) {

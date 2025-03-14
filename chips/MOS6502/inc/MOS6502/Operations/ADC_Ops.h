@@ -6,7 +6,6 @@
  * @details This instruction adds the contents of a memory location to the accumulator together with the carry bit.
  * If overflow occurs the carry bit is set, this enables multiple byte addition to be performed.
  * @short A,Z,C,N = A+M+C
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  */
@@ -24,7 +23,6 @@ FORCE_INLINE void PerformADC(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Add with Carry
  * @addressing Immediate
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_IM(MOS6502 &cpu) {
@@ -34,7 +32,6 @@ void MOS6502_ADC_IM(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing Zero Page
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_ZP(MOS6502 &cpu) {
@@ -44,7 +41,6 @@ void MOS6502_ADC_ZP(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing Zero Page,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_ZPX(MOS6502 &cpu) {
@@ -54,7 +50,6 @@ void MOS6502_ADC_ZPX(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing Absolute
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_ABS(MOS6502 &cpu) {
@@ -64,7 +59,6 @@ void MOS6502_ADC_ABS(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing Absolute,X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_ABSX(MOS6502 &cpu) {
@@ -74,7 +68,6 @@ void MOS6502_ADC_ABSX(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing Absolute,Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_ABSY(MOS6502 &cpu) {
@@ -84,7 +77,6 @@ void MOS6502_ADC_ABSY(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing (Indirect,X)
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_INDX(MOS6502 &cpu) {
@@ -94,7 +86,6 @@ void MOS6502_ADC_INDX(MOS6502 &cpu) {
 /**
  * @brief Add with Carry
  * @addressing (Indirect),Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ADC_INDY(MOS6502 &cpu) {

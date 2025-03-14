@@ -5,7 +5,7 @@
 #include "core/macro.h"
 #include "compute.h"
 #include "memory.h"
-#include "function_library/content_manipulation.h"
+#include "function_library/data_manipulation.h"
 
 #define STOP_OPCODE I8080_OpCodes::HLT /**< HALT instruction opcode used to stop execution of finite programs */
 
@@ -34,6 +34,9 @@ public:
     DECLARE_PAIRED_REG(BYTE, WORD, D, E);   /**< Paired DE Register */
     DECLARE_PAIRED_REG(BYTE, WORD, H, L);   /**< Paired HL Register */
 
+    void SetDataBusInstance(Bus* new_bus) { dataBus = new_bus; }
+    Bus* GetDataBus() { return dataBus; }
+
     void Reset() noexcept override;
 
     U32 Run() override;
@@ -43,7 +46,6 @@ public:
     /**
      * @brief Fetch byte from memory address PC points to.
      * @note Increments PC. Increments cycles count by 3.
-     * @param memory Memory struct instance.
      * @return Fetched byte.
      */
     FORCE_INLINE BYTE FetchByte() {
@@ -58,7 +60,6 @@ public:
      * @attention I8080 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @return Fetched word.
      */
     FORCE_INLINE WORD FetchWord() {
@@ -70,7 +71,6 @@ public:
     /**
      * @brief Read byte from memory.
      * @note Increments cycles count by 3.
-     * @param memory Memory struct instance.
      * @param address Address to read from.
      * @return Read byte.
      */
@@ -86,7 +86,6 @@ public:
      * @attention I8080 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @param address Address to read from.
      * @return Fetched word.
      */
@@ -99,7 +98,6 @@ public:
     /**
      * @brief Write a byte to memory.
      * @note Increments cycles count by 3.
-     * @param memory Memory struct instance.
      * @param value Value to write.
      * @param address Address to write to.
      */
@@ -114,7 +112,6 @@ public:
      * @attention I8080 is little-endian system.
      * 16-bit word value has memory layout [LOW][HIGH].
      * Additional 8-bit shift is needed.
-     * @param memory Memory struct instance.
      * @param value Value to write.
      * @param address Address to write to.
      */
@@ -126,7 +123,6 @@ public:
     /**
      * @brief Push two bytes of data to stack.
      * @note Increments cycles count by 7. Decrements the Stack Pointer by 2.
-     * @param memory Memory struct instance.
      * @param lsb Low byte to push.
      * @param msb High byte to push.
      */
@@ -139,7 +135,6 @@ public:
     /**
      * @brief Push Program Counter (PC) register value to stack.
      * @note Increments cycles count by 7. Decrements the Stack Pointer by 2.
-     * @param memory Memory struct instance.
      */
     FORCE_INLINE void PushProgramCounterToStack() {
         PushDataToStack((PC >> 8) & 0xFF, PC & 0xFF);
@@ -149,7 +144,6 @@ public:
      * @brief Pop Program Counter (PC) register value from stack.
      * @details Sets new value of PC register.
      * @note Increments cycles count by 3. Increments the Stack Pointer by 2.
-     * @param memory Memory struct instance.
      */
     FORCE_INLINE void PopProgramCounterFromStack() {
         PC = ReadWord(SP);
@@ -160,7 +154,6 @@ public:
     /**
      * @brief Pop two bytes of data from stack.
      * @note Increments cycles count by 6. Increments the Stack Pointer by 2.
-     * @param memory Memory struct instance.
      * @param lsb Low byte ref to write-back to.
      * @param msb High byte ref to write-back to.
      */
@@ -168,4 +161,7 @@ public:
         *msb = ReadByte(SP++);
         *lsb = ReadByte(SP++);
     }
+
+protected:
+    Bus* dataBus;
 };

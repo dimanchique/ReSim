@@ -40,7 +40,6 @@ FORCE_INLINE void PerformRotateRight(I8080 &cpu, const bool isThroughCarry) {
 /**
  * @brief Circular Rotate Accumulator Left
  * @short A = A<<1, C = prevA&0b1000000
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RLC(I8080 &cpu) {
@@ -50,7 +49,6 @@ void I8080_RLC(I8080 &cpu) {
 /**
  * @brief Circular Rotate Accumulator Right
  * @short A = A>>1, C = prevA&0b0000001
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RRC(I8080 &cpu) {
@@ -60,7 +58,6 @@ void I8080_RRC(I8080 &cpu) {
 /**
  * @brief Rotate Accumulator Left Through Carry
  * @short A = A<<1, C = prevA&0b1000000
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RAL(I8080 &cpu) {
@@ -70,7 +67,6 @@ void I8080_RAL(I8080 &cpu) {
 /**
  * @brief Rotate Accumulator Right Through Carry
  * @short A = A>>1, C = prevA&0b0000001
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_RAR(I8080 &cpu) {

@@ -5,7 +5,6 @@
  * @brief No Operation Implementation
  * @details The NOP instruction causes no changes to the processor
  * other than the normal incrementing of the program counter to the next instruction.
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_NOP_IMPL(MOS6502 &cpu) {

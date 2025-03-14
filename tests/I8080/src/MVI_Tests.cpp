@@ -23,7 +23,7 @@ public:
         mem[0x0000] = MVI_M;
         mem[0x0001] = immediateValue;
         mem[0x0002] = STOP_OPCODE;
-        ReSimFunctionLibrary::ContentManipulation::putWordToBytesSwapped_Ref(memoryAddress, cpu.H, cpu.L);
+        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;
 

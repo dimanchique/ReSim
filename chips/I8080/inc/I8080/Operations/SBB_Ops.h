@@ -26,7 +26,6 @@ FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
  * @brief Subtract Accumulator From Accumulator With Borrow (special case)
  * @details The two's compliment content of the Accumulator plus the content of the Carry bit is subtracted from the contents of the Accumulator.
  * @short A,C,Z,S,P,AC = A+(-(Carry+A))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_A(I8080 &cpu) {
@@ -41,7 +40,6 @@ void I8080_SBB_A(I8080 &cpu) {
 /**
  * @brief Subtract B From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+B))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_B(I8080 &cpu) {
@@ -51,7 +49,6 @@ void I8080_SBB_B(I8080 &cpu) {
 /**
  * @brief Subtract C From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+C))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_C(I8080 &cpu) {
@@ -61,7 +58,6 @@ void I8080_SBB_C(I8080 &cpu) {
 /**
  * @brief Subtract D From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+D))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_D(I8080 &cpu) {
@@ -71,7 +67,6 @@ void I8080_SBB_D(I8080 &cpu) {
 /**
  * @brief Subtract E From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+E))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_E(I8080 &cpu) {
@@ -81,7 +76,6 @@ void I8080_SBB_E(I8080 &cpu) {
 /**
  * @brief Subtract H From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+H))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_H(I8080 &cpu) {
@@ -91,7 +85,6 @@ void I8080_SBB_H(I8080 &cpu) {
 /**
  * @brief Subtract L From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+L))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_L(I8080 &cpu) {
@@ -101,11 +94,10 @@ void I8080_SBB_L(I8080 &cpu) {
 /**
  * @brief Subtract Memory From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+Memory))
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     const BYTE subValue = cpu.ReadByte(memoryAddress);
     PerformSBB(cpu, subValue);
 }
@@ -113,7 +105,6 @@ void I8080_SBB_M(I8080 &cpu) {
 /**
  * @brief Subtract Immediate From Accumulator With Borrow
  * @short A,C,Z,S,P,AC = A+(-(Carry+Memory)) (immediate value)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_SBI(I8080 &cpu) {

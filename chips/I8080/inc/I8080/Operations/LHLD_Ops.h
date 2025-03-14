@@ -4,7 +4,6 @@
 /**
  * @brief Load H And L Direct
  * @details The byte at the memory address (immediate value) replaces the contents of the H and L registers.
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_LHLD(I8080 &cpu) {

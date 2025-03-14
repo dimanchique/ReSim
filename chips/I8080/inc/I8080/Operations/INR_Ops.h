@@ -18,7 +18,6 @@ FORCE_INLINE void PerformINR(I8080 &cpu, BYTE &targetRegister) {
 
 /**
  * @brief Increment Accumulator
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_A(I8080 &cpu) {
@@ -27,7 +26,6 @@ void I8080_INR_A(I8080 &cpu) {
 
 /**
  * @brief Increment B
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_B(I8080 &cpu) {
@@ -36,7 +34,6 @@ void I8080_INR_B(I8080 &cpu) {
 
 /**
  * @brief Increment C
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_C(I8080 &cpu) {
@@ -45,7 +42,6 @@ void I8080_INR_C(I8080 &cpu) {
 
 /**
  * @brief Increment D
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_D(I8080 &cpu) {
@@ -54,7 +50,6 @@ void I8080_INR_D(I8080 &cpu) {
 
 /**
  * @brief Increment E
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_E(I8080 &cpu) {
@@ -63,7 +58,6 @@ void I8080_INR_E(I8080 &cpu) {
 
 /**
  * @brief Increment H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_H(I8080 &cpu) {
@@ -72,7 +66,6 @@ void I8080_INR_H(I8080 &cpu) {
 
 /**
  * @brief Increment L
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_L(I8080 &cpu) {
@@ -83,11 +76,10 @@ void I8080_INR_L(I8080 &cpu) {
  * @brief Increment Memory value
  * @details The specified memory byte is incremented by one.
  * @short Mem,S,P,Z = Memory+1
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_INR_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     BYTE memoryValue = cpu.ReadByte(memoryAddress);
     const BYTE memoryCopy = memoryValue;
     memoryValue += 1;

@@ -21,7 +21,6 @@ FORCE_INLINE void PerformT(const BYTE sourceRegister, BYTE &destinationRegister,
  * @details Copies the current contents of the accumulator into the X register
  * and sets the zero and negative flags as appropriate.
  * @short X = A
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TAX_IMPL(MOS6502 &cpu) {
@@ -34,7 +33,6 @@ void MOS6502_TAX_IMPL(MOS6502 &cpu) {
  * @details Copies the current contents of the X register into the accumulator
  * and sets the zero and negative flags as appropriate.
  * @short A = X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TXA_IMPL(MOS6502 &cpu) {
@@ -47,7 +45,6 @@ void MOS6502_TXA_IMPL(MOS6502 &cpu) {
  * @details Copies the current contents of the accumulator into the Y register
  * and sets the zero and negative flags as appropriate.
  * @short Y = A
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TAY_IMPL(MOS6502 &cpu) {
@@ -60,7 +57,6 @@ void MOS6502_TAY_IMPL(MOS6502 &cpu) {
  * @details Copies the current contents of the accumulator into the X register
  * and sets the zero and negative flags as appropriate.
  * @short X = A
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TYA_IMPL(MOS6502 &cpu) {
@@ -73,7 +69,6 @@ void MOS6502_TYA_IMPL(MOS6502 &cpu) {
  * @details Copies the current contents of the stack register into the X register
  * and sets the zero and negative flags as appropriate.
  * @short X = S
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TSX_IMPL(MOS6502 &cpu) {
@@ -85,7 +80,6 @@ void MOS6502_TSX_IMPL(MOS6502 &cpu) {
  * @addressing Implied
  * @details Copies the current contents of the X register into the stack register.
  * @short S = X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TXS_IMPL(MOS6502 &cpu) {

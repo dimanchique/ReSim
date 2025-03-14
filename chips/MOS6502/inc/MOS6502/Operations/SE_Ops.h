@@ -15,7 +15,6 @@ FORCE_INLINE void GenericSE(MOS6502 &cpu, const BYTE statusFlag) {
 /**
  * @brief Set Carry Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SEC_IMPL(MOS6502 &cpu) {
@@ -25,7 +24,6 @@ void MOS6502_SEC_IMPL(MOS6502 &cpu) {
 /**
  * @brief Set Decimal Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SED_IMPL(MOS6502 &cpu) {
@@ -35,7 +33,6 @@ void MOS6502_SED_IMPL(MOS6502 &cpu) {
 /**
  * @brief Set Interrupt Disable Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SEI_IMPL(MOS6502 &cpu) {

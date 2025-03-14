@@ -5,7 +5,6 @@
  * @brief Set Carry
  * @details Set Carry flag value
  * @short C = 1
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_STC(I8080 &cpu) {

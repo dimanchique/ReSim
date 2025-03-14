@@ -15,7 +15,6 @@ FORCE_INLINE void PerformCL(MOS6502 &cpu, const BYTE statusFlag) {
 /**
  * @brief Clear Carry Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CLC_IMPL(MOS6502 &cpu) {
@@ -25,7 +24,6 @@ void MOS6502_CLC_IMPL(MOS6502 &cpu) {
 /**
  * @brief Clear Decimal Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CLD_IMPL(MOS6502 &cpu) {
@@ -35,7 +33,6 @@ void MOS6502_CLD_IMPL(MOS6502 &cpu) {
 /**
  * @brief Clear Interrupt Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CLI_IMPL(MOS6502 &cpu) {
@@ -45,7 +42,6 @@ void MOS6502_CLI_IMPL(MOS6502 &cpu) {
 /**
  * @brief Clear Overflow Flag
  * @addressing Implied
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_CLV_IMPL(MOS6502 &cpu) {

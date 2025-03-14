@@ -21,7 +21,6 @@ FORCE_INLINE void PerformAdd(I8080 &cpu, const BYTE &targetRegister) {
  * @brief Add Accumulator To Accumulator (special case)
  * @details The content of the Accumulator is added to the contents of the Accumulator using two's complement arithmetic.
  * @short A,C,Z,S,P,AC = A+A
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_A(I8080 &cpu) {
@@ -36,7 +35,6 @@ void I8080_ADD_A(I8080 &cpu) {
 /**
  * @brief Add B To Accumulator
  * @short A,C,Z,S,P,AC = A+B
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_B(I8080 &cpu) {
@@ -46,7 +44,6 @@ void I8080_ADD_B(I8080 &cpu) {
 /**
  * @brief Add C To Accumulator
  * @short A,C,Z,S,P,AC = A+C
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_C(I8080 &cpu) {
@@ -56,7 +53,6 @@ void I8080_ADD_C(I8080 &cpu) {
 /**
  * @brief Add D To Accumulator
  * @short A,C,Z,S,P,AC = A+D
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_D(I8080 &cpu) {
@@ -66,7 +62,6 @@ void I8080_ADD_D(I8080 &cpu) {
 /**
  * @brief Add E To Accumulator
  * @short A,C,Z,S,P,AC = A+E
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_E(I8080 &cpu) {
@@ -76,7 +71,6 @@ void I8080_ADD_E(I8080 &cpu) {
 /**
  * @brief Add H To Accumulator
  * @short A,C,Z,S,P,AC = A+H
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_H(I8080 &cpu) {
@@ -86,7 +80,6 @@ void I8080_ADD_H(I8080 &cpu) {
 /**
  * @brief Add L To Accumulator
  * @short A,C,Z,S,P,AC = A+L
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_L(I8080 &cpu) {
@@ -96,11 +89,10 @@ void I8080_ADD_L(I8080 &cpu) {
 /**
  * @brief Add Memory To Accumulator
  * @short A,C,Z,S,P,AC = A+Memory (immediate value)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADD_M(I8080 &cpu) {
-    const WORD memoryAddress = ReSimFunctionLibrary::ContentManipulation::getWordAsSwappedBytes_Copy(cpu.H, cpu.L);
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
     const BYTE addValue = cpu.ReadByte(memoryAddress);
     PerformAdd(cpu, addValue);
 }
@@ -108,7 +100,6 @@ void I8080_ADD_M(I8080 &cpu) {
 /**
  * @brief Add Immediate To Accumulator
  * @short A,C,Z,S,P,AC = A+Memory (immediate value)
- * @param memory Memory struct instance.
  * @param cpu I8080 struct instance.
  */
 void I8080_ADI(I8080 &cpu) {

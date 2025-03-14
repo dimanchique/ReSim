@@ -5,7 +5,6 @@
  * @brief Store (generic)
  * @details Stores the contents of the targetRegister into memory.
  * @short M = (A/X/Y)
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param targetRegister Register to store from.
  * @param addressing MOS6502 Addressing mode.
@@ -20,7 +19,6 @@ FORCE_INLINE void PerformST(MOS6502 &cpu, const BYTE &targetRegister, const MOS6
  * @brief Store Accumulator
  * @details Stores the contents of the targetRegister into memory.
  * @short M = A
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
@@ -34,11 +32,9 @@ FORCE_INLINE void PerformSTA(MOS6502 &cpu, const MOS6502_AddressingMode addressi
  * @brief Store X Register
  * @details Stores the contents of the targetRegister into memory.
  * @short M = X
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
- * @param targetRegister Register to store from.
  */
 FORCE_INLINE void PerformSTX(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
     PerformST(cpu, cpu.X, addressing, shouldCheckPageCross);
@@ -49,11 +45,9 @@ FORCE_INLINE void PerformSTX(MOS6502 &cpu, const MOS6502_AddressingMode addressi
  * @brief Store Y Register
  * @details Stores the contents of the targetRegister into memory.
  * @short M = Y
- * @param memory Memory struct instance.
  * @param cpu MOS6502 struct instance.
  * @param addressing MOS6502 Addressing mode.
  * @param shouldCheckPageCross Whether this operation should check page crossing while target address is calculating.
- * @param targetRegister Register to store from.
  */
 FORCE_INLINE void PerformSTY(MOS6502 &cpu, const MOS6502_AddressingMode addressing, bool shouldCheckPageCross = true){
     PerformST(cpu, cpu.Y, addressing, shouldCheckPageCross);
