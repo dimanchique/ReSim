@@ -1,4 +1,7 @@
 #include "I8086_TestingSuite.h"
+#include "I8086_GroupTests.h"
+#include "I8086_ImpliedOpTests.h"
+#include "I8086_SingleOpTests.h"
 
 class I8086_PUSH_POP_Fixture : public I8086_TestFixture {};
 
@@ -66,4 +69,56 @@ TEST_F(I8086_PUSH_POP_Fixture, PUSH_ES_SS_DS_POP_ES_SS_DS) {
     EXPECT_EQ(cpu.ES, cpu.CS);
     EXPECT_EQ(cpu.SS, value_3);
     EXPECT_EQ(cpu.DS, 0xB00B);
+}
+
+class I8086_PUSH_Ev_Fixture : public I8086_GroupFixture {};
+
+TEST_F(I8086_PUSH_Ev_Fixture, PUSH_Ev) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::Mem;
+    modReg.leftOp.memData.dispSize = 0;
+    modReg.leftOp.memData.mode = modeBX;
+
+    cpu.Status.C = 0;
+    cpu.AX = 0x0060;
+    cpu.BX = 0x009A;
+    cpu.DS = 0x4000;
+    cpu.SP = 0x6000;
+    cyclesExpected = 16 + 5;
+
+    const WORD memValue = 0b00000000'01010101;
+    const DWORD memAddress = cpu.BX + (cpu.DS << 4);
+
+    TestMemoryInstruction(memAddress, memValue, GRP5_Ev, modReg, GRP5_PUSH, 16);
+
+    WORD result = cpu.PopDataFromStack();
+    EXPECT_EQ(result, memValue);
+}
+
+class I8086_POP_Ev_Fixture : public I8086_SingleOpFixture {};
+
+TEST_F(I8086_POP_Ev_Fixture, POP_Ev) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::Mem;
+    modReg.leftOp.memData.dispSize = 0;
+    modReg.leftOp.memData.mode = modeBX;
+
+    cpu.Status.C = 0;
+    cpu.AX = 0x0060;
+    cpu.BX = 0x009A;
+    cpu.DS = 0x4000;
+    cpu.SP = 0x6000;
+    cyclesExpected = 16 + 5;
+
+    const WORD memValue = 0xCCDA;
+
+    cpu.PushDataToStack(memValue);
+    TestImmediateInstruction(POP_Ev, modReg, 16);
+
+    DWORD newStackAddress = EFFECTIVE_ADDRESS(cpu.SP, cpu.SS);
+    WORD result = mem[newStackAddress - 2];
+    result |= (mem[newStackAddress - 1] << 8);
+    EXPECT_EQ(result, memValue);
 }

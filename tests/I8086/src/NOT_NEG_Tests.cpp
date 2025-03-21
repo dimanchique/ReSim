@@ -19,7 +19,10 @@ TEST_F(I8086_NOT_NEG_Fixture, NOT_BX_Addressed_Mem) {
     const DWORD memAddress = cpu.BX + (cpu.DS << 4);
     const BYTE refValue = 0b10101010;
 
-    TestMemoryInstruction(memAddress, memValue, refValue, GRP3a_Eb, modReg, GRP3a_NOT, 16);
+    TestMemoryInstruction(memAddress, memValue, GRP3a_Eb, modReg, GRP3a_NOT, 16);
+
+    WORD result = mem[memAddress];
+    EXPECT_EQ(result, refValue);
     EXPECT_EQ(cpu.Status.C, 0);
 }
 
@@ -40,7 +43,11 @@ TEST_F(I8086_NOT_NEG_Fixture, NEG_BX_Addressed_Mem) {
     const DWORD memAddress = cpu.BX + (cpu.DS << 4);
     const WORD refValue = 0b10101010'10101011;
 
-    TestMemoryInstruction(memAddress, memValue, refValue, GRP3b_Ev, modReg, GRP3b_NEG, 16);
+    TestMemoryInstruction(memAddress, memValue, GRP3b_Ev, modReg, GRP3b_NEG, 16);
+
+    WORD result = mem[memAddress];
+    result |= (mem[memAddress + 1] << 8);
+    EXPECT_EQ(result, refValue);
     EXPECT_EQ(cpu.Status.C, 1);
 }
 

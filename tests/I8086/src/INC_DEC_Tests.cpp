@@ -21,7 +21,10 @@ TEST_F(I8086_INC_DEC_Fixture, INC_Eb_Addressed_Mem) {
     const DWORD memAddress = cpu.BX + (cpu.DS << 4);
     const BYTE refValue = 0b01010110;
 
-    TestMemoryInstruction(memAddress, memValue, refValue, GRP4_Eb, modReg, GRP4_INC, 16);
+    TestMemoryInstruction(memAddress, memValue, GRP4_Eb, modReg, GRP4_INC, 16);
+
+    BYTE result = mem[memAddress];
+    EXPECT_EQ(result, refValue);
 }
 
 TEST_F(I8086_INC_DEC_Fixture, INC_Eb_BH_Reg) {

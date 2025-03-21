@@ -5,7 +5,7 @@ class I8086_GroupFixture : public I8086_TestFixture {
 public:
 
     template<typename T>
-    void TestMemoryInstruction(DWORD memAddress, T memValue, T refValue, I8086_OpCodes opCode, ModRegByteConstructor &modRegConstructor, BYTE regOverride, WORD executeCyclesExpected) {
+    void TestMemoryInstruction(DWORD memAddress, T memValue, I8086_OpCodes opCode, ModRegByteConstructor &modRegConstructor, BYTE regOverride, WORD executeCyclesExpected) {
         // given:
         mem[memAddress] = memValue & 0xFF;
         if (std::is_same_v<T, WORD>)
@@ -40,12 +40,6 @@ public:
         // then:
         // Temporary disabled until cycles counter will be fixed
         // CheckCyclesCount();
-
-        // Result of ExGx is always in memory
-        WORD result = mem[memAddress];
-        if (std::is_same_v<T, WORD>)
-            result |= (mem[memAddress + 1] << 8);
-        EXPECT_EQ(result, refValue);
     }
 
     template<typename T>

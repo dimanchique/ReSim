@@ -28,4 +28,19 @@ public:
 
         EXPECT_EQ((std::is_same_v<T, BYTE> ? cpu.AL : cpu.AX), refValue);
     }
+
+    void TestImmediateInstruction(I8086_OpCodes opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
+        mem[effectiveAddress++] = opCode;
+        mem[effectiveAddress++] = modRegConstructor.MakeModByte();
+        mem[effectiveAddress] = STOP_OPCODE;
+
+        cyclesExpected = executeCyclesExpected;
+
+        // when:
+        cyclesPassed = cpu.Run();
+
+        // then:
+        // Temporary disabled until cycles counter will be fixed
+        // CheckCyclesCount();
+    }
 };

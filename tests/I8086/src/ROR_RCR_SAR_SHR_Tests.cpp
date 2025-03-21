@@ -20,7 +20,11 @@ TEST_F(I8086_ROR_RCR_SAR_SHR_Fixture, ROR_1_BX_Addressed_Mem) {
     const DWORD memAddress = cpu.BX + (cpu.DS << 4);
     const BYTE refValue = 0b10101010;
 
-    TestMemoryInstruction(memAddress, memValue, refValue, GRP2_Eb_1, modReg, GRP2_ROR, 16);
+    TestMemoryInstruction(memAddress, memValue, GRP2_Eb_1, modReg, GRP2_ROR, 16);
+
+    WORD result = mem[memAddress];
+    EXPECT_EQ(result, refValue);
+
     EXPECT_EQ(cpu.Status.C, 1);
     EXPECT_EQ(cpu.Status.O, 1);
 }
