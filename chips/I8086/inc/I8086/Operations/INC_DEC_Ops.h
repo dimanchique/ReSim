@@ -49,24 +49,20 @@ T PerformDEC(I8086& cpu, T value) {
     return value;
 }
 
-template<typename T>
 void INC_GRP4_Eb(I8086& cpu, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformINC);
+    INC_DEC::INC_DEC<BYTE>(cpu, modReg, &PerformINC);
 }
 
-template<typename T>
 void DEC_GRP4_Eb(I8086& cpu, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformDEC);
+    INC_DEC::INC_DEC<BYTE>(cpu, modReg, &PerformDEC);
 }
 
-template<typename T>
 void INC_GRP5_Ev(I8086& cpu, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformINC);
+    INC_DEC::INC_DEC<WORD>(cpu, modReg, &PerformINC);
 }
 
-template<typename T>
 void DEC_GRP5_Ev(I8086& cpu, const ModRegByte& modReg) {
-    INC_DEC::INC_DEC<T>(cpu, modReg, &PerformDEC);
+    INC_DEC::INC_DEC<WORD>(cpu, modReg, &PerformDEC);
 }
 
 // Word Register Inc/Dec 0x40 + Reg

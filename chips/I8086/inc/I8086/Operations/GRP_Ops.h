@@ -8,6 +8,7 @@
 #include "ROL_RCL_SAL_SHL_Ops.h"
 #include "NOT_NEG_Ops.h"
 #include "INC_DEC_Ops.h"
+#include "PUSH_POP_Ops.h"
 
 template<typename T>
 using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
@@ -125,48 +126,46 @@ void I8086_GRP3b_Ev(BYTE OpCode, I8086 &cpu) {
     I8086_GRP3x_Ex<WORD>(cpu);
 }
 
-template<typename T>
-FORCE_INLINE void I8086_GRP4_Ex(I8086 &cpu) {
+FORCE_INLINE void I8086_GRP4_Eb(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
-    static constexpr GRP_CallbackSignature<T> callMap[] = {
-        &INC_GRP4_Eb<T>,        // 000 -> INC
-        &DEC_GRP4_Eb<T>,        // 001 -> DEC
-        &GRP_InvalidCall<T>,    // 010 -> INVALID
-        &GRP_InvalidCall<T>,    // 011 -> INVALID
-        &GRP_InvalidCall<T>,    // 100 -> INVALID
-        &GRP_InvalidCall<T>,    // 101 -> INVALID
-        &GRP_InvalidCall<T>,    // 110 -> INVALID
-        &GRP_InvalidCall<T>,    // 111 -> INVALID
+    static constexpr GRP_CallbackSignature<BYTE> callMap[] = {
+        &INC_GRP4_Eb,               // 000 -> INC
+        &DEC_GRP4_Eb,               // 001 -> DEC
+        &GRP_InvalidCall<BYTE>,     // 010 -> INVALID
+        &GRP_InvalidCall<BYTE>,     // 011 -> INVALID
+        &GRP_InvalidCall<BYTE>,     // 100 -> INVALID
+        &GRP_InvalidCall<BYTE>,     // 101 -> INVALID
+        &GRP_InvalidCall<BYTE>,     // 110 -> INVALID
+        &GRP_InvalidCall<BYTE>,     // 111 -> INVALID
 };
 
     callMap[modReg.reg](cpu, modReg);
 }
 
 void I8086_GRP4_Eb(BYTE OpCode, I8086 &cpu) {
-    I8086_GRP4_Ex<BYTE>(cpu);
+    I8086_GRP4_Eb(cpu);
 }
 
-template<typename T>
-FORCE_INLINE void I8086_GRP5_Ex(I8086 &cpu) {
+FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
-    static constexpr GRP_CallbackSignature<T> callMap[] = {
-        &INC_GRP5_Ev<T>,        // 000 -> INC
-        &DEC_GRP5_Ev<T>,        // 001 -> DEC
-        &GRP_InvalidCall<T>,    // 010 -> CALL
-        &GRP_InvalidCall<T>,    // 011 -> CALL Mp
-        &GRP_InvalidCall<T>,    // 100 -> JMP
-        &GRP_InvalidCall<T>,    // 101 -> JMP Mp
-        &GRP_InvalidCall<T>,    // 110 -> PUSH
-        &GRP_InvalidCall<T>,    // 111 -> INVALID
+    static constexpr GRP_CallbackSignature<WORD> callMap[] = {
+        &INC_GRP5_Ev,               // 000 -> INC
+        &DEC_GRP5_Ev,               // 001 -> DEC
+        &GRP_InvalidCall<WORD>,     // 010 -> CALL
+        &GRP_InvalidCall<WORD>,     // 011 -> CALL Mp
+        &GRP_InvalidCall<WORD>,     // 100 -> JMP
+        &GRP_InvalidCall<WORD>,     // 101 -> JMP Mp
+        &PUSH_Ev,                   // 110 -> PUSH
+        &GRP_InvalidCall<WORD>,     // 111 -> INVALID
 };
 
     callMap[modReg.reg](cpu, modReg);
 }
 
 void I8086_GRP5_Ev(BYTE OpCode, I8086 &cpu) {
-    I8086_GRP5_Ex<WORD>(cpu);
+    I8086_GRP5_Ev(cpu);
 }
