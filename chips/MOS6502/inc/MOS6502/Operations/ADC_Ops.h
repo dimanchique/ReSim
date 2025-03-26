@@ -11,13 +11,14 @@
  */
 FORCE_INLINE void PerformADC(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
     const BYTE value = cpu.GetAddressingModeValue(addressing);
+    const WORD sum = cpu.A + value + cpu.Status.C;
+    const BYTE result = static_cast<BYTE>(sum);
 
-    const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
-    const WORD addRes = cpu.A + value + cpu.Status.C;
-    cpu.A = addRes;
-    cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.C = addRes > 0xFF;
-    cpu.Status.V = signBitsMatch && ((cpu.A ^ value) & MOS6502_Status_N);
+    cpu.Status.UpdateStatusByValue(result, MOS6502_Status_Z | MOS6502_Status_N);
+    cpu.Status.C = sum > 0xFF;
+    cpu.Status.V = ((cpu.A ^ result) & (value ^ result) & 0x80) != 0;
+
+    cpu.A = result;
 }
 
 /**

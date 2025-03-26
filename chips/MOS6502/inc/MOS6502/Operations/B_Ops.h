@@ -13,9 +13,10 @@ FORCE_INLINE void PerformB(MOS6502 &cpu, const BYTE checkFlag, const bool expect
     const auto offset = (SBYTE)cpu.FetchByte();
     if (checkFlag == expectedValue) {
         cpu.cycles++;
-        if (IsPageCrossed(cpu.PC, cpu.PC + offset))
+        const WORD newPC = cpu.PC + offset;
+        if (IsPageCrossed(cpu.PC, newPC))
             cpu.cycles++;
-        cpu.PC += offset;
+        cpu.PC = newPC;
     }
 }
 

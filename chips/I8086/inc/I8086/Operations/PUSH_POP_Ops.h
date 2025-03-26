@@ -3,26 +3,17 @@
 #include "I8086/I8086.h"
 
 void PUSH_Ev(I8086& cpu, const ModRegByte& modReg) {
-    InstructionResult<WORD> instructionResult{};
-    const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Reg, modReg);
-
-    if (instructionData.leftOp.type == OperandType::Reg)
-        throw InvalidInstruction();
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Reg, modReg);
 
     const WORD operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
     cpu.PushDataToStack(operand);
 }
 
 void I8086_POP_Ev(BYTE OpCode, I8086 &cpu) {
-    InstructionResult<WORD> instructionResult{};
-    const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionData<WORD>(opSize, InstructionDirection::MemReg_Imm);
+    const InstructionData instructionData = cpu.GetInstructionData<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Imm);
 
-    if (instructionData.leftOp.type == OperandType::Reg)
-        throw InvalidInstruction();
-
-    instructionData.singleOp.set(cpu, &instructionData.singleOp, cpu.PopDataFromStack());
+    const WORD operand = cpu.PopDataFromStack();
+    instructionData.singleOp.set(cpu, &instructionData.singleOp, operand);
 }
 
 FORCE_INLINE void PUSH_Reg(I8086& cpu, const BYTE regIdx) {

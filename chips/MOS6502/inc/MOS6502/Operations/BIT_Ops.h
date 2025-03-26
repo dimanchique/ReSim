@@ -15,8 +15,8 @@ FORCE_INLINE void PerformBIT(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 
     const BYTE value = cpu.A & mask;
     cpu.Status.Z = value == 0;
-    cpu.Status.V = (mask >> 6) & 1;
-    cpu.Status.N = (mask >> 7) & 1;
+    cpu.Status.V = (mask & MOS6502_Status_V) > 0;
+    cpu.Status.N = (mask & MOS6502_Status_N) > 0;
 }
 
 /**

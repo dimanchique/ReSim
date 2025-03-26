@@ -83,6 +83,5 @@ void MOS6502_TSX_IMPL(MOS6502 &cpu) {
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TXS_IMPL(MOS6502 &cpu) {
-    cpu.SP = cpu.X;
-    cpu.cycles++;
+    PerformT(cpu.X, cpu.SP, cpu);
 }

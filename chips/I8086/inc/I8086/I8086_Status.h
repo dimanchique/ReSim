@@ -40,7 +40,7 @@ struct I8086_Status {
             Z = (checkValue == 0);
         }
         if (mask & I8086_Status_S) {
-            const BYTE bitCheck = std::is_same_v<OperandType, BYTE> ? 7 : 15; // sign check BYTE or WORD
+            const BYTE bitCheck = sizeof(OperandType) * 8 - 1; // sign check BYTE or WORD
             S = (checkValue & bitCheck) > 0;
         }
         if (mask & I8086_Status_P) {

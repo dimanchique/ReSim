@@ -246,7 +246,7 @@ public:
 
         switch (addressing) {
             case MOS6502_AddressingMode::Immediate:
-                return  PC++;
+                return PC++;
             case MOS6502_AddressingMode::ZeroPage:
                 return FetchByte();
             case MOS6502_AddressingMode::ZeroPage_X:
@@ -292,7 +292,7 @@ private:
     FORCE_INLINE WORD GetZeroPageIndexedAddress(const BYTE offsetValue) {
         const BYTE baseAddress = FetchByte();
         cycles++;
-        return (BYTE)(baseAddress + offsetValue);
+        return (BYTE) (baseAddress + offsetValue);
     }
 
     /**
