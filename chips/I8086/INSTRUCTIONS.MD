@@ -93,22 +93,22 @@
 - [x] POP_BP
 - [x] POP_SI
 - [x] POP_DI
-- [ ] JO_Jb
-- [ ] JNO_Jb
-- [ ] JB_Jb
-- [ ] JNB_Jb
-- [ ] JZ_Jb
-- [ ] JNZ_Jb
-- [ ] JBE_Jb
-- [ ] JA_Jb
-- [ ] JS_Jb
-- [ ] JNS_Jb
-- [ ] JPE_Jb
-- [ ] JPO_Jb
-- [ ] JL_Jb
-- [ ] JGE_Jb
-- [ ] JLE_Jb
-- [ ] JG_Jb
+- [x] JO_Jb
+- [x] JNO_Jb
+- [x] JB_Jb
+- [x] JNB_Jb
+- [x] JZ_Jb
+- [x] JNZ_Jb
+- [x] JBE_Jb
+- [x] JA_Jb
+- [x] JS_Jb
+- [x] JNS_Jb
+- [x] JPE_Jb
+- [x] JPO_Jb
+- [x] JL_Jb
+- [x] JGE_Jb
+- [x] JLE_Jb
+- [x] JG_Jb
 - [x] GRP1_Eb_Ib
 - [x] GRP1_Ev_Iv
 - [ ] TEST_Gb_Eb
