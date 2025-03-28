@@ -5,10 +5,7 @@ class MOS6502_ASMFixture : public MOS6502_ASMTestFixture {};
 
 TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
     // given:
-    std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "crc-32.bin";
-    SetExecutable(filePath.generic_string(), mem);
-
+    SetExecutable("crc-32.bin");
     for(auto i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
@@ -26,10 +23,7 @@ TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
 
 TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
     // given:
-    std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "crc-16.bin";
-    SetExecutable(filePath.generic_string(), mem);
-
+    SetExecutable("crc-16.bin");
     for(auto i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
@@ -45,10 +39,7 @@ TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
 
 TEST_F(MOS6502_ASMFixture, CRC8_ComputeTest) {
     // given:
-    std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "crc-8.bin";
-    SetExecutable(filePath.generic_string(), mem);
-
+    SetExecutable("crc-8.bin");
     for(auto i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
@@ -63,10 +54,7 @@ TEST_F(MOS6502_ASMFixture, CRC8_ComputeTest) {
 
 TEST_F(MOS6502_ASMFixture, MultBy10_ComputeTest) {
     // given:
-    std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "mult-by-10.bin";
-    SetExecutable(filePath.generic_string(), mem);
-
+    SetExecutable("mult-by-10.bin");
     cpu.A = 0x12;               // Given: 18
 
     // when:
@@ -79,11 +67,8 @@ TEST_F(MOS6502_ASMFixture, MultBy10_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, MEMCPY255_Program) {
     // source string at 0x1000 is coping to 0x2000
     // string length is 255 bytes
-
     // given:
-    std::filesystem::path projectRoot = TESTS_SOURCE_DIR;
-    std::filesystem::path filePath = projectRoot / "memcpy-255.bin";
-    SetExecutable(filePath.generic_string(), mem);
+    SetExecutable("memcpy-255.bin");
 
     // when:
     RunTest();
