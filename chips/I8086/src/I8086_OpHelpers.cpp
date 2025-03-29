@@ -11,6 +11,7 @@
 #include "I8086/Operations/PUSH_POP_Ops.h"
 #include "I8086/Operations/MOV_Imm_Ops.h"
 #include "I8086/Operations/JMP_Ops.h"
+#include "I8086/Operations/TEST_Ops.h"
 
 static void I8086_INVALID_OP(BYTE, I8086&) {}
 

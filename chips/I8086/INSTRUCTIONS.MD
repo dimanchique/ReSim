@@ -111,8 +111,8 @@
 - [x] JG_Jb
 - [x] GRP1_Eb_Ib
 - [x] GRP1_Ev_Iv
-- [ ] TEST_Gb_Eb
-- [ ] TEST_Gv_Ev
+- [x] TEST_Gb_Eb
+- [x] TEST_Gv_Ev
 - [x] XCHG_Gb_Eb
 - [x] XCHG_Gv_Ev
 - [ ] MOV_Eb_Gb
@@ -147,8 +147,8 @@
 - [ ] MOVSW
 - [ ] CMPSB
 - [ ] CMPSW
-- [ ] TEST_AL_Ib
-- [ ] TEST_AX_Iv
+- [x] TEST_AL_Ib
+- [x] TEST_AX_Iv
 - [ ] STOSB
 - [ ] STOSW
 - [ ] LODSB

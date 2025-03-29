@@ -9,6 +9,7 @@
 #include "NOT_NEG_Ops.h"
 #include "INC_DEC_Ops.h"
 #include "PUSH_POP_Ops.h"
+#include "TEST_Ops.h"
 
 template<typename T>
 using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
@@ -105,7 +106,7 @@ FORCE_INLINE void I8086_GRP3x_Ex(I8086 &cpu) {
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
-            &GRP_InvalidCall<T>,            // 000 -> TEST
+            &I8086_TEST_Ex_Ix<T>,            // 000 -> TEST
             &GRP_InvalidCall<T>,            // 001 -> INVALID
             &I8086_NOT<T>,                  // 010 -> NOT
             &I8086_NEG<T>,                  // 011 -> NEG

@@ -45,7 +45,8 @@ struct I8086_Status {
         }
         if (mask & I8086_Status_P) {
             BYTE bitCount = 0;
-            for (BYTE idx = 0; idx < 8; ++idx) {
+            BYTE operandSize = sizeof(OperandType) * 8;
+            for (BYTE idx = 0; idx < operandSize; ++idx) {
                 if ((checkValue >> idx) & 0x1)
                     bitCount++;
             }
