@@ -6,7 +6,7 @@ class MOS6502_ASMFixture : public MOS6502_ASMTestFixture {};
 TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
     // given:
     SetExecutable("crc-32.bin");
-    for(auto i = 0x1000; i < 0x1100; i++)
+    for(WORD i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
     // when:
@@ -24,7 +24,7 @@ TEST_F(MOS6502_ASMFixture, CRC32_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
     // given:
     SetExecutable("crc-16.bin");
-    for(auto i = 0x1000; i < 0x1100; i++)
+    for(WORD i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
     // when:
@@ -40,7 +40,7 @@ TEST_F(MOS6502_ASMFixture, CRC16_ComputeTest) {
 TEST_F(MOS6502_ASMFixture, CRC8_ComputeTest) {
     // given:
     SetExecutable("crc-8.bin");
-    for(auto i = 0x1000; i < 0x1100; i++)
+    for(WORD i = 0x1000; i < 0x1100; i++)
         mem[i] = 0x02;
 
     // when:

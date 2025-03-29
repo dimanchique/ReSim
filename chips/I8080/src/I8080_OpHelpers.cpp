@@ -60,7 +60,7 @@ constexpr static OpSignature Ops[] =
         };
 
 bool DecodeInstruction(const BYTE opcode, I8080 &cpu) {
-    const auto &instruction = Ops[opcode];
+    const OpSignature &instruction = Ops[opcode];
     if(opcode == STOP_OPCODE || instruction == I8080_INVALID_OP)
         return false;
     instruction(cpu);

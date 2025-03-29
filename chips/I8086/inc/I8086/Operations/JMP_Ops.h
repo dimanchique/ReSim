@@ -3,7 +3,7 @@
 #include "I8086/I8086.h"
 
 FORCE_INLINE void PerformJump(I8086 &cpu, const bool conditionFlag = true) {
-    const auto disp = static_cast<SWORD>(cpu.Fetch<WORD>());
+    const SWORD disp = cpu.Fetch<WORD>();
     if (conditionFlag)
         cpu.PC += disp;
 }

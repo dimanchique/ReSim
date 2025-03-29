@@ -10,7 +10,7 @@
  * @param expectedValue Expected value of status flag.
  */
 FORCE_INLINE void PerformB(MOS6502 &cpu, const BYTE checkFlag, const bool expectedValue) {
-    const auto offset = (SBYTE)cpu.FetchByte();
+    const SBYTE offset = cpu.FetchByte();
     if (checkFlag == expectedValue) {
         cpu.cycles++;
         const WORD newPC = cpu.PC + offset;

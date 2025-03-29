@@ -43,7 +43,7 @@ constexpr static OpSignature Ops[] =
         };
 
 bool DecodeInstruction(const BYTE opcode, MOS6502 &cpu) {
-    const auto &instruction = Ops[opcode];
+    const OpSignature &instruction = Ops[opcode];
     if(opcode == STOP_OPCODE || instruction == MOS6502_INVALID_OP)
         return false;
     instruction(cpu);
