@@ -44,7 +44,7 @@ TEST_F(I8086_XOR_Fixture, XOR_Ev_Gv_Direct_Addressed_BX) {
 
     cpu.BX = 0x0060;
     cyclesExpected = 16 + 6;
-    
+
     const WORD memValue = 0x12C;
     const DWORD memAddress = 0x1000;
     const WORD refValue = cpu.BX ^ memValue;
@@ -71,7 +71,7 @@ TEST_F(I8086_XOR_Fixture, XOR_Ev_Gv_BP_Addressed_WithDisp_DX) {
     cpu.DX = 0x0060;
     cpu.SS = 0x2000; // BP is force-replacing by SS
     cyclesExpected = 16 + 9;
-    
+
     const WORD memValue = 0x12C;
     const DWORD memAddress = modReg.leftOp.memData.dispValue + (cpu.SS << 4);
     const WORD refValue = cpu.DX ^ memValue;
@@ -165,41 +165,51 @@ TEST_F(I8086_XOR_Fixture, XOR_Gb_Eb_BL_CL) {
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Ib_Test1) {
-    TestAccumulatorWithImmediateData<BYTE>(0x11, 0x22, 0x11 ^ 0x22, XOR_AL_Ib, 4);
+    TestAccumulatorWithImmediateData<BYTE>(0x11, 0x22, XOR_AL_Ib, 4);
+    EXPECT_EQ(cpu.AL, 0x11 ^ 0x22);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Ib_Test2) {
-    TestAccumulatorWithImmediateData<BYTE>(0x10, 0x01, 0x10 ^ 0x01, XOR_AL_Ib, 4);
+    TestAccumulatorWithImmediateData<BYTE>(0x10, 0x01, XOR_AL_Ib, 4);
+    EXPECT_EQ(cpu.AL, 0x10 ^ 0x01);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Ib_Test3) {
-    TestAccumulatorWithImmediateData<BYTE>(0x00, 0x00, 0x00 ^ 0x00, XOR_AL_Ib, 4);
+    TestAccumulatorWithImmediateData<BYTE>(0x00, 0x00, XOR_AL_Ib, 4);
+    EXPECT_EQ(cpu.AL, 0x00 ^ 0x00);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Ib_Test4) {
-    TestAccumulatorWithImmediateData<BYTE>(0xFF, 0xFF, 0xFF ^ 0xFF, XOR_AL_Ib, 4);
+    TestAccumulatorWithImmediateData<BYTE>(0xFF, 0xFF, XOR_AL_Ib, 4);
+    EXPECT_EQ(cpu.AL, 0xFF ^ 0xFF);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Ib_Test5) {
-    TestAccumulatorWithImmediateData<BYTE>(0xFF, 0x00, 0xFF ^ 0x00, XOR_AL_Ib, 4);
+    TestAccumulatorWithImmediateData<BYTE>(0xFF, 0x00, XOR_AL_Ib, 4);
+    EXPECT_EQ(cpu.AL, 0xFF ^ 0x00);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Iv_Test1) {
-    TestAccumulatorWithImmediateData<WORD>(0x1111, 0x2222, 0x1111 ^ 0x2222, XOR_AX_Iv, 4);
+    TestAccumulatorWithImmediateData<WORD>(0x1111, 0x2222, XOR_AX_Iv, 4);
+    EXPECT_EQ(cpu.AX, 0x1111 ^ 0x2222);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Iv_Test2) {
-    TestAccumulatorWithImmediateData<WORD>(0x1010, 0x0101, 0x1010 ^ 0x0101, XOR_AX_Iv, 4);
+    TestAccumulatorWithImmediateData<WORD>(0x1010, 0x0101, XOR_AX_Iv, 4);
+    EXPECT_EQ(cpu.AX, 0x1010 ^ 0x0101);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Iv_Test3) {
-    TestAccumulatorWithImmediateData<WORD>(0x0000, 0x0000, 0x0000 ^ 0x0000, XOR_AX_Iv, 4);
+    TestAccumulatorWithImmediateData<WORD>(0x0000, 0x0000, XOR_AX_Iv, 4);
+    EXPECT_EQ(cpu.AX, 0x0000 ^ 0x0000);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Iv_Test4) {
-    TestAccumulatorWithImmediateData<WORD>(0xFFFF, 0xFFFF, 0xFFFF ^ 0xFFFF, XOR_AX_Iv, 4);
+    TestAccumulatorWithImmediateData<WORD>(0xFFFF, 0xFFFF, XOR_AX_Iv, 4);
+    EXPECT_EQ(cpu.AX, 0xFFFF ^ 0xFFFF);
 }
 
 TEST_F(I8086_XOR_IM_Fixture, XOR_AL_Iv_Test5) {
-    TestAccumulatorWithImmediateData<WORD>(0xFFFF, 0x0000, 0xFFFF ^ 0x0000, XOR_AX_Iv, 4);
+    TestAccumulatorWithImmediateData<WORD>(0xFFFF, 0x0000, XOR_AX_Iv, 4);
+    EXPECT_EQ(cpu.AX, 0xFFFF ^ 0x0000);
 }

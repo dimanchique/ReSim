@@ -4,7 +4,7 @@
 class I8086_SingleOpFixture : public I8086_TestFixture {
 public:
     template<typename T>
-    void TestAccumulatorWithImmediateData(T initialValue, T memValue, T refValue, I8086_OpCodes opCode, WORD executeCyclesExpected) {
+    void TestAccumulatorWithImmediateData(T initialValue, T memValue, I8086_OpCodes opCode, WORD executeCyclesExpected) {
         // given:
         if (std::is_same_v<T, BYTE>)
             cpu.AL = initialValue;
@@ -25,8 +25,6 @@ public:
         // then:
         // Temporary disabled until cycles counter will be fixed
         // CheckCyclesCount();
-
-        EXPECT_EQ((std::is_same_v<T, BYTE> ? cpu.AL : cpu.AX), refValue);
     }
 
     void TestImmediateInstruction(I8086_OpCodes opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
