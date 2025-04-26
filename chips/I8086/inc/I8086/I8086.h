@@ -45,15 +45,14 @@ public:
     bool Step() override;
 
     FORCE_INLINE BYTE FetchByte() {
-        const DWORD EffectiveAddress = EFFECTIVE_ADDRESS(PC, CS);
-        PC++;
-        cycles++;
+        const DWORD EffectiveAddress = EFFECTIVE_ADDRESS(PC++, CS);
+        ++cycles;
         return bus->Read(EffectiveAddress);
     }
 
     template<typename T>
     FORCE_INLINE T Fetch() {
-        cycles += 1;
+        ++cycles;
         const BYTE ll = FetchByte();
         if (std::is_same_v<T, BYTE>)
             return ll;
@@ -175,7 +174,7 @@ public:
     // 111 | BH  | DI
 
     template<typename T>
-    InstructionData<T> GetInstructionDataNoFetch(const OperandSize operandSize, const InstructionDirection direction, const ModRegByte modReg, bool isSRegInstruction = false) {
+    InstructionData<T> GetInstructionDataNoFetch(const OperandSize operandSize, const InstructionDirection direction, const ModRegByte modReg) {
         InstructionData<T> instructionData{};
 
         // Pre-calculate target registers pointers
@@ -232,10 +231,10 @@ public:
     }
 
     template<typename T>
-    InstructionData<T> GetInstructionData(const OperandSize operandSize, const InstructionDirection direction, const bool isSRegInstruction = false) {
+    InstructionData<T> GetInstructionData(const OperandSize operandSize, const InstructionDirection direction) {
         const BYTE modByte = Fetch<BYTE>();
         const ModRegByte modReg = ModRegByte::FromByte(modByte);
-        return GetInstructionDataNoFetch<T>(operandSize, direction, modReg, isSRegInstruction);
+        return GetInstructionDataNoFetch<T>(operandSize, direction, modReg);
     }
 
     DWORD GetModRegAddress(const ModRegByte &modReg) {

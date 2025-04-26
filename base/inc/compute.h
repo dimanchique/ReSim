@@ -10,7 +10,7 @@
  * @class Compute
  * @brief Base class for CPU
  * @details Compute contains base functionality for each CPU: Run, Reset and Load ROM.
- * Also, Compute holds cycles counter
+ * Class holds cycles counter and bus instance pointer
  */
 class Compute {
     public:
@@ -23,17 +23,13 @@ class Compute {
     static char* ReadBinary(const char *filename, long long &fileSize) {
         std::ifstream file{filename, std::ios::binary | std::ios::ate};
 
-        if (!file.is_open()) {
-            fileSize = 0;
+        if (!file.is_open())
             return nullptr;
-        }
 
         fileSize = file.tellg();
 
-        if (fileSize <= 0) {
-            fileSize = 0;
+        if (fileSize <= 0)
             return nullptr;
-        }
 
         char* const data = new char[fileSize];
 
@@ -57,10 +53,10 @@ class Compute {
             return false;
 
         Reset();
-        const bool SetSuccess = memory.SetMemory(data, numBytesRead);
+        const bool setSuccess = memory.SetMemory(data, numBytesRead);
         delete[] data;
 
-        return SetSuccess;
+        return setSuccess;
     }
 
     void SetBusInstance(Bus* new_bus) { bus = new_bus; }

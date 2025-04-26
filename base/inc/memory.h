@@ -38,8 +38,7 @@ struct Memory : public IO_Device {
     }
 
     FORCE_INLINE BYTE Read(U32 address) override {
-        const BYTE value = mem[address];
-        return value;
+        return mem[address];
     }
 
     FORCE_INLINE void Write(U32 address, BYTE value) override {

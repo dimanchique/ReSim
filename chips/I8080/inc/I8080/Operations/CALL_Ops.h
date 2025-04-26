@@ -21,7 +21,7 @@ FORCE_INLINE void PerformCall(I8080 &cpu, const bool isConditional = false, cons
         cpu.PC = newPC;
     }
     if (isConditional)
-        cpu.cycles++;
+        ++cpu.cycles;
 }
 
 /**

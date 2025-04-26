@@ -11,5 +11,5 @@
  */
 void I8080_PCHL(I8080 &cpu) {
     cpu.PC = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
-    cpu.cycles++;
+    ++cpu.cycles;
 }

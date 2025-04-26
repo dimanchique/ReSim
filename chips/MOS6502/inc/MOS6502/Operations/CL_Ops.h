@@ -9,7 +9,7 @@
  */
 FORCE_INLINE void PerformCL(MOS6502 &cpu, const BYTE statusFlag) {
     cpu.Status.Value &= ~statusFlag;
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**

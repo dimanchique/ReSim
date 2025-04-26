@@ -18,7 +18,7 @@ FORCE_INLINE void PerformASL(MOS6502 &cpu, const MOS6502_AddressingMode addressi
     BYTE memoryValue = cpu.ReadByte(address);
     const bool carry = memoryValue & (1 << 7);
     memoryValue <<= 1;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.WriteByte(memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.C = carry;
@@ -32,7 +32,7 @@ FORCE_INLINE void PerformASL(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 void MOS6502_ASL_ACC(MOS6502 &cpu) {
     const bool carry = cpu.A & (1 << 7);
     cpu.A <<= 1;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.C = carry;
 }

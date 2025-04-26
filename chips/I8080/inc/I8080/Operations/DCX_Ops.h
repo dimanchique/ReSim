@@ -11,7 +11,7 @@
  */
 FORCE_INLINE void PerformDCX(I8080 &cpu, WORD &targetRegister) {
     targetRegister = (WORD)(targetRegister + 0xFFFF); // +(-1) is better than -1
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**

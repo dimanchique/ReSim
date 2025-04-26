@@ -8,5 +8,5 @@
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_NOP_IMPL(MOS6502 &cpu) {
-    cpu.cycles++;
+    ++cpu.cycles;
 }

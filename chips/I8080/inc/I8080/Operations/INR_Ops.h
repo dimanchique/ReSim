@@ -11,7 +11,7 @@
 FORCE_INLINE void PerformINR(I8080 &cpu, BYTE &targetRegister) {
     const BYTE targetCopy = targetRegister;
     targetRegister += 1;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(targetRegister, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
     cpu.Status.SetAuxiliaryCarryFlagOfAdd(targetCopy, 0x01);
 }

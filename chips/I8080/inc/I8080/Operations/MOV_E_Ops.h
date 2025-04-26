@@ -39,7 +39,7 @@ void I8080_MOV_E_D(I8080 &cpu) {
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_E_E(I8080 &cpu) {
-    cpu.cycles++; //nop-like
+    ++cpu.cycles; //nop-like
 }
 
 /**

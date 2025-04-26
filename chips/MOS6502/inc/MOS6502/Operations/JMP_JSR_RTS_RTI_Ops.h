@@ -33,7 +33,7 @@ void MOS6502_JSR_ABS(MOS6502 &cpu) {
     const WORD targetAddress = cpu.FetchWord();
     cpu.PushProgramCounterToStack();
     cpu.PC = targetAddress;
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**
@@ -45,7 +45,7 @@ void MOS6502_JSR_ABS(MOS6502 &cpu) {
  */
 void MOS6502_RTS_IMPL(MOS6502 &cpu) {
     cpu.PC = cpu.PopAddressFromStack();
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**

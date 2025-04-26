@@ -11,7 +11,7 @@
  */
 FORCE_INLINE void PerformRegToRegMOV(I8080 &cpu, BYTE &destRegister, const BYTE &srcRegister) {
     destRegister = srcRegister;
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**

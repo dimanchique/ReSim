@@ -16,7 +16,7 @@ FORCE_INLINE void PerformROR(MOS6502 &cpu, const MOS6502_AddressingMode addressi
     const bool carry = memoryValue & 1;
     memoryValue >>= 1;
     memoryValue |= cpu.Status.C << 7;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.WriteByte(memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.C = carry;
@@ -31,7 +31,7 @@ void MOS6502_ROR_ACC(MOS6502 &cpu) {
     const bool carry = cpu.A & 1;
     cpu.A >>= 1;
     cpu.A |= cpu.Status.C << 7;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
     cpu.Status.C = carry;
 }

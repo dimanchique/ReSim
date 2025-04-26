@@ -15,7 +15,7 @@ FORCE_INLINE void PerformDEC(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 
     BYTE memoryValue = cpu.ReadByte(address);
     memoryValue--;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.WriteByte(memoryValue, address);
     cpu.Status.UpdateStatusByValue(memoryValue, MOS6502_Status_Z | MOS6502_Status_N);
 }
@@ -64,7 +64,7 @@ void MOS6502_DEC_ABSX(MOS6502 &cpu) {
  */
 void MOS6502_DEX_IMPL(MOS6502 &cpu) {
     cpu.X--;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(cpu.X, MOS6502_Status_Z | MOS6502_Status_N);
 }
 
@@ -76,6 +76,6 @@ void MOS6502_DEX_IMPL(MOS6502 &cpu) {
  */
 void MOS6502_DEY_IMPL(MOS6502 &cpu) {
     cpu.Y--;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(cpu.Y, MOS6502_Status_Z | MOS6502_Status_N);
 }

@@ -49,9 +49,7 @@ public:
      * @return Fetched byte.
      */
     FORCE_INLINE BYTE FetchByte() {
-        const BYTE Data = bus->Read(PC++);
-        cycles += 3;
-        return Data;
+        return ReadByte(PC++);
     }
 
     /**
@@ -129,7 +127,7 @@ public:
     FORCE_INLINE void PushDataToStack(const BYTE &lsb, const BYTE &msb) {
         WriteByte(lsb, --SP);
         WriteByte(msb, --SP);
-        cycles++;
+        ++cycles;
     }
 
     /**
@@ -137,7 +135,7 @@ public:
      * @note Increments cycles count by 7. Decrements the Stack Pointer by 2.
      */
     FORCE_INLINE void PushProgramCounterToStack() {
-        PushDataToStack((PC >> 8) & 0xFF, PC & 0xFF);
+        PushDataToStack((PC >> 8), PC & 0xFF);
     }
 
     /**

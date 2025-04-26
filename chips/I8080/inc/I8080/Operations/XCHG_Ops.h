@@ -11,5 +11,5 @@ void I8080_XCHG(I8080 &cpu) {
     const WORD tmp = cpu.DE;
     cpu.DE = cpu.HL;
     cpu.HL = tmp;
-    cpu.cycles++;
+    ++cpu.cycles;
 }

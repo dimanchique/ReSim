@@ -15,9 +15,9 @@ FORCE_INLINE void PerformDAD(I8080 &cpu, const WORD targetRegister) {
     cpu.cycles += 4; // assuming it takes 4 cycles to do 16-bit add
 
     cpu.L = result & 0xFF;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.H = (result >> 8) & 0xFF;
-    cpu.cycles++;
+    ++cpu.cycles;
 
     cpu.Status.C = (result & 0XFFFF0000) > 0;
 }

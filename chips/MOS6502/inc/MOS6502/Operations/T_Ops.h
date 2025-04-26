@@ -11,7 +11,7 @@
  */
 FORCE_INLINE void PerformT(const BYTE sourceRegister, BYTE &destinationRegister, MOS6502 &cpu) {
     destinationRegister = sourceRegister;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(destinationRegister, MOS6502_Status_Z | MOS6502_Status_N);
 }
 

@@ -63,5 +63,5 @@ void MOS6502_STA_INDX(MOS6502 &cpu) {
  */
 void MOS6502_STA_INDY(MOS6502 &cpu) {
     PerformSTA(cpu, MOS6502_AddressingMode::Indirect_Y, false);
-    cpu.cycles++; // extra cycle required
+    ++cpu.cycles; // extra cycle required
 }

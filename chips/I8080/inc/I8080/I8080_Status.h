@@ -15,7 +15,7 @@
  * @details Status register contains 5 status bits + 3 bit left unused.
  * The vast majority of instructions change Status Register state
  */
-struct I8080_Status{
+struct I8080_Status {
     union {
         struct {
             BYTE C: 1;             /**< Carry Flag */
@@ -43,7 +43,7 @@ struct I8080_Status{
             S = (value & I8080_Status_S) > 0;
         if (mask & I8080_Status_P) {
             BYTE bitCount = 0;
-            for(BYTE idx = 0; idx < 8; ++idx) {
+            for (BYTE idx = 0; idx < 8; ++idx) {
                 if ((value >> idx) & 0x1)
                     bitCount++;
             }
@@ -58,10 +58,11 @@ struct I8080_Status{
      * @params secondOpWithCarry Second operand of add operation.
      * @params initialCarry Optional initial carry (for ADC/SBB instructions).
      */
-    FORCE_INLINE void SetAuxiliaryCarryFlagOfAdd(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
+    FORCE_INLINE void
+    SetAuxiliaryCarryFlagOfAdd(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
         BYTE carryFlag = initialCarry;
         BYTE firstOpArg, secondOpArg;
-        for(BYTE idx = 0; idx < 4; ++idx) {
+        for (BYTE idx = 0; idx < 4; ++idx) {
             firstOpArg = (firstOp >> idx) & 0x01;
             secondOpArg = (secondOpWithCarry >> idx) & 0x01; // Consider the carry in the second operand
             carryFlag = ((firstOpArg + secondOpArg + carryFlag) >> 1) & 0x01;

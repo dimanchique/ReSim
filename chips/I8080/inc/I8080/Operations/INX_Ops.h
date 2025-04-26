@@ -11,7 +11,7 @@
  */
 FORCE_INLINE void PerformINX(I8080 &cpu, WORD &targetRegister) {
     targetRegister++;
-    cpu.cycles++;
+    ++cpu.cycles;
 }
 
 /**

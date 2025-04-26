@@ -44,9 +44,7 @@ public:
      * @return Fetched byte.
      */
     FORCE_INLINE BYTE FetchByte() {
-        const BYTE Data = bus->Read(PC++);
-        cycles++;
-        return Data;
+        return ReadByte(PC++);
     }
 
     /**
@@ -71,7 +69,7 @@ public:
      */
     FORCE_INLINE BYTE ReadByte(const WORD address) {
         const BYTE Data = bus->Read(address);
-        cycles++;
+        ++cycles;
         return Data;
     }
 
@@ -98,7 +96,7 @@ public:
      */
     FORCE_INLINE void WriteByte(const BYTE value, const WORD address) {
         bus->Write(address, value);
-        cycles++;
+        ++cycles;
     }
 
     /**
@@ -141,7 +139,7 @@ public:
     FORCE_INLINE void PushStatusToStack() {
         WriteByte(Status.Value, StackPointerToAddress());
         SP--;
-        cycles++;
+        ++cycles;
     }
 
     /**
@@ -151,9 +149,9 @@ public:
      */
     FORCE_INLINE void PopStatusFromStack() {
         SP++;
-        cycles++;
+        ++cycles;
         Status.Value = ReadByte(StackPointerToAddress());
-        cycles++;
+        ++cycles;
     }
 
     /**
@@ -165,7 +163,7 @@ public:
     FORCE_INLINE void PushByteToStack(const BYTE value) {
         WriteByte(value, StackPointerToAddress());
         SP--;
-        cycles++;
+        ++cycles;
     }
 
     /**
@@ -176,9 +174,9 @@ public:
      */
     FORCE_INLINE BYTE PopByteFromStack() {
         SP++;
-        cycles++;
+        ++cycles;
         const BYTE value = ReadByte(StackPointerToAddress());
-        cycles++;
+        ++cycles;
         return value;
     }
 
@@ -291,7 +289,7 @@ private:
      */
     FORCE_INLINE WORD GetZeroPageIndexedAddress(const BYTE offsetValue) {
         const BYTE baseAddress = FetchByte();
-        cycles++;
+        ++cycles;
         return (BYTE) (baseAddress + offsetValue);
     }
 
@@ -313,7 +311,7 @@ private:
 
         // add extra cycle if NO page-cross check
         if (!shouldCheckPageCross || IsPageCrossed(effectiveAddress, baseAddress))
-            cycles++;
+            ++cycles;
         return effectiveAddress;
     }
 
@@ -329,7 +327,7 @@ private:
      */
     FORCE_INLINE WORD GetIndXAddress() {
         const BYTE baseAddress = FetchByte() + X;
-        cycles++;
+        ++cycles;
         return ReadWord(baseAddress);
     }
 
@@ -350,7 +348,7 @@ private:
         const WORD baseAddress = ReadWord(baseAddressPtr);
         const WORD effectiveAddress = baseAddress + Y;
         if (shouldCheckPageCross && IsPageCrossed(effectiveAddress, baseAddress))
-            cycles++;
+            ++cycles;
         return effectiveAddress;
     }
 

@@ -13,7 +13,7 @@ void I8080_XTHL(I8080 &cpu) {
     cpu.WriteWord(registerValue, cpu.SP);
 
     cpu.L = stackPointerValue & 0xFF;
-    cpu.cycles++;
+    ++cpu.cycles;
     cpu.H = (stackPointerValue >> 8) & 0xFF;
-    cpu.cycles++;
+    ++cpu.cycles;
 }

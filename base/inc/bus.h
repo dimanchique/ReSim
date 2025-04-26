@@ -43,7 +43,6 @@ private:
             return;
         }
 
-        // if device is not present then do nothing, no need to throw exception
         throw std::out_of_range("No device mapped to address " + std::to_string(address));
     }
 

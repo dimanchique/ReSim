@@ -10,5 +10,5 @@
  */
 void I8080_SPHL(I8080 &cpu) {
     cpu.SP = ReSimFunctionLibrary::DataManipulation::putTwoBytesToLIWord(cpu.H, cpu.L);
-    cpu.cycles++;
+    ++cpu.cycles;
 }

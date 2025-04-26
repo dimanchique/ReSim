@@ -23,7 +23,7 @@ void I8080_MOV_C_B(I8080 &cpu) {
  * @param cpu I8080 struct instance.
  */
 void I8080_MOV_C_C(I8080 &cpu) {
-    cpu.cycles++; //nop-like
+    ++cpu.cycles; //nop-like
 }
 
 /**
