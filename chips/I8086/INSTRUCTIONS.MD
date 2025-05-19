@@ -139,10 +139,10 @@
 - [ ] POPF
 - [x] SAHF
 - [x] LAHF
-- [ ] MOV_AL_Ob
-- [ ] MOV_AX_Ov
-- [ ] MOV_Ob_AL
-- [ ] MOV_Ov_AX
+- [x] MOV_AL_Ob
+- [x] MOV_AX_Ov
+- [x] MOV_Ob_AL
+- [x] MOV_Ov_AX
 - [ ] MOVSB
 - [ ] MOVSW
 - [ ] CMPSB

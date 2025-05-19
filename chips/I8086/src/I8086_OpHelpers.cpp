@@ -10,6 +10,7 @@
 #include "I8086/Operations/CBW_CWD_Ops.h"
 #include "I8086/Operations/PUSH_POP_Ops.h"
 #include "I8086/Operations/MOV_Imm_Ops.h"
+#include "I8086/Operations/MOV_Direct_Ops.h"
 #include "I8086/Operations/JMP_Ops.h"
 #include "I8086/Operations/TEST_Ops.h"
 
