@@ -1,6 +1,7 @@
 #include "I8086_TestingSuite.h"
 #include "I8086_GroupTests.h"
 #include "I8086_SingleOpTests.h"
+#include "I8086_ImpliedOpTests.h"
 
 class I8086_PUSH_POP_Fixture : public I8086_TestFixture {};
 
@@ -120,4 +121,31 @@ TEST_F(I8086_POP_Ev_Fixture, POP_Ev) {
     WORD result = mem[newStackAddress - 2];
     result |= (mem[newStackAddress - 1] << 8);
     EXPECT_EQ(result, memValue);
+}
+
+class I8086_PUSH_POP_F_Fixture : public I8086_ImpliedOpTests {};
+
+TEST_F(I8086_PUSH_POP_F_Fixture, PushPopFlag) {
+    // given:
+    const WORD regValue = 0xDADA;
+    const WORD statusValue = 0xBEBE;
+
+    cpu.ES = regValue;
+    cpu.Status.Value = statusValue;
+    cpu.SP = 0x6000;
+
+    mem[effectiveAddress++] = PUSH_ES;
+    mem[effectiveAddress++] = PUSHF;
+    mem[effectiveAddress++] = POP_ES;
+    mem[effectiveAddress++] = POPF;
+    mem[effectiveAddress] = STOP_OPCODE;
+
+    cyclesExpected = 4;
+
+    // when:
+    cyclesPassed = cpu.Run();
+
+    // then:
+    EXPECT_EQ(cpu.ES, statusValue);
+    EXPECT_EQ(cpu.Status.Value, regValue);
 }
