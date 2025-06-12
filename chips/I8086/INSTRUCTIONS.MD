@@ -135,8 +135,8 @@
 - [x] CWD
 - [ ] CALL_Ap
 - [ ] WAIT
-- [ ] PUSHF
-- [ ] POPF
+- [x] PUSHF
+- [x] POPF
 - [x] SAHF
 - [x] LAHF
 - [x] MOV_AL_Ob

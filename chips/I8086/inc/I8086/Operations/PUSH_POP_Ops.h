@@ -16,6 +16,14 @@ void I8086_POP_Ev(BYTE OpCode, I8086 &cpu) {
     instructionData.singleOp.set(cpu, &instructionData.singleOp, operand);
 }
 
+void I8086_PUSHF(BYTE OpCode, I8086 &cpu) {
+    cpu.PushDataToStack(cpu.Status.Value);
+}
+
+void I8086_POPF(BYTE OpCode, I8086 &cpu) {
+    cpu.Status.Value = cpu.PopDataFromStack();
+}
+
 FORCE_INLINE void PUSH_Reg(I8086& cpu, const BYTE regIdx) {
     assert(regIdx <= 7);
     cpu.PushDataToStack(*cpu.GetRegWordPtr(regIdx));
