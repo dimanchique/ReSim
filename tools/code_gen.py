@@ -28,7 +28,7 @@ op_map = dict()
 opcode_re_exp = r'\s+([\w]+)\s+=\s+(0[xX][0-9a-fA-F]+)'  # INSTRUCTION_NAME = 0xAE
 scan_regex(read_target, opcode_re_exp, lambda x: op_map.update({x.group(1): int(x.group(2), 16)}))
 
-ops = ['ADD_CALL(INVALID_OP)'] * 256
+ops = ['ADD_CALL(INVALID_OP)'] * (max(list(op_map.values())) + 1)
 
 used_instructions = 0
 for i in op_map:
