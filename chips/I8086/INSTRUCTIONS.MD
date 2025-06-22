@@ -115,10 +115,10 @@
 - [x] TEST_Gv_Ev
 - [x] XCHG_Gb_Eb
 - [x] XCHG_Gv_Ev
-- [ ] MOV_Eb_Gb
-- [ ] MOV_Ev_Gv
-- [ ] MOV_Gb_Eb
-- [ ] MOV_Gv_Ev
+- [x] MOV_Eb_Gb
+- [x] MOV_Ev_Gv
+- [x] MOV_Gb_Eb
+- [x] MOV_Gv_Ev
 - [ ] MOV_Ew_Sw
 - [ ] LEA_Gv_M
 - [ ] MOV_Sw_Ew
