@@ -2,6 +2,7 @@
 #include "I8086_GroupTests.h"
 #include "I8086_SingleOpTests.h"
 #include "I8086_ImpliedOpTests.h"
+#include "I8086/I8086_OpCodesGroups.h"
 
 class I8086_PUSH_POP_Fixture : public I8086_TestFixture {};
 

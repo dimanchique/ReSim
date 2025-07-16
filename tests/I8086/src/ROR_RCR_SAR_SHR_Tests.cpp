@@ -1,4 +1,5 @@
 #include "I8086_GroupTests.h"
+#include "I8086/I8086_OpCodesGroups.h"
 
 class I8086_ROR_RCR_SAR_SHR_Fixture : public I8086_GroupFixture {};
 

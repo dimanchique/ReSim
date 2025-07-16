@@ -1,4 +1,5 @@
 #include "I8086_GroupTests.h"
+#include "I8086/I8086_OpCodesGroups.h"
 
 class I8086_ROL_RCL_SAL_SHL_Fixture : public I8086_GroupFixture {};
 
