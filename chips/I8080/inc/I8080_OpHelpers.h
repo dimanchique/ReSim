@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-struct I8080;
+class I8080;
 
 /**
  * @brief Instruction decoder.

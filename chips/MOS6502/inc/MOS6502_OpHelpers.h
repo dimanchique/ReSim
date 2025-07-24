@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-struct MOS6502;
+class MOS6502;
 
 /**
  * @brief Instruction decoder.
