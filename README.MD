@@ -2,9 +2,14 @@
 ReSim (RetroSimulator) was originally designed as a 6502 functional simulator, but when 6502 was finished I realised I would like to implement something else.
 
 > Project progress:<br>
-![100%](https://progress-bar.xyz/100?title=6502&width=200) <br>
-![100%](https://progress-bar.xyz/100?title=I8080&width=200) <br>
-![14%](https://progress-bar.xyz/14?title=I8086&width=200) <br>
+MOS6502 <br>
+![100%](https://progress-bar.xyz/100?style=flat&width=200) <br>
+I8080 <br>
+![100%](https://progress-bar.xyz/100?style=flat&width=200) <br>
+Z80 <br>
+![1%](https://progress-bar.xyz/1?style=flat&width=200) <br>
+I8086 <br>
+![60%](https://progress-bar.xyz/60?style=flat&width=200) <br>
 
 ReSim is a C++ project designed for retro computing enthusiasts, developers, and learners.
 It gives you an opportunity to work with retro MPUs and test your own ASM programs.
