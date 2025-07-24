@@ -4,7 +4,7 @@
 
 enum Z80_OpCodes : BYTE {
 
-    //  Add...
+    // ADD
     ADD_A_B = 0x80,
     ADD_A_C = 0x81,
     ADD_A_D = 0x82,
@@ -13,6 +13,12 @@ enum Z80_OpCodes : BYTE {
     ADD_A_L = 0x85,
     ADD_A   = 0x86,
     ADD_A_A = 0x87,
+    ADD_A_N = 0xC6,
+
+    ADD_HL_BC = 0x09,
+    ADD_HL_DE = 0x19,
+    ADD_HL_HL = 0x29,
+    ADD_HL_SP = 0x39,
 
     ADC_A_B = 0x88,
     ADC_A_C = 0x89,
@@ -22,8 +28,30 @@ enum Z80_OpCodes : BYTE {
     ADC_A_L = 0x8D,
     ADC_A   = 0x8E,
     ADC_A_A = 0x8F,
+    ADC_A_N = 0xCE,
 
-    //Logical AND operations
+    // SUB
+    SUB_B = 0x90,
+    SUB_C = 0x91,
+    SUB_D = 0x92,
+    SUB_E = 0x93,
+    SUB_H = 0x94,
+    SUB_L = 0x95,
+    SUB_HL_ADDR   = 0x96,
+    SUB_A = 0x97,
+    SUB_N = 0xD6,
+
+    SBC_A_B = 0x98,
+    SBC_A_C = 0x99,
+    SBC_A_D = 0x9A,
+    SBC_A_E = 0x9B,
+    SBC_A_H = 0x9C,
+    SBC_A_L = 0x9D,
+    SBC_A_HL_ADDR = 0x9E,
+    SBC_A_A = 0x9F,
+    SBC_A_N = 0xDE,
+
+    // AND
     AND_B = 0xA0,
     AND_C = 0xA1,
     AND_D = 0xA2,
@@ -32,8 +60,9 @@ enum Z80_OpCodes : BYTE {
     AND_L = 0xA5,
     AND_HL = 0xA6,
     AND_A = 0xA7,
+    AND_N = 0xE6,
 
-    //CALL
+    // CALL
     CALL_NZ_NN = 0xC4,
     CALL_Z_NN = 0xCC,
     CALL_NN = 0xCD,
@@ -44,7 +73,7 @@ enum Z80_OpCodes : BYTE {
     CALL_P_NN = 0xF4,
     CALL_M_NN = 0xFC,
 
-    //CP
+    // CP
     CP_B = 0xB8,
     CP_C = 0xB9,
     CP_D = 0xBA,
@@ -52,10 +81,10 @@ enum Z80_OpCodes : BYTE {
     CP_H = 0xBC,
     CP_L = 0xBD,
     CP_HL = 0xBE,
-    CP_A = 0xBE,
+    CP_A = 0xBF,
     CP_N = 0xFE,
 
-    //Decrement
+    // DEC
     DEC_B = 0x05,
     DEC_BC = 0x0B,
     DEC_C = 0x0D,
@@ -69,16 +98,25 @@ enum Z80_OpCodes : BYTE {
     DEC_SP = 0x3B,
     DEC_A = 0x3D,
 
-    DI = 0xF3,
+    DAA = 0x27,
 
-    //Exchange
+    // Interrupt
+    DI = 0xF3,
+    EI = 0xFB,
+
+    // Exchange
     EX_AF_A_F = 0x08,
     EX_DE_HL = 0xEB,
+    EXX = 0xD9,
+    EX_SP_ADDR_HL = 0xE3,
 
-    //HALT
+    // HALT
     HALT = 0x76,
 
-    //Increment
+    // NOP
+    NOP = 0x00,
+
+    // INC
     INC_BC = 0x03,
     INC_B = 0x04,
     INC_C = 0x0C,
@@ -92,7 +130,7 @@ enum Z80_OpCodes : BYTE {
     INC_HL_ADDR = 0x34,
     INC_A = 0x3C,
 
-    //JP ???
+    //JP
     JP_NZ_NN = 0xC2,
     JP_NN = 0xC3,
     JP_Z_NN = 0xCA,
@@ -104,9 +142,23 @@ enum Z80_OpCodes : BYTE {
     JP_P_NN = 0xF2,
     JP_M_NN = 0xFA,
 
-    //JR ???
+    // I/O
+    OUT_N_ADDR_A = 0xD3,
+    IN_A_N_ADDR = 0xDB,
 
-    //LD
+    // JR
+    DJNZ_D = 0x10,
+    JR_D = 0x18,
+    JR_NZ_D = 0x20,
+    JR_Z_D = 0x28,
+    JR_NC_D = 0x30,
+    JR_C_D = 0x38,
+
+    CPL = 0x2F,
+    SCF = 0x37,
+    CCF = 0x3F,
+
+    // LD
     LD_BC_NN = 0x01,
     LD_BC_ADDR_NN = 0x02,
     LD_B_N = 0x06,
@@ -123,6 +175,7 @@ enum Z80_OpCodes : BYTE {
     LD_HL_NN_ADDR = 0x2A,
     LD_L_N = 0x2E,
     LD_SP_NN = 0x31,
+    LD_SP_HL = 0xF9,
     LD_NN_ADDR_A = 0x32,
     LD_HL_ADDR_N = 0x36,
     LD_A_NN_ADDR = 0x3A,
@@ -191,7 +244,7 @@ enum Z80_OpCodes : BYTE {
     LD_A_HL_ADDR = 0x7E,
     LD_A_A = 0x7F,
 
-    //Logical OR operations
+    // OR
     OR_B = 0xB0,
     OR_C = 0xB1,
     OR_D = 0xB2,
@@ -200,20 +253,21 @@ enum Z80_OpCodes : BYTE {
     OR_L = 0xB5,
     OR_HL = 0xB6,
     OR_A = 0xB7,
+    OR_N = 0xF6,
 
-    //POP
+    // POP
     POP_B_C = 0xC1,
     POP_D_E = 0xD1,
     POP_H_L = 0xE1,
     POP_A_F = 0xF1,
 
-    //PUSH
+    // PUSH
     PUSH_B_C = 0xC5,
     PUSH_D_E = 0xD5,
     PUSH_H_L = 0xE5,
     PUSH_A_F = 0xF5,
 
-    //RET
+    // RET
     RET_NZ = 0xC0,
     RET_Z = 0xC8,
     RET = 0xC9,
@@ -224,13 +278,13 @@ enum Z80_OpCodes : BYTE {
     RET_P = 0xF0,
     RET_M = 0xF8,
 
-    //ROTATED
+    // ROTATED
     RLA = 0x17,
     RLCA = 0x07,
     RRA = 0x1F,
     RRCA = 0x0F,
 
-    //RST
+    // RST
     RST_00_H = 0xC7,
     RST_08_H = 0xCF,
     RST_10_H = 0xD7,
@@ -240,7 +294,7 @@ enum Z80_OpCodes : BYTE {
     RST_30_H = 0xF7,
     RST_38_H = 0xFF,
 
-    //Logical XOR operations
+    // XOR
     XOR_B = 0xA8,
     XOR_C = 0xA9,
     XOR_D = 0xAA,
@@ -250,4 +304,9 @@ enum Z80_OpCodes : BYTE {
     XOR_HL = 0xAE,
     XOR_A = 0xAF,
 
+    // Groups
+    Bit_Group = 0xCB,
+    IX_Group = 0xDD,
+    Misc_Group = 0xED,
+    IY_Group = 0xFD,
 };
