@@ -1,8 +1,8 @@
 #include <filesystem>
 #include <vector>
 #include <thread>
-#include "chips/MOS6502/inc/MOS6502/MOS6502.h"
-#include "MOS6502/MOS6502_OpCodes.h"
+#include "MOS6502.h"
+#include "MOS6502_OpCodes.h"
 
 class TTY_Prototype : public IO_Device {
 public:

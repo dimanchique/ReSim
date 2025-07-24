@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/types.h"
-#include "I8086/I8086_Addressing.h"
+#include "I8086_Addressing.h"
 
 enum ByteRegisters : BYTE {
     bAL, bCL, bDL, bBL, bAH, bCH, bDH, bBH

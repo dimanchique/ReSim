@@ -6,7 +6,7 @@ cpu_name = 'I8086'
 
 root = Path(__file__).parents[1]
 cpu_root = os.path.join(root, 'chips', cpu_name)
-cpu_include_root = os.path.join(cpu_root, 'inc', cpu_name)
+cpu_include_root = os.path.join(cpu_root, 'inc')
 
 read_target = os.path.join(cpu_include_root, f'{cpu_name}_OpCodes.h')
 write_target = os.path.join(cpu_include_root, f'{cpu_name}_OpCodesList.h')

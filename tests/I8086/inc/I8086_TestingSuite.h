@@ -1,9 +1,9 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include "I8086/I8086_OpCodes.h"
+#include "I8086_OpCodes.h"
 #include "ModRegConstructor.h"
-#include "I8086/I8086.h"
+#include "I8086.h"
 #include "memory.h"
 
 class I8086_TestFixture : public testing::Test {

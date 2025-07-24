@@ -1,5 +1,5 @@
-#include "I8086/I8086.h"
-#include "I8086/I8086_OpHelpers.h"
+#include "I8086.h"
+#include "I8086_OpHelpers.h"
 
 void I8086::Reset() noexcept {
     PC = 0x0000;

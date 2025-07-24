@@ -1,7 +1,7 @@
 #include <chrono>
 #include <thread>
-#include "I8080/I8080.h"
-#include "I8080/I8080_OpHelpers.h"
+#include "I8080.h"
+#include "I8080_OpHelpers.h"
 
 void I8080::Reset() noexcept {
     PC = 0x0000;

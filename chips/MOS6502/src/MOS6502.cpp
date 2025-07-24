@@ -1,5 +1,5 @@
-#include "MOS6502/MOS6502.h"
-#include "MOS6502/MOS6502_OpHelpers.h"
+#include "MOS6502.h"
+#include "MOS6502_OpHelpers.h"
 #include "chrono"
 #include <thread>
 
