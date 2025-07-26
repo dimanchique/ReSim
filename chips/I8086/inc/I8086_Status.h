@@ -41,7 +41,7 @@ struct I8086_Status {
         }
         if (mask & I8086_Status_S) {
             const BYTE bitCheck = sizeof(OperandType) * 8 - 1; // sign check BYTE or WORD
-            S = (checkValue & bitCheck) > 0;
+            S = (checkValue & 1 << bitCheck) > 0;
         }
         if (mask & I8086_Status_P) {
             BYTE bitCount = 0;

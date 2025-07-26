@@ -84,7 +84,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_BP_Addressed_WithDisp_DX) {
     EXPECT_EQ(cpu.DX, initialDX);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
-    EXPECT_FALSE(cpu.Status.S);
+    EXPECT_TRUE(cpu.Status.S);
 }
 
 // Mem (BX SI addressed WithDisp) <-- AX | Mem (BX SI addressed WithDisp)
@@ -178,7 +178,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Gb_Eb_BL_CL) {
     EXPECT_EQ(cpu.BL, initialBL);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.P);
-    EXPECT_FALSE(cpu.Status.S);
+    EXPECT_TRUE(cpu.Status.S);
 }
 
 TEST_F(I8086_TEST_IM_Fixture, TEST_AL_Ib_Test1) {
