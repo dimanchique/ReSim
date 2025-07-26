@@ -1,5 +1,6 @@
 #include "memory.h"
 #include "I8086.h"
+#include "Operations/ADD_Ops.h"
 #include "Operations/NOP_Ops.h"
 #include "Operations/GRP_Ops.h"
 #include "Operations/OR_Ops.h"

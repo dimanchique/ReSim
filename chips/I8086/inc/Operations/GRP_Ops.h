@@ -25,7 +25,7 @@ FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
-            &GRP_InvalidCall<T>,    // 000 -> ADD
+            &I8086_ADD_Ex_Ix<T>,    // 000 -> ADD
             &I8086_OR_Ex_Ix<T>,     // 001 -> OR
             &GRP_InvalidCall<T>,    // 010 -> ADC
             &GRP_InvalidCall<T>,    // 011 -> SBB

@@ -79,4 +79,9 @@ template<typename T>
 struct InstructionResult{
     OperandValue<T> leftOp;
     OperandValue<T> rightOp;
+    struct {
+        bool C; // Carry
+        bool A; // Auxiliary
+        bool O; // Overflow
+    } status;
 };

@@ -1,9 +1,9 @@
-- [ ] ADD_Eb_Gb
-- [ ] ADD_Ev_Gv
-- [ ] ADD_Gb_Eb
-- [ ] ADD_Gv_Ev
-- [ ] ADD_AL_Ib
-- [ ] ADD_AX_Iv
+- [x] ADD_Eb_Gb
+- [x] ADD_Ev_Gv
+- [x] ADD_Gb_Eb
+- [x] ADD_Gv_Ev
+- [x] ADD_AL_Ib
+- [x] ADD_AX_Iv
 - [x] PUSH_ES
 - [x] POP_ES
 - [x] OR_Eb_Gb
