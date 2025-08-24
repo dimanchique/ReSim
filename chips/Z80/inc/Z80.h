@@ -7,7 +7,7 @@
 #include "memory.h"
 #include "function_library/data_manipulation.h"
 
-#define STOP_OPCODE Z80_OpCodes::HALT /**< HALT instruction opcode used to stop execution of finite programs */
+#define STOP_OPCODE Z80_OpCodes_Main::HALT /**< HALT instruction opcode used to stop execution of finite programs */
 
 class Z80 final: public Compute {
 };

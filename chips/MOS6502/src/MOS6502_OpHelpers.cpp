@@ -37,8 +37,7 @@ constexpr static OpSignature Ops[] =
         {
 #ifndef ADD_CALL
 #   define ADD_CALL(call) MOS6502_##call
-#   include "MOS6502_OpCodesList.h"
-
+#   include "MOS6502_OpCodesList_Main.h"
 #   undef ADD_CALL
 #endif
         };

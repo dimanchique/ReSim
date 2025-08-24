@@ -83,7 +83,7 @@ public:
         CheckCyclesCount();
     }
 
-    void EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+    void EOR_ABS_CanDoExclusiveOR(MOS6502_OpCodes_Main opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = 0x00;

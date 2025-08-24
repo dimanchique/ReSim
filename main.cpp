@@ -2,7 +2,7 @@
 #include <vector>
 #include <thread>
 #include "MOS6502.h"
-#include "MOS6502_OpCodes.h"
+#include "MOS6502_OpCodes_Main.h"
 
 class TTY_Prototype : public IO_Device {
 public:

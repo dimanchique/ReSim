@@ -2,7 +2,7 @@
 
 class I8080_LDAFixture : public I8080_TestFixture {
 public:
-    void LDA_CanLoadValue(const I8080_OpCodes opcode, const BYTE memoryValue, const WORD memoryAddress) {
+    void LDA_CanLoadValue(const I8080_OpCodes_Main opcode, const BYTE memoryValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = (memoryAddress >> 8) & 0xFF;
@@ -20,7 +20,7 @@ public:
         CheckCyclesCount();
     }
 
-    void LDAX_CanLoadValue(const I8080_OpCodes opcode, const BYTE memoryValue, const WORD memoryAddress) {
+    void LDAX_CanLoadValue(const I8080_OpCodes_Main opcode, const BYTE memoryValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = opcode;
         mem[memoryAddress] = memoryValue;

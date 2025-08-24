@@ -1,6 +1,6 @@
 #include "MOS6502_B_Tests.h"
 
-void MOS6502_BFixture::B_REL_CanBranch(MOS6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
+void MOS6502_BFixture::B_REL_CanBranch(MOS6502_OpCodes_Main opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     SetStatusBitByMask(targetStatusFlag, flagValue);
     mem[0xFFFC] = 0x40;
@@ -21,7 +21,7 @@ void MOS6502_BFixture::B_REL_CanBranch(MOS6502_OpCodes opcode, BYTE targetStatus
     CheckCyclesCount();
 }
 
-void MOS6502_BFixture::B_REL_CannotBranch(MOS6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
+void MOS6502_BFixture::B_REL_CannotBranch(MOS6502_OpCodes_Main opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     SetStatusBitByMask(targetStatusFlag, flagValue);
     mem[0xFFFC] = 0x00;
@@ -40,7 +40,7 @@ void MOS6502_BFixture::B_REL_CannotBranch(MOS6502_OpCodes opcode, BYTE targetSta
     CheckCyclesCount();
 }
 
-void MOS6502_BFixture::B_REL_CanBranch_WithPageCrossing(MOS6502_OpCodes opcode, BYTE targetStatusFlag, bool flagValue) {
+void MOS6502_BFixture::B_REL_CanBranch_WithPageCrossing(MOS6502_OpCodes_Main opcode, BYTE targetStatusFlag, bool flagValue) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0x40;

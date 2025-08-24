@@ -1,6 +1,6 @@
 #pragma once
 #include "I8080.h"
-#include "I8080_OpCodes.h"
+#include "I8080_OpCodes_Main.h"
 
 /**
  * @brief Reset

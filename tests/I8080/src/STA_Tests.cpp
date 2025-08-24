@@ -2,7 +2,7 @@
 
 class I8080_STAFixture : public I8080_TestFixture {
 public:
-    void STA_CanStoreValue(const I8080_OpCodes opcode, const BYTE initialValue, const WORD memoryAddress) {
+    void STA_CanStoreValue(const I8080_OpCodes_Main opcode, const BYTE initialValue, const WORD memoryAddress) {
         // given:
         cpu.A = initialValue;
         mem[0x0000] = opcode;
@@ -20,7 +20,7 @@ public:
         CheckCyclesCount();
     }
 
-    void STAX_CanStoreValue(const I8080_OpCodes opcode, const BYTE initialValue, const WORD memoryAddress) {
+    void STAX_CanStoreValue(const I8080_OpCodes_Main opcode, const BYTE initialValue, const WORD memoryAddress) {
         // given:
         cpu.A = initialValue;
         mem[0x0000] = opcode;

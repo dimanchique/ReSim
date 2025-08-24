@@ -1,5 +1,5 @@
 #include "I8086_GroupTests.h"
-#include "I8086_OpCodesGroups.h"
+#include "I8086_OpCodes_Groups.h"
 
 class I8086_NOT_NEG_Fixture : public I8086_GroupFixture {};
 

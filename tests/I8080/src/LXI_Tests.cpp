@@ -2,7 +2,7 @@
 
 class I8080_LXIFixture : public I8080_TestFixture {
 public:
-    void LXI_CanLoadImmediateValue(const I8080_OpCodes opcode, const WORD& targetRegisterPtr) {
+    void LXI_CanLoadImmediateValue(const I8080_OpCodes_Main opcode, const WORD& targetRegisterPtr) {
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = 0x01;

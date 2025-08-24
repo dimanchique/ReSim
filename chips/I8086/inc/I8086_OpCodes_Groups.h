@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-enum I8086_OpCods_GRP1 : BYTE {
+enum I8086_OpCodes_GRP1 : BYTE {
     GRP1_ADD = 0x00,
     GRP1_OR = 0x01,
     GRP1_ADC = 0x02,
@@ -13,7 +13,7 @@ enum I8086_OpCods_GRP1 : BYTE {
     GRP1_CMP = 0x07
 };
 
-enum I8086_OpCods_GRP2 : BYTE {
+enum I8086_OpCodes_GRP2 : BYTE {
     GRP2_ROL = 0x00,
     GRP2_ROR = 0x01,
     GRP2_RCL = 0x02,
@@ -23,7 +23,7 @@ enum I8086_OpCods_GRP2 : BYTE {
     GRP2_SAR = 0x07
 };
 
-enum I8086_OpCods_GRP3a : BYTE {
+enum I8086_OpCodes_GRP3a : BYTE {
     GRP3a_TEST_Eb_Ib = 0x00,
     GRP3a_NOT        = 0x02,
     GRP3a_NEG        = 0x03,
@@ -33,7 +33,7 @@ enum I8086_OpCods_GRP3a : BYTE {
     GRP3a_IDIV       = 0x07
 };
 
-enum I8086_OpCods_GRP3b : BYTE {
+enum I8086_OpCodes_GRP3b : BYTE {
     GRP3b_TEST_Ev_Iv = 0x00,
     GRP3b_NOT        = 0x02,
     GRP3b_NEG        = 0x03,
@@ -43,12 +43,12 @@ enum I8086_OpCods_GRP3b : BYTE {
     GRP3b_IDIV       = 0x07
 };
 
-enum I8086_OpCods_GRP4 : BYTE {
+enum I8086_OpCodes_GRP4 : BYTE {
     GRP4_INC = 0x00,
     GRP4_DEC = 0x01
 };
 
-enum I8086_OpCods_GRP5 : BYTE {
+enum I8086_OpCodes_GRP5 : BYTE {
     GRP5_INC     = 0x00,
     GRP5_DEC     = 0x01,
     GRP5_CALL    = 0x02,

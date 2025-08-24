@@ -2,7 +2,7 @@
 
 class MOS6502_SEFixture : public MOS6502_TestFixture {
 public:
-    void SE_CanSetFlag(MOS6502_OpCodes opcode, BYTE statusFlag) {
+    void SE_CanSetFlag(MOS6502_OpCodes_Main opcode, BYTE statusFlag) {
         // given:
         SetStatusBitByMask(statusFlag, false);
         mem[0xFFFC] = 0x00;

@@ -22,7 +22,7 @@ public:
         CheckCyclesCount();
     }
 
-    void SUB_Register_CanSubtractRegisterFromAccumulator(const I8080_OpCodes opcode,
+    void SUB_Register_CanSubtractRegisterFromAccumulator(const I8080_OpCodes_Main opcode,
                                                          const BYTE initialValue,
                                                          const BYTE expectedValue,
                                                          const I8080_Status &expectedStatus,

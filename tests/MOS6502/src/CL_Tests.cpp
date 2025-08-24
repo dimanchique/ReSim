@@ -2,7 +2,7 @@
 
 class MOS6502_CLFixture : public MOS6502_TestFixture {
 public:
-    void CL_CanClearFlag(MOS6502_OpCodes opcode, BYTE statusFlag) {
+    void CL_CanClearFlag(MOS6502_OpCodes_Main opcode, BYTE statusFlag) {
         // given:
         SetStatusBitByMask(statusFlag, true);
         mem[0xFFFC] = 0x00;

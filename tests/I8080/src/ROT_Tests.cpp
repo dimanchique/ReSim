@@ -7,7 +7,7 @@ enum class RotateDirection {
 
 class I8080_ROTFixture : public I8080_TestFixture {
 public:
-    void ROT_CanRotate(const I8080_OpCodes opcode, const BYTE value, const RotateDirection direction, const bool throughCarry, const BYTE expectedA, const BYTE expectedCarry) {
+    void ROT_CanRotate(const I8080_OpCodes_Main opcode, const BYTE value, const RotateDirection direction, const bool throughCarry, const BYTE expectedA, const BYTE expectedCarry) {
         // given:
         cpu.A = value;
         mem[0x0000] = opcode;

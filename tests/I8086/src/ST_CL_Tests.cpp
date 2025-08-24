@@ -2,7 +2,7 @@
 
 class I8086_ST_CL_Fixture : public I8086_ImpliedOpTests {
 public:
-    void ST_CanSetFlag(I8086_OpCodes opCode, const WORD statusFieldMask) {
+    void ST_CanSetFlag(I8086_OpCodes_Main opCode, const WORD statusFieldMask) {
         // given:
         cpu.Status.Value &= ~statusFieldMask;
 
@@ -13,7 +13,7 @@ public:
         EXPECT_EQ(cpu.Status.Value & statusFieldMask, statusFieldMask);
     }
 
-    void CL_CanClearFlag(I8086_OpCodes opCode, const WORD statusFieldMask) {
+    void CL_CanClearFlag(I8086_OpCodes_Main opCode, const WORD statusFieldMask) {
         // given:
         cpu.Status.Value |= statusFieldMask;
 

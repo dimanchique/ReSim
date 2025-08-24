@@ -5,7 +5,7 @@ class I8086_DoubleOpFixture : public I8086_TestFixture {
 public:
 
     template<typename T>
-    void TestMemRegInstruction(DWORD memAddress, T memValue, I8086_OpCodes opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
+    void TestMemRegInstruction(DWORD memAddress, T memValue, I8086_OpCodes_Main opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
         // given:
         mem[memAddress] = memValue & 0xFF;
         if (std::is_same_v<T, WORD>)
@@ -39,7 +39,7 @@ public:
     }
 
     template<typename T>
-    void TestRegRegInstruction(const BYTE *leftReg, const BYTE *rightReg, I8086_OpCodes opCode, WORD executeCyclesExpected) {
+    void TestRegRegInstruction(const BYTE *leftReg, const BYTE *rightReg, I8086_OpCodes_Main opCode, WORD executeCyclesExpected) {
         // given:
         ModRegByteConstructor modReg;
 

@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-enum I8086_OpCodes : BYTE {
+enum I8086_OpCodes_Main : BYTE {
 
     ADD_Eb_Gb = 0x00,
     ADD_Ev_Gv = 0x01,

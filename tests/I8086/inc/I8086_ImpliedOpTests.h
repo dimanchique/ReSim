@@ -3,7 +3,7 @@
 
 class I8086_ImpliedOpTests : public I8086_TestFixture {
 public:
-    void TestImpliedInstruction(I8086_OpCodes opCode) {
+    void TestImpliedInstruction(I8086_OpCodes_Main opCode) {
         // given:
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress] = STOP_OPCODE;

@@ -82,7 +82,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ORA_ABS_CanDoOR(MOS6502_OpCodes opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+    void ORA_ABS_CanDoOR(MOS6502_OpCodes_Main opcode, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
         // given:
         cpu.A = initialValue;
         mem[0xFFFC] = 0x00;

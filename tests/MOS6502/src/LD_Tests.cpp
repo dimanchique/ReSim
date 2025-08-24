@@ -1,6 +1,6 @@
 #include "MOS6502_LD_Tests.h"
 
-void MOS6502_LDFixture::LD_IM_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetRegister) {
+void MOS6502_LDFixture::LD_IM_CanLoadValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister) {
     // given:
     BYTE OldValue = 0x44;
     BYTE NewValue = 0x04;
@@ -22,7 +22,7 @@ void MOS6502_LDFixture::LD_IM_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_IM_CanAffectZeroFlag(MOS6502_OpCodes opcode) {
+void MOS6502_LDFixture::LD_IM_CanAffectZeroFlag(MOS6502_OpCodes_Main opcode) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -41,7 +41,7 @@ void MOS6502_LDFixture::LD_IM_CanAffectZeroFlag(MOS6502_OpCodes opcode) {
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_IM_CanAffectNegativeFlag(MOS6502_OpCodes opcode) {
+void MOS6502_LDFixture::LD_IM_CanAffectNegativeFlag(MOS6502_OpCodes_Main opcode) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -60,7 +60,7 @@ void MOS6502_LDFixture::LD_IM_CanAffectNegativeFlag(MOS6502_OpCodes opcode) {
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetRegister) {
+void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -81,7 +81,7 @@ void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE affectingRegister) {
+void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE affectingRegister) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -102,7 +102,7 @@ void MOS6502_LDFixture::LD_ZP_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetR
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetRegister) {
+void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -124,7 +124,7 @@ void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE &target
     CheckCyclesCount();
 }
 
-void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE affectingRegister) {
+void MOS6502_LDFixture::LD_ABS_CanLoadValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE affectingRegister) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;

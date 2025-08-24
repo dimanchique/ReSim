@@ -54,8 +54,7 @@ constexpr static OpSignature Ops[] =
         {
 #ifndef ADD_CALL
 #define ADD_CALL(call) I8080_##call
-#include "I8080_OpCodesList.h"
-
+#include "I8080_OpCodesList_Main.h"
 #undef ADD_CALL
 #endif
         };

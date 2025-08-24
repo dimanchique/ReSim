@@ -1,6 +1,6 @@
 #include "MOS6502_CM_Tests.h"
 
-void MOS6502_CMFixture::CM_IM_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
+void MOS6502_CMFixture::CM_IM_CanCompare(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = 0x00;
@@ -18,7 +18,7 @@ void MOS6502_CMFixture::CM_IM_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     CheckCyclesCount();
 }
 
-void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
+void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = 0x00;
@@ -37,7 +37,7 @@ void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     CheckCyclesCount();
 }
 
-void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = 0x00;
@@ -56,7 +56,7 @@ void MOS6502_CMFixture::CM_ZP_CanCompare(MOS6502_OpCodes opcode, BYTE &targetReg
     CheckCyclesCount();
 }
 
-void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
+void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = 0x00;
@@ -76,7 +76,7 @@ void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRe
     CheckCyclesCount();
 }
 
-void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
+void MOS6502_CMFixture::CM_ABS_CanCompare(MOS6502_OpCodes_Main opcode, BYTE &targetRegister, BYTE initialValue, BYTE memoryValue, BYTE affectingRegister) {
     // given:
     targetRegister = initialValue;
     mem[0xFFFC] = 0x00;

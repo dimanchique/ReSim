@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-enum I8080_OpCodes : BYTE {
+enum I8080_OpCodes_Main : BYTE {
 
 //  Add...
     ADD_A = 0x87,   //  ...Register or Memory To Accumulator

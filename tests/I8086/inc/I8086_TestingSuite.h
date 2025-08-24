@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include "I8086_OpCodes.h"
+#include "I8086_OpCodes_Main.h"
 #include "ModRegConstructor.h"
 #include "I8086.h"
 #include "memory.h"

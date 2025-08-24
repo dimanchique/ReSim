@@ -95,7 +95,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ROR_ABS_CanRollRight(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
+    void ROR_ABS_CanRollRight(MOS6502_OpCodes_Main opcode, BYTE value, BYTE affectingRegister) {
         // given:
         WORD targetAddress = 0x4200;
         WORD displacedAddress = targetAddress + affectingRegister;

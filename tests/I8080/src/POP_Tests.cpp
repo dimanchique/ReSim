@@ -2,7 +2,7 @@
 
 class I8080_POPFixture : public I8080_TestFixture {
 public:
-    void POP_CanPOP(const I8080_OpCodes opcode, BYTE *lsb, BYTE *msb) {
+    void POP_CanPOP(const I8080_OpCodes_Main opcode, BYTE *lsb, BYTE *msb) {
         // given:
         cpu.SP = 0x1239;
         *lsb = 0;

@@ -23,7 +23,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ADC_Register_CanADCRegisterToAccumulator(const I8080_OpCodes opcode,
+    void ADC_Register_CanADCRegisterToAccumulator(const I8080_OpCodes_Main opcode,
                                                   const BYTE initialValue,
                                                   const BYTE carry,
                                                   const BYTE expectedValue,

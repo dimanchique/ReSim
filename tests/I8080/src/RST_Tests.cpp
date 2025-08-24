@@ -2,7 +2,7 @@
 
 class I8080_RST_Fixture : public I8080_TestFixture {
 public:
-    void RST_CanReset(const I8080_OpCodes resetVectorOpCode, const BYTE address) {
+    void RST_CanReset(const I8080_OpCodes_Main resetVectorOpCode, const BYTE address) {
         // given:
         cpu.PC = 0x1000;
         mem[0x1000] = resetVectorOpCode;

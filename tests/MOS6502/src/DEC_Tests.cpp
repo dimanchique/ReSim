@@ -1,6 +1,6 @@
 #include "MOS6502_DEC_Tests.h"
 
-void MOS6502_DECFixture::DEC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
+void MOS6502_DECFixture::DEC_ZP_CanAffectValue(MOS6502_OpCodes_Main opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
@@ -21,7 +21,7 @@ void MOS6502_DECFixture::DEC_ZP_CanAffectValue(MOS6502_OpCodes opcode, BYTE memo
     CheckCyclesCount();
 }
 
-void MOS6502_DECFixture::DEC_ABS_CanAffectValue(MOS6502_OpCodes opcode, BYTE memoryValue, BYTE offsetValueRegister) {
+void MOS6502_DECFixture::DEC_ABS_CanAffectValue(MOS6502_OpCodes_Main opcode, BYTE memoryValue, BYTE offsetValueRegister) {
     // given:
     BYTE targetValue = memoryValue - 1;
     WORD targetAddress = 0x4200;
@@ -46,7 +46,7 @@ void MOS6502_DECFixture::DEC_ABS_CanAffectValue(MOS6502_OpCodes opcode, BYTE mem
     CheckCyclesCount();
 }
 
-void MOS6502_DECFixture::DEC_IMPL_CanAffectValue(MOS6502_OpCodes opcode, BYTE &targetRegister) {
+void MOS6502_DECFixture::DEC_IMPL_CanAffectValue(MOS6502_OpCodes_Main opcode, BYTE &targetRegister) {
     // given:
     BYTE initialValue = targetRegister;
     BYTE targetValue = initialValue - 1;

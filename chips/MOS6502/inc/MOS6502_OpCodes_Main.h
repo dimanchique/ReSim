@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-enum MOS6502_OpCodes : BYTE {
+enum MOS6502_OpCodes_Main : BYTE {
 
 //  ADC - Add with Carry
     ADC_IM = 0x69,

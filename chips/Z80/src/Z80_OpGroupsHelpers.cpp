@@ -1,5 +1,5 @@
 #include "Z80.h"
-#include "Z80_OpCodes.h"
+#include "Z80_OpCodes_Main.h"
 #include "Z80_OpGroupsHelpers.h"
 
 static void Z80_INVALID_OP(Z80&) {}
@@ -12,7 +12,6 @@ constexpr static OpSignature Bit_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_Bit.h"
-
 #undef ADD_CALL
 #endif
         };
@@ -27,7 +26,6 @@ constexpr static OpSignature IX_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_IX.h"
-
 #undef ADD_CALL
 #endif
         };
@@ -42,7 +40,6 @@ constexpr static OpSignature IX_Bit_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_IX_Bit.h"
-
 #undef ADD_CALL
 #endif
         };
@@ -57,7 +54,6 @@ constexpr static OpSignature Misc_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_Misc.h"
-
 #undef ADD_CALL
 #endif
         };
@@ -72,7 +68,6 @@ constexpr static OpSignature IY_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_IY.h"
-
 #undef ADD_CALL
 #endif
         };
@@ -87,7 +82,6 @@ constexpr static OpSignature IY_Bit_Ops[] =
 #ifndef ADD_CALL
 #define ADD_CALL(call) Z80_##call
 #include "Z80_OpCodesList_IY_Bit.h"
-
 #undef ADD_CALL
 #endif
         };

@@ -2,7 +2,7 @@
 
 class I8080_CMPFixture : public I8080_TestFixture {
 public:
-    void CMP_CanCompareReg(const I8080_OpCodes opcode,
+    void CMP_CanCompareReg(const I8080_OpCodes_Main opcode,
                            const BYTE initialAccumulator,
                            const bool expectedZero,
                            const bool expectedCarry,

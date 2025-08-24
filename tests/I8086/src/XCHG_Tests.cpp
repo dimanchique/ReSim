@@ -3,7 +3,7 @@
 
 class I8086_XCHG_AX_Fixture : public I8086_ImpliedOpTests {
 public:
-    void TestXCHG_AX(I8086_OpCodes opCode, WORD *regPtr) {
+    void TestXCHG_AX(I8086_OpCodes_Main opCode, WORD *regPtr) {
         constexpr WORD tmp1 = 0xBABE;
         constexpr WORD tmp2 = 0xDEAD;
         cpu.AX = tmp1;

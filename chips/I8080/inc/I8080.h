@@ -1,13 +1,13 @@
 #pragma once
 
 #include "I8080_Status.h"
-#include "I8080_OpCodes.h"
+#include "I8080_OpCodes_Main.h"
 #include "core/macro.h"
 #include "compute.h"
 #include "memory.h"
 #include "function_library/data_manipulation.h"
 
-#define STOP_OPCODE I8080_OpCodes::HLT /**< HALT instruction opcode used to stop execution of finite programs */
+#define STOP_OPCODE I8080_OpCodes_Main::HLT /**< HALT instruction opcode used to stop execution of finite programs */
 
 /**
  * @class I8080

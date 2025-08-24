@@ -1,6 +1,6 @@
 #pragma once
 #include <gtest/gtest.h>
-#include "MOS6502_OpCodes.h"
+#include "MOS6502_OpCodes_Main.h"
 #include "MOS6502.h"
 #include "memory.h"
 

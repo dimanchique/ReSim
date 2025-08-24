@@ -1,6 +1,6 @@
 #include "MOS6502_ST_Tests.h"
 
-void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourceRegister) {
+void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = 0x00;
@@ -20,7 +20,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &source
     CheckCyclesCount();
 }
 
-void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourceRegister, BYTE affectingRegister) {
+void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = 0x00;
@@ -41,7 +41,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes opcode, BYTE &source
     CheckCyclesCount();
 }
 
-void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourceRegister) {
+void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
     mem[0xFFFC] = 0x00;
@@ -62,7 +62,7 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourc
     CheckCyclesCount();
 }
 
-void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes opcode, BYTE &sourceRegister, BYTE affectingRegister) {
+void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
     WORD targetAddress = 0x8000;
     WORD displacedAddress = targetAddress + affectingRegister;

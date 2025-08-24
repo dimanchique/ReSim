@@ -2,7 +2,7 @@
 
 #include "core/types.h"
 
-enum Z80_OpCodes : BYTE {
+enum Z80_OpCodes_Main : BYTE {
 
     // ADD
     ADD_A_B = 0x80,

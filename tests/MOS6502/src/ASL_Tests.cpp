@@ -79,7 +79,7 @@ public:
         CheckCyclesCount();
     }
 
-    void ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes opcode, BYTE value, BYTE affectingRegister) {
+    void ASL_ABS_CanDoShiftLeft(MOS6502_OpCodes_Main opcode, BYTE value, BYTE affectingRegister) {
         // given:
         WORD targetAddress = 0x4402;
         WORD displacedAddress = targetAddress + affectingRegister;

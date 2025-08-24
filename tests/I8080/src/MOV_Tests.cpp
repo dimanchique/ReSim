@@ -1,6 +1,6 @@
 #include "I8080_MOV_Tests.h"
 
-void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE &destRegister, BYTE &srcRegister, const BYTE value){
+void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes_Main opcode, BYTE &destRegister, BYTE &srcRegister, const BYTE value){
     // given:
     destRegister = ~value;
     srcRegister = value;
@@ -17,7 +17,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes opcode, BYTE &des
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE &destRegister, const WORD srcMemoryAddress, const BYTE value){
+void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes_Main opcode, BYTE &destRegister, const WORD srcMemoryAddress, const BYTE value){
     // given:
     destRegister = ~value;
     mem[0x0000] = opcode;
@@ -35,7 +35,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes opcode, BYTE &des
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes opcode, const WORD destMemoryAddress, const BYTE value){
+void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes_Main opcode, const WORD destMemoryAddress, const BYTE value){
     // given:
     mem[destMemoryAddress] = ~value;
     mem[0x0000] = opcode;
@@ -52,7 +52,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes opcode, const WOR
     CheckCyclesCount();
 }
 
-void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes opcode){
+void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes_Main opcode){
     // given:
     const uint64_t preSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers (including status)
     mem[0x0000] = opcode;
