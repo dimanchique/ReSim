@@ -1,16 +1,14 @@
 #pragma once
 
-#include "I8086_Status.h"
-#include "I8086_OpCodes_Main.h"
+#include <cassert>
 #include "core/macro.h"
 #include "compute.h"
-#include "memory.h"
+#include "I8086_Status.h"
 #include "I8086_Addressing.h"
-#include <cassert>
 
 #define STOP_OPCODE I8086_OpCodes_Main::HLT // HLT instruction is pretty OK to use as a STOP opcode
 
-#define EFFECTIVE_ADDRESS(m, n) (m + (n << 4))
+#define EFFECTIVE_ADDRESS(m, n) ((m) + ((n) << 4))
 
 class I8086 final : public Compute {
 public:

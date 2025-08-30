@@ -3,9 +3,10 @@ import re
 import sys
 from os import walk
 from pathlib import Path
+from typing import Callable
 
 # Get CPU name from command line arguments or use default
-cpu_name = sys.argv[1] if len(sys.argv) > 1 else 'Z80'
+cpu_name = sys.argv[1] if len(sys.argv) > 1 else 'I8086'
 
 print(f"ReSim instructions table generator. Target CPU: {cpu_name}")
 
@@ -63,7 +64,7 @@ if len(instructions_targets) == 0:
 print("Found groups: " + ", ".join(list(instructions_targets.keys())))
 
 
-def scan_regex(path: str, re_exp: str, callback: callable) -> None:
+def scan_regex(path: str, re_exp: str, callback: Callable) -> None:
     """
     Scan a file line by line and apply a callback to regex matches.
 

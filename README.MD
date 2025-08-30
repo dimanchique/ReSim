@@ -19,7 +19,7 @@ It gives you an opportunity to work with retro MPUs and test your own ASM progra
 ### Cycle accurate execution
 
 ReSim is aimed to accurately emulate each instruction of presented MPUs.
-Cycles counter increments by each action in instruction i.e read/write, load/store, etc.
+Cycles counter increments by each action in instruction i.e. read/write, load/store, etc.
 > For now, it just says "this set of instructions took X cycles", but my future goal is to implement real cycling feature
 
 ### Efficiency under the hood
@@ -38,7 +38,7 @@ I was trying to follow TDD principles and covered each instruction by a set of t
 At this moment I don't know how to implement BIOS and hardware IO support.
 This feature is really important because there's no way to run something ore complex like Basic or Tetris.
 For now ReSim is just an execution environment for running little asm programs.
-> You can find MOS6502 CRC32 asm and binaries in tools/asm_tests)
+> You can find MOS6502 CRC32 asm and binaries in tools/asm_tests
 
 ### Special thanks
 This project started as a copy of [DavePoo's 6502 emulator](https://github.com/davepoo/6502Emulator), but the only thing left from his project here is an idea.

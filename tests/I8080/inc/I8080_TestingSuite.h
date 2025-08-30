@@ -2,7 +2,6 @@
 #include <gtest/gtest.h>
 #include "I8080_OpCodes_Main.h"
 #include "I8080.h"
-#include "memory.h"
 
 class I8080_TestFixture : public testing::Test {
 public:
@@ -28,7 +27,7 @@ public:
         EXPECT_EQ(cyclesPassed, cyclesExpected);
     }
 
-    void CheckStatus(const I8080_Status &targetStatus){
+    void CheckStatus(const I8080_Status &targetStatus) const {
         EXPECT_EQ(cpu.Status.C, targetStatus.C);
         EXPECT_EQ(cpu.Status.Z, targetStatus.Z);
         EXPECT_EQ(cpu.Status.AC, targetStatus.AC);

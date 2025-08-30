@@ -58,6 +58,8 @@ protected:
                 cpu.Status.Z = !condition;
                 cpu.Status.S = cpu.Status.O;
                 break;
+            default:
+                throw InvalidInstruction();
         }
 
         mem[effectiveAddress++] = opcode;

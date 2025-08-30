@@ -4,7 +4,6 @@
 #include "I8086_OpCodes_Main.h"
 #include "ModRegConstructor.h"
 #include "I8086.h"
-#include "memory.h"
 
 class I8086_TestFixture : public testing::Test {
 public:

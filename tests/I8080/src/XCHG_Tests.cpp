@@ -15,7 +15,7 @@ public:
         cyclesPassed = cpu.Run();
 
         // then:
-        const WORD swappedValueD = (cpu.D << 8) | cpu.E;;
+        const WORD swappedValueD = (cpu.D << 8) | cpu.E;
         const WORD swappedValueH = (cpu.H << 8) | cpu.L;
         EXPECT_NE(swappedValueD, initialValueD);
         EXPECT_NE(swappedValueH, initialValueH);

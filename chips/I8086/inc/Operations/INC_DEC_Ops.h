@@ -1,6 +1,7 @@
 #pragma once
 
 #include "I8086.h"
+#include "I8086_OpCodes_Main.h"
 
 // Memory/Byte Register Inc/Dec GRP4/5
 

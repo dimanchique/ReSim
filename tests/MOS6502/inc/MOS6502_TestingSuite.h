@@ -2,7 +2,6 @@
 #include <gtest/gtest.h>
 #include "MOS6502_OpCodes_Main.h"
 #include "MOS6502.h"
-#include "memory.h"
 
 class MOS6502_TestFixture : public testing::Test {
 public:
