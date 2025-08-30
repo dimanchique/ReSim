@@ -15,6 +15,7 @@
 #include "Operations/MOV_Direct_Ops.h"
 #include "Operations/JMP_Ops.h"
 #include "Operations/TEST_Ops.h"
+#include "Operations/DAA_DAS_Ops.h"
 
 static void I8086_INVALID_OP(BYTE, I8086&) {}
 

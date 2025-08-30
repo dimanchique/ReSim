@@ -36,7 +36,7 @@
 - [x] AND_AL_Ib
 - [x] AND_AX_Iv
 - [ ] ES
-- [ ] DAA
+- [x] DAA
 - [ ] SUB_Eb_Gb
 - [ ] SUB_Ev_Gv
 - [ ] SUB_Gb_Eb
@@ -44,7 +44,7 @@
 - [ ] SUB_AL_Ib
 - [ ] SUB_AX_Iv
 - [ ] CS
-- [ ] DAS
+- [x] DAS
 - [x] XOR_Eb_Gb
 - [x] XOR_Ev_Gv
 - [x] XOR_Gb_Eb
