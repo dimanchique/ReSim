@@ -9,7 +9,7 @@ public:
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = BIT_ZP;
         mem[0xFF01] = 0x42;
-        mem[0xFF02] = STOP_OPCODE;
+        mem[0xFF02] = MOS6502_STOP_OPCODE;
         mem[0x42] = targetValue;
 
         cyclesExpected = 3;
@@ -31,7 +31,7 @@ public:
         mem[0xFF00] = BIT_ABS;
         mem[0xFF01] = 0x00;
         mem[0xFF02] = 0x42;
-        mem[0xFF03] = STOP_OPCODE;
+        mem[0xFF03] = MOS6502_STOP_OPCODE;
         mem[0x4200] = targetValue;
 
         cyclesExpected = 4;

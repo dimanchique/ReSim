@@ -6,7 +6,7 @@ TEST_F(I8080_CMAFixture, CMA_CanComplimentAccumulator) {
     constexpr BYTE initialAccumulator = 0x51;
     cpu.A = initialAccumulator;
     mem[0x0000] = CMA;
-    mem[0x0001] = STOP_OPCODE;
+    mem[0x0001] = I8080_STOP_OPCODE;
 
     cyclesExpected = 4;
 

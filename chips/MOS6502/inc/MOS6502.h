@@ -5,7 +5,7 @@
 #include "MOS6502_Status.h"
 #include "MOS6502_AddressingMode.h"
 
-#define STOP_OPCODE 0x02 /**< One of unused MOS6502 opcodes used to stop execution of finite programs */
+#define MOS6502_STOP_OPCODE 0x02 /**< One of unused MOS6502 opcodes used to stop execution of finite programs */
 #define PAGE_SIZE 0xFF /**< MOS6502 default page size */
 #define IsPageCrossed(src, dst) (((src) ^ (dst)) >= PAGE_SIZE) /**< Memory page is crossed when it bounds PAGE_SIZE */
 

@@ -10,7 +10,7 @@ public:
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = ADC_IM;
         mem[0xFF01] = memoryValue;
-        mem[0xFF02] = STOP_OPCODE;
+        mem[0xFF02] = MOS6502_STOP_OPCODE;
 
         cyclesExpected = 2;
 
@@ -158,7 +158,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ZP_CanAddValue) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = ADC_ZP;
     mem[0xFF01] = 0x42;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0042] = 0x02;
 
     cyclesExpected = 3;
@@ -182,7 +182,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ZPX_CanAddValue) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = ADC_ZPX;
     mem[0xFF01] = 0x42;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[(mem[0xFF01] + cpu.X) & 0xFF] = 0x02;
     // store this value in targetRegister register
     cyclesExpected = 4;
@@ -206,7 +206,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABS_CanAddValue) {
     mem[0xFF00] = ADC_ABS;
     mem[0xFF01] = 0x80;
     mem[0xFF02] = 0x44;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[0x4480] = 0x02;
 
     cyclesExpected = 4;
@@ -231,7 +231,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABSX_CanAddValue) {
     mem[0xFF00] = ADC_ABSX;
     mem[0xFF01] = 0x02;
     mem[0xFF02] = 0x44;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[0x4402 + cpu.X] = 0x02;
 
     cyclesExpected = IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
@@ -256,7 +256,7 @@ TEST_F(MOS6502_ADCFixture, ADC_ABSY_CanAddValue) {
     mem[0xFF00] = ADC_ABSY;
     mem[0xFF01] = 0x02;
     mem[0xFF02] = 0x44;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[0x4402 + cpu.Y] = 0x02;
 
     cyclesExpected = IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
@@ -281,7 +281,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDX_CanAddValue) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = ADC_INDX;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0006] = 0x00;
     mem[0x0007] = 0x80;
     mem[0x8000] = 0x02;
@@ -307,7 +307,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDY_CanAddValue) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = ADC_INDY;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0002] = 0x00;
     mem[0x0003] = 0x80;
     mem[0x8004] = 0x02;
@@ -333,7 +333,7 @@ TEST_F(MOS6502_ADCFixture, ADC_INDY_CanAddValue_WithExtraCycleOnPageCrossing) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = ADC_INDY;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0002] = 0x02;
     mem[0x0003] = 0x80;
     mem[0x8101] = 0x02;

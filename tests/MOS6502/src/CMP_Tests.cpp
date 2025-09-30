@@ -76,7 +76,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDX_CanCompare) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = CMP_INDX;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0006] = 0x00;
     mem[0x0007] = 0x80;
     mem[0x8000] = 0x4;
@@ -100,7 +100,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = CMP_INDY;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0002] = 0x00;
     mem[0x0003] = 0x80;
     mem[0x8004] = 0x4;
@@ -124,7 +124,7 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare_WithExtraCycleOnPageCrossing) {
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = CMP_INDY;
     mem[0xFF01] = 0x02;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0002] = 0x02;
     mem[0x0003] = 0x80;
     mem[0x8101] = 0x4;

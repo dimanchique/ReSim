@@ -4,14 +4,14 @@
 
 enum Z80_OpCodes_Main : BYTE {
 
-    // ADD
+//  Add
     ADD_A_B = 0x80,
     ADD_A_C = 0x81,
     ADD_A_D = 0x82,
     ADD_A_E = 0x83,
     ADD_A_H = 0x84,
     ADD_A_L = 0x85,
-    ADD_A   = 0x86,
+    ADD_A = 0x86,
     ADD_A_A = 0x87,
     ADD_A_N = 0xC6,
 
@@ -20,27 +20,29 @@ enum Z80_OpCodes_Main : BYTE {
     ADD_HL_HL = 0x29,
     ADD_HL_SP = 0x39,
 
+//  Add with Carry
     ADC_A_B = 0x88,
     ADC_A_C = 0x89,
     ADC_A_D = 0x8A,
     ADC_A_E = 0x8B,
     ADC_A_H = 0x8C,
     ADC_A_L = 0x8D,
-    ADC_A   = 0x8E,
+    ADC_A = 0x8E,
     ADC_A_A = 0x8F,
     ADC_A_N = 0xCE,
 
-    // SUB
+    // Subtract
     SUB_B = 0x90,
     SUB_C = 0x91,
     SUB_D = 0x92,
     SUB_E = 0x93,
     SUB_H = 0x94,
     SUB_L = 0x95,
-    SUB_HL_ADDR   = 0x96,
+    SUB_HL_ADDR = 0x96,
     SUB_A = 0x97,
     SUB_N = 0xD6,
 
+//  Subtract with Borrow
     SBC_A_B = 0x98,
     SBC_A_C = 0x99,
     SBC_A_D = 0x9A,
@@ -51,7 +53,7 @@ enum Z80_OpCodes_Main : BYTE {
     SBC_A_A = 0x9F,
     SBC_A_N = 0xDE,
 
-    // AND
+//  Logical AND
     AND_B = 0xA0,
     AND_C = 0xA1,
     AND_D = 0xA2,
@@ -62,18 +64,18 @@ enum Z80_OpCodes_Main : BYTE {
     AND_A = 0xA7,
     AND_N = 0xE6,
 
-    // CALL
-    CALL_NZ_NN = 0xC4,
-    CALL_Z_NN = 0xCC,
-    CALL_NN = 0xCD,
-    CALL_NC_NN = 0xD4,
-    CALL_C_NN = 0xDC,
-    CALL_PO_NN = 0xE4,
-    CALL_PE_NN = 0xEC,
-    CALL_P_NN = 0xF4,
-    CALL_M_NN = 0xFC,
+//  Call...
+    CALL_NZ_NN = 0xC4,      // ...if Z=0
+    CALL_Z_NN = 0xCC,       // ...if Z=1
+    CALL_NN = 0xCD,         // ...no condition
+    CALL_NC_NN = 0xD4,      // ...if C=0
+    CALL_C_NN = 0xDC,       // ...if C=1
+    CALL_PO_NN = 0xE4,      // ...if P=0
+    CALL_PE_NN = 0xEC,      // ...if P=1
+    CALL_P_NN = 0xF4,       // ...if S=0
+    CALL_M_NN = 0xFC,       // ...if S=1
 
-    // CP
+//  Compare
     CP_B = 0xB8,
     CP_C = 0xB9,
     CP_D = 0xBA,
@@ -84,7 +86,7 @@ enum Z80_OpCodes_Main : BYTE {
     CP_A = 0xBF,
     CP_N = 0xFE,
 
-    // DEC
+//  Decrement
     DEC_B = 0x05,
     DEC_BC = 0x0B,
     DEC_C = 0x0D,
@@ -98,25 +100,26 @@ enum Z80_OpCodes_Main : BYTE {
     DEC_SP = 0x3B,
     DEC_A = 0x3D,
 
+//  Decimal Adjust for Addition
     DAA = 0x27,
 
-    // Interrupt
-    DI = 0xF3,
-    EI = 0xFB,
+//  Interrupt...
+    DI = 0xF3,              // ...disable
+    EI = 0xFB,              // ...enable
 
-    // Exchange
+//  Exchange
     EX_AF_A_F = 0x08,
     EX_DE_HL = 0xEB,
     EXX = 0xD9,
     EX_SP_ADDR_HL = 0xE3,
 
-    // HALT
+//  Halt CPU
     HALT = 0x76,
 
-    // NOP
+//  No Operation
     NOP = 0x00,
 
-    // INC
+//  Increment
     INC_BC = 0x03,
     INC_B = 0x04,
     INC_C = 0x0C,
@@ -130,35 +133,42 @@ enum Z80_OpCodes_Main : BYTE {
     INC_HL_ADDR = 0x34,
     INC_A = 0x3C,
 
-    //JP
-    JP_NZ_NN = 0xC2,
-    JP_NN = 0xC3,
-    JP_Z_NN = 0xCA,
-    JP_NC_NN = 0xD2,
-    JP_C_NN = 0xDA,
-    JP_PO_NN = 0xE2,
-    JP_HL_ADDR = 0xE9,
-    JP_PE_NN = 0xEA,
-    JP_P_NN = 0xF2,
-    JP_M_NN = 0xFA,
+//  Jump...
+    JP_NZ_NN = 0xC2,        // ...if Z=0
+    JP_NN = 0xC3,           // ...no condition
+    JP_Z_NN = 0xCA,         // ...if Z=1
+    JP_NC_NN = 0xD2,        // ...if C=0
+    JP_C_NN = 0xDA,         // ...if C=1
+    JP_PO_NN = 0xE2,        // ...if P=0
+    JP_HL_ADDR = 0xE9,      // ...to HL address
+    JP_PE_NN = 0xEA,        // ...if P=1
+    JP_P_NN = 0xF2,         // ...if S=0
+    JP_M_NN = 0xFA,         // ...if S=1
 
-    // I/O
+//  I/O
     OUT_N_ADDR_A = 0xD3,
     IN_A_N_ADDR = 0xDB,
 
-    // JR
+//  Jump using B-decrement zero check
     DJNZ_D = 0x10,
-    JR_D = 0x18,
-    JR_NZ_D = 0x20,
-    JR_Z_D = 0x28,
-    JR_NC_D = 0x30,
-    JR_C_D = 0x38,
 
+//  Jump Relative...
+    JR_D = 0x18,            // ...no condition
+    JR_NZ_D = 0x20,         // ...if Z=0
+    JR_Z_D = 0x28,          // ...if Z=1
+    JR_NC_D = 0x30,         // ...if C=0
+    JR_C_D = 0x38,          // ...if C=1
+
+//  Complement Accumulator
     CPL = 0x2F,
+
+//  Set Carry Flag
     SCF = 0x37,
+
+//  Complement Carry Flag
     CCF = 0x3F,
 
-    // LD
+//  Load
     LD_BC_NN = 0x01,
     LD_BC_ADDR_NN = 0x02,
     LD_B_N = 0x06,
@@ -244,7 +254,7 @@ enum Z80_OpCodes_Main : BYTE {
     LD_A_HL_ADDR = 0x7E,
     LD_A_A = 0x7F,
 
-    // OR
+//  Logical OR
     OR_B = 0xB0,
     OR_C = 0xB1,
     OR_D = 0xB2,
@@ -255,36 +265,36 @@ enum Z80_OpCodes_Main : BYTE {
     OR_A = 0xB7,
     OR_N = 0xF6,
 
-    // POP
+//  Pop
     POP_B_C = 0xC1,
     POP_D_E = 0xD1,
     POP_H_L = 0xE1,
     POP_A_F = 0xF1,
 
-    // PUSH
+//  Push
     PUSH_B_C = 0xC5,
     PUSH_D_E = 0xD5,
     PUSH_H_L = 0xE5,
     PUSH_A_F = 0xF5,
 
-    // RET
-    RET_NZ = 0xC0,
-    RET_Z = 0xC8,
-    RET = 0xC9,
-    RET_NC = 0xD0,
-    RET_C = 0xD8,
-    RET_PO = 0xE0,
-    RET_PE = 0xE8,
-    RET_P = 0xF0,
-    RET_M = 0xF8,
+//  Return...
+    RET_NZ = 0xC0,          // ...if Z=0
+    RET_Z = 0xC8,           // ...if Z=1
+    RET = 0xC9,             // ...no condition
+    RET_NC = 0xD0,          // ...if C=0
+    RET_C = 0xD8,           // ...if C=1
+    RET_PO = 0xE0,          // ...if P=0
+    RET_PE = 0xE8,          // ...if P=1
+    RET_P = 0xF0,           // ...if S=0
+    RET_M = 0xF8,           // ...if S=1
 
-    // ROTATED
+//  Rotate
     RLA = 0x17,
     RLCA = 0x07,
     RRA = 0x1F,
     RRCA = 0x0F,
 
-    // RST
+//  Reset
     RST_00_H = 0xC7,
     RST_08_H = 0xCF,
     RST_10_H = 0xD7,
@@ -294,7 +304,7 @@ enum Z80_OpCodes_Main : BYTE {
     RST_30_H = 0xF7,
     RST_38_H = 0xFF,
 
-    // XOR
+//  Exclusive OR (XOR)
     XOR_B = 0xA8,
     XOR_C = 0xA9,
     XOR_D = 0xAA,
@@ -304,7 +314,7 @@ enum Z80_OpCodes_Main : BYTE {
     XOR_HL = 0xAE,
     XOR_A = 0xAF,
 
-    // Groups
+//  Groups
     Bit_Group = 0xCB,
     IX_Group = 0xDD,
     Misc_Group = 0xED,

@@ -4,7 +4,7 @@
 #include "core/macro.h"
 #include "Z80_Status.h"
 
-#define STOP_OPCODE Z80_OpCodes_Main::HALT /**< HALT instruction opcode used to stop execution of finite programs */
+#define Z80_STOP_OPCODE Z80_OpCodes_Main::HALT /**< HALT instruction opcode used to stop execution of finite programs */
 
 /**
  * @class Z80
@@ -25,4 +25,11 @@
  * Max CPU clock rate 2.5-8 MHz. Data width: 8 bits. Address width: 16 bits
  */
 class Z80 final: public Compute {
+
+    void Reset() noexcept override;
+
+    U32 Run() override;
+
+    bool Step() override;
+
 };

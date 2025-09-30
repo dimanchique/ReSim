@@ -26,7 +26,7 @@ TEST_F(I8080_IOFixture, IN_CanReadValue) {
 
     mem[0x0000] = IN;
     mem[0x0001] = device_address;
-    mem[0x0002] = STOP_OPCODE;
+    mem[0x0002] = I8080_STOP_OPCODE;
 
     TestInputDevice io_device;
     io_device.device_value = device_value;
@@ -52,7 +52,7 @@ TEST_F(I8080_IOFixture, OUT_CanWriteValue) {
 
     mem[0x0000] = OUT;
     mem[0x0001] = device_address;
-    mem[0x0002] = STOP_OPCODE;
+    mem[0x0002] = I8080_STOP_OPCODE;
 
     TestInputDevice io_device;
     io_device.device_value = device_value;

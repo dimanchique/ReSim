@@ -6,7 +6,7 @@ void MOS6502_TFixture::T_IMPL_CanTransferValue(MOS6502_OpCodes_Main opcode, BYTE
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
-    mem[0xFF01] = STOP_OPCODE;
+    mem[0xFF01] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2;
 

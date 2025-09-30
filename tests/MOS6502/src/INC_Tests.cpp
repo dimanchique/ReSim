@@ -6,7 +6,7 @@ void MOS6502_INCFixture::INC_ZP_CanAffectValue(MOS6502_OpCodes_Main opcode, BYTE
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
     mem[0xFF01] = 0x42;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x42 + offsetValueRegister] = memoryValue;
     BYTE targetValue = memoryValue + 1;
 
@@ -32,7 +32,7 @@ void MOS6502_INCFixture::INC_ABS_CanAffectValue(MOS6502_OpCodes_Main opcode, BYT
     mem[0xFF00] = opcode;
     mem[0xFF01] = targetAddress & 0xFF;
     mem[0xFF02] = (targetAddress >> 8) & 0xFF;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[displacedAddress] = memoryValue;
 
     cyclesExpected = opcode == INC_ABSX ? 7 : 6;
@@ -53,7 +53,7 @@ void MOS6502_INCFixture::INC_IMPL_CanAffectValue(MOS6502_OpCodes_Main opcode, BY
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
-    mem[0xFF01] = STOP_OPCODE;
+    mem[0xFF01] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2;
 

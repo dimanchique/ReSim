@@ -5,7 +5,7 @@ public:
     void PUSH_CanPush(const I8080_OpCodes_Main opcode, const BYTE lsb, const BYTE msb) {
         // given:
         mem[0x0000] = opcode;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = 11;
 

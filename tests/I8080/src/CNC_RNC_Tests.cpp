@@ -18,7 +18,7 @@ public:
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RNC
 
         const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C02) : 0x0003;
-        mem[targetPC] = STOP_OPCODE;
+        mem[targetPC] = I8080_STOP_OPCODE;
 
         // when:
         cyclesPassed = cpu.Run();

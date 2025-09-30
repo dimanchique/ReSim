@@ -7,7 +7,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &s
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
     mem[0xFF01] = 0x80;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     mem[0x0080] = 0x00;
 
     cyclesExpected = 3;
@@ -27,7 +27,7 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &s
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = opcode;
     mem[0xFF01] = 0x80;
-    mem[0xFF02] = STOP_OPCODE;
+    mem[0xFF02] = MOS6502_STOP_OPCODE;
     BYTE TargetAddress = (mem[0xFF01] + affectingRegister) & 0xFF;
     mem[TargetAddress] = 0x00;
 
@@ -49,7 +49,7 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &
     mem[0xFF00] = opcode;
     mem[0xFF01] = 0x00;
     mem[0xFF02] = 0x80;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[0x8000] = 0x00;
 
     cyclesExpected = 4;
@@ -73,7 +73,7 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &
     mem[0xFF00] = opcode;
     mem[0xFF01] = targetAddress & 0xFF;
     mem[0xFF02] = (targetAddress >> 8) & 0xFF;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[displacedAddress] = 0x00;
 
     cyclesExpected = 5;

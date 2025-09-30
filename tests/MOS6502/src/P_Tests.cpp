@@ -8,7 +8,7 @@ TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAccumulator) {
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = PHA_IMPL;
-    mem[0xFF01] = STOP_OPCODE;
+    mem[0xFF01] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -28,7 +28,7 @@ TEST_F(MOS6502_PFixture, PHA_IMPL_CanPushAndPullAccumulator) {
     mem[0xFF00] = PHA_IMPL;
     mem[0xFF01] = TXA_IMPL;
     mem[0xFF02] = PLA_IMPL;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3 + 2 + 4;
 
@@ -46,7 +46,7 @@ TEST_F(MOS6502_PFixture, PHP_IMPL_CanPushStatusRegister) {
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = PHP_IMPL;
-    mem[0xFF01] = STOP_OPCODE;
+    mem[0xFF01] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -67,7 +67,7 @@ TEST_F(MOS6502_PFixture, PHP_IMPL_CanPushAndPullAccumulator) {
     mem[0xFF01] = PHA_IMPL;
     mem[0xFF02] = PLP_IMPL;
     mem[0xFF03] = PLA_IMPL;
-    mem[0xFF04] = STOP_OPCODE;
+    mem[0xFF04] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3 + 3 + 4 + 4;
 

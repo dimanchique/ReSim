@@ -5,7 +5,7 @@
 #include "function_library/data_manipulation.h"
 #include "I8080_Status.h"
 
-#define STOP_OPCODE I8080_OpCodes_Main::HLT /**< HALT instruction opcode used to stop execution of finite programs */
+#define I8080_STOP_OPCODE I8080_OpCodes_Main::HLT /**< HALT instruction opcode used to stop execution of finite programs */
 
 /**
  * @class I8080
@@ -145,7 +145,6 @@ public:
         PC = ReadWord(SP);
         SP += 2;
     }
-
 
     /**
      * @brief Pop two bytes of data from stack.

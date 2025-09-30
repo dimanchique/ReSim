@@ -8,7 +8,7 @@ public:
         mem[0xFFFC] = 0x00;
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = ASL_ACC;
-        mem[0xFF01] = STOP_OPCODE;
+        mem[0xFF01] = MOS6502_STOP_OPCODE;
 
         cyclesExpected = 2;
 
@@ -26,7 +26,7 @@ public:
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = ASL_ZP;
         mem[0xFF01] = 0x42;
-        mem[0xFF02] = STOP_OPCODE;
+        mem[0xFF02] = MOS6502_STOP_OPCODE;
         mem[0x0042] = value;
 
         cyclesExpected = 5;
@@ -46,7 +46,7 @@ public:
         mem[0xFFFD] = 0xFF;
         mem[0xFF00] = ASL_ZPX;
         mem[0xFF01] = 0x42;
-        mem[0xFF02] = STOP_OPCODE;
+        mem[0xFF02] = MOS6502_STOP_OPCODE;
         mem[(mem[0xFF01] + cpu.X) & 0xFF] = value;
 
         cyclesExpected = 6;
@@ -66,7 +66,7 @@ public:
         mem[0xFF00] = ASL_ABS;
         mem[0xFF01] = 0x80;
         mem[0xFF02] = 0x44;
-        mem[0xFF03] = STOP_OPCODE;
+        mem[0xFF03] = MOS6502_STOP_OPCODE;
         mem[0x4480] = value;
 
         cyclesExpected = 6;
@@ -89,7 +89,7 @@ public:
         mem[0xFF00] = opcode;
         mem[0xFF01] = targetAddress & 0xFF;
         mem[0xFF02] = (targetAddress >> 8) & 0xFF;
-        mem[0xFF03] = STOP_OPCODE;
+        mem[0xFF03] = MOS6502_STOP_OPCODE;
         mem[displacedAddress] = value;
 
         cyclesExpected = 7;

@@ -6,7 +6,7 @@ public:
         // given:
         WORD value = *targetRegisterPtr;
         mem[0x0000] = opcode;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = 5;
 

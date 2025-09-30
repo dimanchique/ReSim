@@ -9,7 +9,7 @@ TEST_F(MOS6502_JSRFixture, JSR_ABS_CanJump) {
     mem[0xFF00] = JSR_ABS;
     mem[0xFF01] = 0x42;
     mem[0xFF02] = 0x42;
-    mem[0x4242] = STOP_OPCODE;
+    mem[0x4242] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 6;
 
@@ -30,7 +30,7 @@ TEST_F(MOS6502_JSRFixture, JSR_ABS_CanExecuteNextOpCode) {
     mem[0xFF02] = 0x42;
     mem[0x4242] = LDA_IM;
     mem[0x4243] = 0x84;
-    mem[0x4244] = STOP_OPCODE;
+    mem[0x4244] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 6 + 2;
 
@@ -57,7 +57,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpToSubroutineAndJumpBack) 
     mem[0x8000] = RTS_IMPL;        // 6 cycles
     mem[0xFF03] = LDA_IM;          // 2 cycles
     mem[0xFF04] = 0x42;
-    mem[0xFF05] = STOP_OPCODE;
+    mem[0xFF05] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 2;
 
@@ -83,7 +83,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanJumpMultipleTimesInARow) {
     mem[0x4200] = RTS_IMPL;        // 6 cycles
     mem[0xFF06] = LDA_IM;          // 2 cycles
     mem[0xFF07] = 0x42;
-    mem[0xFF08] = STOP_OPCODE;
+    mem[0xFF08] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
@@ -109,7 +109,7 @@ TEST_F(MOS6502_JSR_RTSFixture, JSR_ABS_RTS_IMPL_CanDoJumpInsideJump) {
     mem[0x8003] = RTS_IMPL;        // 6 cycles
     mem[0xFF03] = LDA_IM;          // 2 cycles
     mem[0xFF04] = 0x42;
-    mem[0xFF05] = STOP_OPCODE;
+    mem[0xFF05] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 6 + 6 + 6 + 6 + 2;
 
@@ -131,7 +131,7 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJump) {
     mem[0xFF00] = JMP_ABS;
     mem[0xFF01] = 0x42;
     mem[0xFF02] = 0x42;
-    mem[0x4242] = STOP_OPCODE;
+    mem[0x4242] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3;
 
@@ -153,7 +153,7 @@ TEST_F(MOS6502_JMPFixture, JMP_ABS_CanJumpMultipleTimesInARow) {
     mem[0x8000] = JMP_ABS;        // 3 cycles
     mem[0x8001] = 0x03;
     mem[0x8002] = 0xFF;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 3 + 3;
 
@@ -174,7 +174,7 @@ TEST_F(MOS6502_JMPFixture, JMP_IND_CanJump) {
     mem[0xFF02] = 0x80;
     mem[0x8000] = 0x03;
     mem[0x8001] = 0xFF;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 5;
 
@@ -195,7 +195,7 @@ TEST_F(MOS6502_JMPFixture, BRK_IND_CanGoToInterruptAndGoBack) {
     mem[0xFF00] = BRK_IMPL;
     mem[0xFF01] = LDA_IM;
     mem[0xFF02] = 0x80;
-    mem[0xFF03] = STOP_OPCODE;
+    mem[0xFF03] = MOS6502_STOP_OPCODE;
     mem[0x8000] = RTI_IMPL;
 
     cyclesExpected = 7 + 2 + 6;

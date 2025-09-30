@@ -18,11 +18,11 @@ public:
     void SetUp() override {
         mem.Reset();
         cpu.Reset();
+        bus.SetBusRegion(0x0000, 0xFFFFFFFF, &mem);
         cpu.SetBusInstance(&bus);
         cpu.PC = 0x1000;
         cpu.CS = 0x1000;
         effectiveAddress = cpu.PC + (cpu.CS << 4);
-        cpu.GetBus()->SetBusRegion(0x0000, 0xFFFFFFFF, &mem);
     }
 
     void TearDown() override {

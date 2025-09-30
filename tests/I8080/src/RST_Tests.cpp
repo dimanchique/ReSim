@@ -6,7 +6,7 @@ public:
         // given:
         cpu.PC = 0x1000;
         mem[0x1000] = resetVectorOpCode;
-        mem[(WORD)(address << 3)] = STOP_OPCODE;
+        mem[(WORD)(address << 3)] = I8080_STOP_OPCODE;
         cyclesExpected = 11;
 
         // when:

@@ -9,7 +9,7 @@ void MOS6502_BFixture::B_REL_CanBranch(MOS6502_OpCodes_Main opcode, BYTE targetS
     mem[0x4041] = -10;
     mem[0x4041 - 10 + 1] = LDA_IM;
     mem[0x4041 - 10 + 2] = 0x15;
-    mem[0x4041 - 10 + 3] = STOP_OPCODE;
+    mem[0x4041 - 10 + 3] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2 + 1 + 2;
 
@@ -28,7 +28,7 @@ void MOS6502_BFixture::B_REL_CannotBranch(MOS6502_OpCodes_Main opcode, BYTE targ
     mem[0xFFFD] = 0x40;
     mem[0x4000] = opcode;
     mem[0x4001] = -10;
-    mem[0x4002] = STOP_OPCODE;
+    mem[0x4002] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2;
 
@@ -49,7 +49,7 @@ void MOS6502_BFixture::B_REL_CanBranch_WithPageCrossing(MOS6502_OpCodes_Main opc
     mem[0x4001] = -10;
     mem[0x4001 - 10 + 1] = LDA_IM;
     mem[0x4001 - 10 + 2] = 0x15;
-    mem[0x4001 - 10 + 3] = STOP_OPCODE;
+    mem[0x4001 - 10 + 3] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2 + 2 + 2;
 

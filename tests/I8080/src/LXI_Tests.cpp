@@ -7,7 +7,7 @@ public:
         mem[0x0000] = opcode;
         mem[0x0001] = 0x01;
         mem[0x0002] = 0x03;
-        mem[0x0003] = STOP_OPCODE;
+        mem[0x0003] = I8080_STOP_OPCODE;
 
         cyclesExpected = 10;
 

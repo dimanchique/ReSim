@@ -65,8 +65,8 @@ protected:
         mem[effectiveAddress++] = opcode;
         mem[effectiveAddress++] = 0x10; // +16 displacement
         mem[effectiveAddress++] = 0x00;
-        mem[effectiveAddress + 0x10] = STOP_OPCODE;
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress + 0x10] = I8086_STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
 
         cyclesExpected = condition ? 16 : 4; // Taken: 16, Not taken: 4
 
@@ -115,11 +115,11 @@ TEST_F(I8086_Jump_Fixture, JumpBackwards) {
     // given:
     const DWORD initialPC = cpu.PC;
     cpu.Status.Z = true;
-    mem[effectiveAddress - 1] = STOP_OPCODE;
+    mem[effectiveAddress - 1] = I8086_STOP_OPCODE;
     mem[effectiveAddress++] = JZ_Jb;
     mem[effectiveAddress++] = 0xFC; // -4 displacement
     mem[effectiveAddress++] = 0xFF;
-    mem[effectiveAddress] = STOP_OPCODE;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
     cyclesExpected = 16;
 
     // when:
@@ -134,11 +134,11 @@ TEST_F(I8086_Jump_Fixture, JumpBackwardsNotTaken) {
     // given:
     const DWORD initialPC = cpu.PC;
     cpu.Status.Z = false;
-    mem[effectiveAddress - 1] = STOP_OPCODE;
+    mem[effectiveAddress - 1] = I8086_STOP_OPCODE;
     mem[effectiveAddress++] = JZ_Jb;
     mem[effectiveAddress++] = 0xFC; // -4 displacement
     mem[effectiveAddress++] = 0xFF;
-    mem[effectiveAddress] = STOP_OPCODE;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
     cyclesExpected = 16;
 
     // when:
@@ -156,7 +156,7 @@ TEST_F(I8086_Jump_Fixture, JumpNearWordDisplacement) {
     mem[effectiveAddress++] = JB_Jb;
     mem[effectiveAddress++] = 0x00; // Low byte
     mem[effectiveAddress++] = 0x10; // High byte (+0x1000)
-    mem[EFFECTIVE_ADDRESS(cpu.PC + 0x1000 + 3, cpu.CS)] = STOP_OPCODE;
+    mem[EFFECTIVE_ADDRESS(cpu.PC + 0x1000 + 3, cpu.CS)] = I8086_STOP_OPCODE;
     cyclesExpected = 16;
 
     // when:

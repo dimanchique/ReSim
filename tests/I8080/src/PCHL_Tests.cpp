@@ -8,7 +8,7 @@ public:
         cpu.L = msbAddr;
         const WORD targetAddr = (cpu.H << 8) | cpu.L;
         mem[0x0000] = PCHL;
-        mem[targetAddr] = STOP_OPCODE;
+        mem[targetAddr] = I8080_STOP_OPCODE;
 
         cyclesExpected = 5;
 

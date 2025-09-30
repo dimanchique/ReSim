@@ -15,8 +15,8 @@ public:
     void SetUp() override {
         mem.Reset();
         cpu.Reset();
+        bus.SetBusRegion(0x0000, 0xFFFF, &mem);
         cpu.SetBusInstance(&bus);
-        cpu.GetBus()->SetBusRegion(0x0000, 0xFFFF, &mem);
     }
 
     void TearDown() override {

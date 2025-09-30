@@ -29,7 +29,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_MH) {
     // given:
     mem[0x1234] = 0;
     mem[0x0000] = MOV_M_H;
-    mem[0x0001] = STOP_OPCODE;
+    mem[0x0001] = I8080_STOP_OPCODE;
     ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(0x1234, cpu.H, cpu.L);
 
     cyclesExpected = 7;
@@ -46,7 +46,7 @@ TEST_F(I8080_MOVFixture, ExecuteMOV_ML) {
     // given:
     mem[0x1234] = 0;
     mem[0x0000] = MOV_M_L;
-    mem[0x0001] = STOP_OPCODE;
+    mem[0x0001] = I8080_STOP_OPCODE;
     ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(0x1234, cpu.H, cpu.L);
 
     cyclesExpected = 7;

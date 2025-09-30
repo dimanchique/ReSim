@@ -6,7 +6,7 @@ public:
     void TestImpliedInstruction(I8086_OpCodes_Main opCode) {
         // given:
         mem[effectiveAddress++] = opCode;
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
 
         cyclesExpected = 4;
 

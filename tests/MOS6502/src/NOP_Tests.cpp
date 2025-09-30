@@ -7,7 +7,7 @@ TEST_F(MOS6502_NOPFixture, NOP_IMPL_CanTakeCycles) {
     mem[0xFFFC] = 0x00;
     mem[0xFFFD] = 0xFF;
     mem[0xFF00] = NOP_IMPL;
-    mem[0xFF01] = STOP_OPCODE;
+    mem[0xFF01] = MOS6502_STOP_OPCODE;
 
     cyclesExpected = 2;
 

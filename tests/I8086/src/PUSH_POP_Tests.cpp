@@ -26,7 +26,7 @@ TEST_F(I8086_PUSH_POP_Fixture, PUSH_AX_BX_CX_DX_POP_AX_BX_CX_DX) {
     mem[effectiveAddress++] = POP_BX;
     mem[effectiveAddress++] = POP_CX;
     mem[effectiveAddress++] = POP_DX;
-    mem[effectiveAddress] = STOP_OPCODE;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
 
     cyclesExpected = 4;
 
@@ -59,7 +59,7 @@ TEST_F(I8086_PUSH_POP_Fixture, PUSH_ES_SS_DS_POP_ES_SS_DS) {
     mem[effectiveAddress++] = POP_DS;
     mem[0x5FFC + (0xCAFE << 4)] = 0x0B;
     mem[0x5FFD + (0xCAFE << 4)] = 0xB0;
-    mem[effectiveAddress] = STOP_OPCODE;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
 
     cyclesExpected = 4;
 
@@ -139,7 +139,7 @@ TEST_F(I8086_PUSH_POP_F_Fixture, PushPopFlag) {
     mem[effectiveAddress++] = PUSHF;
     mem[effectiveAddress++] = POP_ES;
     mem[effectiveAddress++] = POPF;
-    mem[effectiveAddress] = STOP_OPCODE;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
 
     cyclesExpected = 4;
 

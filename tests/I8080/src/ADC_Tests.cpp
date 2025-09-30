@@ -9,7 +9,7 @@ public:
         cpu.Status.C = carry;
         cpu.A = initialValue;
         mem[0x0000] = ADC_A;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = 4;
 
@@ -34,7 +34,7 @@ public:
         cpu.Status.C = carry;
         cpu.A = initialValue;
         mem[0x0000] = opcode;
-        mem[opcode == ACI ? 0x0002 : 0x0001] = STOP_OPCODE;
+        mem[opcode == ACI ? 0x0002 : 0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = cycles;
 

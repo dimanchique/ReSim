@@ -18,7 +18,7 @@ constexpr static OpSignature Ops[] =
 
 bool DecodeInstruction(const BYTE opcode, Z80 &cpu) {
     const OpSignature &instruction = Ops[opcode];
-    if(opcode == STOP_OPCODE || instruction == Z80_INVALID_OP)
+    if(opcode == Z80_STOP_OPCODE || instruction == Z80_INVALID_OP)
         return false;
     instruction(cpu);
     cpu.cycles++; // additional decode cycle

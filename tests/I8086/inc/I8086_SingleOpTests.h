@@ -15,7 +15,7 @@ public:
         mem[effectiveAddress++] = memValue & 0xFF;
         if (!std::is_same_v<T, BYTE>)
             mem[effectiveAddress++] = (memValue >> 8) & 0xFF;
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
 
         cyclesExpected = executeCyclesExpected;
 
@@ -30,7 +30,7 @@ public:
     void TestImmediateInstruction(I8086_OpCodes_Main opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modRegConstructor.MakeModByte();
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
 
         cyclesExpected = executeCyclesExpected;
 

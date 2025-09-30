@@ -8,7 +8,7 @@ class I8086;
  * @brief Instruction decoder.
  * @details Looking for instruction in the instruction table using given OpCode.
  * @details Decode success status is true if:
- * @details - OpCode is not STOP_OPCODE (default invalid value)
+ * @details - OpCode is not I8086_STOP_OPCODE (default invalid value)
  * @details - Instruction is not INVALID_OP (default invalid instruction)
  * @param opcode Instruction opcode to look for.
  * @param memory Memory struct instance.

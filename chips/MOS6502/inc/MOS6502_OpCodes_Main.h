@@ -4,7 +4,7 @@
 
 enum MOS6502_OpCodes_Main : BYTE {
 
-//  ADC - Add with Carry
+//  Add with Carry
     ADC_IM = 0x69,
     ADC_ZP = 0x65,
     ADC_ZPX = 0x75,
@@ -14,7 +14,7 @@ enum MOS6502_OpCodes_Main : BYTE {
     ADC_INDX = 0x61,
     ADC_INDY = 0x71,
 
-//  AND - Logical AND
+//  Logical AND
     AND_IM = 0x29,
     AND_ZP = 0x25,
     AND_ZPX = 0x35,
@@ -24,35 +24,35 @@ enum MOS6502_OpCodes_Main : BYTE {
     AND_INDX = 0x21,
     AND_INDY = 0x31,
 
-//  ASL - Arithmetic Shift Left
+//  Arithmetic Shift Left
     ASL_ACC = 0x0A,
     ASL_ZP = 0x06,
     ASL_ZPX = 0x16,
     ASL_ABS = 0x0E,
     ASL_ABSX = 0x1E,
 
-//  LSR - Logical Shift Right
+//  Logical Shift Right
     LSR_ACC = 0x4A,
     LSR_ZP = 0x46,
     LSR_ZPX = 0x56,
     LSR_ABS = 0x4E,
     LSR_ABSX = 0x5E,
 
-//  BIT - Bit Test
+//  Bit Test
     BIT_ZP = 0x24,
     BIT_ABS = 0x2C,
 
 //  Branch if...
-    BCC_REL = 0x90,     //  ...Carry Reset
-    BCS_REL = 0xB0,     //  ...Carry Set
+    BCC_REL = 0x90,     //  ...Carry Reset (C=0)
+    BCS_REL = 0xB0,     //  ...Carry Set (C=1)
     BEQ_REL = 0xF0,     //  ...Equal (Z=1)
     BMI_REL = 0x30,     //  ...Minus (S=1)
     BNE_REL = 0xD0,     //  ...Not Equal (Z=0)
     BPL_REL = 0x10,     //  ...Positive (S=0)
-    BVC_REL = 0x50,     //  ...Overflow Reset
-    BVS_REL = 0x70,     //  ...Overflow Set
+    BVC_REL = 0x50,     //  ...Overflow Reset (V=0)
+    BVS_REL = 0x70,     //  ...Overflow Set (V=1)
 
-//  BRK - Force Interrupt
+//  Force Interrupt
     BRK_IMPL = 0x00,
 
 //  Clear...
@@ -93,7 +93,7 @@ enum MOS6502_OpCodes_Main : BYTE {
     INX_IMPL = 0xE8,    //  ...X Register
     INY_IMPL = 0xC8,    //  ...Y Register
 
-//  EOR - Exclusive OR
+//  Exclusive OR (XOR)
     EOR_IM = 0x49,
     EOR_ZP = 0x45,
     EOR_ZPX = 0x55,
@@ -103,11 +103,11 @@ enum MOS6502_OpCodes_Main : BYTE {
     EOR_INDX = 0x41,
     EOR_INDY = 0x51,
 
-//  JMP - Jump
+//  Jump
     JMP_ABS = 0x4C,
     JMP_IND = 0x6C,
 
-//  JSR - Jump to Subroutine
+//  Jump to Subroutine
     JSR_ABS = 0x20,
 
 //  Load...
@@ -130,10 +130,10 @@ enum MOS6502_OpCodes_Main : BYTE {
     LDY_ABS = 0xAC,     //
     LDY_ABSX = 0xBC,    //
 
-//  NOP - No Operation
+//  No Operation
     NOP_IMPL = 0xEA,
 
-//  ORA - Logical Inclusive OR
+//  Logical OR
     ORA_IM = 0x09,
     ORA_ZP = 0x05,
     ORA_ZPX = 0x15,
@@ -147,7 +147,7 @@ enum MOS6502_OpCodes_Main : BYTE {
     PHA_IMPL = 0x48,    //  ...Accumulator
     PHP_IMPL = 0x08,    //  ...Processor Status
 
-//  Pull...
+//  Pop...
     PLA_IMPL = 0x68,    //  ...Accumulator
     PLP_IMPL = 0x28,    //  ...Processor Status
 
@@ -167,7 +167,7 @@ enum MOS6502_OpCodes_Main : BYTE {
     RTI_IMPL = 0x40,    //  ...from Interrupt
     RTS_IMPL = 0x60,    //  ...from Subroutine
 
-//  SBC - Subtract with Carry
+//  Subtract with Carry
     SBC_IM = 0xE9,
     SBC_ZP = 0xE5,
     SBC_ZPX = 0xF5,

@@ -7,7 +7,7 @@ public:
         cpu.A = accValue;
         targetRegister = value;
         mem[0x0000] = opcode;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = 4;
 
@@ -25,7 +25,7 @@ public:
         cpu.A = accValue;
         mem[destMemoryAddress] = value;
         mem[0x0000] = XRA_M;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(destMemoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 7;

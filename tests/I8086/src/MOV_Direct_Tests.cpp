@@ -13,7 +13,7 @@ class I8086_MOV_Direct_Fixture : public I8086_TestFixture {
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = targetAddress & 0xFF;
         mem[effectiveAddress++] = (targetAddress >> 8) & 0xFF;
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
         // when:
         cyclesPassed = cpu.Run();
     }

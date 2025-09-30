@@ -11,7 +11,7 @@ class I8086_MOV_Ix_Fixture : public I8086_TestFixture {
         mem[effectiveAddress++] = immValue & 0xFF;
         if (std::is_same_v<T, WORD>)
             mem[effectiveAddress++] = (immValue >> 8) & 0xFF;
-        mem[effectiveAddress] = STOP_OPCODE;
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
         // when:
         cyclesPassed = cpu.Run();
 

@@ -31,7 +31,7 @@ public:
                 mem[effectiveAddress++] = (modRegConstructor.leftOp.memData.dispValue >> 8) & 0xFF;
         }
 
-        mem[effectiveAddress++] = STOP_OPCODE;
+        mem[effectiveAddress++] = I8086_STOP_OPCODE;
         cyclesExpected = executeCyclesExpected;
 
         // when:
@@ -65,7 +65,7 @@ public:
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modRegByte;
 
-        mem[effectiveAddress++] = STOP_OPCODE;
+        mem[effectiveAddress++] = I8086_STOP_OPCODE;
         cyclesExpected = executeCyclesExpected;
 
         // when:

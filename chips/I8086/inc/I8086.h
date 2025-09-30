@@ -6,7 +6,7 @@
 #include "I8086_Status.h"
 #include "I8086_Addressing.h"
 
-#define STOP_OPCODE I8086_OpCodes_Main::HLT // HLT instruction is pretty OK to use as a STOP opcode
+#define I8086_STOP_OPCODE I8086_OpCodes_Main::HLT // HLT instruction is pretty OK to use as a STOP opcode
 
 #define EFFECTIVE_ADDRESS(m, n) ((m) + ((n) << 4))
 

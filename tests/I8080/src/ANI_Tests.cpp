@@ -7,7 +7,7 @@ public:
         cpu.A = accValue;
         mem[0x0000] = ANI;
         mem[0x0001] = memoryValue;
-        mem[0x0002] = STOP_OPCODE;
+        mem[0x0002] = I8080_STOP_OPCODE;
 
         cyclesExpected = 7;
 

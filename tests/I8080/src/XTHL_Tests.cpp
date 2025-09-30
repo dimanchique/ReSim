@@ -9,7 +9,7 @@ public:
                                                                     mem[cpu.SP + 1]);
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValueH, cpu.H, cpu.L);
         mem[0x0000] = XTHL;
-        mem[0x0001] = STOP_OPCODE;
+        mem[0x0001] = I8080_STOP_OPCODE;
 
         cyclesExpected = 18;
 

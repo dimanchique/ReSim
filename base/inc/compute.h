@@ -14,6 +14,34 @@
  */
 class Compute {
     public:
+
+    /**
+     * @brief Load data into memory from a binary file
+     * @param filename Path to the binary file.
+     * @param memory Memory struct instance.
+     * @return True if the load was successful, false otherwise.
+     */
+    virtual ~Compute() {};
+
+    bool LoadROM(const char *filename, Memory &memory) {
+        long long numBytesRead = 0;
+
+        const char* data = ReadBinary(filename, numBytesRead);
+        if (!data)
+            return false;
+
+        Reset();
+        const bool setSuccess = memory.SetMemory(data, numBytesRead);
+        delete[] data;
+
+        return setSuccess;
+    }
+
+    void SetBusInstance(Bus* new_bus) { bus = new_bus; }
+    Bus* GetBus() { return bus; }
+
+protected:
+
     /**
      * @brief Static function to read a binary file.
      * @param filename Path to the binary file.
@@ -39,30 +67,7 @@ class Compute {
         return data;
     }
 
-    /**
-     * @brief Load data into memory from a binary file
-     * @param filename Path to the binary file.
-     * @param memory Memory struct instance.
-     * @return True if the load was successful, false otherwise.
-     */
-    bool LoadROM(const char *filename, Memory &memory) {
-        long long numBytesRead = 0;
-
-        const char* data = ReadBinary(filename, numBytesRead);
-        if (!data)
-            return false;
-
-        Reset();
-        const bool setSuccess = memory.SetMemory(data, numBytesRead);
-        delete[] data;
-
-        return setSuccess;
-    }
-
-    void SetBusInstance(Bus* new_bus) { bus = new_bus; }
-    Bus* GetBus() { return bus; }
-
-protected:
+public:
 
     /**
      * @brief Resets CPU to its default values.
@@ -81,6 +86,7 @@ protected:
      */
     virtual bool Step() = 0;
 
+protected:
     Bus* bus = nullptr;
 
 public:

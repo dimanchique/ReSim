@@ -14,7 +14,9 @@ enum I8080_OpCodes_Main : BYTE {
     ADD_L = 0x85,   //
     ADD_M = 0x86,   //
     ADI = 0xC6,     //  ...Immediate Data to Accumulator
-    ADC_A = 0x8F,   //  ...Register or Memory to Accumulator with Carry
+
+//  Add with Carry...
+    ADC_A = 0x8F,   //  ...Register or Memory to Accumulator
     ADC_B = 0x88,   //
     ADC_C = 0x89,   //
     ADC_D = 0x8A,   //
@@ -22,13 +24,15 @@ enum I8080_OpCodes_Main : BYTE {
     ADC_H = 0x8C,   //
     ADC_L = 0x8D,   //
     ADC_M = 0x8E,   //
-    ACI = 0xCE,     //  ...Immediate Data to Accumulator with Carry
+    ACI = 0xCE,     //  ...Immediate Data to Accumulator
+
+//  Double register add...
     DAD_B = 0x09,   //  ...16-bit number stored in B and C
     DAD_D = 0x19,   //  ...16-bit number stored in D and E
     DAD_H = 0x29,   //  ...16-bit number stored in H and L
     DAD_SP = 0x39,  //  ...16-bit number stored in SP
 
-//  AND...
+//  Logical AND...
     ANA_A = 0xA7,   //  ...Register or Memory with Accumulator
     ANA_B = 0xA0,   //
     ANA_C = 0xA1,   //
@@ -39,7 +43,7 @@ enum I8080_OpCodes_Main : BYTE {
     ANA_M = 0xA6,   //
     ANI = 0xE6,     //  ...Immediate Data with Accumulator
 
-//  CALL - Call
+//  Call
     CALL = 0xCD,
 
 //  Call if...
@@ -67,7 +71,7 @@ enum I8080_OpCodes_Main : BYTE {
     CMP_M = 0xBE,   //
     CPI = 0xFE,     //  ...Immediate Data with Accumulator
 
-//  DAA - Decimal Adjust Accumulator
+//  Decimal Adjust Accumulator
     DAA = 0x27,
 
 //  Decrement...
@@ -88,13 +92,13 @@ enum I8080_OpCodes_Main : BYTE {
     DI = 0xF3,      //  ...Disable
     EI = 0xFB,      //  ...Enable
 
-//  HLT - Halt CPU
+//  Halt CPU
     HLT = 0x76,
 
-//  IN - Input data to accumulator from outcome device
+//  Input data to accumulator from outcome device
     IN = 0xDB,
 
-//  OUT - Output data from accumulator to outcome device
+//  Output data from accumulator to outcome device
     OUT = 0xD3,
 
 //  Increment...
@@ -111,7 +115,7 @@ enum I8080_OpCodes_Main : BYTE {
     INX_H = 0x23,   //
     INX_SP = 0x33,  //
 
-//  JMP - Jump
+//  Jump
     JMP = 0xC3,
 
 //  Jump if...
@@ -134,7 +138,7 @@ enum I8080_OpCodes_Main : BYTE {
     LXI_H = 0x21,   //  ...Immediate data into HL Register
     LXI_SP = 0x31,  //  ...Immediate data into SP Register
 
-//  MOV - Transfer Data between Register or Memory
+//  Transfer Data between Register or Memory
     MOV_A_A = 0x7F,
     MOV_A_B = 0x78,
     MOV_A_C = 0x79,
@@ -199,7 +203,7 @@ enum I8080_OpCodes_Main : BYTE {
     MOV_M_H = 0x74,
     MOV_M_L = 0x75,
 
-//  MVI - Move Immediate Data in specified Register
+//  Move Immediate Data in specified Register
     MVI_A = 0x3E,
     MVI_B = 0x06,
     MVI_C = 0x0E,
@@ -209,10 +213,10 @@ enum I8080_OpCodes_Main : BYTE {
     MVI_L = 0x2E,
     MVI_M = 0x36,
 
-//  NOP - No Operation
+//  No Operation
     NOP = 0x00,
 
-//  ORA - Logical OR Register or Memory with Accumulator
+//  Logical OR Register or Memory with Accumulator
     ORA_A = 0xB7,
     ORA_B = 0xB0,
     ORA_C = 0xB1,
@@ -222,31 +226,31 @@ enum I8080_OpCodes_Main : BYTE {
     ORA_L = 0xB5,
     ORA_M = 0xB6,
 
-//  ORI - Logical OR Immediate Data with Accumulator
+//  Logical OR Immediate Data with Accumulator
     ORI = 0xF6,
 
-//  PCHL - Insert into program counter data from H and L Registers
+//  Insert into program counter data from H and L Registers
     PCHL = 0xE9,
 
-//  POP - Pop Data off Stack
-    POP_B = 0xC1,
-    POP_D = 0xD1,
-    POP_H = 0xE1,
-    POP_PSW = 0xF1,
-
-//  PUSH - Push Data on Stack
+//  Push
     PUSH_B = 0xC5,
     PUSH_D = 0xD5,
     PUSH_H = 0xE5,
     PUSH_PSW = 0xF5,
 
-//  Rotate
+//  Pop
+    POP_B = 0xC1,
+    POP_D = 0xD1,
+    POP_H = 0xE1,
+    POP_PSW = 0xF1,
+
+//  Rotate...
     RAL = 0x17,     //  ...Accumulator Left through Carry
     RAR = 0x1F,     //  ...Accumulator Right through Carry
     RLC = 0x07,     //  ...Accumulator Left
     RRC = 0x0F,     //  ...Accumulator Right
 
-//  RET - Return
+//  Return
     RET = 0xC9,
 
 //  Return if...
@@ -259,7 +263,7 @@ enum I8080_OpCodes_Main : BYTE {
     RPE = 0xE8,     //  ...Parity bit is set (Even)
     RPO = 0xE0,     //  ...Parity bit is reset (Odd)
 
-//  RST - Reset
+//  Reset
     RST_0 = 0xC7,
     RST_1 = 0xCF,
     RST_2 = 0xD7,
@@ -269,16 +273,16 @@ enum I8080_OpCodes_Main : BYTE {
     RST_6 = 0xF7,
     RST_7 = 0xFF,
 
-//  SPHL - Load SP from H and L Registers
+//  Load SP from H and L Registers
     SPHL = 0xF9,
 
-//  Store
+//  Store...
     SHLD = 0x22,    //  ...H and L Register in Memory
     STA = 0x32,     //  ...Accumulator Data from Memory
     STAX_B = 0x02,  //  ...Accumulator data in memory addressed by B and C
     STAX_D = 0x12,  //  ...Accumulator data in memory addressed by D and E
 
-//  STC - Set Carry
+//  Set Carry
     STC = 0x37,
 
 //  Subtract...
@@ -291,7 +295,9 @@ enum I8080_OpCodes_Main : BYTE {
     SUB_L = 0x95,   //
     SUB_M = 0x96,   //
     SUI = 0xD6,     //  ...Immediate Data from Accumulator
-    SBB_A = 0x9F,   //  ...Register or Memory From Accumulator with Borrow
+
+//  Subtract with Borrow...
+    SBB_A = 0x9F,   //  ...Register or Memory From Accumulator
     SBB_B = 0x98,   //
     SBB_C = 0x99,   //
     SBB_D = 0x9A,   //
@@ -299,13 +305,13 @@ enum I8080_OpCodes_Main : BYTE {
     SBB_H = 0x9C,   //
     SBB_L = 0x9D,   //
     SBB_M = 0x9E,   //
-    SBI = 0xDE,     //  ...Immediate Data from Accumulator with Borrow
+    SBI = 0xDE,     //  ...Immediate Data from Accumulator
 
 //  Exchange...
     XCHG = 0xEB,    //  ...Data held in H and L Registers
     XTHL = 0xE3,    //  ...Stack
 
-//  Logical Exclusive-Or...
+//  Exclusive OR (XOR)...
     XRA_A = 0xAF,   //  ...Register or Memory with Accumulator
     XRA_B = 0xA8,   //
     XRA_C = 0xA9,   //
