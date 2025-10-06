@@ -2,6 +2,7 @@
 #include "Operations/ADD_Ops.h"
 #include "Operations/NOP_Ops.h"
 #include "Operations/GRP_Ops.h"
+#include "Operations/CALL_Ops.h"
 #include "Operations/OR_Ops.h"
 #include "Operations/AND_Ops.h"
 #include "Operations/XCHG_Ops.h"

@@ -10,6 +10,7 @@
 #include "INC_DEC_Ops.h"
 #include "PUSH_POP_Ops.h"
 #include "TEST_Ops.h"
+#include "CALL_Ops.h"
 
 template<typename T>
 using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
@@ -156,8 +157,8 @@ FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
     static constexpr GRP_CallbackSignature<WORD> callMap[] = {
         &INC_GRP5_Ev,               // 000 -> INC
         &DEC_GRP5_Ev,               // 001 -> DEC
-        &GRP_InvalidCall<WORD>,     // 010 -> CALL
-        &GRP_InvalidCall<WORD>,     // 011 -> CALL Mp
+        &CALL_GRP5,                 // 010 -> CALL
+        &CALL_GRP5_MP,              // 011 -> CALL Mp
         &GRP_InvalidCall<WORD>,     // 100 -> JMP
         &GRP_InvalidCall<WORD>,     // 101 -> JMP Mp
         &PUSH_Ev,                   // 110 -> PUSH

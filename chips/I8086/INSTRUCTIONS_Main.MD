@@ -133,7 +133,7 @@
 - [x] XCHG_DI_AX
 - [x] CBW
 - [x] CWD
-- [ ] CALL_Ap
+- [x] CALL_Ap
 - [ ] WAIT
 - [x] PUSHF
 - [x] POPF
@@ -198,7 +198,7 @@
 - [ ] IN_AX_Ib
 - [ ] OUT_Ib_AL
 - [ ] OUT_Ib_AX
-- [ ] CALL_Jv
+- [x] CALL_Jv
 - [ ] JMP_Jv
 - [ ] JMP_Ap
 - [ ] JMP_Jb
