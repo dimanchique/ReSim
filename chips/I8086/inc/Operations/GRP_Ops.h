@@ -11,6 +11,7 @@
 #include "PUSH_POP_Ops.h"
 #include "TEST_Ops.h"
 #include "CALL_Ops.h"
+#include "JMP_Ops.h"
 
 template<typename T>
 using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
@@ -159,8 +160,8 @@ FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
         &DEC_GRP5_Ev,               // 001 -> DEC
         &CALL_GRP5,                 // 010 -> CALL
         &CALL_GRP5_MP,              // 011 -> CALL Mp
-        &GRP_InvalidCall<WORD>,     // 100 -> JMP
-        &GRP_InvalidCall<WORD>,     // 101 -> JMP Mp
+        &JMP_GRP5,                  // 100 -> JMP
+        &JMP_GRP5_MP,               // 101 -> JMP Mp
         &PUSH_Ev,                   // 110 -> PUSH
         &GRP_InvalidCall<WORD>,     // 111 -> INVALID
 };

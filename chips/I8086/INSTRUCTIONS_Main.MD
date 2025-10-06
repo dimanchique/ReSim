@@ -199,9 +199,9 @@
 - [ ] OUT_Ib_AL
 - [ ] OUT_Ib_AX
 - [x] CALL_Jv
-- [ ] JMP_Jv
-- [ ] JMP_Ap
-- [ ] JMP_Jb
+- [x] JMP_Jv
+- [x] JMP_Ap
+- [x] JMP_Jb
 - [ ] IN_AL_DX
 - [ ] IN_AX_DX
 - [ ] OUT_DX_AL

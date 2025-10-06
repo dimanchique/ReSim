@@ -2,6 +2,44 @@
 
 #include "I8086.h"
 
+void I8086_JMP_Ap(BYTE OpCode, I8086 &cpu) {
+    const WORD offset = cpu.Fetch<WORD>();
+    const WORD segmentBase = cpu.Fetch<WORD>();
+
+    cpu.PC = offset;
+    cpu.CS = segmentBase;
+}
+
+template<typename T>
+void I8086_JMP_Jx(I8086 &cpu) {
+    const T displacement = cpu.Fetch<T>();
+    cpu.PC += displacement;
+}
+
+void I8086_JMP_Jv(BYTE OpCode, I8086 &cpu) {
+    I8086_JMP_Jx<WORD>(cpu);
+}
+
+void I8086_JMP_Jb(BYTE OpCode, I8086 &cpu) {
+    I8086_JMP_Jx<SBYTE>(cpu);
+}
+
+void JMP_GRP5(I8086& cpu, const ModRegByte& modReg) {
+    const OperandSize opSize = OperandSize::WORD;
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    WORD newPC = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+
+    cpu.PC = newPC;
+}
+
+void JMP_GRP5_MP(I8086& cpu, const ModRegByte& modReg) {
+    const OperandSize opSize = OperandSize::WORD;
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    WORD newPC = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+
+    cpu.PC = newPC;
+}
+
 FORCE_INLINE void PerformJump(I8086 &cpu, const bool conditionFlag = true) {
     const SWORD disp = cpu.Fetch<WORD>();
     if (conditionFlag)
