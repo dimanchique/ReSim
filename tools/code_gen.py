@@ -84,6 +84,8 @@ def scan_regex(path: str, re_exp: str, callback: Callable) -> None:
             if re_res:
                 callback(re_res)
 
+total_used_instructions = 0
+detected_instructions = 0
 
 # Process each instruction group
 for group_name, group_instructions_file in instructions_targets.items():
@@ -103,7 +105,7 @@ for group_name, group_instructions_file in instructions_targets.items():
     opcode_re_exp = r'\s+([\w]+)\s+=\s+(0[xX][0-9a-fA-F]+)'  # INSTRUCTION_NAME = 0xAE
     scan_regex(read_targets[group_name], opcode_re_exp, lambda x: op_map.update({x.group(1): int(x.group(2), 16)}))
 
-    print(f'Group "{group_name}": ', end="")
+    print(f'--> Group "{group_name}": ', end="")
     if len(op_map) == 0:
         print('skipped, no instructions found')
         continue
@@ -127,7 +129,8 @@ for group_name, group_instructions_file in instructions_targets.items():
             ops[op_map[i]] = f'ADD_CALL({i})'
             used_instructions += 1
 
-    print(f"Used instructions: {used_instructions}/{len(op_map.keys())}")
+    total_used_instructions += used_instructions
+    detected_instructions += len(op_map.keys())
 
     # Format the opcode table into rows of 5 instructions for readability
     ops_strings = []
@@ -151,3 +154,7 @@ for group_name, group_instructions_file in instructions_targets.items():
     # Write the generated lookup table to output file
     with open(os.path.join(cpu_include_root, f'{cpu_name}_OpCodesList_{group_name}.h'), 'w') as out_file:
         out_file.writelines(out_content)
+
+used_instructions_percentage = total_used_instructions/detected_instructions
+print()
+print(f"Used instructions: {total_used_instructions}/{detected_instructions} ({"{:.2f}".format(used_instructions_percentage * 100)}%)")
