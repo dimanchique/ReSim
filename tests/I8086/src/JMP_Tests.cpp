@@ -1,4 +1,5 @@
 #include "I8086_TestingSuite.h"
+#include "I8086_OpCodes_Groups.h"
 
 class I8086_Jump_Fixture : public I8086_TestFixture {
 protected:
@@ -164,4 +165,78 @@ TEST_F(I8086_Jump_Fixture, JumpNearWordDisplacement) {
 
     // then:
     EXPECT_EQ(cpu.PC, initialPC + 0x1000 + 3);
+}
+
+TEST_F(I8086_TestFixture, JMP_Ap) {
+    // given:
+    cpu.PC = 0x1000;
+
+    mem[0x11000] = JMP_Ap;
+    mem[0x11001] = 0x00;
+    mem[0x11002] = 0x01; // New PC = 0x0100
+    mem[0x11003] = 0x00;
+    mem[0x11004] = 0x20; // New CS = 0x2000
+    mem[0x20100] = I8086_STOP_OPCODE;
+
+    // when:
+    cyclesPassed = cpu.Run();
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0x0100);
+}
+
+TEST_F(I8086_TestFixture, JMP_Jb) {
+    // given:
+    cpu.PC = 0x1000;
+    cpu.SP = 0x6000;
+
+    mem[0x11000] = JMP_Jb;
+    mem[0x11001] = 0x50; // PC offset = +0x0050
+    mem[0x11053] = I8086_STOP_OPCODE;
+
+    // when:
+    cyclesPassed = cpu.Run();
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0x1053);
+}
+
+TEST_F(I8086_TestFixture, JMP_Jv) {
+    // given:
+    cpu.PC = 0x1000;
+    cpu.SP = 0x6000;
+
+    mem[0x11000] = JMP_Jv;
+    mem[0x11001] = 0x00;
+    mem[0x11002] = 0x01; // PC offset = +0x0100
+    mem[0x11103] = I8086_STOP_OPCODE;
+
+    // when:
+    cyclesPassed = cpu.Run();
+
+    // then:
+    EXPECT_EQ(cpu.PC, 0x1103);
+}
+
+TEST_F(I8086_TestFixture, JMP_GRP5_MP_FarIndirect_Address) {
+    cpu.PC = 0x1000;
+
+    ModRegByte modReg;
+    modReg.mod = 0b00; // Addr
+    modReg.reg = I8086_OpCodes_GRP5::GRP5_JMP_Mp;
+    modReg.rm = 0b111; // [BX]
+
+    mem[0x11000] = GRP5_Ev;
+    mem[0x11001] = modReg.value;
+
+    cpu.DS = 0x2000;
+    cpu.BX = 0x3000;
+    mem[0x23000] = 0x78;
+    mem[0x23001] = 0x56; // Offset
+
+    mem[0x15678] = I8086_STOP_OPCODE;
+
+    cyclesPassed = cpu.Run();
+
+    EXPECT_EQ(cpu.PC, 0x5678);
 }
