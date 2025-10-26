@@ -175,8 +175,8 @@
 - [ ] RET
 - [ ] LES_Gv_Mp
 - [ ] LDS_Gv_Mp
-- [ ] MOV_Eb_Ib
-- [ ] MOV_Ev_Iv
+- [x] MOV_Eb_Ib
+- [x] MOV_Ev_Iv
 - [ ] RETF_Iw
 - [ ] RETF
 - [ ] INT_3
