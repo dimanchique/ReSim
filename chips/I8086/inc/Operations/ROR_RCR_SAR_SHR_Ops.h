@@ -98,41 +98,41 @@ T PerformSHR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-FORCE_INLINE void ROR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void ROR_ByOne(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformROR);
 }
 
 template<typename T>
-FORCE_INLINE void ROR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void ROR_ByCL(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformROR, &cpu.CL);
 }
 
 template<typename T>
-FORCE_INLINE void RCR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void RCR_ByOne(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformRCR);
 }
 
 template<typename T>
-FORCE_INLINE void RCR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void RCR_ByCL(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformRCR, &cpu.CL);
 }
 
 template<typename T>
-FORCE_INLINE void SAR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void SAR_ByOne(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSAR);
 }
 
 template<typename T>
-FORCE_INLINE void SAR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void SAR_ByCL(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSAR, &cpu.CL);
 }
 
 template<typename T>
-FORCE_INLINE void SHR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void SHR_ByOne(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSHR);
 }
 
 template<typename T>
-FORCE_INLINE void SHR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void SHR_ByCL(I8086& cpu, const ModRegByte& modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSHR, &cpu.CL);
 }
