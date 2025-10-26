@@ -112,6 +112,52 @@ TEST_F(I8086_MOV_Fixture, MOV_Ev_Gv_BXSI_Addressed_WithDisp_AX) {
     EXPECT_EQ(result, refValue);
 }
 
+// Mem (Direct addressed) <-- DS
+TEST_F(I8086_MOV_Fixture, MOV_Ew_Sw_Direct_Addressed_DS) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::Mem;
+    modReg.leftOp.memData.dispSize = 0;
+    modReg.leftOp.memData.mode = modeDirect;
+
+    modReg.rightOp.archetype = OperandArchetype::SReg;
+    modReg.rightOp.regData = swDS;
+
+    cyclesExpected = 16 + 6;
+
+    const WORD memValue = 0x12C;
+    const DWORD memAddress = 0x1000;
+
+    TestMemRegInstruction(memAddress, memValue, MOV_Ew_Sw, modReg, 16);
+
+    WORD result = mem[memAddress];
+    result |= (mem[memAddress + 1] << 8);
+    EXPECT_EQ(result, cpu.DS);
+}
+
+// DS <-- Mem (Direct addressed)
+TEST_F(I8086_MOV_Fixture, MOV_Sw_Ew_Direct_Addressed_DS) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::SReg;
+    modReg.leftOp.regData = swDS;
+
+    modReg.rightOp.archetype = OperandArchetype::Mem;
+    modReg.rightOp.memData.dispSize = 1;
+    modReg.rightOp.memData.dispValue = 0xAD;
+    modReg.rightOp.memData.mode = modeBXpSI;
+
+    cyclesExpected = 16 + 6;
+
+    cpu.BX = 0x8000;
+    const WORD memValue = 0x12C;
+    const DWORD memAddress = cpu.BX + modReg.rightOp.memData.dispValue;
+
+    TestMemRegInstruction(memAddress, memValue, MOV_Sw_Ew, modReg, 16);
+
+    EXPECT_EQ(cpu.DS, memValue);
+}
+
 // AX <-- BX
 TEST_F(I8086_MOV_Fixture, MOV_Gv_Ev_AX_BX) {
     cpu.AX = 0x0060;
