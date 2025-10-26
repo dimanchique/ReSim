@@ -48,13 +48,15 @@ public:
         ModRegByteConstructor modReg;
 
         modReg.leftOp.archetype = OperandArchetype::Reg;
+        modReg.rightOp.archetype = OperandArchetype::Reg;
+
         if (std::is_same_v<T, WORD>) {
             modReg.size = OperandSize::WORD;
-            modReg.leftOp.regData.wordReg = (WordRegisters)(*reg);
+            modReg.rightOp.regData = (WordRegisters)(*reg);
         }
         else {
             modReg.size = OperandSize::BYTE;
-            modReg.leftOp.regData.byteReg = (ByteRegisters)(*reg);
+            modReg.rightOp.regData = (ByteRegisters)(*reg);
         }
         BYTE modRegByte = modReg.MakeModByte();
 

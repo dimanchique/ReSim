@@ -78,7 +78,7 @@ TEST_F(I8086_XCHG_Fixture, XCHG_Gv_Ev_BX_Addressed_AX) {
     modReg.leftOp.memData.mode = modeBX;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.byteReg = bDH;
+    modReg.rightOp.regData = bDH;
 
     const BYTE refValue = 0xFA;
     const BYTE memValue = 0xBE;
@@ -105,7 +105,7 @@ TEST_F(I8086_XCHG_Fixture, OR_Gv_Ev_BXSI_Addressed_WithDisp_AX) {
     modReg.leftOp.memData.mode = modeBXpSI;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     const WORD refValue = 0xFACE;
     const WORD memValue = 0xBABE;

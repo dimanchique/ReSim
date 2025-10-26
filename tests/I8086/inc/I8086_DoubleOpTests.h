@@ -16,15 +16,18 @@ public:
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modRegConstructor.MakeModByte();
 
-        if (modRegConstructor.leftOp.memData.mode == modeDirect) {
+        OperandConstructor* memOperandPtr = modRegConstructor.leftOp.archetype == OperandArchetype::Mem ?
+                                            &modRegConstructor.leftOp :
+                                            &modRegConstructor.rightOp;
+
+        if ((*memOperandPtr).memData.mode == modeDirect) {
             mem[effectiveAddress++] = memAddress & 0xFF;
             mem[effectiveAddress++] = (memAddress >> 8) & 0xFF;
         }
-
-        if (modRegConstructor.leftOp.memData.dispSize > 0) {
-            mem[effectiveAddress++] = modRegConstructor.leftOp.memData.dispValue & 0xFF;
-            if (modRegConstructor.leftOp.memData.dispSize > 1)
-                mem[effectiveAddress++] = (modRegConstructor.leftOp.memData.dispValue >> 8) & 0xFF;
+        else if ((*memOperandPtr).memData.dispSize > 0) {
+            mem[effectiveAddress++] = (*memOperandPtr).memData.dispValue & 0xFF;
+            if ((*memOperandPtr).memData.dispSize > 1)
+                mem[effectiveAddress++] = ((*memOperandPtr).memData.dispValue >> 8) & 0xFF;
         }
 
         mem[effectiveAddress++] = I8086_STOP_OPCODE;
@@ -50,15 +53,15 @@ public:
 
         modReg.leftOp.archetype = OperandArchetype::Reg;
         if (std::is_same_v<T, WORD>)
-            modReg.leftOp.regData.wordReg = (WordRegisters)(*leftReg);
+            modReg.leftOp.regData = (WordRegisters)(*leftReg);
         else
-            modReg.leftOp.regData.byteReg = (ByteRegisters)(*leftReg);
+            modReg.leftOp.regData = (ByteRegisters)(*leftReg);
 
         modReg.rightOp.archetype = OperandArchetype::Reg;
         if (std::is_same_v<T, WORD>)
-            modReg.rightOp.regData.wordReg = (WordRegisters)(*rightReg);
+            modReg.rightOp.regData = (WordRegisters)(*rightReg);
         else
-            modReg.rightOp.regData.byteReg = (ByteRegisters)(*rightReg);
+            modReg.rightOp.regData = (ByteRegisters)(*rightReg);
 
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modReg.MakeModByte();

@@ -13,7 +13,7 @@ TEST_F(I8086_AND_Fixture, AND_Ev_Gv_BX_Addressed_AX) {
     modReg.leftOp.memData.mode = modeBX;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     cpu.AX = 0x0060;
     cpu.BX = 0x009A;
@@ -40,7 +40,7 @@ TEST_F(I8086_AND_Fixture, AND_Ev_Gv_Direct_Addressed_BX) {
     modReg.leftOp.memData.mode = modeDirect;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wBX;
+    modReg.rightOp.regData = wBX;
 
     cpu.BX = 0x0060;
     cyclesExpected = 16 + 6;
@@ -66,7 +66,7 @@ TEST_F(I8086_AND_Fixture, AND_Ev_Gv_BP_Addressed_WithDisp_DX) {
     modReg.leftOp.memData.mode = modeBP;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wDX;
+    modReg.rightOp.regData = wDX;
 
     cpu.DX = 0x0060;
     cpu.SS = 0x2000; // BP is force-replacing by SS
@@ -93,7 +93,7 @@ TEST_F(I8086_AND_Fixture, AND_Ev_Gv_BXSI_Addressed_WithDisp_AX) {
     modReg.leftOp.memData.mode = modeBXpSI;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     cpu.AX = 0x0060;
     cpu.BX = 0x8000;

@@ -19,8 +19,12 @@ enum AddressMode : BYTE {
     modeBXpSI, modeBXpDI, modeBPpSI, modeBPpDI, modeSI, modeDI, modeBP, modeBX, modeDirect
 };
 
-enum class OperandArchetype {
-    Reg, Mem
+enum OperandArchetype : BYTE {
+    Mem, Reg, SReg
+};
+
+enum class InstructionType {
+    SingleOp, DoubleOp
 };
 
 
@@ -28,13 +32,7 @@ struct OperandConstructor {
     OperandArchetype archetype{};
 
     union {
-        struct {
-            union {
-                ByteRegisters byteReg;
-                WordRegisters wordReg;
-                sWordRegisters swordReg;
-            };
-        } regData{};
+        BYTE regData;
 
         struct {
             BYTE dispSize;
@@ -49,6 +47,7 @@ struct OperandConstructor {
 // Construct MOD|REG|R/M byte
 struct ModRegByteConstructor {
     OperandSize size = OperandSize::BYTE;
+    InstructionType type = InstructionType::DoubleOp;
 
     OperandConstructor leftOp;
     OperandConstructor rightOp;
@@ -60,7 +59,9 @@ struct ModRegByteConstructor {
         // MOD field filling
         // MOD = 0b11 only if both operands are registers
         // MOD field contains displacement size otherwise
-        if (leftOp.archetype == OperandArchetype::Reg && rightOp.archetype == OperandArchetype::Reg)
+        bool isRegRegOp = (leftOp.archetype & rightOp.archetype) >= OperandArchetype::Reg;
+
+        if (isRegRegOp)
             modByte.mod = 0b11;
         else {
             modByte.mod = leftOp.archetype == OperandArchetype::Mem ?
@@ -69,25 +70,32 @@ struct ModRegByteConstructor {
         }
 
         // REG field filling
-        // cast regData to byte is legal, enum values are sorted
-        modByte.reg = size == OperandSize::BYTE ?
-                      (BYTE) rightOp.regData.byteReg :
-                      (BYTE) rightOp.regData.wordReg;
+        // cast regData to byte is legal, enum values are mapped to REG field values
+        if (isRegRegOp) {
+            modByte.reg = (BYTE) leftOp.regData;
+        }
+        else {
+            modByte.reg = leftOp.archetype > OperandArchetype::Mem ?
+                          (BYTE) leftOp.regData :
+                          (BYTE) rightOp.regData;
+        }
 
         // R/M field filling
-        // if leftOp is reg just cast to byte as above section
-        if (leftOp.archetype == OperandArchetype::Reg) {
-            modByte.rm = size == OperandSize::BYTE ?
-                         (BYTE) leftOp.regData.byteReg :
-                         (BYTE) leftOp.regData.wordReg;
+        // if operand is reg just cast to byte as above section
+        if (isRegRegOp) {
+            modByte.rm = rightOp.regData;
         }
-            // if leftOp is mem we need a "hack"
         else {
-            // Direct mode and BP indexed mode both have the same value (0b110) but cast doesn't work in this case
-            if (leftOp.memData.mode == modeDirect)
+            OperandConstructor* opPtr = leftOp.archetype == OperandArchetype::Mem ?
+                    &leftOp :
+                    &rightOp;
+
+            // if operand is Mem we need a "hack"
+            // Direct mode and BP indexed mode both have the same value (0b110) so cast doesn't work in this case
+            if ((*opPtr).memData.mode == modeDirect)
                 modByte.rm = (BYTE) modeBP;
             else
-                modByte.rm = (BYTE) leftOp.memData.mode;
+                modByte.rm = (BYTE) (*opPtr).memData.mode;
         }
 
         return modByte.value;

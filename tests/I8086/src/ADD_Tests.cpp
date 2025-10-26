@@ -16,7 +16,7 @@ TEST_F(I8086_ADD_Fixture, ADD_Ev_Gv_BX_Addressed_AX) {
     modReg.leftOp.memData.mode = modeBX;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     cpu.AX = 0x0060;
     cpu.BX = 0x009A;
@@ -151,7 +151,7 @@ TEST_F(I8086_ADD_Fixture, ADD_Ev_Gv_BP_Addressed_WithDisp_DX) {
     modReg.leftOp.memData.mode = modeBP;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wDX;
+    modReg.rightOp.regData = wDX;
 
     cpu.DX = 0x0060;
     cpu.SS = 0x2000;

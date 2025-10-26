@@ -13,7 +13,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_BX_Addressed_AX) {
     modReg.leftOp.memData.mode = modeBX;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     const WORD initialAX = 0x0060;
     cpu.AX = initialAX;
@@ -42,7 +42,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_Direct_Addressed_BX) {
     modReg.leftOp.memData.mode = modeDirect;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wBX;
+    modReg.rightOp.regData = wBX;
 
     const WORD initialBX = 0x0060;
     cpu.BX = initialBX;
@@ -69,7 +69,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_BP_Addressed_WithDisp_DX) {
     modReg.leftOp.memData.mode = modeBP;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wDX;
+    modReg.rightOp.regData = wDX;
 
     const WORD initialDX = 0xFF60;
     cpu.DX = initialDX;
@@ -97,7 +97,7 @@ TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_BXSI_Addressed_WithDisp_AX) {
     modReg.leftOp.memData.mode = modeBXpSI;
 
     modReg.rightOp.archetype = OperandArchetype::Reg;
-    modReg.rightOp.regData.wordReg = wAX;
+    modReg.rightOp.regData = wAX;
 
     const WORD initialAX = 0xFF60;
     cpu.AX = 0xFF60;

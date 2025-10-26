@@ -197,8 +197,8 @@ public:
                 return instructionData;
             }
 
-            instructionData.leftOp.operand.reg = rmRegPtr;
-            instructionData.rightOp.operand.reg = regRegPtr;
+            instructionData.leftOp.operand.reg = regRegPtr;
+            instructionData.rightOp.operand.reg = rmRegPtr;
             return instructionData;
         }
         // Mem-Reg or Reg-Mem instructions
