@@ -119,9 +119,9 @@
 - [x] MOV_Ev_Gv
 - [x] MOV_Gb_Eb
 - [x] MOV_Gv_Ev
-- [ ] MOV_Ew_Sw
+- [x] MOV_Ew_Sw
 - [ ] LEA_Gv_M
-- [ ] MOV_Sw_Ew
+- [x] MOV_Sw_Ew
 - [x] POP_Ev
 - [x] NOP
 - [x] XCHG_CX_AX

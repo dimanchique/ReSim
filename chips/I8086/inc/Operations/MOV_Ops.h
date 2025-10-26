@@ -45,3 +45,21 @@ void I8086_MOV_Gb_Eb(BYTE OpCode, I8086 &cpu) {
 void I8086_MOV_Gv_Ev(BYTE OpCode, I8086 &cpu) {
     I8086_EGx_EGx_MOV<WORD>(cpu);
 }
+
+//  SReg16 <-- Mem16
+void I8086_MOV_Sw_Ew(BYTE OpCode, I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
+    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::Reg_MemReg, modReg);
+    WORD* sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
+    *sRegPtr = instructionData.rightOp.get(cpu, &instructionData.rightOp.operand);
+}
+
+//  Mem16 <-- SReg16
+void I8086_MOV_Ew_Sw(BYTE OpCode, I8086 &cpu) {
+    const BYTE modByte = cpu.Fetch<BYTE>();
+    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Reg, modReg);
+    WORD* sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
+    instructionData.leftOp.set(cpu, &instructionData.leftOp.operand, *sRegPtr);
+}
