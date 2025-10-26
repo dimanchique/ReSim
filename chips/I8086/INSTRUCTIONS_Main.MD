@@ -190,9 +190,9 @@
 - [ ] AAM_I0
 - [ ] AAD_I0
 - [ ] XLAT
-- [ ] LOOPNZ_Jb
-- [ ] LOOPZ_Jb
-- [ ] LOOP_Jb
+- [x] LOOPNZ_Jb
+- [x] LOOPZ_Jb
+- [x] LOOP_Jb
 - [ ] JCXZ_Jb
 - [ ] IN_AL_Ib
 - [ ] IN_AX_Ib
