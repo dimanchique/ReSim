@@ -116,7 +116,7 @@ TEST_F(I8086_POP_Ev_Fixture, POP_Ev) {
     const WORD memValue = 0xCCDA;
 
     cpu.PushDataToStack(memValue);
-    TestImmediateInstruction(POP_Ev, modReg, 16);
+    TestImpliedInstruction(POP_Ev, modReg, 16);
 
     DWORD newStackAddress = EFFECTIVE_ADDRESS(cpu.SP, cpu.SS);
     WORD result = mem[newStackAddress - 2];

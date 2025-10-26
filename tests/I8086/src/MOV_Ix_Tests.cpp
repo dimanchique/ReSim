@@ -1,4 +1,5 @@
 #include "I8086_TestingSuite.h"
+#include "I8086_SingleOpTests.h"
 
 class I8086_MOV_Ix_Fixture : public I8086_TestFixture {
   public:
@@ -82,4 +83,46 @@ TEST_F(I8086_MOV_Ix_Fixture, MOV_Im_SI) {
 
 TEST_F(I8086_MOV_Ix_Fixture, MOV_Im_DI) {
     TestMovImmediateData(&cpu.DI, MOV_DI_Iv);
+}
+
+class I8086_MOV_Ex_Ix_Fixture : public I8086_SingleOpFixture {};
+
+TEST_F(I8086_MOV_Ex_Ix_Fixture, MOV_AX_Iv) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::Reg;
+
+    modReg.rightOp.archetype = OperandArchetype::Reg;
+    modReg.rightOp.regData = wAX;
+
+    WORD initialValue = 0x60;
+    cpu.AX = initialValue;
+
+    cyclesExpected = 16 + 5;
+
+    const WORD memValue = 0xCCDA;
+
+    TestImmediateInstruction<WORD>(MOV_Ev_Iv, modReg, memValue, 16);
+
+    EXPECT_EQ(cpu.AX, memValue);
+}
+
+TEST_F(I8086_MOV_Ex_Ix_Fixture, MOV_DX_Iv) {
+    ModRegByteConstructor modReg;
+
+    modReg.leftOp.archetype = OperandArchetype::Reg;
+
+    modReg.rightOp.archetype = OperandArchetype::Reg;
+    modReg.rightOp.regData = wDX;
+
+    WORD initialValue = 0x60;
+    cpu.DX = initialValue;
+
+    cyclesExpected = 16 + 5;
+
+    const WORD memValue = 0xCCDA;
+
+    TestImmediateInstruction<WORD>(MOV_Ev_Iv, modReg, memValue, 16);
+
+    EXPECT_EQ(cpu.DX, memValue);
 }

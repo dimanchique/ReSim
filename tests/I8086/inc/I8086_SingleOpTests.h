@@ -27,9 +27,28 @@ public:
         // CheckCyclesCount();
     }
 
-    void TestImmediateInstruction(I8086_OpCodes_Main opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
+    void TestImpliedInstruction(I8086_OpCodes_Main opCode, ModRegByteConstructor &modRegConstructor, WORD executeCyclesExpected) {
         mem[effectiveAddress++] = opCode;
         mem[effectiveAddress++] = modRegConstructor.MakeModByte();
+        mem[effectiveAddress] = I8086_STOP_OPCODE;
+
+        cyclesExpected = executeCyclesExpected;
+
+        // when:
+        cyclesPassed = cpu.Run();
+
+        // then:
+        // Temporary disabled until cycles counter will be fixed
+        // CheckCyclesCount();
+    }
+
+    template<typename T>
+    void TestImmediateInstruction(I8086_OpCodes_Main opCode, ModRegByteConstructor &modRegConstructor, T memValue, WORD executeCyclesExpected) {
+        mem[effectiveAddress++] = opCode;
+        mem[effectiveAddress++] = modRegConstructor.MakeModByte();
+        mem[effectiveAddress++] = memValue & 0xFF;
+        if (!std::is_same_v<T, BYTE>)
+            mem[effectiveAddress++] = (memValue >> 8) & 0xFF;
         mem[effectiveAddress] = I8086_STOP_OPCODE;
 
         cyclesExpected = executeCyclesExpected;

@@ -50,14 +50,9 @@ public:
         modReg.leftOp.archetype = OperandArchetype::Reg;
         modReg.rightOp.archetype = OperandArchetype::Reg;
 
-        if (std::is_same_v<T, WORD>) {
-            modReg.size = OperandSize::WORD;
-            modReg.rightOp.regData = (WordRegisters)(*reg);
-        }
-        else {
-            modReg.size = OperandSize::BYTE;
-            modReg.rightOp.regData = (ByteRegisters)(*reg);
-        }
+        modReg.size = std::is_same_v<T, WORD> ? OperandSize::WORD : OperandSize::BYTE;
+        modReg.rightOp.regData = *reg;
+
         BYTE modRegByte = modReg.MakeModByte();
 
         ModRegByte modRegModified = ModRegByte::FromByte(modRegByte);
