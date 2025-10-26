@@ -15,12 +15,12 @@ void I8086_EGx_EGx_XCHG(I8086 &cpu) {
 }
 
 //  Mem8/Reg8 <--> Mem8/Reg8
-void I8086_XCHG_Gb_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_Gb_Eb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XCHG<BYTE>(cpu);
 }
 
 //  Mem16/Reg16 <--> Mem16/Reg16
-void I8086_XCHG_Gv_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_Gv_Ev(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XCHG<WORD>(cpu);
 }
 
@@ -31,30 +31,30 @@ FORCE_INLINE void PerformXCHG_AX(I8086 &cpu, WORD* regPtr) {
     *regPtr = tmp;
 }
 
-void I8086_XCHG_CX_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_CX_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.CX);
 }
 
-void I8086_XCHG_DX_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_DX_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.DX);
 }
 
-void I8086_XCHG_BX_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_BX_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.BX);
 }
 
-void I8086_XCHG_SP_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_SP_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.SP);
 }
 
-void I8086_XCHG_BP_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_BP_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.BP);
 }
 
-void I8086_XCHG_SI_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_SI_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.SI);
 }
 
-void I8086_XCHG_DI_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_XCHG_DI_AX(BYTE, I8086 &cpu) {
     PerformXCHG_AX(cpu, &cpu.DI);
 }

@@ -27,24 +27,24 @@ void I8086_EGx_EGx_XOR(I8086 &cpu) {
 }
 
 //  Mem8 <-- Mem8 XOR Reg8
-void I8086_XOR_Eb_Gb(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_Eb_Gb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XOR<BYTE>(cpu);
 }
 
 //  Mem16 <-- Mem16 XOR Reg16
-void I8086_XOR_Ev_Gv(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_Ev_Gv(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XOR<WORD>(cpu);
 }
 
 //  Reg8 <-- Reg8 XOR Reg8
 //  Reg8 <-- Reg8 XOR Mem8
-void I8086_XOR_Gb_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_Gb_Eb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XOR<BYTE>(cpu);
 }
 
 //  Reg16 <-- Reg16 XOR Reg16
 //  Reg16 <-- Reg16 XOR Mem16
-void I8086_XOR_Gv_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_Gv_Ev(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_XOR<WORD>(cpu);
 }
 
@@ -62,12 +62,12 @@ void I8086_XOR_Ax_Ix(T* regPtr, I8086 &cpu) {
 }
 
 //  AL <-- AL XOR Immediate8
-void I8086_XOR_AL_Ib(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_AL_Ib(BYTE, I8086 &cpu) {
     I8086_XOR_Ax_Ix(&cpu.AL, cpu);
 }
 
 //  AX <-- AX XOR Immediate16
-void I8086_XOR_AX_Iv(BYTE OpCode, I8086 &cpu) {
+void I8086_XOR_AX_Iv(BYTE, I8086 &cpu) {
     I8086_XOR_Ax_Ix(&cpu.AX, cpu);
 }
 

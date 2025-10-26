@@ -27,24 +27,24 @@ void I8086_EGx_EGx_AND(I8086 &cpu) {
 }
 
 //  Mem8 <-- Mem8 AND Reg8
-void I8086_AND_Eb_Gb(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_Eb_Gb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_AND<BYTE>(cpu);
 }
 
 //  Mem16 <-- Mem16 AND Reg16
-void I8086_AND_Ev_Gv(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_Ev_Gv(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_AND<WORD>(cpu);
 }
 
 //  Reg8 <-- Reg8 AND Reg8
 //  Reg8 <-- Reg8 AND Mem8
-void I8086_AND_Gb_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_Gb_Eb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_AND<BYTE>(cpu);
 }
 
 //  Reg16 <-- Reg16 AND Reg16
 //  Reg16 <-- Reg16 AND Mem16
-void I8086_AND_Gv_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_Gv_Ev(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_AND<WORD>(cpu);
 }
 
@@ -62,12 +62,12 @@ void I8086_AND_Ax_Ix(T* regPtr, I8086 &cpu) {
 }
 
 //  AL <-- AL AND Immediate8
-void I8086_AND_AL_Ib(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_AL_Ib(BYTE, I8086 &cpu) {
     I8086_AND_Ax_Ix(&cpu.AL, cpu);
 }
 
 //  AX <-- AX AND Immediate16
-void I8086_AND_AX_Iv(BYTE OpCode, I8086 &cpu) {
+void I8086_AND_AX_Iv(BYTE, I8086 &cpu) {
     I8086_AND_Ax_Ix(&cpu.AX, cpu);
 }
 

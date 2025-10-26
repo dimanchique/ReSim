@@ -16,7 +16,7 @@ constexpr static OpSignature Bit_Ops[] =
 #endif
         };
 
-void Z80_Bit_Group(Z80& cpu) {
+void Z80_Bit_Group(Z80&) {
     // fetch and use callback from Bit Group matrix
 }
 
@@ -30,7 +30,7 @@ constexpr static OpSignature IX_Ops[] =
 #endif
         };
 
-void Z80_IX_Group(Z80& cpu) {
+void Z80_IX_Group(Z80&) {
     // fetch and use callback from IX Group matrix
 }
 
@@ -44,7 +44,7 @@ constexpr static OpSignature IX_Bit_Ops[] =
 #endif
         };
 
-void Z80_IX_Bit_Group(Z80& cpu) {
+void Z80_IX_Bit_Group(Z80&) {
     // fetch and use callback from IX Bit Group matrix
 }
 
@@ -58,7 +58,7 @@ constexpr static OpSignature Misc_Ops[] =
 #endif
         };
 
-void Z80_Misc_Group(Z80& cpu) {
+void Z80_Misc_Group(Z80&) {
     // fetch and use callback from Misc Group matrix
 }
 
@@ -72,7 +72,7 @@ constexpr static OpSignature IY_Ops[] =
 #endif
         };
 
-void Z80_IY_Group(Z80& cpu) {
+void Z80_IY_Group(Z80&) {
     // fetch and use callback from IY Group matrix
 }
 
@@ -86,6 +86,6 @@ constexpr static OpSignature IY_Bit_Ops[] =
 #endif
         };
 
-void Z80_IY_Bit_Group(Z80& cpu) {
+void Z80_IY_Bit_Group(Z80&) {
     // fetch and use callback from IY Bit Group matrix
 }

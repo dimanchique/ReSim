@@ -30,7 +30,7 @@ T PerformNEG(I8086& cpu, T value) {
 }
 
 template<typename T>
-T PerformNOT(I8086& cpu, T value) {
+T PerformNOT(I8086&, T value) {
     value = ~value;
     return value;
 }

@@ -26,24 +26,24 @@ void I8086_EGx_EGx_TEST(I8086 &cpu) {
 }
 
 //  Mem8 TEST Reg8
-void I8086_TEST_Eb_Gb(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_Eb_Gb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_TEST<BYTE>(cpu);
 }
 
 //  Mem16 TEST Reg16
-void I8086_TEST_Ev_Gv(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_Ev_Gv(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_TEST<WORD>(cpu);
 }
 
 //  Reg8 TEST Reg8
 //  Reg8 TEST Mem8
-void I8086_TEST_Gb_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_Gb_Eb(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_TEST<BYTE>(cpu);
 }
 
 //  Reg16 TEST Reg16
 //  Reg16 TEST Mem16
-void I8086_TEST_Gv_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_Gv_Ev(BYTE, I8086 &cpu) {
     I8086_EGx_EGx_TEST<WORD>(cpu);
 }
 
@@ -60,12 +60,12 @@ void I8086_TEST_Ax_Ix(T* regPtr, I8086 &cpu) {
 }
 
 //  AL TEST Immediate8
-void I8086_TEST_AL_Ib(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_AL_Ib(BYTE, I8086 &cpu) {
     I8086_TEST_Ax_Ix(&cpu.AL, cpu);
 }
 
 //  AX TEST Immediate16
-void I8086_TEST_AX_Iv(BYTE OpCode, I8086 &cpu) {
+void I8086_TEST_AX_Iv(BYTE, I8086 &cpu) {
     I8086_TEST_Ax_Ix(&cpu.AX, cpu);
 }
 

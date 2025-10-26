@@ -13,18 +13,18 @@ FORCE_INLINE void I8086_MOV_Ax_0x(I8086 &cpu, T &targetRegister, InstructionDire
         cpu.Write(effectiveAddress, targetRegister);
 }
 
-void I8086_MOV_AL_Ob(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_AL_Ob(BYTE, I8086 &cpu) {
     I8086_MOV_Ax_0x(cpu, cpu.AL, InstructionDirection::MemReg_Reg);
 }
 
-void I8086_MOV_AX_Ov(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_AX_Ov(BYTE, I8086 &cpu) {
     I8086_MOV_Ax_0x(cpu, cpu.AX, InstructionDirection::MemReg_Reg);
 }
 
-void I8086_MOV_Ob_AL(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_Ob_AL(BYTE, I8086 &cpu) {
     I8086_MOV_Ax_0x(cpu, cpu.AL, InstructionDirection::Reg_MemReg);
 }
 
-void I8086_MOV_Ov_AX(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_Ov_AX(BYTE, I8086 &cpu) {
     I8086_MOV_Ax_0x(cpu, cpu.AX, InstructionDirection::Reg_MemReg);
 }

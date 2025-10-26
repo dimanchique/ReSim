@@ -266,7 +266,7 @@ public:
     }
 
     template<typename T>
-    static void RegisterSet(I8086 &cpu, const void *destReg, T value) {
+    static void RegisterSet(I8086&, const void *destReg, T value) {
         *(T *) *(uintptr_t *) destReg = value;
     }
 
@@ -276,7 +276,7 @@ public:
     }
 
     template<typename T>
-    static T RegisterGet(I8086 &cpu, const void *srcReg) {
+    static T RegisterGet(I8086&, const void *srcReg) {
         return *(T *) *(uintptr_t *) srcReg; // srcReg is passed as a pointer to void pointer
     }
 

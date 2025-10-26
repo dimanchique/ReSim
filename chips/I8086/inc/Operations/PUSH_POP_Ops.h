@@ -9,18 +9,18 @@ void PUSH_Ev(I8086& cpu, const ModRegByte& modReg) {
     cpu.PushDataToStack(operand);
 }
 
-void I8086_POP_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_POP_Ev(BYTE, I8086 &cpu) {
     const InstructionData instructionData = cpu.GetInstructionData<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Imm);
 
     const WORD operand = cpu.PopDataFromStack();
     instructionData.singleOp.set(cpu, &instructionData.singleOp, operand);
 }
 
-void I8086_PUSHF(BYTE OpCode, I8086 &cpu) {
+void I8086_PUSHF(BYTE, I8086 &cpu) {
     cpu.PushDataToStack(cpu.Status.Value);
 }
 
-void I8086_POPF(BYTE OpCode, I8086 &cpu) {
+void I8086_POPF(BYTE, I8086 &cpu) {
     cpu.Status.Value = cpu.PopDataFromStack();
 }
 

@@ -83,14 +83,14 @@ void I8086_MOV_DI_Iv(BYTE OpCode, I8086 &cpu) {
 }
 
 //  Reg <-- Immediate8
-void I8086_MOV_Eb_Ib(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_Eb_Ib(BYTE, I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
     I8086_Ex_Ix<BYTE>(cpu, modReg, &PerformMOV, &UpdateStatusAfterMOV_Wrapper);
 }
 
 //  Reg <-- Immediate16
-void I8086_MOV_Ev_Iv(BYTE OpCode, I8086 &cpu) {
+void I8086_MOV_Ev_Iv(BYTE, I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte::FromByte(modByte);
     I8086_Ex_Ix<WORD>(cpu, modReg, &PerformMOV, &UpdateStatusAfterMOV_Wrapper);

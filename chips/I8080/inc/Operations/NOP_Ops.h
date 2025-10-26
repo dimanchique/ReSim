@@ -7,4 +7,4 @@
  * other than the normal incrementing of the program counter to the next instruction.
  * @param cpu I8080 struct instance.
  */
-void I8080_NOP(I8080 &cpu) {}
+void I8080_NOP(I8080&) {}

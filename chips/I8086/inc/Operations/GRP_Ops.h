@@ -40,11 +40,11 @@ FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP1_Eb_Ib(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP1_Eb_Ib(BYTE, I8086 &cpu) {
     I8086_GRP1_Ex_Ix<BYTE>(cpu);
 }
 
-void I8086_GRP1_Ev_Iv(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP1_Ev_Iv(BYTE, I8086 &cpu) {
     I8086_GRP1_Ex_Ix<WORD>(cpu);
 }
 
@@ -67,11 +67,11 @@ FORCE_INLINE void I8086_GRP2_Ex_1(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP2_Eb_1(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP2_Eb_1(BYTE, I8086 &cpu) {
     I8086_GRP2_Ex_1<BYTE>(cpu);
 }
 
-void I8086_GRP2_Ev_1(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP2_Ev_1(BYTE, I8086 &cpu) {
     I8086_GRP2_Ex_1<WORD>(cpu);
 }
 
@@ -94,11 +94,11 @@ FORCE_INLINE void I8086_GRP2_Ex_CL(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP2_Eb_CL(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP2_Eb_CL(BYTE, I8086 &cpu) {
     I8086_GRP2_Ex_CL<BYTE>(cpu);
 }
 
-void I8086_GRP2_Ev_CL(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP2_Ev_CL(BYTE, I8086 &cpu) {
     I8086_GRP2_Ex_CL<WORD>(cpu);
 }
 
@@ -121,11 +121,11 @@ FORCE_INLINE void I8086_GRP3x_Ex(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP3a_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP3a_Eb(BYTE, I8086 &cpu) {
     I8086_GRP3x_Ex<BYTE>(cpu);
 }
 
-void I8086_GRP3b_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP3b_Ev(BYTE, I8086 &cpu) {
     I8086_GRP3x_Ex<WORD>(cpu);
 }
 
@@ -147,7 +147,7 @@ FORCE_INLINE void I8086_GRP4_Eb(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP4_Eb(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP4_Eb(BYTE, I8086 &cpu) {
     I8086_GRP4_Eb(cpu);
 }
 
@@ -169,6 +169,6 @@ FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
     callMap[modReg.reg](cpu, modReg);
 }
 
-void I8086_GRP5_Ev(BYTE OpCode, I8086 &cpu) {
+void I8086_GRP5_Ev(BYTE, I8086 &cpu) {
     I8086_GRP5_Ev(cpu);
 }

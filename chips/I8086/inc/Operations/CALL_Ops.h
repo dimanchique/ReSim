@@ -2,7 +2,7 @@
 
 #include "I8086.h"
 
-void I8086_CALL_Ap(BYTE OpCode, I8086 &cpu) {
+void I8086_CALL_Ap(BYTE, I8086 &cpu) {
     const WORD offset = cpu.Fetch<WORD>();
     const WORD segmentBase = cpu.Fetch<WORD>();
 
@@ -13,7 +13,7 @@ void I8086_CALL_Ap(BYTE OpCode, I8086 &cpu) {
     cpu.CS = segmentBase;
 }
 
-void I8086_CALL_Jv(BYTE OpCode, I8086 &cpu) {
+void I8086_CALL_Jv(BYTE, I8086 &cpu) {
     const WORD displacement = cpu.Fetch<WORD>();
 
     cpu.PushDataToStack(cpu.PC);
