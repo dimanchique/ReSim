@@ -187,8 +187,10 @@ public:
         if (modReg.mod == 0b11) {
             OperandType regOperands = OperandType::Reg;
             instructionData.leftOp.type = instructionData.rightOp.type = regOperands;
-            instructionData.leftOp.get = instructionData.rightOp.get = RegisterGet;
-            instructionData.leftOp.set = instructionData.rightOp.set = RegisterSet;
+            instructionData.leftOp.getterSet(&RegisterGet);
+            instructionData.rightOp.getterSet(&RegisterGet);
+            instructionData.leftOp.setterSet(&RegisterSet);
+            instructionData.rightOp.setterSet(&RegisterSet);
 
             // MemReg_Imm instruction direction in this branch covers only Register destination
             // Only one operand needed if instruction direction is MemReg_Imm
@@ -206,8 +208,8 @@ public:
             OperandInfo<T> op1;
             op1.type = OperandType::Mem;
             op1.operand.mem = GetModRegAddress(modReg);
-            op1.get = AddressGet;
-            op1.set = AddressSet;
+            op1.getterSet(&AddressGet);
+            op1.setterSet (&AddressSet);
 
             // MemReg_Imm instruction direction in this branch covers only Memory destination
             // Only one operand needed if instruction direction is MemReg_Imm
@@ -219,8 +221,8 @@ public:
             OperandInfo<T> op2;
             op2.type = OperandType::Reg;
             op2.operand.reg = regRegPtr;
-            op2.get = RegisterGet;
-            op2.set = RegisterSet;
+            op2.getterSet(&RegisterGet);
+            op2.setterSet(&RegisterSet);
 
             instructionData.leftOp = direction == InstructionDirection::MemReg_Reg ? op1 : op2;
             instructionData.rightOp = direction == InstructionDirection::MemReg_Reg ? op2 : op1;
@@ -231,7 +233,7 @@ public:
     template<typename T>
     InstructionData<T> GetInstructionData(const OperandSize operandSize, const InstructionDirection direction) {
         const BYTE modByte = Fetch<BYTE>();
-        const ModRegByte modReg = ModRegByte::FromByte(modByte);
+        const ModRegByte modReg = ModRegByte(modByte);
         return GetInstructionDataNoFetch<T>(operandSize, direction, modReg);
     }
 

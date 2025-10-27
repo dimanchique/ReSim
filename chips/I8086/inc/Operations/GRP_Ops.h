@@ -24,7 +24,7 @@ void GRP_InvalidCall(I8086&, const ModRegByte&) {
 template<typename T>
 FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
             &I8086_ADD_Ex_Ix<T>,    // 000 -> ADD
@@ -51,7 +51,7 @@ void I8086_GRP1_Ev_Iv(BYTE, I8086 &cpu) {
 template<typename T>
 FORCE_INLINE void I8086_GRP2_Ex_1(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
             &ROL_ByOne<T>,          // 000 -> ROL
@@ -78,7 +78,7 @@ void I8086_GRP2_Ev_1(BYTE, I8086 &cpu) {
 template<typename T>
 FORCE_INLINE void I8086_GRP2_Ex_CL(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
             &ROL_ByCL<T>,           // 000 -> ROL
@@ -105,7 +105,7 @@ void I8086_GRP2_Ev_CL(BYTE, I8086 &cpu) {
 template<typename T>
 FORCE_INLINE void I8086_GRP3x_Ex(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
             &I8086_TEST_Ex_Ix<T>,            // 000 -> TEST
@@ -131,7 +131,7 @@ void I8086_GRP3b_Ev(BYTE, I8086 &cpu) {
 
 FORCE_INLINE void I8086_GRP4_Eb(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<BYTE> callMap[] = {
         &INC_GRP4_Eb,               // 000 -> INC
@@ -153,7 +153,7 @@ void I8086_GRP4_Eb(BYTE, I8086 &cpu) {
 
 FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
-    const ModRegByte modReg = ModRegByte::FromByte(modByte);
+    const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<WORD> callMap[] = {
         &INC_GRP5_Ev,               // 000 -> INC

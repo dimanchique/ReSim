@@ -24,7 +24,7 @@ void I8086_CALL_Jv(BYTE, I8086 &cpu) {
 void CALL_GRP5(I8086& cpu, const ModRegByte& modReg) {
     const OperandSize opSize = OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
-    WORD newPC = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+    WORD newPC = instructionData.singleOp.get(cpu);
 
     cpu.PushDataToStack(cpu.PC);
 

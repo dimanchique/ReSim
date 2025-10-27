@@ -22,8 +22,8 @@ FORCE_INLINE void I8086_EGx_EGx(I8086 &cpu,
     const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionData<T>(opSize, instructionDirection);
 
-    const T leftOp = instructionData.leftOp.get(cpu, &instructionData.leftOp.operand);
-    const T rightOp = instructionData.rightOp.get(cpu, &instructionData.rightOp.operand);
+    const T leftOp = instructionData.leftOp.get(cpu);
+    const T rightOp = instructionData.rightOp.get(cpu);
 
     instructionResult.leftOp.before = leftOp;
     instructionResult.rightOp.before = rightOp;
@@ -32,9 +32,9 @@ FORCE_INLINE void I8086_EGx_EGx(I8086 &cpu,
 
     if (shouldStoreResult) {
         if (operandDirection & OperandDirection::RightToLeft)
-            instructionData.leftOp.set(cpu, &instructionData.leftOp.operand, instructionResult.leftOp.after);
+            instructionData.leftOp.set(cpu, instructionResult.leftOp.after);
         if (operandDirection & OperandDirection::LeftToRight)
-            instructionData.rightOp.set(cpu, &instructionData.rightOp.operand, instructionResult.rightOp.after);
+            instructionData.rightOp.set(cpu, instructionResult.rightOp.after);
     }
 
     if (statusCallback)
@@ -52,7 +52,7 @@ FORCE_INLINE void I8086_Ex_Ix(I8086 &cpu,
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modRegByte);
 
     const T immValue = cpu.Fetch<T>();
-    const T op = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+    const T op = instructionData.singleOp.get(cpu);
 
     instructionResult.leftOp.before = op;
     instructionResult.rightOp.before = immValue;
@@ -60,7 +60,7 @@ FORCE_INLINE void I8086_Ex_Ix(I8086 &cpu,
     callback(instructionResult);
 
     if (shouldStoreResult)
-        instructionData.singleOp.set(cpu, &instructionData.singleOp.operand, instructionResult.leftOp.after);
+        instructionData.singleOp.set(cpu, instructionResult.leftOp.after);
 
     if (statusCallback)
         statusCallback(cpu, instructionResult);

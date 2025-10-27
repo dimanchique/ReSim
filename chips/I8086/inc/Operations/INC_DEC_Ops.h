@@ -18,9 +18,9 @@ namespace INC_DEC {
         if (instructionData.leftOp.type == OperandType::Reg && std::is_same_v<T, WORD>)
             throw InvalidInstruction();
 
-        const T operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+        const T operand = instructionData.singleOp.get(cpu);
         T opRes = callback(cpu, operand);
-        instructionData.singleOp.set(cpu, &instructionData.singleOp.operand, opRes);
+        instructionData.singleOp.set(cpu, opRes);
     }
 
     FORCE_INLINE void INC_DEC(I8086& cpu, const BYTE regIdx, CallbackSignature<WORD> *callback) {

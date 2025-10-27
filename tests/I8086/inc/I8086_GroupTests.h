@@ -13,7 +13,7 @@ public:
 
         modRegConstructor.size = std::is_same_v<T, WORD> ? OperandSize::WORD : OperandSize::BYTE;
         BYTE modRegByte = modRegConstructor.MakeModByte();
-        ModRegByte modRegModified = ModRegByte::FromByte(modRegByte);
+        ModRegByte modRegModified = ModRegByte(modRegByte);
         modRegModified.reg = regOverride;
         modRegByte = modRegModified.value;
 
@@ -55,7 +55,7 @@ public:
 
         BYTE modRegByte = modReg.MakeModByte();
 
-        ModRegByte modRegModified = ModRegByte::FromByte(modRegByte);
+        ModRegByte modRegModified = ModRegByte(modRegByte);
         modRegModified.reg = regOverride;
         modRegByte = modRegModified.value;
 

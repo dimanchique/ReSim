@@ -5,7 +5,7 @@
 void PUSH_Ev(I8086& cpu, const ModRegByte& modReg) {
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Reg, modReg);
 
-    const WORD operand = instructionData.singleOp.get(cpu, &instructionData.singleOp.operand);
+    const WORD operand = instructionData.singleOp.get(cpu);
     cpu.PushDataToStack(operand);
 }
 
@@ -13,7 +13,7 @@ void I8086_POP_Ev(BYTE, I8086 &cpu) {
     const InstructionData instructionData = cpu.GetInstructionData<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Imm);
 
     const WORD operand = cpu.PopDataFromStack();
-    instructionData.singleOp.set(cpu, &instructionData.singleOp, operand);
+    instructionData.singleOp.set(cpu, operand);
 }
 
 void I8086_PUSHF(BYTE, I8086 &cpu) {

@@ -18,6 +18,8 @@ template<typename T>
 using OperandGetter = T(*)(I8086 &, const void *);
 
 struct ModRegByte {
+    explicit ModRegByte(BYTE inValue = 0) : value(inValue) {}
+
     union {
         struct {
             BYTE rm: 3;
@@ -26,12 +28,6 @@ struct ModRegByte {
         };
         BYTE value = 0;
     };
-
-    FORCE_INLINE static ModRegByte FromByte(const BYTE value) {
-        ModRegByte modReg;
-        modReg.value = value;
-        return modReg;
-    }
 };
 
 enum class InstructionDirection {
@@ -54,31 +50,50 @@ struct OperandInfo {
         DWORD mem;
     } operand;
 
-    OperandGetter<T> get;
-    OperandSetter<T> set;
+    void set(I8086& cpu, T value) const {
+        setterFuncPtr(cpu, &operand, value);
+    }
+
+    T get(I8086& cpu) const {
+        return getterFuncPtr(cpu, &operand);
+    }
+
+    void getterSet(OperandGetter<T> f) {
+        getterFuncPtr = f;
+    }
+
+    void setterSet(OperandSetter<T> f) {
+        setterFuncPtr = f;
+    }
+
+private:
+    OperandGetter<T> getterFuncPtr;
+    OperandSetter<T> setterFuncPtr;
 };
 
 template<typename T>
 struct InstructionData {
     union {
-        struct {
+        struct {                    // Regular instruction operands
             OperandInfo<T> leftOp;
             OperandInfo<T> rightOp;
-        };                          // Regular instruction operands
+        };
         OperandInfo<T> singleOp;    // GRP instructions operand
     };
 };
 
 template<typename T>
-struct OperandValue{
-    T before;
-    T after;
-};
-
-template<typename T>
 struct InstructionResult{
-    OperandValue<T> leftOp;
-    OperandValue<T> rightOp;
+    struct {
+        T before;
+        T after;
+    } leftOp;
+
+    struct {
+        T before;
+        T after;
+    } rightOp;
+
     struct {
         bool C; // Carry
         bool A; // Auxiliary
