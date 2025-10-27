@@ -13,6 +13,7 @@
 #include "Operations/MOV_Ops.h"
 #include "Operations/MOV_Imm_Ops.h"
 #include "Operations/MOV_Direct_Ops.h"
+#include "Operations/LOAD_Ops.h"
 #include "Operations/JMP_Ops.h"
 #include "Operations/LOOP_Ops.h"
 #include "Operations/TEST_Ops.h"

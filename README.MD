@@ -10,7 +10,7 @@
 |-----------|------------------------------------------------------------|--------|
 | **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete - Full instruction set & testing |
 | **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete - Z80-compatible implementation |
-| **Intel 8086** | ![69%](https://progress-bar.xyz/69?style=flat&width=200)   | 🚧 In Progress |
+| **Intel 8086** | ![70%](https://progress-bar.xyz/70?style=flat&width=200)   | 🚧 In Progress |
 | **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned - Initial research phase |
 
 ## ✨ Key Features

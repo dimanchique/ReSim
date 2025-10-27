@@ -120,7 +120,7 @@
 - [x] MOV_Gb_Eb
 - [x] MOV_Gv_Ev
 - [x] MOV_Ew_Sw
-- [ ] LEA_Gv_M
+- [x] LEA_Gv_M
 - [x] MOV_Sw_Ew
 - [x] POP_Ev
 - [x] NOP
@@ -173,8 +173,8 @@
 - [x] MOV_DI_Iv
 - [ ] RET_Iw
 - [ ] RET
-- [ ] LES_Gv_Mp
-- [ ] LDS_Gv_Mp
+- [x] LES_Gv_Mp
+- [x] LDS_Gv_Mp
 - [x] MOV_Eb_Ib
 - [x] MOV_Ev_Iv
 - [ ] RETF_Iw
