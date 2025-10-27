@@ -258,7 +258,7 @@ public:
             case 0b111:
                 return GetBasedAddress(BX, modReg.mod);
         }
-        throw InvalidInstruction();
+        RESIM_THROW;
     }
 
     // Getters/Setters for instruction data operands

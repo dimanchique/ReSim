@@ -18,7 +18,7 @@ using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
 
 template<typename T>
 void GRP_InvalidCall(I8086&, const ModRegByte&) {
-    throw InvalidInstruction();
+    RESIM_THROW;
 }
 
 template<typename T>

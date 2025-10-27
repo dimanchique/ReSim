@@ -10,3 +10,5 @@ union{                                                                          
 }
 
 #define DECLARE_PAIRED_REG(SUB_SIZE, RESULT_SIZE, NAME1, NAME2) DECLARE_PAIRED_REG_UNIQUE_NAME(SUB_SIZE, RESULT_SIZE, NAME1, NAME2, NAME1##NAME2)
+
+#define RESIM_THROW throw std::runtime_error(std::string("Unexpected behaviour in ") + __FILE__ + ":" + std::to_string(__LINE__))

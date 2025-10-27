@@ -16,7 +16,7 @@ namespace INC_DEC {
         const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
 
         if (instructionData.leftOp.type == OperandType::Reg && std::is_same_v<T, WORD>)
-            throw InvalidInstruction();
+            RESIM_THROW;
 
         const T operand = instructionData.singleOp.get(cpu);
         T opRes = callback(cpu, operand);

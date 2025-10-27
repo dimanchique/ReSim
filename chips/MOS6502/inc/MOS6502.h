@@ -4,6 +4,7 @@
 #include "core/compilers_macro.h"
 #include "MOS6502_Status.h"
 #include "MOS6502_AddressingMode.h"
+#include "core/macro.h"
 
 #define MOS6502_STOP_OPCODE 0x02 /**< One of unused MOS6502 opcodes used to stop execution of finite programs */
 #define PAGE_SIZE 0xFF /**< MOS6502 default page size */
@@ -260,7 +261,7 @@ public:
             case MOS6502_AddressingMode::Indirect_Y:
                 return GetIndYAddress(shouldCheckPageCross);
         }
-        throw; // unexpected
+        RESIM_THROW;
     }
 
     /**
