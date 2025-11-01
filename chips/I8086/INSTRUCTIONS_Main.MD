@@ -189,7 +189,7 @@
 - [x] GRP2_Ev_CL
 - [ ] AAM_I0
 - [ ] AAD_I0
-- [ ] XLAT
+- [x] XLAT
 - [x] LOOPNZ_Jb
 - [x] LOOPZ_Jb
 - [x] LOOP_Jb
