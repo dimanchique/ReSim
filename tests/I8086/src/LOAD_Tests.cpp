@@ -1,7 +1,8 @@
 #include "I8086_TestingSuite.h"
-#include "I8086_OpCodes_Groups.h"
 
-TEST_F(I8086_TestFixture, LOAD_Gv_M) {
+class I8086_LOAD_Fixture : public I8086_TestFixture{};
+
+TEST_F(I8086_LOAD_Fixture, LOAD_Gv_M) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -33,7 +34,7 @@ TEST_F(I8086_TestFixture, LOAD_Gv_M) {
     EXPECT_EQ(cpu.BX, 0x139E);
 }
 
-TEST_F(I8086_TestFixture, LES_Gv_Mp) {
+TEST_F(I8086_LOAD_Fixture, LES_Gv_Mp) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -67,7 +68,7 @@ TEST_F(I8086_TestFixture, LES_Gv_Mp) {
     EXPECT_EQ(cpu.ES, 0x939E);
 }
 
-TEST_F(I8086_TestFixture, LDS_Gv_Mp) {
+TEST_F(I8086_LOAD_Fixture, LDS_Gv_Mp) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;

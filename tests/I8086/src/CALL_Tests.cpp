@@ -1,7 +1,9 @@
 #include "I8086_TestingSuite.h"
 #include "I8086_OpCodes_Groups.h"
 
-TEST_F(I8086_TestFixture, CALL_Ap) {
+class I8086_CALL_Fixture : public I8086_TestFixture {};
+
+TEST_F(I8086_CALL_Fixture, CALL_Ap) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -21,7 +23,7 @@ TEST_F(I8086_TestFixture, CALL_Ap) {
     EXPECT_EQ(cpu.SP, 0x6000 - 4);
 }
 
-TEST_F(I8086_TestFixture, CALL_Jv) {
+TEST_F(I8086_CALL_Fixture, CALL_Jv) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -39,7 +41,7 @@ TEST_F(I8086_TestFixture, CALL_Jv) {
     EXPECT_EQ(cpu.SP, 0x6000 - 2);
 }
 
-TEST_F(I8086_TestFixture, CALL_GRP5_FarIndirect_Address) {
+TEST_F(I8086_CALL_Fixture, CALL_GRP5_FarIndirect_Address) {
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
 
@@ -64,7 +66,7 @@ TEST_F(I8086_TestFixture, CALL_GRP5_FarIndirect_Address) {
     EXPECT_EQ(cpu.SP, 0x5FFE); // SP decreased by 2
 }
 
-TEST_F(I8086_TestFixture, CALL_GRP5_MP_FarIndirect_Address) {
+TEST_F(I8086_CALL_Fixture, CALL_GRP5_MP_FarIndirect_Address) {
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
 

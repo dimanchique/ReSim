@@ -1,8 +1,8 @@
 #include "I8086_DoubleOpTests.h"
 #include "I8086_SingleOpTests.h"
 
- class I8086_TEST_Fixture : public I8086_DoubleOpFixture {};
- class I8086_TEST_IM_Fixture : public I8086_SingleOpFixture {};
+class I8086_TEST_Fixture : public I8086_DoubleOpFixture {};
+class I8086_TEST_IM_Fixture : public I8086_SingleOpFixture {};
 
 // Mem (BX addressed) <-- AX | Mem (BX addressed)
 TEST_F(I8086_TEST_Fixture, TEST_Ev_Gv_BX_Addressed_AX) {

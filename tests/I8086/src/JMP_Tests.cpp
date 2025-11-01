@@ -1,7 +1,7 @@
 #include "I8086_TestingSuite.h"
 #include "I8086_OpCodes_Groups.h"
 
-class I8086_Jump_Fixture : public I8086_TestFixture {
+class I8086_JMP_Fixture : public I8086_TestFixture {
 protected:
     void TestJump(BYTE opcode, bool condition) {
         // given:
@@ -80,39 +80,39 @@ protected:
 };
 
 // Simple conditional jumps
-TEST_F(I8086_Jump_Fixture, JO_Taken)     { TestJump(JO_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JO_NotTaken)  { TestJump(JO_Jb, false); }
-TEST_F(I8086_Jump_Fixture, JNO_Taken)    { TestJump(JNO_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JNO_NotTaken) { TestJump(JNO_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JO_Taken)     { TestJump(JO_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JO_NotTaken)  { TestJump(JO_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JNO_Taken)    { TestJump(JNO_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JNO_NotTaken) { TestJump(JNO_Jb, false); }
 
 // Carry flag jumps
-TEST_F(I8086_Jump_Fixture, JB_Taken)     { TestJump(JB_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JB_NotTaken)  { TestJump(JB_Jb, false); }
-TEST_F(I8086_Jump_Fixture, JNB_Taken)    { TestJump(JNB_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JNB_NotTaken) { TestJump(JNB_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JB_Taken)     { TestJump(JB_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JB_NotTaken)  { TestJump(JB_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JNB_Taken)    { TestJump(JNB_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JNB_NotTaken) { TestJump(JNB_Jb, false); }
 
 // Zero flag jumps
-TEST_F(I8086_Jump_Fixture, JZ_Taken)     { TestJump(JZ_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JZ_NotTaken)  { TestJump(JZ_Jb, false); }
-TEST_F(I8086_Jump_Fixture, JNZ_Taken)    { TestJump(JNZ_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JNZ_NotTaken) { TestJump(JNZ_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JZ_Taken)     { TestJump(JZ_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JZ_NotTaken)  { TestJump(JZ_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JNZ_Taken)    { TestJump(JNZ_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JNZ_NotTaken) { TestJump(JNZ_Jb, false); }
 
 // Combined flag jumps
-TEST_F(I8086_Jump_Fixture, JBE_Taken_Carry)    { TestJump(JBE_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JBE_Taken_Zero)     { TestJump(JBE_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JBE_NotTaken)       { TestJump(JBE_Jb, false); }
-TEST_F(I8086_Jump_Fixture, JA_Taken)           { TestJump(JA_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JA_NotTaken_Carry)  { TestJump(JA_Jb, false); }
-TEST_F(I8086_Jump_Fixture, JA_NotTaken_Zero)   { TestJump(JA_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JBE_Taken_Carry)    { TestJump(JBE_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JBE_Taken_Zero)     { TestJump(JBE_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JBE_NotTaken)       { TestJump(JBE_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JA_Taken)           { TestJump(JA_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JA_NotTaken_Carry)  { TestJump(JA_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JA_NotTaken_Zero)   { TestJump(JA_Jb, false); }
 
 // Signed jumps
-TEST_F(I8086_Jump_Fixture, JL_Taken)      { TestJump(JL_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JGE_Taken)     { TestJump(JGE_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JLE_Taken_Z)   { TestJump(JLE_Jb, true); }
-TEST_F(I8086_Jump_Fixture, JG_Taken)      { TestJump(JG_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JL_Taken)      { TestJump(JL_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JGE_Taken)     { TestJump(JGE_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JLE_Taken_Z)   { TestJump(JLE_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JG_Taken)      { TestJump(JG_Jb, true); }
 
 // Negative displacement
-TEST_F(I8086_Jump_Fixture, JumpBackwards) {
+TEST_F(I8086_JMP_Fixture, JumpBackwards) {
     // given:
     const DWORD initialPC = cpu.PC;
     cpu.Status.Z = true;
@@ -131,7 +131,7 @@ TEST_F(I8086_Jump_Fixture, JumpBackwards) {
 }
 
 // Negative displacement
-TEST_F(I8086_Jump_Fixture, JumpBackwardsNotTaken) {
+TEST_F(I8086_JMP_Fixture, JumpBackwardsNotTaken) {
     // given:
     const DWORD initialPC = cpu.PC;
     cpu.Status.Z = false;
@@ -150,7 +150,7 @@ TEST_F(I8086_Jump_Fixture, JumpBackwardsNotTaken) {
 }
 
 // Word displacement
-TEST_F(I8086_Jump_Fixture, JumpNearWordDisplacement) {
+TEST_F(I8086_JMP_Fixture, JumpNearWordDisplacement) {
     // given:
     const DWORD initialPC = cpu.PC;
     cpu.Status.C = true;
@@ -167,7 +167,7 @@ TEST_F(I8086_Jump_Fixture, JumpNearWordDisplacement) {
     EXPECT_EQ(cpu.PC, initialPC + 0x1000 + 3);
 }
 
-TEST_F(I8086_TestFixture, JMP_Ap) {
+TEST_F(I8086_JMP_Fixture, JMP_Ap) {
     // given:
     cpu.PC = 0x1000;
 
@@ -185,7 +185,7 @@ TEST_F(I8086_TestFixture, JMP_Ap) {
     EXPECT_EQ(cpu.PC, 0x0100);
 }
 
-TEST_F(I8086_TestFixture, JMP_Jb) {
+TEST_F(I8086_JMP_Fixture, JMP_Jb) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -201,7 +201,7 @@ TEST_F(I8086_TestFixture, JMP_Jb) {
     EXPECT_EQ(cpu.PC, 0x1053);
 }
 
-TEST_F(I8086_TestFixture, JMP_Jv) {
+TEST_F(I8086_JMP_Fixture, JMP_Jv) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -218,7 +218,7 @@ TEST_F(I8086_TestFixture, JMP_Jv) {
     EXPECT_EQ(cpu.PC, 0x1103);
 }
 
-TEST_F(I8086_TestFixture, JMP_GRP5_MP_FarIndirect_Address) {
+TEST_F(I8086_JMP_Fixture, JMP_GRP5_MP_FarIndirect_Address) {
     cpu.PC = 0x1000;
 
     ModRegByte modReg;

@@ -1,7 +1,9 @@
 #include "I8086_TestingSuite.h"
 #include "I8086_OpCodes_Groups.h"
 
-TEST_F(I8086_TestFixture, LOOP_Jb) {
+class I8086_LOOP_Fixture : public I8086_TestFixture{};
+
+TEST_F(I8086_LOOP_Fixture, LOOP_Jb) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -24,7 +26,7 @@ TEST_F(I8086_TestFixture, LOOP_Jb) {
     EXPECT_EQ(cpu.AX, 0x1111);
 }
 
-TEST_F(I8086_TestFixture, LOOPZ_Jb) {
+TEST_F(I8086_LOOP_Fixture, LOOPZ_Jb) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
@@ -49,7 +51,7 @@ TEST_F(I8086_TestFixture, LOOPZ_Jb) {
     EXPECT_EQ(cpu.AX, 0x1111);
 }
 
-TEST_F(I8086_TestFixture, LOOPNZ_Jb) {
+TEST_F(I8086_LOOP_Fixture, LOOPNZ_Jb) {
     // given:
     cpu.PC = 0x1000;
     cpu.SP = 0x6000;
