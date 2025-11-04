@@ -18,14 +18,14 @@
 struct I8080_Status {
     union {
         struct {
-            BYTE C: 1;             /**< Carry Flag */
-            BYTE        : 1;             /**< Not Used */
-            BYTE P: 1;             /**< Parity Flag */
-            BYTE        : 1;             /**< Not Used */
+            BYTE C : 1;             /**< Carry Flag */
+            BYTE   : 1;             /**< Not Used */
+            BYTE P : 1;             /**< Parity Flag */
+            BYTE   : 1;             /**< Not Used */
             BYTE AC: 1;             /**< Auxiliary Carry Flag */
-            BYTE        : 1;             /**< Not Used */
-            BYTE Z: 1;             /**< Zero Flag */
-            BYTE S: 1;             /**< Sign Flag */
+            BYTE   : 1;             /**< Not Used */
+            BYTE Z : 1;             /**< Zero Flag */
+            BYTE S : 1;             /**< Sign Flag */
         };
         BYTE Value;
     };

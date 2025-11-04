@@ -108,14 +108,14 @@ FORCE_INLINE void I8086_GRP3x_Ex(I8086 &cpu) {
     const ModRegByte modReg = ModRegByte(modByte);
 
     static constexpr GRP_CallbackSignature<T> callMap[] = {
-            &I8086_TEST_Ex_Ix<T>,            // 000 -> TEST
-            &GRP_InvalidCall<T>,            // 001 -> INVALID
-            &I8086_NOT<T>,                  // 010 -> NOT
-            &I8086_NEG<T>,                  // 011 -> NEG
-            &GRP_InvalidCall<T>,            // 100 -> MUL
-            &GRP_InvalidCall<T>,            // 101 -> IMUL
-            &GRP_InvalidCall<T>,            // 110 -> DIV
-            &GRP_InvalidCall<T>             // 111 -> IDIV
+            &I8086_TEST_Ex_Ix<T>,   // 000 -> TEST
+            &GRP_InvalidCall<T>,    // 001 -> INVALID
+            &I8086_NOT<T>,          // 010 -> NOT
+            &I8086_NEG<T>,          // 011 -> NEG
+            &GRP_InvalidCall<T>,    // 100 -> MUL
+            &GRP_InvalidCall<T>,    // 101 -> IMUL
+            &GRP_InvalidCall<T>,    // 110 -> DIV
+            &GRP_InvalidCall<T>     // 111 -> IDIV
     };
 
     callMap[modReg.reg](cpu, modReg);
@@ -142,7 +142,7 @@ FORCE_INLINE void I8086_GRP4_Eb(I8086 &cpu) {
         &GRP_InvalidCall<BYTE>,     // 101 -> INVALID
         &GRP_InvalidCall<BYTE>,     // 110 -> INVALID
         &GRP_InvalidCall<BYTE>,     // 111 -> INVALID
-};
+    };
 
     callMap[modReg.reg](cpu, modReg);
 }
@@ -164,7 +164,7 @@ FORCE_INLINE void I8086_GRP5_Ev(I8086 &cpu) {
         &JMP_GRP5_MP,               // 101 -> JMP Mp
         &PUSH_Ev,                   // 110 -> PUSH
         &GRP_InvalidCall<WORD>,     // 111 -> INVALID
-};
+    };
 
     callMap[modReg.reg](cpu, modReg);
 }
