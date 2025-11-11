@@ -4,12 +4,11 @@
 #include "core/types.h"
 
 namespace ReSimFunctionLibrary::DataManipulation {
-
-    constexpr FORCE_INLINE WORD putTwoBytesToLIWord(const BYTE& msbReg, const BYTE& lsbReg) noexcept {
+    FORCE_INLINE WORD putTwoBytesToLIWord(const BYTE& msbReg, const BYTE& lsbReg) noexcept {
         return (msbReg << 8) | lsbReg;
     }
 
-    constexpr FORCE_INLINE void putLIWordToTwoBytes(const WORD value, BYTE& lsbReg, BYTE& msbReg) noexcept {
+    FORCE_INLINE void putLIWordToTwoBytes(const WORD value, BYTE& lsbReg, BYTE& msbReg) noexcept {
         msbReg = value & 0xFF;
         lsbReg = (value >> 8) & 0xFF;
     }
