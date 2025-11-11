@@ -13,7 +13,7 @@
 FORCE_INLINE void PerformJump(I8080 &cpu, const bool conditionFlag = true) {
     const WORD newPC = cpu.FetchWord();
     if (conditionFlag)
-        cpu.PC = newPC;
+        cpu.PC = ReSimFunctionLibrary::DataManipulation::swapWord(newPC);
 }
 
 /**

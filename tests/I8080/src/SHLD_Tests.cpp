@@ -1,12 +1,15 @@
 #include "I8080_TestingSuite.h"
 
+using namespace ReSimFunctionLibrary::DataManipulation;
+
 class I8080_SHLDFixture : public I8080_TestFixture {
 public:
     void SHLD_CanStoreHL(const WORD registerValue, const WORD memoryAddress) {
         // given:
-        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValue, cpu.H, cpu.L);
+        putLIWordToTwoBytes(registerValue, cpu.H, cpu.L);
         mem[0x0000] = SHLD;
-        ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, mem[0x0001], mem[0x0002]);
+        mem[0x0001] = memoryAddress & 0xFF;
+        mem[0x0002] = (memoryAddress >> 8) & 0xFF;
         mem[0x0003] = RET;
 
         cyclesExpected = 16;

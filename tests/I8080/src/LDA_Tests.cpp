@@ -5,8 +5,8 @@ public:
     void LDA_CanLoadValue(const I8080_OpCodes_Main opcode, const BYTE memoryValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = opcode;
-        mem[0x0001] = (memoryAddress >> 8) & 0xFF;
-        mem[0x0002] = memoryAddress & 0xFF;
+        mem[0x0001] = memoryAddress & 0xFF;
+        mem[0x0002] = (memoryAddress >> 8) & 0xFF;
         mem[memoryAddress] = memoryValue;
         mem[0x0003] = RET;
 

@@ -7,7 +7,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJump) {
     mem[0x0000] = JMP;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = RET;
+    mem[0x003C] = RET;
 
     cyclesExpected = 10;
 
@@ -15,7 +15,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJump) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, 0x3C00);
+    EXPECT_EQ(cpu.PC, 0x003C);
     CheckCyclesCount();
 }
 
@@ -24,10 +24,10 @@ TEST_F(I8080_JUMPFixture, JMP_CanJumpMultipleTimes) {
     mem[0x0000] = JMP;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0004] = RET;
-    mem[0x3C00] = JMP;
-    mem[0x3C01] = 0x00;
-    mem[0x3C02] = 0x04;
+    mem[0x0400] = RET;
+    mem[0x003C] = JMP;
+    mem[0x003D] = 0x00;
+    mem[0x003E] = 0x04;
 
     cyclesExpected = 10 + 10;
 
@@ -35,6 +35,6 @@ TEST_F(I8080_JUMPFixture, JMP_CanJumpMultipleTimes) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, 0x0004);
+    EXPECT_EQ(cpu.PC, 0x0400);
     CheckCyclesCount();
 }

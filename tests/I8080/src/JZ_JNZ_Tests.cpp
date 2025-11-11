@@ -8,7 +8,7 @@ TEST_F(I8080_JZFixture, JZ_CanJumpOnZeroSet) {
     mem[0x0000] = JZ;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = RET;
+    mem[0x003C] = RET;
 
     cyclesExpected = 10;
 
@@ -16,7 +16,7 @@ TEST_F(I8080_JZFixture, JZ_CanJumpOnZeroSet) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, 0x3C00);
+    EXPECT_EQ(cpu.PC, 0x003C);
     CheckCyclesCount();
 }
 
@@ -46,7 +46,7 @@ TEST_F(I8080_JNZFixture, JNZ_CanJumpOnZeroReset) {
     mem[0x0000] = JNZ;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = RET;
+    mem[0x003C] = RET;
 
     cyclesExpected = 10;
 
@@ -54,7 +54,7 @@ TEST_F(I8080_JNZFixture, JNZ_CanJumpOnZeroReset) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, 0x3C00);
+    EXPECT_EQ(cpu.PC, 0x003C);
     CheckCyclesCount();
 }
 

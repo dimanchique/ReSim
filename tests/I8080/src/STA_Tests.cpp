@@ -6,8 +6,8 @@ public:
         // given:
         cpu.A = initialValue;
         mem[0x0000] = opcode;
-        mem[0x0001] = (memoryAddress >> 8) & 0xFF;
-        mem[0x0002] = memoryAddress & 0xFF;
+        mem[0x0001] = memoryAddress & 0xFF;
+        mem[0x0002] = (memoryAddress >> 8) & 0xFF;
         mem[0x0003] = RET;
 
         cyclesExpected = 13;

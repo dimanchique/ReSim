@@ -18,7 +18,7 @@ FORCE_INLINE void PerformSTA(I8080 &cpu, const WORD memoryAddress) {
  * @param cpu I8080 struct instance.
  */
 void I8080_STA(I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord();
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::swapWord(cpu.FetchWord());
     PerformSTA(cpu, memoryAddress);
 }
 

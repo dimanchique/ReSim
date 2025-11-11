@@ -19,7 +19,7 @@ FORCE_INLINE void PerformLDA(I8080 &cpu, const WORD memoryAddress) {
  * @param cpu I8080 struct instance.
  */
 void I8080_LDA(I8080 &cpu) {
-    const WORD memoryAddress = cpu.FetchWord();
+    const WORD memoryAddress = ReSimFunctionLibrary::DataManipulation::swapWord(cpu.FetchWord());
     PerformLDA(cpu, memoryAddress);
 }
 
