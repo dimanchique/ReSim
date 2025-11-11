@@ -1,3 +1,5 @@
+                            ;vasm6502_oldstyle -Fbin -dotdir memcpy-255.s -o memcpy-255.bin
+
   .org      $0000
 START_IDX 	.BYTE $0000	    ; start displacement
 END_IDX 	.BYTE $00FF   	; end displacement

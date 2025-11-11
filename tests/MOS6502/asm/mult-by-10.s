@@ -1,3 +1,5 @@
+                    ;vasm6502_oldstyle -Fbin -dotdir mult-by-10.s -o mult-by-10.bin
+
 MULT10  ASL         ; multiply by 2
         STA TEMP    ; temp store in TEMP
         ASL         ; again multiply by 2 (*4)
