@@ -155,6 +155,6 @@ for group_name, group_instructions_file in instructions_targets.items():
     with open(os.path.join(cpu_include_root, f'{cpu_name}_OpCodesList_{group_name}.h'), 'w') as out_file:
         out_file.writelines(out_content)
 
-used_instructions_percentage = total_used_instructions/detected_instructions
+used_instructions_percentage = (total_used_instructions/detected_instructions) * 100
 print()
-print(f"Used instructions: {total_used_instructions}/{detected_instructions} ({"{:.2f}".format(used_instructions_percentage * 100)}%)")
+print(f"Used instructions: {total_used_instructions}/{detected_instructions} ({used_instructions_percentage:.2f}%)")
