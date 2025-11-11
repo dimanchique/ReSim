@@ -4,10 +4,8 @@ class MOS6502_NOPFixture : public MOS6502_TestFixture {};
 
 TEST_F(MOS6502_NOPFixture, NOP_IMPL_CanTakeCycles) {
     // given:
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = NOP_IMPL;
-    mem[0xFF01] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = NOP_IMPL;
+    mem[effectiveAddress++] = RTS_IMPL;
 
     cyclesExpected = 2;
 

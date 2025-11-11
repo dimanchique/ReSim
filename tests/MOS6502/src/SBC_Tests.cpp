@@ -5,11 +5,9 @@ public:
     void SBC_IM_DoSubtractValue(BYTE initialValue, BYTE memoryValue) {
         // given:
         cpu.A = initialValue;
-        mem[0xFFFC] = 0x00;
-        mem[0xFFFD] = 0xFF;
-        mem[0xFF00] = SBC_IM;
-        mem[0xFF01] = memoryValue;
-        mem[0xFF02] = MOS6502_STOP_OPCODE;
+        mem[effectiveAddress++] = SBC_IM;
+        mem[effectiveAddress++] = memoryValue;
+        mem[effectiveAddress++] = RTS_IMPL;
 
         cyclesExpected = 2;
 
@@ -153,11 +151,9 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_9) {
 TEST_F(MOS6502_SBCFixture, SBC_ZP_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_ZP;
-    mem[0xFF01] = 0x42;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_ZP;
+    mem[effectiveAddress++] = 0x42;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0042] = 0x02;
 
     cyclesExpected = 3;
@@ -177,12 +173,10 @@ TEST_F(MOS6502_SBCFixture, SBC_ZPX_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x15;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_ZPX;
-    mem[0xFF01] = 0x42;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
-    mem[(mem[0xFF01] + cpu.X) & 0xFF] = 0x02;
+    mem[effectiveAddress++] = SBC_ZPX;
+    mem[effectiveAddress++] = 0x42;
+    mem[effectiveAddress++] = RTS_IMPL;
+    mem[(0x42 + cpu.X) & 0xFF] = 0x02;
     // store this value in targetRegister register
     cyclesExpected = 4;
 
@@ -200,12 +194,10 @@ TEST_F(MOS6502_SBCFixture, SBC_ZPX_CanSubtractValue) {
 TEST_F(MOS6502_SBCFixture, SBC_ABS_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_ABS;
-    mem[0xFF01] = 0x80;
-    mem[0xFF02] = 0x44;
-    mem[0xFF03] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_ABS;
+    mem[effectiveAddress++] = 0x80;
+    mem[effectiveAddress++] = 0x44;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x4480] = 0x02;
 
     cyclesExpected = 4;
@@ -225,12 +217,10 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSX_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x15;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_ABSX;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = 0x44;
-    mem[0xFF03] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_ABSX;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = 0x44;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x4402 + cpu.X] = 0x02;
 
     cyclesExpected = IsPageCrossed(0x4402 + cpu.X, 0x4402) ? 5 : 4;
@@ -250,12 +240,10 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSY_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x15;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_ABSY;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = 0x44;
-    mem[0xFF03] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_ABSY;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = 0x44;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x4402 + cpu.Y] = 0x02;
 
     cyclesExpected = IsPageCrossed(0x4402 + cpu.Y, 0x4402) ? 5 : 4;
@@ -276,11 +264,9 @@ TEST_F(MOS6502_SBCFixture, SBC_INDX_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
     cpu.X = 0x04;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_INDX;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_INDX;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0006] = 0x00;
     mem[0x0007] = 0x80;
     mem[0x8000] = 0x02;
@@ -302,11 +288,9 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue) {
     // given:
     cpu.A = 0x42;
     cpu.Y = 0x04;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_INDY;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_INDY;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0002] = 0x00;
     mem[0x0003] = 0x80;
     mem[0x8004] = 0x02;
@@ -328,11 +312,9 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue_WithExtraCycleOnPageCrossin
     // given:
     cpu.A = 0x42;
     cpu.Y = 0xFF;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = SBC_INDY;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = SBC_INDY;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0002] = 0x02;
     mem[0x0003] = 0x80;
     mem[0x8101] = 0x02;

@@ -54,12 +54,10 @@ TEST_F(MOS6502_LDAFixture, LDA_ABSY_CanLoadValue_WithExtraCycleOnPageCrossing) {
 
 TEST_F(MOS6502_LDAFixture, LDA_INDX_CanLoadValue) {
     // given:
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
     cpu.X = 0x04;                           // preload 0x04 to X to add it to value we read
-    mem[0xFF00] = LDA_INDX;                 // read the 8 bit value from the next mem cell and add X
-    mem[0xFF01] = 0x02;                     // 0x2 + 0x4 = 0x6
-    mem[0xFF02] = MOS6502_STOP_OPCODE;      //
+    mem[effectiveAddress++] = LDA_INDX;     // read the 8 bit value from the next mem cell and add X
+    mem[effectiveAddress++] = 0x02;         // 0x2 + 0x4 = 0x6
+    mem[effectiveAddress++] = RTS_IMPL;     //
     mem[0x0006] = 0x00;                     // read the 16 bit Little Endian address from 0x0006-0x0007
     mem[0x0007] = 0x80;                     // read from the address we've got
     mem[0x8000] = 0x37;                     // load this value to A register
@@ -78,12 +76,10 @@ TEST_F(MOS6502_LDAFixture, LDA_INDX_CanLoadValue) {
 
 TEST_F(MOS6502_LDAFixture, LDA_INDY_CanLoadValue) {
     // given:
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
     cpu.Y = 0x04;                           // preload 0x04 to Y to add it to value we read
-    mem[0xFF00] = LDA_INDY;                 // read the 8 bit value from the next mem cell
-    mem[0xFF01] = 0x02;                     // read the 16 bit Little Endian address from 0x0002-0x0003
-    mem[0xFF02] = MOS6502_STOP_OPCODE;      //
+    mem[effectiveAddress++] = LDA_INDY;     // read the 8 bit value from the next mem cell
+    mem[effectiveAddress++] = 0x02;         // read the 16 bit Little Endian address from 0x0002-0x0003
+    mem[effectiveAddress++] = RTS_IMPL;     //
     mem[0x0002] = 0x00;                     //
     mem[0x0003] = 0x80;                     // 0x8000 + 0x0004 (add Y) = 0x8004
     mem[0x8004] = 0x37;                     // load this value to A register
@@ -102,12 +98,10 @@ TEST_F(MOS6502_LDAFixture, LDA_INDY_CanLoadValue) {
 
 TEST_F(MOS6502_LDAFixture, LDA_INDY_CanLoadValue_WithExtraCycleOnPageCrossing) {
     // given:
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
     cpu.Y = 0xFF;                           // preload FF to Y to add it to absolute address we read
-    mem[0xFF00] = LDA_INDY;                 // read the 8 bit value from the next mem cell and add X
-    mem[0xFF01] = 0x02;                     // read the 16 bit Little Endian address from 0x0002-0x0003
-    mem[0xFF02] = MOS6502_STOP_OPCODE;      //
+    mem[effectiveAddress++] = LDA_INDY;     // read the 8 bit value from the next mem cell and add X
+    mem[effectiveAddress++] = 0x02;         // read the 16 bit Little Endian address from 0x0002-0x0003
+    mem[effectiveAddress++] = RTS_IMPL;     //
     mem[0x0002] = 0x02;                     //
     mem[0x0003] = 0x80;                     // 0x8002 + 0x00FF (Y) = 0x8101 -> page crossing, so we need extra cycle
     mem[0x8101] = 0x37;                     // load this value to A register

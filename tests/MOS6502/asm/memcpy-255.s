@@ -26,8 +26,7 @@ MEMCPY:
             JMP MEMCPY
 
 EXIT:
-EXIT_CODE   .BYTE $2        ; ReSim 6502 EXIT CODE
+            RTS
 
   .ORG      $FFFC
   .WORD     INIT
-

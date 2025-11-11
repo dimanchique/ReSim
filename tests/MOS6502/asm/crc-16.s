@@ -47,7 +47,8 @@ LOOP     LDA $1000,Y
          JSR UPDCRC
          INY
          BNE LOOP
-EXIT     .BYTE $2         ; ReSim 6502 EXIT CODE
+
+         RTS
 
   .ORG   $0000
   .ORG   $FFFC

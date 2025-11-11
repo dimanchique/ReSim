@@ -1,4 +1,5 @@
 #include "MOS6502_OpHelpers.h"
+#include "MOS6502_OpCodes_Main.h"
 #include "Operations/JMP_JSR_RTS_RTI_Ops.h"
 #include "Operations/LDA_Ops.h"
 #include "Operations/LDX_Ops.h"
@@ -44,7 +45,7 @@ constexpr static OpSignature Ops[] =
 
 bool DecodeInstruction(const BYTE opcode, MOS6502 &cpu) {
     const OpSignature &instruction = Ops[opcode];
-    if(opcode == MOS6502_STOP_OPCODE || instruction == MOS6502_INVALID_OP)
+    if((opcode == MOS6502_OpCodes_Main::RTS_IMPL && cpu.SP == 0xFF) || instruction == MOS6502_INVALID_OP)
         return false;
     instruction(cpu);
     return true;

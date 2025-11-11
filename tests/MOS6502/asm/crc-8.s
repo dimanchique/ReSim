@@ -31,7 +31,8 @@ LOOP     EOR $1000,Y     ; EOR old CRC with data
          LDA CRCTBL,X    ; to get the new CRC
          INY
          BNE LOOP
-EXIT     .BYTE $2	     ; ReSim 6502 EXIT CODE
+
+         RTS
 
   .ORG   $FFFC
   .WORD  CODE

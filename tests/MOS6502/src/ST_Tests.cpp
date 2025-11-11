@@ -3,11 +3,9 @@
 void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = opcode;
-    mem[0xFF01] = 0x80;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = opcode;
+    mem[effectiveAddress++] = 0x80;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0080] = 0x00;
 
     cyclesExpected = 3;
@@ -23,12 +21,10 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &s
 void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister, BYTE affectingRegister) {
     //given:
     sourceRegister = 0x2F;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = opcode;
-    mem[0xFF01] = 0x80;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
-    BYTE TargetAddress = (mem[0xFF01] + affectingRegister) & 0xFF;
+    mem[effectiveAddress++] = opcode;
+    mem[effectiveAddress++] = 0x42;
+    mem[effectiveAddress++] = RTS_IMPL;
+    BYTE TargetAddress = (0x42 + affectingRegister) & 0xFF;
     mem[TargetAddress] = 0x00;
 
     cyclesExpected = 4;
@@ -44,12 +40,10 @@ void MOS6502_STFixture::ST_ZP_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &s
 void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister) {
     //given:
     sourceRegister = 0x2F;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = opcode;
-    mem[0xFF01] = 0x00;
-    mem[0xFF02] = 0x80;
-    mem[0xFF03] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = opcode;
+    mem[effectiveAddress++] = 0x00;
+    mem[effectiveAddress++] = 0x80;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x8000] = 0x00;
 
     cyclesExpected = 4;
@@ -68,12 +62,10 @@ void MOS6502_STFixture::ST_ABS_CanStoreValue(MOS6502_OpCodes_Main opcode, BYTE &
     WORD displacedAddress = targetAddress + affectingRegister;
 
     sourceRegister = 0x2F;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = opcode;
-    mem[0xFF01] = targetAddress & 0xFF;
-    mem[0xFF02] = (targetAddress >> 8) & 0xFF;
-    mem[0xFF03] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = opcode;
+    mem[effectiveAddress++] = targetAddress & 0xFF;
+    mem[effectiveAddress++] = (targetAddress >> 8) & 0xFF;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[displacedAddress] = 0x00;
 
     cyclesExpected = 5;

@@ -12,11 +12,16 @@ public:
     U32 cyclesPassed;
     U32 cyclesExpected;
 
+    WORD effectiveAddress = 0xFF00;
+
     void SetUp() override {
         mem.Reset();
         cpu.Reset();
         bus.SetBusRegion(0x0000, 0xFFFF, &mem);
         cpu.SetBusInstance(&bus);
+
+        mem[0xFFFC] = effectiveAddress & 0xFF;
+        mem[0xFFFD] = (effectiveAddress >> 8) & 0xFF;
     }
 
     void TearDown() override {

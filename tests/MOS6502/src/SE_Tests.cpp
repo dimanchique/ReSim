@@ -5,10 +5,8 @@ public:
     void SE_CanSetFlag(MOS6502_OpCodes_Main opcode, BYTE statusFlag) {
         // given:
         SetStatusBitByMask(statusFlag, false);
-        mem[0xFFFC] = 0x00;
-        mem[0xFFFD] = 0xFF;
-        mem[0xFF00] = opcode;
-        mem[0xFF01] = MOS6502_STOP_OPCODE;
+        mem[effectiveAddress++] = opcode;
+        mem[effectiveAddress++] = RTS_IMPL;
 
         cyclesExpected = 2;
 

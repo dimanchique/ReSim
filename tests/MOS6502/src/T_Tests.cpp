@@ -3,10 +3,8 @@
 void MOS6502_TFixture::T_IMPL_CanTransferValue(MOS6502_OpCodes_Main opcode, BYTE &sourceRegister, BYTE &destinationRegister) {
     //given:
     destinationRegister = 0x0;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = opcode;
-    mem[0xFF01] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = opcode;
+    mem[effectiveAddress++] = RTS_IMPL;
 
     cyclesExpected = 2;
 

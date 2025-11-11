@@ -77,8 +77,9 @@ COMPL    LDA CRC,Y
          STA CRC,Y
          DEY
          BPL COMPL
-EXIT     .BYTE $2        ; ReSim 6502 EXIT CODE
-  
+
+         RTS
+
   .ORG   $0000
   .ORG   $FFFC
   .WORD  CODE

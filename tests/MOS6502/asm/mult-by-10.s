@@ -4,7 +4,8 @@ MULT10  ASL         ; multiply by 2
         ASL         ; again multiply by 2 (*8)
         CLC
         ADC TEMP    ; as result, A = x*8 + x*2
-EXIT    .byte $2    ; ReSim 6502 EXIT CODE
+
+        RTS
 
 TEMP    .byte 0
 

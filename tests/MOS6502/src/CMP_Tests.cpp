@@ -72,11 +72,9 @@ TEST_F(MOS6502_CMPFixture, CMP_INDX_CanCompare) {
     // given:
     cpu.A = 0x10;
     cpu.X = 0x04;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = CMP_INDX;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = CMP_INDX;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0006] = 0x00;
     mem[0x0007] = 0x80;
     mem[0x8000] = 0x4;
@@ -96,11 +94,9 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare) {
     // given:
     cpu.A = 0x10;
     cpu.Y = 0x04;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = CMP_INDY;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = CMP_INDY;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0002] = 0x00;
     mem[0x0003] = 0x80;
     mem[0x8004] = 0x4;
@@ -120,11 +116,9 @@ TEST_F(MOS6502_CMPFixture, CMP_INDY_CanCompare_WithExtraCycleOnPageCrossing) {
     // given:
     cpu.A = 0x10;
     cpu.Y = 0xFF;
-    mem[0xFFFC] = 0x00;
-    mem[0xFFFD] = 0xFF;
-    mem[0xFF00] = CMP_INDY;
-    mem[0xFF01] = 0x02;
-    mem[0xFF02] = MOS6502_STOP_OPCODE;
+    mem[effectiveAddress++] = CMP_INDY;
+    mem[effectiveAddress++] = 0x02;
+    mem[effectiveAddress++] = RTS_IMPL;
     mem[0x0002] = 0x02;
     mem[0x0003] = 0x80;
     mem[0x8101] = 0x4;
