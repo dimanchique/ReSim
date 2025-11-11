@@ -4,16 +4,19 @@ class I8080_RST_Fixture : public I8080_TestFixture {
 public:
     void RST_CanReset(const I8080_OpCodes_Main resetVectorOpCode, const BYTE address) {
         // given:
+        WORD resetVecAddr = (WORD)(address << 3);
         cpu.PC = 0x1000;
         mem[0x1000] = resetVectorOpCode;
-        mem[(WORD)(address << 3)] = I8080_STOP_OPCODE;
-        cyclesExpected = 11;
+        mem[resetVecAddr++] = INX_SP;
+        mem[resetVecAddr++] = INX_SP;
+        mem[resetVecAddr] = RET;
+        cyclesExpected = 21;
 
         // when:
         cyclesPassed = cpu.Run();
 
         // then:
-        EXPECT_EQ(cpu.PC, (WORD)(address << 3));
+        EXPECT_EQ(cpu.PC, resetVecAddr);
         CheckCyclesCount();
     }
 };

@@ -4,15 +4,15 @@ class I8080_POPFixture : public I8080_TestFixture {
 public:
     void POP_CanPOP(const I8080_OpCodes_Main opcode, BYTE *lsb, BYTE *msb) {
         // given:
-        cpu.SP = 0x1239;
+        cpu.SP = 0xFFFD;
         *lsb = 0;
         *msb = 0;
         const BYTE stackLSB = 0x93;
         const BYTE stackMSB = 0b11000111;
-        mem[0x1239] = stackMSB;
-        mem[0x123A] = stackLSB;
+        mem[0xFFFD] = stackMSB;
+        mem[0xFFFE] = stackLSB;
         mem[0x0000] = opcode;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
 
         cyclesExpected = 10;
 

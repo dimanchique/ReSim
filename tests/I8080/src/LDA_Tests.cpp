@@ -8,7 +8,7 @@ public:
         mem[0x0001] = (memoryAddress >> 8) & 0xFF;
         mem[0x0002] = memoryAddress & 0xFF;
         mem[memoryAddress] = memoryValue;
-        mem[0x0003] = I8080_STOP_OPCODE;
+        mem[0x0003] = RET;
 
         cyclesExpected = 13;
 
@@ -24,7 +24,7 @@ public:
         // given:
         mem[0x0000] = opcode;
         mem[memoryAddress] = memoryValue;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
 
         cyclesExpected = 7;
 

@@ -7,7 +7,7 @@ public:
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(registerValue, cpu.H, cpu.L);
         mem[0x0000] = SHLD;
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, mem[0x0001], mem[0x0002]);
-        mem[0x0003] = I8080_STOP_OPCODE;
+        mem[0x0003] = RET;
 
         cyclesExpected = 16;
 

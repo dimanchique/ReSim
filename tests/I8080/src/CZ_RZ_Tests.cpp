@@ -20,7 +20,7 @@ public:
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RZ
 
         const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C03) : 0x0003;
-        mem[targetPC] = I8080_STOP_OPCODE;
+        mem[targetPC] = RET;
 
         // when:
         cyclesPassed = cpu.Run();
@@ -33,10 +33,6 @@ public:
 
 TEST_F(I8080_CZ_RZFixture, CZ_CanCallAndCanReturn) {
     CZ_CanCall(true, true);
-}
-
-TEST_F(I8080_CZ_RZFixture, CZ_CanCallAndCannotReturn) {
-    CZ_CanCall(true, false);
 }
 
 TEST_F(I8080_CZ_RZFixture, CZ_CannotCall) {

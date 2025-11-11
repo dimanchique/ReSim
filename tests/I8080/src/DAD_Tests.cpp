@@ -6,10 +6,17 @@ public:
                             const BYTE expectedH,
                             const BYTE expectedL,
                             const bool expectedCarry) {
-        mem[0x0000] = opCode;
-        mem[0x0001] = I8080_STOP_OPCODE;
-
         cyclesExpected = 10;
+        WORD addr = 0x0000;
+        mem[addr++] = opCode;
+        if (opCode == DAD_SP) {
+            mem[addr++] = LXI_SP;
+            mem[addr++] = 0xFF;
+            mem[addr++] = 0xFF;
+            cyclesExpected += 10;
+        }
+        mem[addr++] = RET;
+
 
         // when:
         cyclesPassed = cpu.Run();

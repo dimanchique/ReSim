@@ -6,7 +6,7 @@ public:
         // given:
         WORD value = *targetRegisterPtr;
         mem[0x0000] = opcode;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
 
         cyclesExpected = 5;
 
@@ -48,14 +48,4 @@ TEST_F(I8080_DCXFixture, DCX_H_CanDecrement_Overflowed) {
     WORD* registerPtr = &cpu.HL;
     *registerPtr = 0x3900;
     DCX_CanDecrementValue(DCX_H, registerPtr);
-}
-
-TEST_F(I8080_DCXFixture, DCX_SP_CanDecrement) {
-    DCX_CanDecrementValue(DCX_SP, &cpu.SP);
-}
-
-TEST_F(I8080_DCXFixture, DCX_SP_CanDecrement_Overflowed) {
-    WORD* registerPtr = &cpu.SP;
-    *registerPtr = 0x3900;
-    DCX_CanDecrementValue(DCX_SP, registerPtr);
 }

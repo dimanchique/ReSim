@@ -8,7 +8,7 @@ TEST_F(I8080_JCFixture, JC_CanJumpOnCarrySet) {
     mem[0x0000] = JC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = I8080_STOP_OPCODE;
+    mem[0x3C00] = RET;
 
     cyclesExpected = 10;
 
@@ -26,7 +26,7 @@ TEST_F(I8080_JCFixture, JC_CannotJumpOnCarryReset) {
     mem[0x0000] = JC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 10;
 
@@ -46,7 +46,7 @@ TEST_F(I8080_JNCFixture, JNC_CanJumpOnCarryReset) {
     mem[0x0000] = JNC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = I8080_STOP_OPCODE;
+    mem[0x3C00] = RET;
 
     cyclesExpected = 10;
 
@@ -64,7 +64,7 @@ TEST_F(I8080_JNCFixture, JNC_CannotJumpOnCarrySet) {
     mem[0x0000] = JNC;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 10;
 

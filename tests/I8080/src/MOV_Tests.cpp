@@ -5,7 +5,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToReg(const I8080_OpCodes_Main opcode, BYTE
     destRegister = ~value;
     srcRegister = value;
     mem[0x0000] = opcode;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
 
     cyclesExpected = 5;
 
@@ -21,7 +21,7 @@ void I8080_MOVFixture::MOV_CanMoveMemToReg(const I8080_OpCodes_Main opcode, BYTE
     // given:
     destRegister = ~value;
     mem[0x0000] = opcode;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
     mem[srcMemoryAddress] = value;
     ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(srcMemoryAddress, cpu.H, cpu.L);
 
@@ -39,7 +39,7 @@ void I8080_MOVFixture::MOV_CanMoveRegToMem(const I8080_OpCodes_Main opcode, cons
     // given:
     mem[destMemoryAddress] = ~value;
     mem[0x0000] = opcode;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
     ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(destMemoryAddress, cpu.H, cpu.L);
 
     cyclesExpected = 7;
@@ -56,7 +56,7 @@ void I8080_MOVFixture::MOV_CanDoNopLikeMove(const I8080_OpCodes_Main opcode){
     // given:
     const uint64_t preSnapshot = *(reinterpret_cast<uint64_t*>(&cpu.A)); //take a snapshot of registers (including status)
     mem[0x0000] = opcode;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
 
     cyclesExpected = 5;
 

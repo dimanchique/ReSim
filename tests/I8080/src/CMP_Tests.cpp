@@ -10,7 +10,7 @@ public:
         // given:
         cpu.A = initialAccumulator;
         mem[0x0000] = opcode;
-        mem[opcode == CPI ? 0x0002 : 0x0001] = I8080_STOP_OPCODE;
+        mem[opcode == CPI ? 0x0002 : 0x0001] = RET;
 
         cyclesExpected = expectedCycles;
 

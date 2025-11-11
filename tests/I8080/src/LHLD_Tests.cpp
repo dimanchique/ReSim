@@ -9,7 +9,7 @@ TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_1) {
     mem[0x0000] = LHLD;
     mem[0x0001] = 0x12;
     mem[0x0002] = 0x34;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 16;
 
@@ -29,7 +29,7 @@ TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_2) {
     mem[0x0000] = LHLD;
     mem[0x0001] = 0x02;
     mem[0x0002] = 0x5B;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 16;
 

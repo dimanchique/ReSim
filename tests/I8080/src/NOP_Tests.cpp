@@ -5,7 +5,7 @@ class I8080_NOPFixture : public I8080_TestFixture {};
 TEST_F(I8080_NOPFixture, NOP_CanTakeCycles) {
     // given:
     mem[0x0000] = NOP;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
 
     cyclesExpected = 4;
 

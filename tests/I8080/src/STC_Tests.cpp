@@ -5,7 +5,7 @@ class I8080_STCFixture : public I8080_TestFixture {};
 TEST_F(I8080_STCFixture, STC_CanSetCarry) {
     cpu.Status.C = 0;
     mem[0x0000] = STC;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
 
     cyclesExpected = 4;
 

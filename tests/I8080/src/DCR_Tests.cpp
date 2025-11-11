@@ -5,7 +5,7 @@ public:
     void DCR_CanDecrementValue(const I8080_OpCodes_Main opcode, BYTE &targetRegister, const BYTE initialValue) {
         // given:
         mem[0x0000] = opcode;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
         targetRegister = initialValue;
 
         cyclesExpected = 5;
@@ -21,7 +21,7 @@ public:
     void DCR_CanDecrementMemory(const BYTE initialValue, const WORD memoryAddress) {
         // given:
         mem[0x0000] = DCR_M;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
         mem[memoryAddress] = initialValue;
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, cpu.H, cpu.L);
 

@@ -6,7 +6,7 @@ TEST_F(I8080_CMCFixture, CMC_CanComplimentCarry) {
     bool InitialCarry = false;
     cpu.Status.C = InitialCarry;
     mem[0x0000] = CMC;
-    mem[0x0001] = I8080_STOP_OPCODE;
+    mem[0x0001] = RET;
 
     cyclesExpected = 4;
 

@@ -6,7 +6,7 @@ public:
         // given:
         mem[0x0000] = opcode;
         mem[0x0001] = immediateValue;
-        mem[0x0002] = I8080_STOP_OPCODE;
+        mem[0x0002] = RET;
 
         cyclesExpected = 7;
 
@@ -22,7 +22,7 @@ public:
         // given:
         mem[0x0000] = MVI_M;
         mem[0x0001] = immediateValue;
-        mem[0x0002] = I8080_STOP_OPCODE;
+        mem[0x0002] = RET;
         ReSimFunctionLibrary::DataManipulation::putLIWordToTwoBytes(memoryAddress, cpu.H, cpu.L);
 
         cyclesExpected = 10;

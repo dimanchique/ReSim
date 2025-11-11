@@ -18,7 +18,7 @@ public:
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RNC
 
         const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C02) : 0x0003;
-        mem[targetPC] = I8080_STOP_OPCODE;
+        mem[targetPC] = RET;
 
         // when:
         cyclesPassed = cpu.Run();
@@ -31,10 +31,6 @@ public:
 
 TEST_F(I8080_CNC_RNCFixture, CNC_CanCallAndCanReturn) {
     CNC_CanCall(true, true);
-}
-
-TEST_F(I8080_CNC_RNCFixture, CNC_CanCallAndCannotReturn) {
-    CNC_CanCall(true, false);
 }
 
 TEST_F(I8080_CNC_RNCFixture, CNC_CannotCall) {

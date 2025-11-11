@@ -12,7 +12,7 @@ public:
         cpu.Status.AC = initialAC;
         cpu.Status.C = initialCarry;
         mem[0x0000] = DAA;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
 
         cyclesExpected = 4;
 

@@ -7,7 +7,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJump) {
     mem[0x0000] = JMP;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = I8080_STOP_OPCODE;
+    mem[0x3C00] = RET;
 
     cyclesExpected = 10;
 
@@ -24,7 +24,7 @@ TEST_F(I8080_JUMPFixture, JMP_CanJumpMultipleTimes) {
     mem[0x0000] = JMP;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0004] = I8080_STOP_OPCODE;
+    mem[0x0004] = RET;
     mem[0x3C00] = JMP;
     mem[0x3C01] = 0x00;
     mem[0x3C02] = 0x04;

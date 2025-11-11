@@ -8,7 +8,7 @@ TEST_F(I8080_JPEFixture, JPE_CanJumpOnParitySet) {
     mem[0x0000] = JPE;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = I8080_STOP_OPCODE;
+    mem[0x3C00] = RET;
 
     cyclesExpected = 10;
 
@@ -26,7 +26,7 @@ TEST_F(I8080_JPEFixture, JPE_CannotJumpOnParityReset) {
     mem[0x0000] = JPE;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 10;
 
@@ -46,7 +46,7 @@ TEST_F(I8080_JPOFixture, JPO_CanJumpOnParityReset) {
     mem[0x0000] = JPO;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x3C00] = I8080_STOP_OPCODE;
+    mem[0x3C00] = RET;
 
     cyclesExpected = 10;
 
@@ -64,7 +64,7 @@ TEST_F(I8080_JPOFixture, JPO_CannotJumpOnParitySet) {
     mem[0x0000] = JPO;
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
-    mem[0x0003] = I8080_STOP_OPCODE;
+    mem[0x0003] = RET;
 
     cyclesExpected = 10;
 

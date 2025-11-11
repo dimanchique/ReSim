@@ -9,7 +9,7 @@ public:
         cpu.Status.C = carry;
         cpu.A = initialValue;
         mem[0x0000] = SBB_A;
-        mem[0x0001] = I8080_STOP_OPCODE;
+        mem[0x0001] = RET;
 
         cyclesExpected = 4;
 
@@ -34,7 +34,7 @@ public:
         cpu.Status.C = carry;
         cpu.A = initialValue;
         mem[0x0000] = opcode;
-        mem[opcode == SBI ? 0x0002 : 0x0001] = I8080_STOP_OPCODE;
+        mem[opcode == SBI ? 0x0002 : 0x0001] = RET;
 
         cyclesExpected = cycles;
 

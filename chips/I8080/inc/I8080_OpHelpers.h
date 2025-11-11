@@ -8,7 +8,7 @@ class I8080;
  * @brief Instruction decoder.
  * @details Looking for instruction in the instruction table using given OpCode.
  * Decode success status is true if:
- * - OpCode is not I8080_STOP_OPCODE
+ * - OpCode is not RET
  *      - decoder has reached the end of program (manually inserted OpCode)
  * - Instruction is not INVALID_OP
  *      - unexpected OpCode was fetched

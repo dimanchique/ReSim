@@ -5,8 +5,6 @@
 #include "function_library/data_manipulation.h"
 #include "I8080_Status.h"
 
-#define I8080_STOP_OPCODE I8080_OpCodes_Main::HLT /**< HALT instruction opcode used to stop execution of finite programs */
-
 /**
  * @class I8080
  * @brief I8080 CPU implementation
@@ -139,7 +137,7 @@ public:
     /**
      * @brief Pop Program Counter (PC) register value from stack.
      * @details Sets new value of PC register.
-     * @note Increments cycles count by 3. Increments the Stack Pointer by 2.
+     * @note Increments cycles count by 6. Increments the Stack Pointer by 2.
      */
     FORCE_INLINE void PopProgramCounterFromStack() {
         PC = ReadWord(SP);
@@ -148,7 +146,7 @@ public:
 
     /**
      * @brief Pop two bytes of data from stack.
-     * @note Increments cycles count by 6. Increments the Stack Pointer by 2.
+     * @note Increments cycles count by 10. Increments the Stack Pointer by 2.
      * @param lsb Low byte ref to write-back to.
      * @param msb High byte ref to write-back to.
      */
