@@ -10,16 +10,16 @@ public:
         mem[0x0001] = 0x3C;
         mem[0x0002] = 0x00;
         // Hack to simulate Parity flag change in runtime
-        mem[0x3C00] = ANI;
-        mem[0x3C01] = canReturn ? 0b11111111 : 0b11111110;
-        mem[0x3C02] = RPE;
+        mem[0x003C] = ANI;
+        mem[0x003D] = canReturn ? 0b11111111 : 0b11111110;
+        mem[0x003E] = RPE;
 
         cyclesExpected = 0;
         cyclesExpected += canCall ? 17 : 11;                        // CPE
         cyclesExpected += canCall ? 7 : 0;                          // ANI
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RPE
 
-        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C03) : 0x0003;
+        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x003E) : 0x0003;
         mem[targetPC] = RET;
 
         // when:

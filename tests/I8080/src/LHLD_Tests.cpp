@@ -4,12 +4,13 @@ class I8080_LHLDFixture : public I8080_TestFixture {};
 
 TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_1) {
     // given:
+    mem[0x0000] = LHLD;
+    mem[0x0001] = 0x34;
+    mem[0x0002] = 0x12;
+    mem[0x0003] = RET;
+
     mem[0x1234] = 0x22;
     mem[0x1235] = 0x33;
-    mem[0x0000] = LHLD;
-    mem[0x0001] = 0x12;
-    mem[0x0002] = 0x34;
-    mem[0x0003] = RET;
 
     cyclesExpected = 16;
 
@@ -24,12 +25,13 @@ TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_1) {
 
 TEST_F(I8080_LHLDFixture, LHLD_CanLoadHL_2) {
     // given:
+    mem[0x0000] = LHLD;
+    mem[0x0001] = 0x5B;
+    mem[0x0002] = 0x02;
+    mem[0x0003] = RET;
+
     mem[0x25B] = 0xFF;
     mem[0x25C] = 0x03;
-    mem[0x0000] = LHLD;
-    mem[0x0001] = 0x02;
-    mem[0x0002] = 0x5B;
-    mem[0x0003] = RET;
 
     cyclesExpected = 16;
 

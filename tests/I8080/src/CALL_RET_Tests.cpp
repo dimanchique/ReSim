@@ -8,7 +8,7 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturn) {
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
     mem[0x0003] = RET;
-    mem[0x3C00] = RET;
+    mem[0x003C] = RET;
 
     cyclesExpected = 17 + 10;
 
@@ -27,10 +27,10 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturnMultipleTimes) {
     mem[0x0002] = 0x00;
     mem[0x0003] = RET;
     mem[0x1004] = RET;
-    mem[0x3C00] = CALL;
-    mem[0x3C01] = 0x10;
-    mem[0x3C02] = 0x04;
-    mem[0x3C03] = RET;
+    mem[0x003C] = CALL;
+    mem[0x003D] = 0x04;
+    mem[0x003E] = 0x10;
+    mem[0x003F] = RET;
 
     cyclesExpected = 17 + 10 + 17 + 10;
 
@@ -48,11 +48,11 @@ TEST_F(I8080_CALL_RETFixture, CALL_CanCallAndReturnMultipleTimesInARow) {
     mem[0x0001] = 0x3C;
     mem[0x0002] = 0x00;
     mem[0x0003] = CALL;
-    mem[0x0004] = 0x10;
-    mem[0x0005] = 0x04;
+    mem[0x0004] = 0x04;
+    mem[0x0005] = 0x10;
     mem[0x0006] = RET;
     mem[0x1004] = RET;
-    mem[0x3C00] = RET;
+    mem[0x003C] = RET;
 
     cyclesExpected = 17 + 10 + 17 + 10;
 

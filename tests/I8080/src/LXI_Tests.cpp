@@ -15,7 +15,7 @@ public:
         cyclesPassed = cpu.Run();
 
         // then:
-        EXPECT_EQ(targetRegisterPtr, 0x0103);
+        EXPECT_EQ(targetRegisterPtr, 0x0301);
         CheckCyclesCount();
     }
 };

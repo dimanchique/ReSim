@@ -9,15 +9,15 @@ public:
         mem[0x0001] = 0x3C;
         mem[0x0002] = 0x00;
         // Hack to simulate C flag change in runtime
-        mem[0x3C00] = canCall == canReturn ? NOP : CMC;
-        mem[0x3C01] = RC;
+        mem[0x003C] = canCall == canReturn ? NOP : CMC;
+        mem[0x003D] = RC;
 
         cyclesExpected = 0;
         cyclesExpected += canCall ? 17 : 11;                        // CC
         cyclesExpected += canCall ? 4 : 0;                          // NOP/CMC
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RC
 
-        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C02) : 0x0003;
+        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x003E) : 0x0003;
         mem[targetPC] = RET;
 
         // when:

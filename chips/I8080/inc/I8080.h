@@ -59,7 +59,7 @@ public:
     FORCE_INLINE WORD FetchWord() {
         const BYTE Lo = FetchByte();
         const BYTE Hi = FetchByte();
-        return Hi | (Lo << 8);
+        return (Hi << 8) | Lo;
     }
 
     /**

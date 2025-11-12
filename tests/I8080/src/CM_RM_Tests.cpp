@@ -10,16 +10,16 @@ public:
         mem[0x0001] = 0x3C;
         mem[0x0002] = 0x00;
         // Hack to simulate Z flag change in runtime
-        mem[0x3C00] = ANI;
-        mem[0x3C01] = canReturn ? 0xFF : 0x00;
-        mem[0x3C02] = RM;
+        mem[0x003C] = ANI;
+        mem[0x003D] = canReturn ? 0xFF : 0x00;
+        mem[0x003E] = RM;
 
         cyclesExpected = 0;
         cyclesExpected += canCall ? 17 : 11;                        // CM
         cyclesExpected += canCall ? 7 : 0;                          // ANI
         cyclesExpected += canCall ? (canReturn ? 11 : 5) : 0;       // RM
 
-        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x3C03) : 0x0003;
+        const WORD targetPC = canCall ? (canReturn ? 0x0003 : 0x003F) : 0x0003;
         mem[targetPC] = RET;
 
         // when:

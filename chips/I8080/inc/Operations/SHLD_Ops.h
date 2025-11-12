@@ -12,5 +12,5 @@ using namespace ReSimFunctionLibrary::DataManipulation;
 void I8080_SHLD(I8080 &cpu) {
     const WORD memoryAddress = cpu.FetchWord();
     const WORD storeValue = putTwoBytesToLIWord(cpu.H, cpu.L);
-    cpu.WriteWord(storeValue, swapWord(memoryAddress));
+    cpu.WriteWord(storeValue, memoryAddress);
 }
