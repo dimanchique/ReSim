@@ -2,17 +2,17 @@
 
 class I8080_IOFixture : public I8080_TestFixture {};
 
-class TestInputDevice : public IO_Device {
+class TestInputDevice : public IO_Device<WORD> {
 public:
-    void Write(U32 address, BYTE value) override {
+    void Write(WORD address, BYTE value) override {
         device_value = value;
     }
 
-    BYTE Read(U32 address) override {
+    BYTE Read(WORD address) override {
         return device_value;
     }
 
-    BYTE &operator[](U32 address) override {
+    BYTE &operator[](WORD address) override {
         return device_value;
     }
 
@@ -31,7 +31,7 @@ TEST_F(I8080_IOFixture, IN_CanReadValue) {
     TestInputDevice io_device;
     io_device.device_value = device_value;
 
-    Bus data_bus;
+    Bus<WORD> data_bus;
     cpu.SetDataBusInstance(&data_bus);
     data_bus.SetBusRegion(device_address, device_address, &io_device);
 
@@ -57,7 +57,7 @@ TEST_F(I8080_IOFixture, OUT_CanWriteValue) {
     TestInputDevice io_device;
     io_device.device_value = device_value;
 
-    Bus data_bus;
+    Bus<WORD> data_bus;
     cpu.SetDataBusInstance(&data_bus);
     data_bus.SetBusRegion(device_address, device_address, &io_device);
 

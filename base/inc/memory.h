@@ -7,14 +7,14 @@
 #include "core/types.h"
 #include "io_device.h"
 
-struct Memory : public IO_Device {
-  private:
+template<typename BusWidth>
+class Memory : public IO_Device<BusWidth> {
+private:
     BYTE *mem;
-    U32 size;
+    BusWidth size;
 
-  public:
-    explicit Memory(U32 memSize = 1) : size(memSize * 1024)
-    {
+public:
+    explicit Memory(BusWidth memSize = 1) : size(memSize * 1024 - 1) {
         mem = new BYTE[size];
     }
 
@@ -26,22 +26,22 @@ struct Memory : public IO_Device {
         memset(mem, 0xFF, size);
     }
 
-    bool SetMemory(const char* data, long long int numBytes) {
+    bool SetMemory(const char *data, long long int numBytes) {
         if (numBytes == 0 || (numBytes > size))
             return false;
         std::memcpy(mem, data, numBytes);
         return true;
     }
 
-    FORCE_INLINE BYTE &operator[](U32 address) override {
+    FORCE_INLINE BYTE &operator[](BusWidth address) override {
         return mem[address];
     }
 
-    FORCE_INLINE BYTE Read(U32 address) override {
+    FORCE_INLINE BYTE Read(BusWidth address) override {
         return mem[address];
     }
 
-    FORCE_INLINE void Write(U32 address, BYTE value) override {
+    FORCE_INLINE void Write(BusWidth address, BYTE value) override {
         mem[address] = value;
     }
 };

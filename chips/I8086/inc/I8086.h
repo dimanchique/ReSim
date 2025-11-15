@@ -10,7 +10,7 @@
 
 #define EFFECTIVE_ADDRESS(m, n) ((m) + ((n) << 4))
 
-class I8086 final : public Compute {
+class I8086 final : public Compute<DWORD> {
 public:
 
     DECLARE_PAIRED_REG_UNIQUE_NAME(BYTE, WORD, AH, AL, AX); // primary accumulator

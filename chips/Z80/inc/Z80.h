@@ -24,7 +24,7 @@
  * - 4 bits register for interrupt status and interrupt mode
  * Max CPU clock rate 2.5-8 MHz. Data width: 8 bits. Address width: 16 bits
  */
-class Z80 final: public Compute {
+class Z80 final: public Compute<WORD> {
 
     void Reset() noexcept override;
 

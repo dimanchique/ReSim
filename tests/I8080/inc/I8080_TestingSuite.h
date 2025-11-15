@@ -5,9 +5,9 @@
 
 class I8080_TestFixture : public testing::Test {
 public:
-    Memory mem{64};
+    Memory<WORD> mem{64};
     I8080 cpu{};
-    Bus bus{};
+    Bus<WORD> bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;

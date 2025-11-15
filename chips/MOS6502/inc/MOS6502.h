@@ -22,7 +22,7 @@
  * - Status register
  * Max CPU clock rate 1-3 MHz. Data width: 8 bits. Address width: 16 bits
  */
-class MOS6502 final : public Compute {
+class MOS6502 final : public Compute<WORD> {
 public:
 
     WORD PC;                /**< Program Counter */

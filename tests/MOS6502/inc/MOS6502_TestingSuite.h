@@ -5,9 +5,9 @@
 
 class MOS6502_TestFixture : public testing::Test {
 public:
-    Memory mem{64};
+    Memory<WORD> mem{64};
     MOS6502 cpu{};
-    Bus bus{};
+    Bus<WORD> bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;

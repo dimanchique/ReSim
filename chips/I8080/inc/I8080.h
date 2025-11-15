@@ -19,7 +19,7 @@
  * - Status register
  * Max CPU clock rate 2-4 MHz. Data width: 8 bits. Address width: 16 bits
  */
-class I8080 final: public Compute{
+class I8080 final: public Compute<WORD>{
 public:
 
     WORD PC;                                /**< Program Counter */
@@ -30,8 +30,8 @@ public:
     DECLARE_PAIRED_REG(BYTE, WORD, D, E);   /**< Paired DE Register */
     DECLARE_PAIRED_REG(BYTE, WORD, H, L);   /**< Paired HL Register */
 
-    void SetDataBusInstance(Bus* new_bus) { dataBus = new_bus; }
-    Bus* GetDataBus() { return dataBus; }
+    void SetDataBusInstance(Bus<WORD>* new_bus) { dataBus = new_bus; }
+    Bus<WORD>* GetDataBus() { return dataBus; }
 
     void Reset() noexcept override;
 
@@ -156,5 +156,5 @@ public:
     }
 
 protected:
-    Bus* dataBus;
+    Bus<WORD>* dataBus;
 };

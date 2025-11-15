@@ -12,6 +12,7 @@
  * @details Compute contains base functionality for each CPU: Run, Reset and Load ROM.
  * Class holds cycles counter and bus instance pointer
  */
+template<typename BusWidth>
 class Compute {
     public:
 
@@ -23,7 +24,7 @@ class Compute {
      */
     virtual ~Compute() {};
 
-    bool LoadROM(const char *filename, Memory &memory) {
+    bool LoadROM(const char *filename, Memory<BusWidth> &memory) {
         long long numBytesRead = 0;
 
         const char* data = ReadBinary(filename, numBytesRead);
@@ -37,8 +38,8 @@ class Compute {
         return setSuccess;
     }
 
-    void SetBusInstance(Bus* new_bus) { bus = new_bus; }
-    Bus* GetBus() { return bus; }
+    void SetBusInstance(Bus<BusWidth>* new_bus) { bus = new_bus; }
+    Bus<BusWidth>* GetBus() { return bus; }
 
 protected:
 
@@ -87,7 +88,7 @@ public:
     virtual bool Step() = 0;
 
 protected:
-    Bus* bus = nullptr;
+    Bus<BusWidth>* bus = nullptr;
 
 public:
     U32 cycles = 0;

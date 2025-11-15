@@ -5,9 +5,10 @@
 #include "map"
 #include "exception"
 
+template<typename BusWidth>
 class Bus {
 public:
-    void SetBusRegion(QWORD startAddr, QWORD endAddr, IO_Device* io_device) {
+    void SetBusRegion(BusWidth startAddr, BusWidth endAddr, IO_Device<BusWidth>* io_device) {
         if (auto it = regions.lower_bound(startAddr); it != regions.end()) {
             regions[startAddr - 1] = it->second;
         }
@@ -16,35 +17,27 @@ public:
         regions[endAddr] = io_device;
     }
 
-    void Write(QWORD address, BYTE value) {
-        ExecuteOnDevice(address, [value](IO_Device* device, QWORD addr) {
-            device->Write(addr, value);
-        });
+    void Write(BusWidth address, BYTE value) {
+        FindDevice(address)->Write(address, value);
     }
 
-    BYTE Read(QWORD address) {
-        BYTE result = 0;
-        ExecuteOnDevice(address, [&result](IO_Device* device, QWORD addr) {
-            result = device->Read(addr);
-        });
-        return result;
+    BYTE Read(BusWidth address) {
+        return FindDevice(address)->Read(address);
     }
 
 private:
 
-    void ExecuteOnDevice(QWORD address, const std::function<void(IO_Device*, QWORD)>& callback) {
+    IO_Device<BusWidth>* FindDevice(BusWidth address) {
         if (auto it = regions.find(address); it != regions.end()) {
-            callback(it->second, address);
-            return;
+            return it->second;
         }
 
         if (auto it = regions.upper_bound(address); it != regions.end()) {
-            callback(it->second, address);
-            return;
+            return it->second;
         }
 
         throw std::out_of_range("No device mapped to address " + std::to_string(address));
     }
 
-    std::map<QWORD, IO_Device*> regions;
+    std::map<BusWidth, IO_Device<BusWidth>*> regions;
 };

@@ -1,9 +1,10 @@
 #pragma once
 
+template<typename BusWidth>
 class IO_Device {
 public:
-    virtual BYTE Read(U32 address) = 0;
-    virtual void Write(U32 address, BYTE value) = 0;
+    virtual BYTE Read(BusWidth address) = 0;
+    virtual void Write(BusWidth address, BYTE value) = 0;
 
-    virtual BYTE &operator[](U32 address) = 0;
+    virtual BYTE &operator[](BusWidth address) = 0;
 };

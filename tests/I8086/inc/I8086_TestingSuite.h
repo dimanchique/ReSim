@@ -7,9 +7,9 @@
 
 class I8086_TestFixture : public testing::Test {
 public:
-    Memory mem{1024};
+    Memory<DWORD> mem{1024};
     I8086 cpu{};
-    Bus bus{};
+    Bus<DWORD> bus{};
 
     U32 cyclesPassed;
     U32 cyclesExpected;

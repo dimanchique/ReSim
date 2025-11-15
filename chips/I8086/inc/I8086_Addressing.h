@@ -1,10 +1,10 @@
 #pragma once
 
+#include "memory.h"
 #include "core/types.h"
 #include "core/compilers_macro.h"
 
 class I8086;
-struct Memory;
 
 class InvalidInstruction : public std::invalid_argument {
 public:
