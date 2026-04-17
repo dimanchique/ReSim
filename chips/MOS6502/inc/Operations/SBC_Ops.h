@@ -12,13 +12,12 @@
  */
 FORCE_INLINE void PerformSBC(MOS6502 &cpu, const MOS6502_AddressingMode addressing) {
     const BYTE value = cpu.GetAddressingModeValue(addressing);
-
-    const bool signBitsMatch = !((cpu.A ^ value) & MOS6502_Status_N);
+    const BYTE originalValue = cpu.A;
     const WORD subRes = cpu.A - value - (1 - cpu.Status.C);
     cpu.A = subRes;
     cpu.Status.UpdateStatusByValue(cpu.A, MOS6502_Status_Z | MOS6502_Status_N);
-    cpu.Status.C = subRes > 0xFF;
-    cpu.Status.V = signBitsMatch && ((cpu.A ^ value) & MOS6502_Status_N);
+    cpu.Status.C = subRes <= 0xFF;
+    cpu.Status.V = ((originalValue ^ value) & (originalValue ^ cpu.A) & MOS6502_Status_N) != 0;
 }
 
 /**

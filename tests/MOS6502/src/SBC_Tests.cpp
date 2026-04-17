@@ -23,7 +23,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_CanSubtractValue) {
     SBC_IM_DoSubtractValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x3F);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
 }
@@ -34,7 +34,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_CanSubtractValue_WithCarryFlag) {
     SBC_IM_DoSubtractValue(0x50, 0x10);
 
     EXPECT_EQ(cpu.A, 0x40);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
 }
@@ -45,7 +45,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_CanAffectNegativeFlag) {
     EXPECT_EQ(cpu.A, 0xFF);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_CanAffectZeroFlag) {
@@ -55,7 +55,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_CanAffectZeroFlag) {
     EXPECT_EQ(cpu.A, 0x00);
     EXPECT_TRUE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_1) {
@@ -64,7 +64,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_1) {
     EXPECT_EQ(cpu.A, 0x3f);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.V);
 }
 
@@ -74,8 +74,8 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_2) {
     EXPECT_EQ(cpu.A, 0xFF);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
-    EXPECT_TRUE(cpu.Status.V);
+    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.V);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_3) {
@@ -84,8 +84,8 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_3) {
     EXPECT_EQ(cpu.A, 0xbf);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
-    EXPECT_FALSE(cpu.Status.V);
+    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.V);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_4) {
@@ -94,7 +94,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_4) {
     EXPECT_EQ(cpu.A, 0x7f);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.V);
 }
 
@@ -104,7 +104,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_5) {
     EXPECT_EQ(cpu.A, 0xbf);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.V);
 }
 
@@ -114,8 +114,8 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_6) {
     EXPECT_EQ(cpu.A, 0x7f);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_FALSE(cpu.Status.C);
-    EXPECT_FALSE(cpu.Status.V);
+    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.V);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_7) {
@@ -124,8 +124,8 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_7) {
     EXPECT_EQ(cpu.A, 0x3f);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
-    EXPECT_FALSE(cpu.Status.C);
-    EXPECT_TRUE(cpu.Status.V);
+    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.V);
 }
 
 TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_8) {
@@ -134,7 +134,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_8) {
     EXPECT_EQ(cpu.A, 0xFF);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.V);
 }
 
@@ -144,7 +144,7 @@ TEST_F(MOS6502_SBCFixture, SBC_IM_StatusFlagTest_9) {
     EXPECT_EQ(cpu.A, 0x80);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_TRUE(cpu.Status.N);
-    EXPECT_TRUE(cpu.Status.C);
+    EXPECT_FALSE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.V);
 }
 
@@ -163,7 +163,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ZP_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -185,7 +185,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ZPX_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -207,7 +207,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABS_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -230,7 +230,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSX_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -253,7 +253,7 @@ TEST_F(MOS6502_SBCFixture, SBC_ABSY_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -278,7 +278,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDX_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -302,7 +302,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue) {
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
@@ -326,7 +326,7 @@ TEST_F(MOS6502_SBCFixture, SBC_INDY_CanSubtractValue_WithExtraCycleOnPageCrossin
 
     // then:
     EXPECT_EQ(cpu.A, 0x3f);
-    EXPECT_FALSE(cpu.Status.C);
+    EXPECT_TRUE(cpu.Status.C);
     EXPECT_FALSE(cpu.Status.Z);
     EXPECT_FALSE(cpu.Status.N);
     CheckCyclesCount();
