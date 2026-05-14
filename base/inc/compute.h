@@ -87,8 +87,14 @@ public:
      */
     virtual bool Step() = 0;
 
+    /**
+     * @brief Stops execution
+     */
+    virtual void Stop() { stop_requested = true; };
+
 protected:
     Bus<BusWidth>* bus = nullptr;
+    bool stop_requested = false;
 
 public:
     U32 cycles = 0;

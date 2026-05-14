@@ -41,7 +41,7 @@ U32 I8080::Run() {
         }
 
         total_cycles += cycles;
-    } while (decodeSuccess);
+    } while (decodeSuccess && !stop_requested);
 
     total_cycles -= 3;  // revert false fetch cycles
     PC--;               // revert extra PC increment for last instruction fetching

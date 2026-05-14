@@ -10,11 +10,15 @@ class Bus {
 public:
     void SetBusRegion(BusWidth startAddr, BusWidth endAddr, IO_Device<BusWidth>* io_device) {
         if (auto it = regions.lower_bound(startAddr); it != regions.end()) {
-            regions[startAddr - 1] = it->second;
+            if (regions.find(startAddr - 1) == regions.end())
+                regions[startAddr - 1] = it->second;
         }
 
         regions[startAddr] = io_device;
         regions[endAddr] = io_device;
+        if (auto it = regions.upper_bound(startAddr); it != regions.end()) {
+            regions[endAddr + 1] = it->second;
+        }
     }
 
     void Write(BusWidth address, BYTE value) {

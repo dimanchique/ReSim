@@ -41,7 +41,7 @@ U32 MOS6502::Run() {
         }
 
         total_cycles += cycles;
-    } while (decodeSuccess);
+    } while (decodeSuccess && !stop_requested);
 
     total_cycles--;     // revert false fetch cycles
     PC--;               // revert extra PC increment for last instruction fetching

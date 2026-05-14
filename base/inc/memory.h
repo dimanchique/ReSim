@@ -27,7 +27,9 @@ public:
     }
 
     bool SetMemory(const char *data, long long int numBytes) {
-        if (numBytes == 0 || (numBytes > size))
+        if (numBytes > size)
+            numBytes = size;
+        if (numBytes == 0)
             return false;
         std::memcpy(mem, data, numBytes);
         return true;

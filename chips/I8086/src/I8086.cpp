@@ -25,7 +25,7 @@ U32 I8086::Run() {
 
     do {
         decodeSuccess = Step();
-    } while (decodeSuccess);
+    } while (decodeSuccess && !stop_requested);
 
     cycles -= 3;    // revert false fetch cycles
     PC--;           // revert extra PC increment for last instruction fetching
