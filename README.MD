@@ -8,10 +8,10 @@
 
 | Processor | Completion                                                 | Status |
 |-----------|------------------------------------------------------------|--------|
-| **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete - Full instruction set & testing |
-| **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete - Z80-compatible implementation |
+| **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
+| **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
 | **Intel 8086** | ![71%](https://progress-bar.xyz/71?style=flat&width=200)   | 🚧 In Progress |
-| **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned - Initial research phase |
+| **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned |
 
 ## ✨ Key Features
 

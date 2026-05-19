@@ -143,8 +143,8 @@
 - [x] MOV_AX_Ov
 - [x] MOV_Ob_AL
 - [x] MOV_Ov_AX
-- [ ] MOVSB
-- [ ] MOVSW
+- [x] MOVSB
+- [x] MOVSW
 - [ ] CMPSB
 - [ ] CMPSW
 - [x] TEST_AL_Ib

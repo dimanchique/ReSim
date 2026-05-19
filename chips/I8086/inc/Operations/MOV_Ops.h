@@ -63,3 +63,26 @@ void I8086_MOV_Ew_Sw(BYTE, I8086 &cpu) {
     WORD* sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
     instructionData.leftOp.set(cpu, *sRegPtr);
 }
+
+template<typename T>
+void I8086_MOVSX(I8086 &cpu) {
+    const DWORD srcAddress = EFFECTIVE_ADDRESS(cpu.SI, *cpu.currentSegment);
+    const DWORD dstAddress = EFFECTIVE_ADDRESS(cpu.DI, cpu.ES);
+
+    const T data = cpu.Read<T>(srcAddress);
+    cpu.Write<T>(dstAddress, data);
+
+    const int8_t bias = sizeof(T) * (cpu.Status.D == 0 ? 1 : -1);
+    cpu.SI += bias;
+    cpu.DI += bias;
+}
+
+//  Mem8 <-- Mem8
+void I8086_MOVSB(BYTE, I8086 &cpu) {
+    I8086_MOVSX<BYTE>(cpu);
+}
+
+//  Mem16 <-- Mem16
+void I8086_MOVSW(BYTE, I8086 &cpu) {
+    I8086_MOVSX<WORD>(cpu);
+}
