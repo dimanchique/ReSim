@@ -1,8 +1,10 @@
 #include "I8086_DoubleOpTests.h"
 #include "I8086_SingleOpTests.h"
+#include "I8086_ImpliedOpTests.h"
 
- class I8086_MOV_Fixture : public I8086_DoubleOpFixture {};
+class I8086_MOV_Fixture : public I8086_DoubleOpFixture {};
  class I8086_MOV_IM_Fixture : public I8086_SingleOpFixture {};
+ class I8086_MOV_IMPL_Fixture : public I8086_ImpliedOpFixture {};
 
 // Mem (BX addressed) <-- AX
 TEST_F(I8086_MOV_Fixture, MOV_Ev_Gv_BX_Addressed_AX) {
@@ -208,4 +210,60 @@ TEST_F(I8086_MOV_Fixture, MOV_Gb_Eb_BL_CL) {
     TestRegRegInstruction<BYTE>(&leftReg, &rightReg, MOV_Gb_Eb, 16);
 
     EXPECT_EQ(cpu.BL, refValue);
+}
+
+// Mem8 <-- Mem8
+TEST_F(I8086_MOV_IMPL_Fixture, MOVSB) {
+    cpu.SI = 0x0400;
+    cpu.DI = 0x0500;
+    cpu.DS = 0x2000;
+    cpu.ES = 0x3000;
+    cpu.Status.D = 0;
+
+    const DWORD src = EFFECTIVE_ADDRESS(cpu.SI, cpu.DS);
+    const DWORD dst = EFFECTIVE_ADDRESS(cpu.DI, cpu.ES);
+
+    const BYTE dataSize = 5;
+    BYTE data[dataSize] = {'h', 'e', 'l', 'l', 'o'};
+    for (BYTE i = 0; i < dataSize; i++)
+        mem[src + i] = data[i];
+
+    for (BYTE i = 0; i < dataSize; i++)
+        mem[effectiveAddress++] = MOVSB;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
+
+    cpu.Run();
+
+    for (BYTE i = 0; i < dataSize; i++)
+        EXPECT_EQ(mem[dst + i], data[i]);
+}
+
+// Mem8 <-- Mem8
+TEST_F(I8086_MOV_IMPL_Fixture, MOVSW) {
+    cpu.SI = 0x0400;
+    cpu.DI = 0x0500;
+    cpu.DS = 0x2000;
+    cpu.ES = 0x3000;
+    cpu.Status.D = 0;
+
+    const DWORD src = EFFECTIVE_ADDRESS(cpu.SI, cpu.DS);
+    const DWORD dst = EFFECTIVE_ADDRESS(cpu.DI, cpu.ES);
+
+    const BYTE dataSize = 6;
+    WORD data[dataSize] = {0xDEAD, 0xBEEF, 0xBABE, 0x4B1D, 0x00BA, 0xB10C};
+    for (BYTE i = 0; i < dataSize; i++) {
+        mem[src + 2*i] = data[i] & 0x0F;
+        mem[src + 2*i + 1] = (data[i] >> 8) & 0x0F;
+    }
+
+    for (BYTE i = 0; i < dataSize; i++)
+        mem[effectiveAddress++] = MOVSW;
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
+
+    cpu.Run();
+
+    for (BYTE i = 0; i < dataSize; i++) {
+        EXPECT_EQ(mem[dst + 2*i], data[i] & 0x0F);
+        EXPECT_EQ(mem[dst + 2*i + 1], (data[i] >> 8) & 0x0F);
+    }
 }

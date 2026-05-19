@@ -1,6 +1,6 @@
 #include "I8086_ImpliedOpTests.h"
 
-class I8086_CBW_CWD_Fixture : public I8086_ImpliedOpTests {};
+class I8086_CBW_CWD_Fixture : public I8086_ImpliedOpFixture {};
 
 TEST_F(I8086_CBW_CWD_Fixture, CBW_CanConvert_1) {
     cpu.AH = 0x00;

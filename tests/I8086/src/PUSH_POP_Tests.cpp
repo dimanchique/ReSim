@@ -124,7 +124,7 @@ TEST_F(I8086_POP_Ev_Fixture, POP_Ev) {
     EXPECT_EQ(result, memValue);
 }
 
-class I8086_PUSH_POP_F_Fixture : public I8086_ImpliedOpTests {};
+class I8086_PUSH_POP_F_Fixture : public I8086_ImpliedOpFixture {};
 
 TEST_F(I8086_PUSH_POP_F_Fixture, PushPopFlag) {
     // given:

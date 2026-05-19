@@ -3,7 +3,7 @@
 #include "I8086_OpCodes_Groups.h"
 
 class I8086_INC_DEC_Fixture : public I8086_GroupFixture {};
-class I8086_INC_DEC_Word_Fixture : public I8086_ImpliedOpTests {};
+class I8086_INC_DEC_Word_Fixture : public I8086_ImpliedOpFixture {};
 
 TEST_F(I8086_INC_DEC_Fixture, INC_Eb_Addressed_Mem) {
     ModRegByteConstructor modReg;

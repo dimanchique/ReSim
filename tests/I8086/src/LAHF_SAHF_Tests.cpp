@@ -1,6 +1,6 @@
 #include "I8086_ImpliedOpTests.h"
 
-class I8086_LAHF_SAHF_Fixture : public I8086_ImpliedOpTests {};
+class I8086_LAHF_SAHF_Fixture : public I8086_ImpliedOpFixture {};
 
 TEST_F(I8086_LAHF_SAHF_Fixture, SAHF_CanStoreAH_1) {
     cpu.Status.Value = 0x0000;

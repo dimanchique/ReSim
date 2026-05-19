@@ -1,6 +1,6 @@
 #include "I8086_ImpliedOpTests.h"
 
-class I8086_DAA_DAS_Fixture : public I8086_ImpliedOpTests {};
+class I8086_DAA_DAS_Fixture : public I8086_ImpliedOpFixture {};
 
 TEST_F(I8086_DAA_DAS_Fixture, DAA_CanAdjust) {
     // mock 0x28 + 0x68 ADD operation

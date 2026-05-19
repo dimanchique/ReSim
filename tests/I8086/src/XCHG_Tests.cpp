@@ -1,7 +1,7 @@
 #include "I8086_DoubleOpTests.h"
 #include "I8086_ImpliedOpTests.h"
 
-class I8086_XCHG_AX_Fixture : public I8086_ImpliedOpTests {
+class I8086_XCHG_AX_Fixture : public I8086_ImpliedOpFixture {
 public:
     void TestXCHG_AX(I8086_OpCodes_Main opCode, WORD *regPtr) {
         constexpr WORD tmp1 = 0xBABE;

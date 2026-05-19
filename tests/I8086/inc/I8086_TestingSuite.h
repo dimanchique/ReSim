@@ -22,7 +22,7 @@ public:
         cpu.SetBusInstance(&bus);
         cpu.PC = 0x1000;
         cpu.CS = 0x1000;
-        effectiveAddress = cpu.PC + (cpu.CS << 4);
+        effectiveAddress = EFFECTIVE_ADDRESS(cpu.PC, cpu.CS);
     }
 
     void TearDown() override {

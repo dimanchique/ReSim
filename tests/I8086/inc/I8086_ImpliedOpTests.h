@@ -1,7 +1,7 @@
 #pragma once
 #include "I8086_TestingSuite.h"
 
-class I8086_ImpliedOpTests : public I8086_TestFixture {
+class I8086_ImpliedOpFixture : public I8086_TestFixture {
 public:
     void TestImpliedInstruction(I8086_OpCodes_Main opCode) {
         // given:

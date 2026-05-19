@@ -1,6 +1,6 @@
 #include "I8086_ImpliedOpTests.h"
 
-class I8086_ST_CL_CM_Fixture : public I8086_ImpliedOpTests {
+class I8086_ST_CL_CM_Fixture : public I8086_ImpliedOpFixture {
 public:
     void ST_CanSetFlag(I8086_OpCodes_Main opCode, const WORD statusFieldMask) {
         // given:
