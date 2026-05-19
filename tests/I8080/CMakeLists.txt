@@ -17,5 +17,10 @@ target_link_libraries(i8080-test
 include(GoogleTest)
 gtest_discover_tests(i8080-test)
 
-# Cross reference fullpath to original bin files
-target_compile_definitions(i8080-test PRIVATE TESTS_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/asm")
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/asm")
+add_custom_command(TARGET i8080-test POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "${CMAKE_CURRENT_SOURCE_DIR}/asm/*"
+        "${CMAKE_CURRENT_BINARY_DIR}/asm/"
+)
+target_compile_definitions(i8080-test PRIVATE TESTS_SOURCE_DIR="${CMAKE_CURRENT_BINARY_DIR}/asm")

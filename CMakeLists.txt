@@ -15,6 +15,7 @@ endif()
 add_subdirectory(core)
 add_subdirectory(base)
 add_subdirectory(chips)
+add_subdirectory(applications)
 
 if(RESIM_BUILD_TESTING)
     add_subdirectory(tests)
