@@ -12,6 +12,7 @@
 #include "TEST_Ops.h"
 #include "CALL_Ops.h"
 #include "JMP_Ops.h"
+#include "ADC_Ops.h"
 
 template<typename T>
 using GRP_CallbackSignature = void (*)(I8086&, const ModRegByte&);
@@ -29,7 +30,7 @@ FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
     static constexpr GRP_CallbackSignature<T> callMap[] = {
             &I8086_ADD_Ex_Ix<T>,    // 000 -> ADD
             &I8086_OR_Ex_Ix<T>,     // 001 -> OR
-            &GRP_InvalidCall<T>,    // 010 -> ADC
+            &I8086_ADC_Ex_Ix<T>,    // 010 -> ADC
             &GRP_InvalidCall<T>,    // 011 -> SBB
             &I8086_AND_Ex_Ix<T>,    // 100 -> AND
             &GRP_InvalidCall<T>,    // 101 -> SUB

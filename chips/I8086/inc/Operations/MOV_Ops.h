@@ -4,26 +4,17 @@
 #include "Adressing.h"
 
 template<typename T>
-void PerformMOV(InstructionResult<T>& result) {
+void PerformMOV(I8086& cpu, InstructionResult<T>& result) {
     result.leftOp.after = result.rightOp.before;
     result.rightOp.after = result.leftOp.before;
-}
-
-template<typename T>
-void UpdateStatusAfterMOV(I8086 &cpu, const T &value){
     cpu.Status.C = 0;
     cpu.Status.O = 0;
-    cpu.Status.UpdateStatusByValue(value, I8086_Status_S | I8086_Status_Z | I8086_Status_P);
-}
-
-template<typename T>
-void UpdateStatusAfterMOV_Wrapper(I8086 &cpu, const InstructionResult<T> &instructionResult) {
-    UpdateStatusAfterMOV(cpu, instructionResult.leftOp.after);
+    cpu.Status.UpdateStatusByValue(result.leftOp.after, I8086_Status_S | I8086_Status_Z | I8086_Status_P);
 }
 
 template<typename T>
 void I8086_EGx_EGx_MOV(I8086 &cpu) {
-    I8086_EGx_EGx<T>(cpu, &PerformMOV, &UpdateStatusAfterMOV_Wrapper, InstructionDirection::MemReg_Reg, RightToLeft);
+    I8086_EGx_EGx<T>(cpu, &PerformMOV, InstructionDirection::MemReg_Reg, RightToLeft);
 }
 
 //  Mem8 <-- Reg8

@@ -4,14 +4,14 @@
 #include "Adressing.h"
 
 template<typename T>
-FORCE_INLINE void PerformXCHG(InstructionResult<T>& result) {
+FORCE_INLINE void PerformXCHG(I8086&, InstructionResult<T>& result) {
     result.leftOp.after = result.rightOp.before;
     result.rightOp.after = result.leftOp.before;
 }
 
 template<typename T>
 void I8086_EGx_EGx_XCHG(I8086 &cpu) {
-    I8086_EGx_EGx<T>(cpu, &PerformXCHG, nullptr, InstructionDirection::MemReg_Reg, Bidirectional);
+    I8086_EGx_EGx<T>(cpu, &PerformXCHG, InstructionDirection::MemReg_Reg, Bidirectional);
 }
 
 //  Mem8/Reg8 <--> Mem8/Reg8
