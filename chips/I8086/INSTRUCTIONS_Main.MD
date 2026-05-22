@@ -13,12 +13,12 @@
 - [x] OR_AL_Ib
 - [x] OR_AX_Iv
 - [x] PUSH_CS
-- [ ] ADC_Eb_Gb
-- [ ] ADC_Ev_Gv
-- [ ] ADC_Gb_Eb
-- [ ] ADC_Gv_Ev
-- [ ] ADC_AL_Ib
-- [ ] ADC_AX_Iv
+- [x] ADC_Eb_Gb
+- [x] ADC_Ev_Gv
+- [x] ADC_Gb_Eb
+- [x] ADC_Gv_Ev
+- [x] ADC_AL_Ib
+- [x] ADC_AX_Iv
 - [x] PUSH_SS
 - [x] POP_SS
 - [ ] SBB_Eb_Gb
