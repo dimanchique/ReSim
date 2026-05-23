@@ -59,7 +59,7 @@ struct I8080_Status {
      * @params initialCarry Optional initial carry (for ADC/SBB instructions).
      */
     FORCE_INLINE void
-    SetAuxiliaryCarryFlagOfAdd(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
+    SetAuxiliaryCarryFlag(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
         BYTE carryFlag = initialCarry;
         BYTE firstOpArg, secondOpArg;
         for (BYTE idx = 0; idx < 4; ++idx) {

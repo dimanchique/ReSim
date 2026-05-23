@@ -16,7 +16,7 @@ FORCE_INLINE void PerformSUB(I8080 &cpu, const BYTE &targetRegister) {
     cpu.A = subResult & 0xFF;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_P);
     cpu.Status.S = subResult > 0xFF;
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, targetRegister);
+    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, targetRegister);
 }
 
 /**
@@ -30,7 +30,7 @@ void I8080_SUB_A(I8080 &cpu) {
     cpu.Status.C = 0;
     cpu.A = 0; // because A - A always 0
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, initialAccumulator);
+    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, initialAccumulator);
 }
 
 /**

@@ -13,7 +13,7 @@ FORCE_INLINE void PerformDCR(I8080 &cpu, BYTE &targetRegister) {
     targetRegister = (BYTE)(targetRegister + 0xFF); // +(-1) is better than -1
     ++cpu.cycles;
     cpu.Status.UpdateStatusByValue(targetRegister, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(targetCopy, 0xFF);
+    cpu.Status.SetAuxiliaryCarryFlag(targetCopy, 0xFF);
 }
 
 /**
@@ -85,5 +85,5 @@ void I8080_DCR_M(I8080 &cpu) {
     memoryValue = (BYTE)(memoryValue + 0xFF); // +(-1) is better than -1
     cpu.WriteByte(memoryValue, memoryAddress);
     cpu.Status.UpdateStatusByValue(memoryValue, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(memoryCopy, 0xFF);
+    cpu.Status.SetAuxiliaryCarryFlag(memoryCopy, 0xFF);
 }

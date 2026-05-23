@@ -14,7 +14,7 @@ FORCE_INLINE void PerformAdd(I8080 &cpu, const BYTE &targetRegister) {
     cpu.Status.C = addResult > 0xFF;
     cpu.A = addResult;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, targetRegister);
+    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, targetRegister);
 }
 
 /**
@@ -29,7 +29,7 @@ void I8080_ADD_A(I8080 &cpu) {
     cpu.Status.C = addResult > 0xFF;
     cpu.A = addResult;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
-    cpu.Status.SetAuxiliaryCarryFlagOfAdd(initialAccumulator, initialAccumulator);
+    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, initialAccumulator);
 }
 
 /**
