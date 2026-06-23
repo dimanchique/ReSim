@@ -14,7 +14,7 @@ FORCE_INLINE void I8086_EGx_EGx(I8086 &cpu,
                                 const InstructionDirection instructionDirection,
                                 const OperandDirection operandDirection,
                                 const bool shouldStoreResult = true) {
-    InstructionResult<T> instructionResult{};
+    InstructionResult<T> instructionResult;
     const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionData<T>(opSize, instructionDirection);
 
@@ -39,12 +39,12 @@ FORCE_INLINE void I8086_Ex_Ix(I8086 &cpu,
                               const ModRegByte modRegByte,
                               InstructionCallback<T> *callback,
                               const bool shouldStoreResult = true) {
-    InstructionResult<T> instructionResult{};
+    InstructionResult<T> instructionResult;
     const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modRegByte);
 
     const T immValue = cpu.Fetch<T>();
-    const T op = instructionData.singleOp.get(cpu);
+    const T op = instructionData.leftOp.get(cpu);
 
     instructionResult.leftOp.before = op;
     instructionResult.rightOp.before = immValue;
@@ -52,5 +52,5 @@ FORCE_INLINE void I8086_Ex_Ix(I8086 &cpu,
     callback(cpu, instructionResult);
 
     if (shouldStoreResult)
-        instructionData.singleOp.set(cpu, instructionResult.leftOp.after);
+        instructionData.leftOp.set(cpu, instructionResult.leftOp.after);
 }

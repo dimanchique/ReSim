@@ -51,11 +51,11 @@ struct OperandInfo {
     } operand;
 
     void set(I8086& cpu, T value) const {
-        setterFuncPtr(cpu, &operand, value);
+        setterFuncPtr(cpu, type == OperandType::Reg ? operand.reg : &operand.mem, value);
     }
 
     T get(I8086& cpu) const {
-        return getterFuncPtr(cpu, &operand);
+        return getterFuncPtr(cpu, type == OperandType::Reg ? operand.reg : &operand.mem);
     }
 
     void getterSet(OperandGetter<T> f) {
@@ -73,13 +73,8 @@ private:
 
 template<typename T>
 struct InstructionData {
-    union {
-        struct {                    // Regular instruction operands
-            OperandInfo<T> leftOp;
-            OperandInfo<T> rightOp;
-        };
-        OperandInfo<T> singleOp;    // GRP instructions operand
-    };
+    OperandInfo<T> leftOp;
+    OperandInfo<T> rightOp;
 };
 
 template<typename T>

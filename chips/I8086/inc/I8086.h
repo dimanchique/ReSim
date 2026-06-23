@@ -173,7 +173,7 @@ public:
 
     template<typename T>
     InstructionData<T> GetInstructionDataNoFetch(const OperandSize operandSize, const InstructionDirection direction, const ModRegByte modReg) {
-        InstructionData<T> instructionData{};
+        InstructionData<T> instructionData;
 
         // Pre-calculate target registers pointers
         void *regRegPtr = operandSize == OperandSize::BYTE ?
@@ -195,7 +195,7 @@ public:
             // MemReg_Imm instruction direction in this branch covers only Register destination
             // Only one operand needed if instruction direction is MemReg_Imm
             if (direction == InstructionDirection::MemReg_Imm) {
-                instructionData.singleOp.operand.reg = rmRegPtr;
+                instructionData.leftOp.operand.reg = rmRegPtr;
                 return instructionData;
             }
 
@@ -214,7 +214,7 @@ public:
             // MemReg_Imm instruction direction in this branch covers only Memory destination
             // Only one operand needed if instruction direction is MemReg_Imm
             if (direction == InstructionDirection::MemReg_Imm) {
-                instructionData.singleOp = op1;
+                instructionData.leftOp = op1;
                 return instructionData;
             }
 
@@ -269,7 +269,7 @@ public:
 
     template<typename T>
     static void RegisterSet(I8086&, const void *destReg, T value) {
-        *(T *) *(uintptr_t *) destReg = value;
+        *(T*)destReg = value;
     }
 
     template<typename T>
@@ -279,7 +279,7 @@ public:
 
     template<typename T>
     static T RegisterGet(I8086&, const void *srcReg) {
-        return *(T *) *(uintptr_t *) srcReg; // srcReg is passed as a pointer to void pointer
+        return *(T*)srcReg;
     }
 
     // Addressing modes
@@ -352,14 +352,14 @@ public:
     // REG | R/M should be passed
     WORD *GetRegWordPtr(const BYTE modByte) {
         assert(modByte <= 7);
-        WORD *regTable[] = {&AX, &CX, &DX, &BX, &SP, &BP, &SI, &DI};
+        static WORD *regTable[] = {&AX, &CX, &DX, &BX, &SP, &BP, &SI, &DI};
         return regTable[modByte];
     }
 
     // REG | R/M should be passed
     WORD *GetSRegWordPtr(const BYTE modByte) {
         assert(modByte <= 3);
-        WORD *regTable[] = {&ES, &CS, &SS, &DS};
+        static WORD *regTable[] = {&ES, &CS, &SS, &DS};
         return regTable[modByte];
     }
 };

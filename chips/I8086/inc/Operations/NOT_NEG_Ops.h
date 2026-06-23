@@ -12,9 +12,9 @@ namespace NOT_NEG {
         const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
         const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
 
-        const T operand = instructionData.singleOp.get(cpu);
+        const T operand = instructionData.leftOp.get(cpu);
         T opRes = callback(cpu, operand);
-        instructionData.singleOp.set(cpu, opRes);
+        instructionData.leftOp.set(cpu, opRes);
     }
 }
 

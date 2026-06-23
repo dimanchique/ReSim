@@ -3,7 +3,7 @@
 #include "I8086.h"
 
 FORCE_INLINE void PerformLoop(I8086 &cpu, const bool conditionFlag = true) {
-    const SWORD disp = cpu.Fetch<WORD>();
+    const SWORD disp = (SWORD)cpu.Fetch<WORD>();
     cpu.CX--;
     if (conditionFlag && cpu.CX > 0)
         cpu.PC += disp;

@@ -7,7 +7,7 @@ class I8086_ADD_Fixture : public I8086_DoubleOpFixture {
 class I8086_ADD_IM_Fixture : public I8086_SingleOpFixture {
 };
 
-// Mem (BX addressed) <-- AX + Mem (BX addressed)
+// Mem (BX addressed) <-- Mem (BX addressed) + AX
 TEST_F(I8086_ADD_Fixture, ADD_Ev_Gv_BX_Addressed_AX) {
     ModRegByteConstructor modReg;
 

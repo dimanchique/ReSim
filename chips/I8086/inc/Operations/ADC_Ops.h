@@ -6,12 +6,14 @@ template<typename T>
 void PerformADC(I8086& cpu, InstructionResult<T>& result) {
     const T before = result.leftOp.before;
     const T value = result.rightOp.before;
-    result.leftOp.after = before + value + cpu.Status.C;
-    result.rightOp.after = value; // Preserve source operand
 
-    // Calculate flags
-    cpu.Status.C = (result.leftOp.after < before); // Carry
-    cpu.Status.A = ((before & 0xF) + (value & 0xF)) > 0xF; // Auxiliary
+    const BYTE oldC = cpu.Status.C;
+    const DWORD fullResult = (DWORD)before + value + oldC;
+    result.leftOp.after = (T)fullResult;
+    result.rightOp.after = value;
+
+    cpu.Status.C = fullResult > (T)~0;
+    cpu.Status.A = ((before & 0xF) + (value & 0xF) + oldC) > 0xF; // Auxiliary
     cpu.Status.O = ((before ^ ~value) & (before ^ result.leftOp.after)) >> (sizeof(T)*8-1); // Overflow
     cpu.Status.UpdateStatusByValue(result.leftOp.after, I8086_Status_S | I8086_Status_Z | I8086_Status_P);
 }

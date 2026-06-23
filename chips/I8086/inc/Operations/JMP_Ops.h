@@ -27,7 +27,7 @@ void I8086_JMP_Jb(BYTE, I8086 &cpu) {
 void JMP_GRP5(I8086& cpu, const ModRegByte& modReg) {
     const OperandSize opSize = OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
-    WORD newPC = instructionData.singleOp.get(cpu);
+    WORD newPC = instructionData.leftOp.get(cpu);
 
     cpu.PC = newPC;
 }
@@ -35,13 +35,13 @@ void JMP_GRP5(I8086& cpu, const ModRegByte& modReg) {
 void JMP_GRP5_MP(I8086& cpu, const ModRegByte& modReg) {
     const OperandSize opSize = OperandSize::WORD;
     const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
-    WORD newPC = instructionData.singleOp.get(cpu);
+    WORD newPC = instructionData.leftOp.get(cpu);
 
     cpu.PC = newPC;
 }
 
 FORCE_INLINE void PerformJump(I8086 &cpu, const bool conditionFlag = true) {
-    const SWORD disp = cpu.Fetch<WORD>();
+    const SWORD disp = (SWORD)cpu.Fetch<WORD>();
     if (conditionFlag)
         cpu.PC += disp;
 }
