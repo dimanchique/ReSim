@@ -3,6 +3,7 @@
 #include "I8086.h"
 #include "OR_Ops.h"
 #include "AND_Ops.h"
+#include "SUB_Ops.h"
 #include "XOR_Ops.h"
 #include "ROR_RCR_SAR_SHR_Ops.h"
 #include "ROL_RCL_SAL_SHL_Ops.h"
@@ -33,7 +34,7 @@ FORCE_INLINE void I8086_GRP1_Ex_Ix(I8086 &cpu) {
             &I8086_ADC_Ex_Ix<T>,    // 010 -> ADC
             &GRP_InvalidCall<T>,    // 011 -> SBB
             &I8086_AND_Ex_Ix<T>,    // 100 -> AND
-            &GRP_InvalidCall<T>,    // 101 -> SUB
+            &I8086_SUB_Ex_Ix<T>,    // 101 -> SUB
             &I8086_XOR_Ex_Ix<T>,    // 110 -> XOR
             &GRP_InvalidCall<T>     // 111 -> CMP
     };
