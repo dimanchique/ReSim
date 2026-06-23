@@ -103,7 +103,7 @@ TEST_F(I8080_SBBFixture, SBB_B_2) {
 TEST_F(I8080_SBBFixture, SBB_B_3) {
     cpu.B = 0b01000010;
     SBB_Register_CanSBBRegisterToAccumulator(SBB_B, 0b00111101, 1, 0b11111010,
-                               I8080_Status{.C = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+                               I8080_Status{.C = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_SBBFixture, SBB_B_4) {
@@ -124,7 +124,7 @@ TEST_F(I8080_SBBFixture, SBB_M_2) {
 
 TEST_F(I8080_SBBFixture, SBB_M_3) {
     SBB_CanSBBMemoryFromAccumulator(0b01000010, 0b00111101, 1, 0b11111010,
-                               I8080_Status{.C = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+                               I8080_Status{.C = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_SBBFixture, SBB_M_4) {
@@ -144,7 +144,7 @@ TEST_F(I8080_SBBFixture, SBI_2) {
 
 TEST_F(I8080_SBBFixture, SBI_3) {
     SBI_CanSBBImmediateValueFromAccumulator(0b01000010, 0b00111101, 1, 0b11111010,
-                               I8080_Status{.C = 1, .P = 1, .AC = 1, .Z = 0, .S = 1});
+                               I8080_Status{.C = 1, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
 
 TEST_F(I8080_SBBFixture, SBI_4) {

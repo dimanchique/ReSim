@@ -19,7 +19,7 @@ FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
     cpu.A = subResult & 0xFF;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_P);
     cpu.Status.S = initialAccumulator < targetRegister;
-    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, twosComplement);
+    cpu.Status.AC = ((initialAccumulator & 0x0F) < (twosComplement & 0x0F));
 }
 
 /**
@@ -29,12 +29,11 @@ FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_A(I8080 &cpu) {
-    const BYTE initialAccumulator = cpu.A;
     const WORD subResult = (WORD)cpu.A + (~cpu.A + 1 + cpu.Status.C);
     cpu.Status.C = ((subResult & 0x0100) != 0);
     cpu.A = subResult & 0xFF;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
-    cpu.Status.SetAuxiliaryCarryFlag(initialAccumulator, initialAccumulator);
+    cpu.Status.AC = false;
 }
 
 /**

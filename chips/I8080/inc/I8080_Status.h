@@ -56,7 +56,7 @@ struct I8080_Status {
      * @details Half adder logic is executing until fourth bit value is checked.
      * @params firstOp First operand of add operation.
      * @params secondOpWithCarry Second operand of add operation.
-     * @params initialCarry Optional initial carry (for ADC/SBB instructions).
+     * @params initialCarry Optional initial carry (for ADC instructions).
      */
     FORCE_INLINE void
     SetAuxiliaryCarryFlag(const BYTE firstOp, const BYTE secondOpWithCarry, const BYTE initialCarry = 0) {
