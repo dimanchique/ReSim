@@ -21,12 +21,12 @@
 - [x] ADC_AX_Iv
 - [x] PUSH_SS
 - [x] POP_SS
-- [ ] SBB_Eb_Gb
-- [ ] SBB_Ev_Gv
-- [ ] SBB_Gb_Eb
-- [ ] SBB_Gv_Ev
-- [ ] SBB_AL_Ib
-- [ ] SBB_AX_Iv
+- [x] SBB_Eb_Gb
+- [x] SBB_Ev_Gv
+- [x] SBB_Gb_Eb
+- [x] SBB_Gv_Ev
+- [x] SBB_AL_Ib
+- [x] SBB_AX_Iv
 - [x] PUSH_DS
 - [x] POP_DS
 - [x] AND_Eb_Gb
