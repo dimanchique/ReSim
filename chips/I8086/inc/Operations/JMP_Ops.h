@@ -10,18 +10,18 @@ void I8086_JMP_Ap(BYTE, I8086 &cpu) {
     cpu.CS = segmentBase;
 }
 
-template<typename T>
+template<typename T, typename U>
 void I8086_JMP_Jx(I8086 &cpu) {
-    const T displacement = cpu.Fetch<T>();
+    const U displacement = (U)cpu.Fetch<T>();
     cpu.PC += displacement;
 }
 
 void I8086_JMP_Jv(BYTE, I8086 &cpu) {
-    I8086_JMP_Jx<WORD>(cpu);
+    I8086_JMP_Jx<WORD, SWORD>(cpu); // read WORD cast to SWORD
 }
 
 void I8086_JMP_Jb(BYTE, I8086 &cpu) {
-    I8086_JMP_Jx<SBYTE>(cpu);
+    I8086_JMP_Jx<BYTE, SBYTE>(cpu); // read BYTE cast to SBYTE
 }
 
 void JMP_GRP5(I8086& cpu, const ModRegByte& modReg) {
@@ -41,7 +41,7 @@ void JMP_GRP5_MP(I8086& cpu, const ModRegByte& modReg) {
 }
 
 FORCE_INLINE void PerformJump(I8086 &cpu, const bool conditionFlag = true) {
-    const SWORD disp = (SWORD)cpu.Fetch<WORD>();
+    const SBYTE disp = (SBYTE)cpu.Fetch<BYTE>();
     if (conditionFlag)
         cpu.PC += disp;
 }

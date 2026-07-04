@@ -15,8 +15,7 @@ TEST_F(I8086_LOOP_Fixture, LOOP_Jb) {
 
     mem[memoryAddress++] = DEC_AX;
     mem[memoryAddress++] = LOOP_Jb;
-    mem[memoryAddress++] = 0xFC; // PC offset = -0x0004
-    mem[memoryAddress++] = 0xFF; //
+    mem[memoryAddress++] = 0xFD; // PC offset = -0x0003
     mem[memoryAddress++] = I8086_STOP_OPCODE;
 
     // when:
@@ -40,8 +39,7 @@ TEST_F(I8086_LOOP_Fixture, LOOPZ_Jb) {
     mem[memoryAddress++] = TEST_AL_Ib;
     mem[memoryAddress++] = 0;   // Just to get Z=1
     mem[memoryAddress++] = LOOP_Jb;
-    mem[memoryAddress++] = 0xFA; // PC offset = -0x0006
-    mem[memoryAddress++] = 0xFF; //
+    mem[memoryAddress++] = 0xFB; // PC offset = -0x0005
     mem[memoryAddress++] = I8086_STOP_OPCODE;
 
     // when:
@@ -65,8 +63,7 @@ TEST_F(I8086_LOOP_Fixture, LOOPNZ_Jb) {
     mem[memoryAddress++] = TEST_AL_Ib;
     mem[memoryAddress++] = 0xFF; // Just to get Z=0
     mem[memoryAddress++] = LOOP_Jb;
-    mem[memoryAddress++] = 0xFA; // PC offset = -0x0006
-    mem[memoryAddress++] = 0xFF; //
+    mem[memoryAddress++] = 0xFB; // PC offset = -0x0005
     mem[memoryAddress++] = I8086_STOP_OPCODE;
 
     // when:

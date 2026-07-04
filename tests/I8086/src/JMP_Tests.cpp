@@ -65,7 +65,6 @@ protected:
 
         mem[effectiveAddress++] = opcode;
         mem[effectiveAddress++] = 0x10; // +16 displacement
-        mem[effectiveAddress++] = 0x00;
         mem[effectiveAddress + 0x10] = I8086_STOP_OPCODE;
         mem[effectiveAddress] = I8086_STOP_OPCODE;
 
@@ -75,7 +74,7 @@ protected:
         cyclesPassed = cpu.Run();
 
         // then:
-        EXPECT_EQ(cpu.PC, initialPC + (condition ? 0x13 : 0x03));
+        EXPECT_EQ(cpu.PC, initialPC + (condition ? 0x12 : 0x02));
     }
 };
 
@@ -118,8 +117,7 @@ TEST_F(I8086_JMP_Fixture, JumpBackwards) {
     cpu.Status.Z = true;
     mem[effectiveAddress - 1] = I8086_STOP_OPCODE;
     mem[effectiveAddress++] = JZ_Jb;
-    mem[effectiveAddress++] = 0xFC; // -4 displacement
-    mem[effectiveAddress++] = 0xFF;
+    mem[effectiveAddress++] = 0xFD; // -3 displacement
     mem[effectiveAddress] = I8086_STOP_OPCODE;
     cyclesExpected = 16;
 
@@ -138,7 +136,6 @@ TEST_F(I8086_JMP_Fixture, JumpBackwardsNotTaken) {
     mem[effectiveAddress - 1] = I8086_STOP_OPCODE;
     mem[effectiveAddress++] = JZ_Jb;
     mem[effectiveAddress++] = 0xFC; // -4 displacement
-    mem[effectiveAddress++] = 0xFF;
     mem[effectiveAddress] = I8086_STOP_OPCODE;
     cyclesExpected = 16;
 
@@ -146,25 +143,7 @@ TEST_F(I8086_JMP_Fixture, JumpBackwardsNotTaken) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, initialPC + 3);
-}
-
-// Word displacement
-TEST_F(I8086_JMP_Fixture, JumpNearWordDisplacement) {
-    // given:
-    const DWORD initialPC = cpu.PC;
-    cpu.Status.C = true;
-    mem[effectiveAddress++] = JB_Jb;
-    mem[effectiveAddress++] = 0x00; // Low byte
-    mem[effectiveAddress++] = 0x10; // High byte (+0x1000)
-    mem[EFFECTIVE_ADDRESS(cpu.PC + 0x1000 + 3, cpu.CS)] = I8086_STOP_OPCODE;
-    cyclesExpected = 16;
-
-    // when:
-    cyclesPassed = cpu.Run();
-
-    // then:
-    EXPECT_EQ(cpu.PC, initialPC + 0x1000 + 3);
+    EXPECT_EQ(cpu.PC, initialPC + 2);
 }
 
 TEST_F(I8086_JMP_Fixture, JMP_Ap) {
@@ -192,13 +171,13 @@ TEST_F(I8086_JMP_Fixture, JMP_Jb) {
 
     mem[0x11000] = JMP_Jb;
     mem[0x11001] = 0x50; // PC offset = +0x0050
-    mem[0x11053] = I8086_STOP_OPCODE;
+    mem[0x11052] = I8086_STOP_OPCODE;
 
     // when:
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.PC, 0x1053);
+    EXPECT_EQ(cpu.PC, 0x1052);
 }
 
 TEST_F(I8086_JMP_Fixture, JMP_Jv) {
