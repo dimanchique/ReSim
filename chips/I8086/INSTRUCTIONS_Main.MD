@@ -53,12 +53,12 @@
 - [x] XOR_AX_Iv
 - [ ] SS
 - [ ] AAA
-- [ ] CMP_Eb_Gb
-- [ ] CMP_Ev_Gv
-- [ ] CMP_Gb_Eb
-- [ ] CMP_Gv_Ev
-- [ ] CMP_AL_Ib
-- [ ] CMP_AX_Iv
+- [x] CMP_Eb_Gb
+- [x] CMP_Ev_Gv
+- [x] CMP_Gb_Eb
+- [x] CMP_Gv_Ev
+- [x] CMP_AL_Ib
+- [x] CMP_AX_Iv
 - [ ] DS
 - [ ] AAS
 - [x] INC_AX

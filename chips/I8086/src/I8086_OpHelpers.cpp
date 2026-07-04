@@ -1,6 +1,7 @@
 #include "I8086.h"
 #include "Operations/ADD_Ops.h"
 #include "Operations/SBB_Ops.h"
+#include "Operations/CMP_Ops.h"
 #include "Operations/SUB_Ops.h"
 #include "Operations/NOP_Ops.h"
 #include "Operations/GRP_Ops.h"
