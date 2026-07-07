@@ -42,9 +42,9 @@ int main(int argc, char** argv) {
     TTY tty;
     MOS6502 cpu;
 
-    bus.SetBusRegion(0x0000, 0xFFFF, &mem);
-    bus.SetBusRegion(Keyboard::KEYBOARD_ADDR, Keyboard::KEYBOARD_ADDR, &kbd);
-    bus.SetBusRegion(TTY::TTY_OUTPUT, TTY::TTY_OUTPUT, &tty);
+    bus.Attach(&mem, 0x0000, 0xFFFF);
+    bus.Attach(&kbd, Keyboard::KEYBOARD_ADDR, Keyboard::KEYBOARD_ADDR);
+    bus.Attach(&tty, TTY::TTY_OUTPUT, TTY::TTY_OUTPUT);
 
     cpu.LoadROM(filePath.c_str(), mem);
     cpu.SetBusInstance(&bus);

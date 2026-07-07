@@ -17,7 +17,7 @@ public:
     void SetUp() override {
         mem.Reset();
         cpu.Reset();
-        bus.SetBusRegion(0x0000, 0xFFFF, &mem);
+        bus.Attach(&mem, 0x0000, 0xFFFF);
         cpu.SetBusInstance(&bus);
 
         mem[0xFFFC] = effectiveAddress & 0xFF;

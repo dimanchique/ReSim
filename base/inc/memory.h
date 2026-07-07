@@ -11,10 +11,10 @@ template<typename BusWidth>
 class Memory : public IO_Device<BusWidth> {
 private:
     BYTE *mem;
-    BusWidth size;
+    size_t size;
 
 public:
-    explicit Memory(BusWidth memSize = 1) : size(memSize * 1024 - 1) {
+    explicit Memory(BusWidth memSize = 1) : size(memSize * 1024) {
         mem = new BYTE[size];
     }
 
@@ -26,12 +26,12 @@ public:
         memset(mem, 0xFF, size);
     }
 
-    bool SetMemory(const char *data, long long int numBytes) {
-        if (numBytes > size)
-            numBytes = size;
+    bool SetMemory(const char *data, size_t& numBytes, const size_t& startAddress = 0) {
+        if (numBytes > (size - startAddress))
+            numBytes = (size - startAddress);
         if (numBytes == 0)
             return false;
-        std::memcpy(mem, data, numBytes);
+        std::memcpy(mem + startAddress, data, numBytes);
         return true;
     }
 

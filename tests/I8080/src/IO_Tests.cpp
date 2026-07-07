@@ -33,7 +33,7 @@ TEST_F(I8080_IOFixture, IN_CanReadValue) {
 
     Bus<WORD> data_bus;
     cpu.SetDataBusInstance(&data_bus);
-    data_bus.SetBusRegion(device_address, device_address, &io_device);
+    data_bus.Attach(&io_device, device_address, device_address);
 
     cyclesExpected = 7;
 
@@ -59,7 +59,7 @@ TEST_F(I8080_IOFixture, OUT_CanWriteValue) {
 
     Bus<WORD> data_bus;
     cpu.SetDataBusInstance(&data_bus);
-    data_bus.SetBusRegion(device_address, device_address, &io_device);
+    data_bus.Attach(&io_device, device_address, device_address);
 
     cyclesExpected = 7;
 

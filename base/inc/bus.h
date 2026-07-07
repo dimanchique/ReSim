@@ -8,7 +8,7 @@
 template<typename BusWidth>
 class Bus {
 public:
-    void SetBusRegion(BusWidth startAddr, BusWidth endAddr, IO_Device<BusWidth>* io_device) {
+    void Attach(IO_Device<BusWidth>* io_device, BusWidth startAddr, BusWidth endAddr) {
         if (auto it = regions.lower_bound(startAddr); it != regions.end()) {
             if (regions.find(startAddr - 1) == regions.end())
                 regions[startAddr - 1] = it->second;

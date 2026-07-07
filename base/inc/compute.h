@@ -22,24 +22,23 @@ class Compute {
      * @param memory Memory struct instance.
      * @return True if the load was successful, false otherwise.
      */
-    virtual ~Compute() {};
+    virtual ~Compute() = default;
 
-    bool LoadROM(const char *filename, Memory<BusWidth> &memory) {
-        long long numBytesRead = 0;
+    bool LoadROM(const char *filename, Memory<BusWidth> &memory, const size_t& startAddress = 0) {
+        size_t numBytesRead = 0;
 
         const char* data = ReadBinary(filename, numBytesRead);
         if (!data)
             return false;
 
         Reset();
-        const bool setSuccess = memory.SetMemory(data, numBytesRead);
+        const bool setSuccess = memory.SetMemory(data, numBytesRead, startAddress);
         delete[] data;
 
         return setSuccess;
     }
 
     void SetBusInstance(Bus<BusWidth>* new_bus) { bus = new_bus; }
-    Bus<BusWidth>* GetBus() { return bus; }
 
 protected:
 
@@ -49,7 +48,7 @@ protected:
      * @param [out] fileSize Number of bytes read.
      * @return Char pointer to data (or nullptr if any error).
      */
-    static char* ReadBinary(const char *filename, long long &fileSize) {
+    static char* ReadBinary(const char *filename, size_t &fileSize) {
         std::ifstream file{filename, std::ios::binary | std::ios::ate};
 
         if (!file.is_open())
