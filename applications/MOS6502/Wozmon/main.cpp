@@ -3,26 +3,20 @@
 #include "bus.h"
 #include "keyboard.h"
 #include "tty.h"
-#include <iostream>
 #include <thread>
 #include <atomic>
 #include <filesystem>
 
 std::atomic<bool> g_running{true};
-std::string g_pending_input;
 
-void keyboard_thread(Keyboard* kbd) {
+void keyboard_thread(Keyboard *kbd) {
     while (g_running) {
-        std::string line;
-        if (std::getline(std::cin, line)) {
-            if (line == "quit" || line == "q") {
+        if (char input = get_single_key()) {
+            if (input == 'q') {
                 g_running = false;
                 break;
             }
-            g_pending_input += line;
-            kbd->set_input(g_pending_input.c_str());
-            g_pending_input = "";
-            std::cout << "\033[F";
+            kbd->set_input(input);
         } else {
             g_running = false;
             break;
@@ -30,7 +24,7 @@ void keyboard_thread(Keyboard* kbd) {
     }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     const std::filesystem::path projectRoot = SOURCE_DIR;
     const std::filesystem::path filePath = projectRoot / "program.bin";
 
@@ -53,7 +47,7 @@ int main(int argc, char** argv) {
 
     U32 cycles = 0;
     std::thread kb_thread(keyboard_thread, &kbd);
-    std::thread cpu_thread([&cpu, &cycles](){ cycles = cpu.Run(); });
+    std::thread cpu_thread([&cpu, &cycles]() { cycles = cpu.Run(); });
 
     while (g_running) {}
     cpu.Stop();

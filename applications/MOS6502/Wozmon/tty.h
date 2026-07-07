@@ -19,13 +19,17 @@ public:
         char c = static_cast<char>(value & 0x7F);
         if (c == '\r') {
             putchar('\n');
+        } else if (c == 0x5F) {       // '_' — Wozmon's backspace echo
+            putchar('\b');             // move cursor left
+            putchar(' ');              // overwrite with space
+            putchar('\b');             // move cursor left again
         } else if (c >= 0x20 && c < 0x7F) {
             putchar(c);
         }
         fflush(stdout);
     }
 
-    FORCE_INLINE BYTE& operator[](WORD address) override {
+    FORCE_INLINE BYTE &operator[](WORD address) override {
         static BYTE dummy = 0;
         return dummy;
     }
