@@ -11,18 +11,10 @@
 std::atomic<bool> g_running{true};
 std::string g_pending_input;
 
-void keyboard_thread(Keyboard* kbd) {
+void keyboard_thread(Keyboard *kbd) {
     while (g_running) {
-        std::string line;
-        if (std::getline(std::cin, line)) {
-            if (line == "quit" || line == "q") {
-                g_running = false;
-                break;
-            }
-            g_pending_input += line;
-            kbd->set_input(g_pending_input.c_str());
-            g_pending_input = "";
-            std::cout << "\033[F";
+        if (char input = get_single_key()) {
+            kbd->set_input(input);
         } else {
             g_running = false;
             break;
@@ -30,7 +22,7 @@ void keyboard_thread(Keyboard* kbd) {
     }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     const std::filesystem::path projectRoot = SOURCE_DIR;
     const std::filesystem::path filePath = projectRoot / "ehbasic.bin";
 
@@ -48,26 +40,10 @@ int main(int argc, char** argv) {
 
     cpu.LoadROM(filePath.c_str(), mem);
     cpu.SetBusInstance(&bus);
-    mem[0xFFFC] = 0x80;
-    mem[0xFFFD] = 0xFF;
-
-// MONRDKEY at $FD0C
-// Wrap for keyboard input
-    mem[0xFD0C] = 0xAD;  // LDA abs
-    mem[0xFD0D] = 0x00;  // $D100 low
-    mem[0xFD0E] = 0xD1;  // $D100 high
-    mem[0xFD0F] = 0x60;  // RTS
-
-// MONCOUT at $FDED
-// Wrap for tty output
-    mem[0xFDED] = 0x8D;  // STA abs
-    mem[0xFDEE] = 0x01;  // $D101 low
-    mem[0xFDEF] = 0xD1;  // $D101 high
-    mem[0xFDF0] = 0x60;  // RTS
 
     U32 cycles = 0;
     std::thread kb_thread(keyboard_thread, &kbd);
-    std::thread cpu_thread([&cpu, &cycles](){ cycles = cpu.Run(); });
+    std::thread cpu_thread([&cpu, &cycles]() { cycles = cpu.Run(); });
 
     while (g_running) {}
     cpu.Stop();

@@ -17,11 +17,16 @@ public:
 
     FORCE_INLINE void Write(WORD address, BYTE value) override {
         char c = static_cast<char>(value & 0x7F);
+        if (c == 0x08) // EhBASIC backspace echo
+        {
+            putchar('\b');             // move cursor left
+            putchar(' ');              // overwrite with space
+        }
         putchar(c);
         fflush(stdout);
     }
 
-    FORCE_INLINE BYTE& operator[](WORD address) override {
+    FORCE_INLINE BYTE &operator[](WORD address) override {
         static BYTE dummy = 0;
         return dummy;
     }
