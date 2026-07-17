@@ -7,8 +7,8 @@ enum I8086_OpCodes_Main : BYTE {
 //  ASCII Adjust...
     AAA = 0x37,             // ...for Addition
     AAS = 0x3F,             // ...for Subtraction
-    AAM_I0 = 0xD4,          // ...for Multiplication
-    AAD_I0 = 0xD5,          // ...for Division
+    AAM = 0xD4,             // ...for Multiplication
+    AAD = 0xD5,             // ...for Division
 
 //  Add with Carry
     ADC_Eb_Gb = 0x10,

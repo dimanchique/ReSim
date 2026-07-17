@@ -52,7 +52,7 @@
 - [x] XOR_AL_Ib
 - [x] XOR_AX_Iv
 - [ ] SS
-- [ ] AAA
+- [x] AAA
 - [x] CMP_Eb_Gb
 - [x] CMP_Ev_Gv
 - [x] CMP_Gb_Eb
@@ -60,7 +60,7 @@
 - [x] CMP_AL_Ib
 - [x] CMP_AX_Iv
 - [ ] DS
-- [ ] AAS
+- [x] AAS
 - [x] INC_AX
 - [x] INC_CX
 - [x] INC_DX
@@ -187,8 +187,8 @@
 - [x] GRP2_Ev_1
 - [x] GRP2_Eb_CL
 - [x] GRP2_Ev_CL
-- [ ] AAM_I0
-- [ ] AAD_I0
+- [x] AAM
+- [x] AAD
 - [x] XLAT
 - [x] LOOPNZ_Jb
 - [x] LOOPZ_Jb
