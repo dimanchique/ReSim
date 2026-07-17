@@ -1,10 +1,8 @@
 # ReSim - Retro Computing Simulator
 
-## 🎯 Project Overview
+## Project Overview
 
-**ReSim** (RetroSimulator) is a high-performance, cycle-accurate emulation framework for classic microprocessor units. Originally conceived as a 6502 functional simulator, it has evolved into a versatile platform supporting multiple historic CPU architectures.
-
-## 📊 Project Status
+**ReSim** is a high-performance emulation framework for classic microprocessor units.
 
 | Processor | Completion                                                 | Status |
 |-----------|------------------------------------------------------------|--------|
@@ -13,35 +11,12 @@
 | **Intel 8086** | ![84%](https://progress-bar.xyz/84?style=flat&width=200)   | 🚧 In Progress |
 | **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned |
 
-## ✨ Key Features
-
-### 🕒 Cycle-Accurate Emulation
-- **Precision Timing**: Each instruction emulates exact clock cycle behavior
-- **Bus Operations**: Accurate memory read/write cycle counting
-- **Multi-Architecture**: Consistent timing model across all supported CPUs
-
-### ⚡ High-Performance Core
-- **Optimized C++**: "C with classes" approach for minimal overhead
-- **Efficient Design**: No STL containers, RTTI, or heavy templates
-
-### 🧪 Comprehensive Testing
-- **Test-Driven Development**: Full unit test coverage using Google Test
-- **ASM Validation**: Additional assembly-level functional tests
-- **Cross-CPU Consistency**: Uniform testing methodology across all architectures
-- **Continuous Validation**: Automated test suites for regression prevention
-
-### 🔧 Developer Friendly
-- **Clean Architecture**: Consistent instruction decoding patterns
-- **Extensible Design**: Easy to add new CPU architectures
-
-## 🚀 Quick Start
-
-### Prerequisites
+## Prerequisites
 - C++17 compatible compiler (GCC, Clang, or MSVC)
 - CMake 3.22+
 - Google Test (for development and testing)
 
-### Building from Source
+## Building from Source
 ```bash
 git clone https://github.com/dimanchique/ReSim.git
 cd ReSim
@@ -49,10 +24,10 @@ mkdir build && cd build
 cmake ..
 make
 ```
-For building tests use `cmake .. -DRESIM_BUILD_TESTING=ON`. <br>
-Testing suites will be located in `tests/<cpu_name>/<cpu_name>-test`
+> For building tests use `cmake .. -DRESIM_BUILD_TESTING=ON`.
+> Testing suites will be located in `tests/<cpu_name>/<cpu_name>-test`
 
-## 🏗️ Architecture
+## Architecture
 ### Core Components
 ```
 ReSim/
@@ -73,13 +48,7 @@ ReSim/
 └── tests/           # Test suites
 ```
 
-### Design Philosophy
-- Accuracy First: Prioritize cycle accuracy over convenience
-- Performance Focus: Optimize for execution speed
-- Maintainability: Clean, documented code over clever tricks
-- Consistency: Uniform patterns across all CPU implementations
-
-## 🎮 Example Usage
+## Example Usage
 ```cpp
 // Sample code demonstrating ReSim integration
 #include "ReSim/MOS6502.h"
@@ -103,39 +72,78 @@ printf("Program completed in %u cycles\n", cpu.cycles);
 printf("Final state: A=0x%02X, PC=0x%04X\n", cpu.A, cpu.PC);
 ```
 
-## 🔮 Roadmap & Future Plans
-### Short Term (Next Release)
+## Demos and I/O Support
+For now only Memory Mapped I/O is implemented and tested. You can find examples in `applications`. It contains EhBasic 2.22 and Wozmon programs are located in `applications/MOS6502`.
+Both have assembled binaries and sources.
+Refer to them as examples for implementing TTY/Keyboard in your own integration. Or you can just have fun using Basic in emulator.
+
+```bash
+mkdir build
+cd build
+cmake ..
+make 6502-basic
+```
+After building and launching `build/applications/MOS6502/basic/6502-basic` you will get EhBasic initial prompt `"6502 EhBASIC [C]old/[W]arm ?"`.
+You can learn EhBasic [here](http://retro.hansotten.nl/6502-sbc/lee-davison-web-site/enhanced-6502-basic/ehbasic-language-reference/). 
+
+Wozmon printing memory content:
+```bash
+./6502-wozmon 
+Wozmon ready.
+
+\
+8000.8016
+
+8000: D8 58 A0 7F 8C 12 D0 A9
+8008: A7 8D 11 D0 8D 13 D0 C9
+8010: DF F0 13 C9 9B F0 03
+```
+
+## Principles
+
+### Comprehensive Testing
+- **Test-Driven Development**: ISA Integration tests with 86% coverage + assembly-level functional tests
+- **Cross-CPU Consistency**: Uniform testing methodology across all architectures
+- **Continuous Validation**: CI testing every merge-request for regression prevention
+
+### Developer Friendly
+- **Clean Architecture**: Consistent instruction decoding patterns
+- **Extensible Design**: Easy to add new CPU architectures
+
+### Design Philosophy
+- Accuracy First: Prioritize cycle accuracy over convenience
+- Performance Focus: Optimize for execution speed
+- Consistency: Uniform patterns across all CPU implementations
+
+## Roadmap & Future Plans
+### Short Term
 - Complete Intel 8086 instruction set
 - Enhanced debugging capabilities
 - Improved documentation
 
 ### Medium Term
-- Basic I/O support
 - Z80 implementation
 - Simple BIOS framework
 
 ### Long Term Vision
-- Full system emulation (CPU + peripherals)
 - Graphical debugger interface
 - Additional architectures (68000, 8051, etc.)
 - Plugin system for custom peripherals
 
-## ⚠️ Current Limitations
+## Current Limitations
 - No BIOS Support: Cannot run complex software or operating systems
-- No I/O: Memory-mapped I/O is in WIP state
-- Standalone Environment: Currently runs individual ASM programs only
 - Debugging Tools: Basic execution tracing, no graphical debugger
 
 💡 Note: Despite limitations, ReSim excels at running and testing assembly programs, making it ideal for education, prototyping, and low-level software development.
 
-## 🤝 Contributing
+## Contributing
 We welcome contributions from the community! Whether you're interested in:
 - Adding new CPU architectures
 - Improving existing emulators
 - Writing tests and documentation
 - Enhancing performance
 
-## 🙏 Acknowledgments
+## Acknowledgments
 This project was originally inspired by DavePoo's 6502 Emulator but has evolved into a completely independent implementation with:
 - Novel Architecture: Custom instruction decoding and execution flow 
 - Enhanced Accuracy: Improved cycle counting and timing
