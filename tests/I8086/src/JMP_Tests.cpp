@@ -47,10 +47,11 @@ protected:
                 cpu.Status.P = !condition;
                 break;
             case JL_Jb:
-                cpu.Status.S = condition; cpu.Status.O = !condition;
+                if (condition) { cpu.Status.S = true; cpu.Status.O = false; }
                 break;
             case JGE_Jb:
-                cpu.Status.S = cpu.Status.O;
+                if (condition) { /* S==O already from reset */ }
+                else { cpu.Status.O = true; cpu.Status.S = false; }
                 break;
             case JLE_Jb:
                 cpu.Status.Z = condition;
@@ -109,6 +110,24 @@ TEST_F(I8086_JMP_Fixture, JL_Taken)      { TestJump(JL_Jb, true); }
 TEST_F(I8086_JMP_Fixture, JGE_Taken)     { TestJump(JGE_Jb, true); }
 TEST_F(I8086_JMP_Fixture, JLE_Taken_Z)   { TestJump(JLE_Jb, true); }
 TEST_F(I8086_JMP_Fixture, JG_Taken)      { TestJump(JG_Jb, true); }
+
+// Sign flag jumps
+TEST_F(I8086_JMP_Fixture, JS_Taken)     { TestJump(JS_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JS_NotTaken)  { TestJump(JS_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JNS_Taken)    { TestJump(JNS_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JNS_NotTaken) { TestJump(JNS_Jb, false); }
+
+// Parity flag jumps
+TEST_F(I8086_JMP_Fixture, JPE_Taken)     { TestJump(JPE_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JPE_NotTaken)  { TestJump(JPE_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JPO_Taken)     { TestJump(JPO_Jb, true); }
+TEST_F(I8086_JMP_Fixture, JPO_NotTaken)  { TestJump(JPO_Jb, false); }
+
+// Signed comparison — not taken
+TEST_F(I8086_JMP_Fixture, JL_NotTaken)   { TestJump(JL_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JGE_NotTaken)  { TestJump(JGE_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JLE_NotTaken)  { TestJump(JLE_Jb, false); }
+TEST_F(I8086_JMP_Fixture, JG_NotTaken)   { TestJump(JG_Jb, false); }
 
 // Negative displacement
 TEST_F(I8086_JMP_Fixture, JumpBackwards) {
@@ -218,4 +237,32 @@ TEST_F(I8086_JMP_Fixture, JMP_GRP5_MP_FarIndirect_Address) {
     cyclesPassed = cpu.Run();
 
     EXPECT_EQ(cpu.PC, 0x5678);
+}
+
+// Backward unconditional jumps
+TEST_F(I8086_JMP_Fixture, JMP_Jb_Backwards) {
+    cpu.PC = 0x1000;
+
+    mem[effectiveAddress++] = JMP_Jb;
+    mem[effectiveAddress++] = 0xFC; // -4
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
+
+    mem[EFFECTIVE_ADDRESS(0x0FFE, cpu.CS)] = I8086_STOP_OPCODE;
+
+    cyclesPassed = cpu.Run();
+    EXPECT_EQ(cpu.PC, 0x0FFE);
+}
+
+TEST_F(I8086_JMP_Fixture, JMP_Jv_Backwards) {
+    cpu.PC = 0x1000;
+
+    mem[effectiveAddress++] = JMP_Jv;
+    mem[effectiveAddress++] = 0x00;
+    mem[effectiveAddress++] = 0xFF; // -256
+    mem[effectiveAddress] = I8086_STOP_OPCODE;
+
+    mem[EFFECTIVE_ADDRESS(0x0F03, cpu.CS)] = I8086_STOP_OPCODE;
+
+    cyclesPassed = cpu.Run();
+    EXPECT_EQ(cpu.PC, 0x0F03);
 }
