@@ -193,7 +193,7 @@
 - [x] LOOPNZ_Jb
 - [x] LOOPZ_Jb
 - [x] LOOP_Jb
-- [ ] JCXZ_Jb
+- [x] JCXZ_Jb
 - [ ] IN_AL_Ib
 - [ ] IN_AX_Ib
 - [ ] OUT_Ib_AL

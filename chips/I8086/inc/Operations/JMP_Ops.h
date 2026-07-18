@@ -109,3 +109,7 @@ void I8086_JLE_Jb(BYTE, I8086 &cpu) {
 void I8086_JG_Jb(BYTE, I8086 &cpu) {
     PerformJump(cpu, !((cpu.Status.S ^ cpu.Status.O) || cpu.Status.Z));
 }
+
+void I8086_JCXZ_Jb(BYTE, I8086 &cpu) {
+    PerformJump(cpu, cpu.CX == 0);
+}

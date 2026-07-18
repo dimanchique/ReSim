@@ -8,7 +8,7 @@
 |-----------|------------------------------------------------------------|--------|
 | **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
 | **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
-| **Intel 8086** | ![84%](https://progress-bar.xyz/84?style=flat&width=200)   | 🚧 In Progress |
+| **Intel 8086** | ![87%](https://progress-bar.xyz/87?style=flat&width=200)   | 🚧 In Progress |
 | **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned |
 
 ## Prerequisites
