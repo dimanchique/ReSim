@@ -25,8 +25,7 @@ FORCE_INLINE void PerformROL(MOS6502 &cpu, const MOS6502_AddressingMode addressi
 /**
  * @brief Rotate Left Accumulator
  * @details Same as PerformROL, but with Accumulator as target.
- * @param memory Memory struct instance
- * @param cpu MOS6502 struct instance
+ * @param cpu MOS6502 struct instance.
  */
 void MOS6502_ROL_ACC(MOS6502 &cpu) {
     const bool carry = cpu.A & (1 << 7);

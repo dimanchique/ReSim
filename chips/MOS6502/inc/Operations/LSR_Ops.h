@@ -3,7 +3,7 @@
 
 /**
  * @brief Logical Shift Right Implementation
- * @details Each of the bits in A or M is shift one place to the right.
+ * @details Each of the bits in A or M is shifted one place to the right.
  * The bit that was in bit 0 is shifted into the carry flag. Bit 7 is set to zero.
  * @short A,C,Z,N = A/2 or M,C,Z,N = M/2
  * @param cpu MOS6502 struct instance.

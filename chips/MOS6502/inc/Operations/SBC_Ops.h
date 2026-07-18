@@ -3,7 +3,7 @@
 
 /**
  * @brief Subtract with Carry Implementation
- * @details This instruction subtracts the contents of a memory location to the accumulator
+ * @details This instruction subtracts the contents of a memory location from the accumulator
  * together with the not of the carry bit.
  * If overflow occurs the carry bit is clear, this enables multiple byte subtraction to be performed.
  * @short A,Z,C,N = A-M-(1-C)
@@ -32,8 +32,7 @@ void MOS6502_SBC_IM(MOS6502 &cpu) {
 /**
  * @brief Subtract with Carry
  * @addressing Zero Page
- * @param memory Memory struct instance
- * @param cpu MOS6502 struct instance
+ * @param cpu MOS6502 struct instance.
  */
 void MOS6502_SBC_ZP(MOS6502 &cpu) {
     PerformSBC(cpu, MOS6502_AddressingMode::ZeroPage);

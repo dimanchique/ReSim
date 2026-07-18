@@ -52,11 +52,11 @@ void MOS6502_TAY_IMPL(MOS6502 &cpu) {
 }
 
 /**
- * @brief Transfer Accumulator to X
+ * @brief Transfer Y to Accumulator
  * @addressing Implied
- * @details Copies the current contents of the accumulator into the X register
+ * @details Copies the current contents of the Y register into the accumulator
  * and sets the zero and negative flags as appropriate.
- * @short X = A
+ * @short A = Y
  * @param cpu MOS6502 struct instance.
  */
 void MOS6502_TYA_IMPL(MOS6502 &cpu) {
