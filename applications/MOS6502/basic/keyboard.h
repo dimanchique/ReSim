@@ -41,7 +41,7 @@ class Keyboard : public IO_Device<WORD> {
 public:
     static constexpr WORD KEYBOARD_ADDR = 0xD010;
 
-    Keyboard() {}
+    Keyboard() = default;
 
     void set_input(const char newInput) {
         std::lock_guard lock(input_mtx);
@@ -50,18 +50,14 @@ public:
     }
 
     FORCE_INLINE BYTE Read(WORD address) override {
-        switch (address) {
-            case KEYBOARD_ADDR: {
-                std::lock_guard lock(input_mtx);
-                if (input_ready) {
-                    input_ready = false;
-                    return input | 0x80;
-                }
-                return 0x00;
+        if (address == KEYBOARD_ADDR) {
+            std::lock_guard lock(input_mtx);
+            if (input_ready) {
+                input_ready = false;
+                return input | 0x80;
             }
-            default:
-                return 0x00;
         }
+        return 0x00;
     }
 
     FORCE_INLINE void Write(WORD address, BYTE value) override {}

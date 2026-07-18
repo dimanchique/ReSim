@@ -53,7 +53,7 @@ def group_target_files(regexp: re.Pattern, path: str) -> dict:
     return target_storage
 
 
-# Find all opcode definition files and instruction markdown files
+# Find all opcode definition files and instruction Markdown files
 read_targets = group_target_files(opcodes_targets_re, cpu_include_root)
 instructions_targets = group_target_files(instructions_re, cpu_root)
 
@@ -97,7 +97,7 @@ for group_name, group_instructions_file in instructions_targets.items():
 
     print(f'Processing group "{group_name}"')
 
-    # Extract instruction names from markdown file (lines starting with [x])
+    # Extract instruction names from Markdown file (lines starting with [x])
     opcodes_list = []
     opcode_re_exp = r"\[x\]\s+(\w+).*$"  # [x] INSTRUCTION_NAME
     scan_regex(
