@@ -33,8 +33,8 @@ public:
 
     WORD PC;    // Program Counter
 
-    // As far as segment is overriding only by specific instructions we can store default segment DS here as a pointer
     WORD *currentSegment = &DS;
+    void PerformSegmentOverriding(BYTE opCode);
 
     void Reset() noexcept override;
 
@@ -103,14 +103,6 @@ public:
         const BYTE hh = ReadByte(stackPointerAddress++);
         SP++;
         return hh << 8 | ll;
-    }
-
-    // Override segment register
-    // Current segment is a segment used to calculate EFFECTIVE ADDRESS
-    // Default is DS
-    FORCE_INLINE void OverrideSegmentRegister(WORD *newSegment) {
-        currentSegment = newSegment;
-        cycles += 2;
     }
 
     // MOD|REG|R/M control byte principles
