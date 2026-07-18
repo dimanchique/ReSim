@@ -23,6 +23,7 @@
 #include "Operations/TEST_Ops.h"
 #include "Operations/DAA_DAS_Ops.h"
 #include "Operations/AA_Ops.h"
+#include "Operations/MISC_Ops.h"
 
 static void I8086_INVALID_OP(BYTE, I8086&) {}
 

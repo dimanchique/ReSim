@@ -35,7 +35,7 @@
 - [x] AND_Gv_Ev
 - [x] AND_AL_Ib
 - [x] AND_AX_Iv
-- [ ] ES
+- [x] ES
 - [x] DAA
 - [x] SUB_Eb_Gb
 - [x] SUB_Ev_Gv
@@ -43,7 +43,7 @@
 - [x] SUB_Gv_Ev
 - [x] SUB_AL_Ib
 - [x] SUB_AX_Iv
-- [ ] CS
+- [x] CS
 - [x] DAS
 - [x] XOR_Eb_Gb
 - [x] XOR_Ev_Gv
@@ -51,7 +51,7 @@
 - [x] XOR_Gv_Ev
 - [x] XOR_AL_Ib
 - [x] XOR_AX_Iv
-- [ ] SS
+- [x] SS
 - [x] AAA
 - [x] CMP_Eb_Gb
 - [x] CMP_Ev_Gv
@@ -59,7 +59,7 @@
 - [x] CMP_Gv_Ev
 - [x] CMP_AL_Ib
 - [x] CMP_AX_Iv
-- [ ] DS
+- [x] DS
 - [x] AAS
 - [x] INC_AX
 - [x] INC_CX
@@ -134,7 +134,7 @@
 - [x] CBW
 - [x] CWD
 - [x] CALL_Ap
-- [ ] WAIT
+- [x] WAIT
 - [x] PUSHF
 - [x] POPF
 - [x] SAHF
@@ -209,7 +209,7 @@
 - [ ] LOCK
 - [ ] REPNZ
 - [ ] REPZ
-- [ ] HLT
+- [x] HLT
 - [x] CMC
 - [x] GRP3a_Eb
 - [x] GRP3b_Ev

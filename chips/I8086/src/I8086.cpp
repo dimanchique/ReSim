@@ -20,8 +20,9 @@ bool I8086::Step() {
     // will change this for the following instruction only.
     currentSegment = &DS;
 
-    // ---- segment override prefixes -------------------------------------------
-    // Consume any number of consecutive prefix bytes; only the last one wins.
+    // ---- instruction prefixes ------------------------------------------------
+    // Consume any number of consecutive prefix bytes; only the last one wins
+    // within each prefix class (segment override, REP).
     BYTE opCode;
     do {
         opCode = Fetch<BYTE>();
@@ -29,7 +30,7 @@ bool I8086::Step() {
         // so we're using value 11100111 as a filter mask for fast search
         // if opCode & 11100111 equals I8086_OpCodes_Main::ES (which is 00100110)
         // then we detect segment override opCode
-        if ((opCode & 0b11100111) == I8086_OpCodes_Main::ES)
+        if (((opCode & 0b11100111) == I8086_OpCodes_Main::ES))
             PerformSegmentOverriding(opCode);
         else break;
     } while (true);
