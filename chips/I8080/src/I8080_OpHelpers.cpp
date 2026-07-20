@@ -44,6 +44,7 @@
 #include "Operations/RST_Ops.h"
 #include "Operations/SUB_Ops.h"
 #include "Operations/SBB_Ops.h"
+#include "Operations/INT_Ops.h"
 
 static void I8080_INVALID_OP(I8080&) {}
 

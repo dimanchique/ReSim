@@ -3,8 +3,8 @@
 #define DECLARE_PAIRED_REG_UNIQUE_NAME(SUB_SIZE, RESULT_SIZE, NAME1, NAME2, NAME_PAIRED)    \
 union{                                                                          \
     struct{                                                                     \
-        SUB_SIZE NAME1;                                                         \
         SUB_SIZE NAME2;                                                         \
+        SUB_SIZE NAME1;                                                         \
     };                                                                          \
     RESULT_SIZE NAME_PAIRED;                                                    \
 }

@@ -12,7 +12,8 @@
  */
 FORCE_INLINE void PerformComparison(I8080 &cpu, const BYTE &targetRegister) {
     const BYTE comparisonResult = cpu.A - targetRegister;
-    cpu.Status.UpdateStatusByValue(comparisonResult, I8080_Status_Z | I8080_Status_C);
+    cpu.Status.C = cpu.A < targetRegister;
+    cpu.Status.UpdateStatusByValue(comparisonResult, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
 }
 
 /**

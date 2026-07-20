@@ -71,7 +71,7 @@ TEST_F(I8080_CMPFixture, CMP_B_2) {
 
 TEST_F(I8080_CMPFixture, CMP_B_3) {
     cpu.B = 0x05;
-    CMP_CanCompareReg(CMP_B, 0x02, false, false);
+    CMP_CanCompareReg(CMP_B, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_B_4) {
@@ -91,7 +91,7 @@ TEST_F(I8080_CMPFixture, CMP_C_2) {
 
 TEST_F(I8080_CMPFixture, CMP_C_3) {
     cpu.C = 0x05;
-    CMP_CanCompareReg(CMP_C, 0x02, false, false);
+    CMP_CanCompareReg(CMP_C, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_C_4) {
@@ -111,7 +111,7 @@ TEST_F(I8080_CMPFixture, CMP_D_2) {
 
 TEST_F(I8080_CMPFixture, CMP_D_3) {
     cpu.D = 0x05;
-    CMP_CanCompareReg(CMP_D, 0x02, false, false);
+    CMP_CanCompareReg(CMP_D, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_D_4) {
@@ -131,7 +131,7 @@ TEST_F(I8080_CMPFixture, CMP_E_2) {
 
 TEST_F(I8080_CMPFixture, CMP_E_3) {
     cpu.E = 0x05;
-    CMP_CanCompareReg(CMP_E, 0x02, false, false);
+    CMP_CanCompareReg(CMP_E, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_E_4) {
@@ -151,7 +151,7 @@ TEST_F(I8080_CMPFixture, CMP_H_2) {
 
 TEST_F(I8080_CMPFixture, CMP_H_3) {
     cpu.H = 0x05;
-    CMP_CanCompareReg(CMP_H, 0x02, false, false);
+    CMP_CanCompareReg(CMP_H, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_H_4) {
@@ -171,7 +171,7 @@ TEST_F(I8080_CMPFixture, CMP_L_2) {
 
 TEST_F(I8080_CMPFixture, CMP_L_3) {
     cpu.L = 0x05;
-    CMP_CanCompareReg(CMP_L, 0x02, false, false);
+    CMP_CanCompareReg(CMP_L, 0x02, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_L_4) {
@@ -188,7 +188,7 @@ TEST_F(I8080_CMPFixture, CMP_M_2) {
 }
 
 TEST_F(I8080_CMPFixture, CMP_M_3) {
-    CMP_CanCompareMemory(0x02, 0x05, false, false);
+    CMP_CanCompareMemory(0x02, 0x05, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CMP_M_4) {
@@ -204,7 +204,7 @@ TEST_F(I8080_CMPFixture, CPI_2) {
 }
 
 TEST_F(I8080_CMPFixture, CPI_3) {
-    CPI_CanCompareImmediateValue(0x02, 0x05, false, false);
+    CPI_CanCompareImmediateValue(0x02, 0x05, false, true);
 }
 
 TEST_F(I8080_CMPFixture, CPI_4) {

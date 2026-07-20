@@ -55,7 +55,7 @@ TEST_F(I8086_LOOP_Fixture, LOOPNZ_Jb) {
     cpu.SP = 0x6000;
 
     cpu.AX = 0x1234;
-    cpu.CX = 0x0123;
+    cpu.CX = 0x0123; // we want to iterate 0x0123 times
 
     DWORD memoryAddress = 0x11000;
 
@@ -70,5 +70,5 @@ TEST_F(I8086_LOOP_Fixture, LOOPNZ_Jb) {
     cyclesPassed = cpu.Run();
 
     // then:
-    EXPECT_EQ(cpu.AX, 0x1111);
+    EXPECT_EQ(cpu.AX, 0x1200); // but AL is hits 00 earlier, at 0x1200 value
 }

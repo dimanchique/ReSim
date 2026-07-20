@@ -20,33 +20,30 @@ public:
 };
 
 TEST_F(I8080_INXFixture, INX_B_CanIncrement) {
-    INX_CanIncrementValue(INX_B, reinterpret_cast<WORD*>(&cpu.B));
+    INX_CanIncrementValue(INX_B, &cpu.BC);
 }
 
 TEST_F(I8080_INXFixture, INX_B_CanIncrement_Overflowed) {
-    WORD* registerPtr = reinterpret_cast<WORD*>(&cpu.B);
-    *registerPtr = 0x39FF;
-    INX_CanIncrementValue(INX_B, registerPtr);
+    cpu.BC = 0x39FF;
+    INX_CanIncrementValue(INX_B, &cpu.BC);
 }
 
 TEST_F(I8080_INXFixture, INX_D_CanIncrement) {
-    INX_CanIncrementValue(INX_D, reinterpret_cast<WORD*>(&cpu.D));
+    INX_CanIncrementValue(INX_D, &cpu.DE);
 }
 
 TEST_F(I8080_INXFixture, INX_D_CanIncrement_Overflowed) {
-    WORD* registerPtr = reinterpret_cast<WORD*>(&cpu.D);
-    *registerPtr = 0x39FF;
-    INX_CanIncrementValue(INX_D, registerPtr);
+    cpu.DE = 0x39FF;
+    INX_CanIncrementValue(INX_D, &cpu.DE);
 }
 
 TEST_F(I8080_INXFixture, INX_H_CanIncrement) {
-    INX_CanIncrementValue(INX_H, reinterpret_cast<WORD*>(&cpu.H));
+    INX_CanIncrementValue(INX_H, &cpu.HL);
 }
 
 TEST_F(I8080_INXFixture, INX_H_CanIncrement_Overflowed) {
-    WORD* registerPtr = reinterpret_cast<WORD*>(&cpu.H);
-    *registerPtr = 0x39FF;
-    INX_CanIncrementValue(INX_H, registerPtr);
+    cpu.HL = 0x39FF;
+    INX_CanIncrementValue(INX_H, &cpu.HL);
 }
 
 //TEST_F(I8080_INXFixture, INX_SP_CanIncrement) {

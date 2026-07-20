@@ -21,8 +21,8 @@
 - [x] DAD - Add 16-bit number stored in B and C, H and L, D and E Registers
 - [x] DCR - Decrement Register or Memory
 - [x] DCX - Decrement Register Pair
-- [ ] DI - Disable Interrupts
-- [ ] EI - Enable Interrupts
+- [x] DI - Disable Interrupts
+- [x] EI - Enable Interrupts
 - [ ] HLT - Halt CPU
 - [x] IN - Input data to accumulator from outcome device
 - [x] INR - Increment Register or Memory
