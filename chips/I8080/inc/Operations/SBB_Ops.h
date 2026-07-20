@@ -10,16 +10,11 @@
  * @param targetRegister Register to subtract from Accumulator.
  */
 FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
-    const BYTE initialAccumulator = cpu.A;
-    const BYTE twosComplement = ~(targetRegister + cpu.Status.C) + 1;
-    const WORD subResult = (WORD)cpu.A + twosComplement;
-    const bool carryOut = ((subResult & 0x0100) != 0);
-    if (carryOut)
-        cpu.Status.C = 0;
-    cpu.A = subResult & 0xFF;
-    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_P);
-    cpu.Status.S = initialAccumulator < targetRegister;
-    cpu.Status.AC = ((initialAccumulator & 0x0F) < (twosComplement & 0x0F));
+    WORD result = (WORD)cpu.A - (WORD)targetRegister - (WORD)cpu.Status.C;
+    cpu.Status.AC = (((cpu.A ^ targetRegister ^ (BYTE)result) & 0x10) != 0);
+    cpu.Status.C = (result & 0x100) != 0;
+    cpu.A = (BYTE)(result & 0xFF);
+    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_Z | I8080_Status_P);
 }
 
 /**
@@ -29,11 +24,12 @@ FORCE_INLINE void PerformSBB(I8080 &cpu, const BYTE &targetRegister) {
  * @param cpu I8080 struct instance.
  */
 void I8080_SBB_A(I8080 &cpu) {
-    const WORD subResult = (WORD)cpu.A + (~cpu.A + 1 + cpu.Status.C);
-    cpu.Status.C = ((subResult & 0x0100) != 0);
-    cpu.A = subResult & 0xFF;
-    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
-    cpu.Status.AC = false;
+    PerformSBB(cpu, cpu.A);
+//    const WORD subResult = (WORD)cpu.A + (~cpu.A + 1 + cpu.Status.C);
+//    cpu.Status.C = ((subResult & 0x0100) != 0);
+//    cpu.A = subResult & 0xFF;
+//    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
+//    cpu.Status.AC = false;
 }
 
 /**
