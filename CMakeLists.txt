@@ -6,6 +6,10 @@ project(
     LANGUAGES CXX
 )
 
+if (PRINT_DIAGNOSTICS)
+    add_compile_definitions(PRINT_DIAGNOSTICS)
+endif ()
+
 if(RESIM_BUILD_SHARED)
     set(RESIM_BUILD_TYPE SHARED)
 else()

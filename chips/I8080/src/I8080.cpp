@@ -1,5 +1,8 @@
 #include <chrono>
 #include <thread>
+#ifdef PRINT_DIAGNOSTICS
+#include <iomanip>
+#endif
 #include "I8080.h"
 #include "I8080_OpHelpers.h"
 
@@ -13,6 +16,12 @@ void I8080::Reset() noexcept {
 }
 
 bool I8080::Step() {
+#ifdef PRINT_DIAGNOSTICS
+    std::cout << std::hex
+              << std::setfill('0')
+              << std::setw(4)
+              << PC << ": ";
+#endif
     const BYTE opCode = FetchByte();
     return DecodeInstruction(opCode, *this);
 }
@@ -24,13 +33,34 @@ U32 I8080::Run() {
     double sleep_needed = 0;
     bool decodeSuccess;
 
+#ifdef PRINT_DIAGNOSTICS
+    constexpr double one_tick_duration = 1.0f / 50000;
+#else
     constexpr double one_tick_duration = 1.0f / 5000000;
+#endif
 
     do {
         cycles = 0;
 
         begin = std::chrono::steady_clock::now();
+
+#ifdef PRINT_DIAGNOSTICS
+        WORD prevPC = PC;
+#endif
         decodeSuccess = Step();
+#ifdef PRINT_DIAGNOSTICS
+        WORD newPC = PC;
+        WORD size = newPC - prevPC;
+        size = size >= 3 ? 3 : size;
+
+        for (BYTE i = 1; i < size; i++) {
+            std::cout << std::hex
+                      << std::setfill('0')
+                      << std::setw(2) << (int) bus->Read(prevPC + i) << " ";
+        }
+        std::cout << "\n";
+#endif
+
         end = std::chrono::steady_clock::now();
 
         duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();

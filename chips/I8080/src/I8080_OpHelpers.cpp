@@ -46,6 +46,18 @@
 #include "Operations/SBB_Ops.h"
 #include "Operations/INT_Ops.h"
 
+#ifdef PRINT_DIAGNOSTICS
+/** Instructions names table */
+constexpr static char* OpNames[] =
+        {
+#ifndef ADD_CALL
+#define ADD_CALL(call) #call
+#include "I8080_OpCodesList_Main.h"
+#undef ADD_CALL
+#endif
+        };
+#endif
+
 static void I8080_INVALID_OP(I8080&) {}
 
 using OpSignature = void (*)(I8080&);
@@ -62,6 +74,13 @@ constexpr static OpSignature Ops[] =
 
 bool DecodeInstruction(const BYTE opcode, I8080 &cpu) {
     const OpSignature &instruction = Ops[opcode];
+#ifdef PRINT_DIAGNOSTICS
+    std::cout << OpNames[opcode]
+    << " ("
+    << std::hex
+    << int(opcode)
+    << ") ";
+#endif
     if((opcode == I8080_OpCodes_Main::RET && cpu.SP == 0xFFFF) || instruction == I8080_INVALID_OP)
         return false;
     instruction(cpu);
