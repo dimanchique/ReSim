@@ -25,6 +25,7 @@ FORCE_INLINE void SetAuxiliaryCarryFlagOfXOR(I8080 &cpu, const BYTE &oldValue, c
 FORCE_INLINE void PerformXRA(I8080 &cpu, const BYTE value) {
     const BYTE targetCopy = cpu.A;
     cpu.A ^= value;
+    cpu.Status.C = 0;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
     SetAuxiliaryCarryFlagOfXOR(cpu, targetCopy, cpu.A);
 }
@@ -39,6 +40,7 @@ void I8080_XRI(I8080 &cpu) {
     const BYTE targetCopy = cpu.A;
     const BYTE memoryValue = cpu.FetchByte();
     cpu.A ^= memoryValue;
+    cpu.Status.C = 0;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
     SetAuxiliaryCarryFlagOfXOR(cpu, targetCopy, cpu.A);
 }

@@ -10,6 +10,7 @@
  */
 FORCE_INLINE void PerformORA(I8080 &cpu, const BYTE value) {
     cpu.A |= value;
+    cpu.Status.C = 0;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
 }
 

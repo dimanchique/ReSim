@@ -10,5 +10,6 @@
 void I8080_ORI(I8080 &cpu) {
     const BYTE memoryValue = cpu.FetchByte();
     cpu.A |= memoryValue;
+    cpu.Status.C = 0;
     cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_S | I8080_Status_P | I8080_Status_Z);
 }
