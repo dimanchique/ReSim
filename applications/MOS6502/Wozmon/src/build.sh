@@ -2,11 +2,19 @@
 set -e
 
 if [ -z "$1" ]; then
-    echo "cc65 toolchain required! Usage: build.sh <cc65-directory>"
+    echo "vasm assembler required! Usage: build.sh <vasm-binary-or-directory>"
     exit 1
 fi
 
-CC65DIR="$1"
-CL="$CC65DIR/bin/cl65"
+VASM="$1"
+if [ -d "$VASM" ]; then
+    VASM="$VASM/vasm"
+fi
 
-$CL -t none -C wozmon.cfg -o wozmon.bin wozmon.s
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+echo "=== Building Wozmon for ReSim ==="
+"$VASM" -Fbin -dotdir -o "${DIR}/wozmon.bin" "${DIR}/wozmon.asm" -Lfmt=wide -L listing.lst
+
+echo "=== Done ==="
+ls -la "${DIR}/wozmon.bin"

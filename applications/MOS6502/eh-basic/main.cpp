@@ -9,7 +9,6 @@
 #include <filesystem>
 
 std::atomic<bool> g_running{true};
-std::string g_pending_input;
 
 void keyboard_thread(Keyboard *kbd) {
     while (g_running) {
@@ -35,7 +34,7 @@ int main(int argc, char **argv) {
     MOS6502 cpu;
 
     bus.Attach(&mem, 0x0000, 0xFFFF);
-    bus.Attach(&kbd, Keyboard::KEYBOARD_ADDR, Keyboard::KEYBOARD_ADDR);
+    bus.Attach(&kbd, Keyboard::KEYBOARD_DATA, Keyboard::KEYBOARD_DATA);
     bus.Attach(&tty, TTY::TTY_OUTPUT, TTY::TTY_OUTPUT);
 
     cpu.LoadROM(filePath.c_str(), mem);

@@ -25,9 +25,4 @@ public:
         putchar(c);
         fflush(stdout);
     }
-
-    FORCE_INLINE BYTE &operator[](WORD address) override {
-        static BYTE dummy = 0;
-        return dummy;
-    }
 };

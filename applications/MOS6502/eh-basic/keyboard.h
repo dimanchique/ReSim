@@ -39,7 +39,7 @@ char get_single_key() {
 
 class Keyboard : public IO_Device<WORD> {
 public:
-    static constexpr WORD KEYBOARD_ADDR = 0xD010;
+    static constexpr WORD KEYBOARD_DATA = 0xD010;
 
     Keyboard() = default;
 
@@ -50,22 +50,18 @@ public:
     }
 
     FORCE_INLINE BYTE Read(WORD address) override {
-        if (address == KEYBOARD_ADDR) {
+        if (address == KEYBOARD_DATA) {
             std::lock_guard lock(input_mtx);
             if (input_ready) {
                 input_ready = false;
                 return input | 0x80;
             }
+            return 0x00;
         }
         return 0x00;
     }
 
     FORCE_INLINE void Write(WORD address, BYTE value) override {}
-
-    FORCE_INLINE BYTE &operator[](WORD address) override {
-        static BYTE dummy = 0;
-        return dummy;
-    }
 
 private:
     char input = '\0';

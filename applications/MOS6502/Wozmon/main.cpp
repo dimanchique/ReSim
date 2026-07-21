@@ -37,10 +37,10 @@ int main(int argc, char **argv) {
     MOS6502 cpu;
 
     bus.Attach(&mem, 0x0000, 0xFFFF);
-    bus.Attach(&kbd, Keyboard::KEYBOARD_ADDR, Keyboard::KEYBOARD_STATUS);
+    bus.Attach(&kbd, Keyboard::KEYBOARD_DATA, Keyboard::KEYBOARD_STATUS);
     bus.Attach(&tty, TTY::TTY_OUTPUT, TTY::TTY_OUTPUT);
 
-    cpu.LoadROM(filePath.c_str(), mem);
+    cpu.LoadROM(filePath.c_str(), mem, 0xFF00);
     cpu.SetBusInstance(&bus);
 
     std::cerr << "Wozmon ready.\n\n";

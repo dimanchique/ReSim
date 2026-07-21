@@ -7,8 +7,8 @@ if [ -z "$1" ]; then
 fi
 
 CC65DIR="$1"
-ASM="$CC65DIR/ca65"
-LD="$CC65DIR/ld65"
+ASM="$CC65DIR/bin/ca65"
+LD="$CC65DIR/bin/ld65"
 
 $ASM --feature labels_without_colons -I $CC65DIR/include -o ehbasic.o min_mon.asm
 $LD -C ehbasic.cfg -o ehbasic.bin ehbasic.o
