@@ -7,3 +7,4 @@ project(
 )
 
 add_subdirectory(MOS6502)
+add_subdirectory(I8080)

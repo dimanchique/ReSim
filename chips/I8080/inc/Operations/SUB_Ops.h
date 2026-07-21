@@ -14,8 +14,7 @@ FORCE_INLINE void PerformSUB(I8080 &cpu, const BYTE &targetRegister) {
     const WORD subResult = (cpu.A + initialSrc + 1) ^ 0x100;
     cpu.Status.C = ((subResult & 0x0100) != 0);
     cpu.A = subResult & 0xFF;
-    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_P);
-    cpu.Status.S = subResult > 0xFF;
+    cpu.Status.UpdateStatusByValue(cpu.A, I8080_Status_Z | I8080_Status_S | I8080_Status_P);
     cpu.Status.AC = ((initialAccumulator & 0x0F) < (targetRegister & 0x0F));
 }
 

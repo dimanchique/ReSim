@@ -48,7 +48,7 @@
 
 #ifdef PRINT_DIAGNOSTICS
 /** Instructions names table */
-constexpr static char* OpNames[] =
+const static std::string OpNames[] =
         {
 #ifndef ADD_CALL
 #define ADD_CALL(call) #call

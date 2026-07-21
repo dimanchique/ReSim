@@ -21,9 +21,11 @@ void I8086_CALL_Jv(BYTE, I8086 &cpu) {
     cpu.PC += displacement;
 }
 
-void CALL_GRP5(I8086& cpu, const ModRegByte& modReg) {
+void CALL_GRP5(I8086 &cpu, const ModRegByte &modReg) {
     const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize,
+                                                                                InstructionDirection::MemReg_Imm,
+                                                                                modReg);
     WORD newPC = instructionData.leftOp.get(cpu);
 
     cpu.PushDataToStack(cpu.PC);
@@ -31,9 +33,11 @@ void CALL_GRP5(I8086& cpu, const ModRegByte& modReg) {
     cpu.PC = newPC;
 }
 
-void CALL_GRP5_MP(I8086& cpu, const ModRegByte& modReg) {
+void CALL_GRP5_MP(I8086 &cpu, const ModRegByte &modReg) {
     const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize,
+                                                                                InstructionDirection::MemReg_Imm,
+                                                                                modReg);
     DWORD effectiveAddress = instructionData.leftOp.operand.mem;
     WORD newPC = cpu.Read<WORD>(effectiveAddress);
     WORD newCS = cpu.Read<WORD>(effectiveAddress + 2);

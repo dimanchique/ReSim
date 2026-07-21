@@ -1,9 +1,10 @@
 #pragma once
+
 #include "I8086.h"
 #include "Adressing.h"
 
 template<typename T>
-void PerformADD(I8086& cpu, InstructionResult<T>& result) {
+void PerformADD(I8086 &cpu, InstructionResult<T> &result) {
     const T before = result.leftOp.before;
     const T value = result.rightOp.before;
     result.leftOp.after = before + value;
@@ -12,7 +13,7 @@ void PerformADD(I8086& cpu, InstructionResult<T>& result) {
     // Calculate flags
     cpu.Status.C = (result.leftOp.after < before); // Carry
     cpu.Status.A = ((before & 0xF) + (value & 0xF)) > 0xF; // Auxiliary
-    cpu.Status.O = ((before ^ ~value) & (before ^ result.leftOp.after)) >> (sizeof(T)*8-1); // Overflow
+    cpu.Status.O = ((before ^ ~value) & (before ^ result.leftOp.after)) >> (sizeof(T) * 8 - 1); // Overflow
     cpu.Status.UpdateStatusByValue(result.leftOp.after, I8086_Status_S | I8086_Status_Z | I8086_Status_P);
 }
 
@@ -43,7 +44,7 @@ void I8086_ADD_Gv_Ev(BYTE, I8086 &cpu) {
 
 // Immediate variants
 template<typename T>
-void I8086_ADD_Ax_Ix(T* regPtr, I8086 &cpu) {
+void I8086_ADD_Ax_Ix(T *regPtr, I8086 &cpu) {
     const T value = cpu.Fetch<T>();
     InstructionResult<T> result{};
     result.leftOp.before = *regPtr;

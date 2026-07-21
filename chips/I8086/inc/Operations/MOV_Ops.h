@@ -4,7 +4,7 @@
 #include "Adressing.h"
 
 template<typename T>
-void PerformMOV(I8086& cpu, InstructionResult<T>& result) {
+void PerformMOV(I8086 &cpu, InstructionResult<T> &result) {
     result.leftOp.after = result.rightOp.before;
     result.rightOp.after = result.leftOp.before;
     cpu.Status.C = 0;
@@ -41,8 +41,10 @@ void I8086_MOV_Gv_Ev(BYTE, I8086 &cpu) {
 void I8086_MOV_Sw_Ew(BYTE, I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte(modByte);
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::Reg_MemReg, modReg);
-    WORD* sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD,
+                                                                                InstructionDirection::Reg_MemReg,
+                                                                                modReg);
+    WORD *sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
     *sRegPtr = instructionData.rightOp.get(cpu);
 }
 
@@ -50,8 +52,10 @@ void I8086_MOV_Sw_Ew(BYTE, I8086 &cpu) {
 void I8086_MOV_Ew_Sw(BYTE, I8086 &cpu) {
     const BYTE modByte = cpu.Fetch<BYTE>();
     const ModRegByte modReg = ModRegByte(modByte);
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Reg, modReg);
-    WORD* sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD,
+                                                                                InstructionDirection::MemReg_Reg,
+                                                                                modReg);
+    WORD *sRegPtr = cpu.GetSRegWordPtr(modReg.reg);
     instructionData.leftOp.set(cpu, *sRegPtr);
 }
 

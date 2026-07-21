@@ -22,6 +22,8 @@ public:
         delete[] mem;
     }
 
+    size_t Size() const { return size; }
+
     void Reset() {
         memset(mem, 0xFF, size);
     }

@@ -42,19 +42,14 @@
             "name": "debug",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "USE_DEBUG_OUTPUT": "ON",
-                "USE_LOG": "ON",
-                "USE_LOG_SEVERITY": "0"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
             "name": "release",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "USE_DEBUG_OUTPUT": "OFF",
-                "USE_LOG": "OFF"
+                "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
@@ -138,8 +133,7 @@
             "name": "with-test",
             "hidden": true,
             "cacheVariables": {
-                "RESIM_BUILD_TESTING": "ON",
-                "GTEST_COLOR": "ON"
+                "RESIM_BUILD_TESTING": "ON"
             }
         },
         {

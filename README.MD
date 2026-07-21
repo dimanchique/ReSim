@@ -6,15 +6,16 @@
 
 | Processor | Completion                                                 | Status |
 |-----------|------------------------------------------------------------|--------|
-| **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
-| **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | ✅ Complete |
-| **Intel 8086** | ![87%](https://progress-bar.xyz/87?style=flat&width=200)   | 🚧 In Progress |
-| **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | 📋 Planned |
+| **MOS6502** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | Completed |
+| **Intel 8080** | ![100%](https://progress-bar.xyz/100?style=flat&width=200) | Completed |
+| **Intel 8086** | ![87%](https://progress-bar.xyz/87?style=flat&width=200)   | In Progress |
+| **Z80** | ![1%](https://progress-bar.xyz/1?style=flat&width=200)     | Planned |
 
 ## Prerequisites
 - C++17 compatible compiler (GCC, Clang, or MSVC)
+- Python 3 (CPU opcodes table generation on project setup phase)
 - CMake 3.22+
-- Google Test (for development and testing)
+- Google Test (for testing purposes)
 
 ## Building from Source
 ```bash
@@ -29,7 +30,7 @@ If you want to build tests, you can build using this:
 ```bash
 cmake .. -DRESIM_BUILD_TESTING=ON
 ```
-Tests will be in `tests/<cpu_name>/<cpu_name>-test`:
+Tests will be in `tests/<cpu_name>/<cpu_name>-test`. For example:
 ```bash
 cd build/tests/MOS6502/
 ./mos6502-test
@@ -84,6 +85,8 @@ printf("Final state: A=0x%02X, PC=0x%04X\n", cpu.A, cpu.PC);
 You can find examples in `applications`. It contains EhBasic 2.22 and Wozmon programs that are located in `applications/MOS6502`.
 Both have assembled binaries and sources.
 Refer to them as examples for implementing TTY/Keyboard in your own integration. Or you can just have fun using Basic in emulator.
+Each application contains it's own readme with additional details and usage information.
+
 > For now only Memory Mapped I/O is implemented. Direct port I/O planned for future.
 
 ```bash
@@ -127,12 +130,12 @@ Wozmon ready.
 ## Roadmap & Future Plans
 ### Short Term
 - Complete Intel 8086 instruction set
-- Enhanced debugging capabilities
 - Improved documentation
 
 ### Medium Term
 - Z80 implementation
 - Simple BIOS framework
+- Enhanced debugging capabilities
 
 ### Long Term Vision
 - Graphical debugger interface
@@ -140,7 +143,6 @@ Wozmon ready.
 - Plugin system for custom peripherals
 
 ## Current Limitations
-- No BIOS Support: Cannot run complex software or operating systems
 - Debugging Tools: Basic execution tracing, no graphical debugger
 
 > Despite limitations, ReSim excels at running and testing assembly programs, making it ideal for education, prototyping, and low-level software development.

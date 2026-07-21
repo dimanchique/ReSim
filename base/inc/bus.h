@@ -22,11 +22,14 @@ public:
     }
 
     void Write(BusWidth address, BYTE value) {
-        FindDevice(address)->Write(address, value);
+        if (auto dev = FindDevice(address))
+            dev->Write(address, value);
     }
 
     BYTE Read(BusWidth address) {
-        return FindDevice(address)->Read(address);
+        if (auto dev = FindDevice(address))
+            return dev->Read(address);
+        return 0xFF;
     }
 
 private:
@@ -40,7 +43,7 @@ private:
             return it->second;
         }
 
-        throw std::out_of_range("No device mapped to address " + std::to_string(address));
+        return nullptr;
     }
 
     std::map<BusWidth, IO_Device<BusWidth>*> regions;

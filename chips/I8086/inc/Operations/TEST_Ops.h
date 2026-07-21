@@ -4,7 +4,7 @@
 #include "Adressing.h"
 
 template<typename T>
-void PerformTEST(I8086& cpu, InstructionResult<T>& result) {
+void PerformTEST(I8086 &cpu, InstructionResult<T> &result) {
     result.leftOp.after = result.leftOp.before & result.rightOp.before;
     cpu.Status.C = 0;
     cpu.Status.O = 0;
@@ -41,7 +41,7 @@ void I8086_TEST_Gv_Ev(BYTE, I8086 &cpu) {
 //  AL TEST Immediate8
 //  AX TEST Immediate16
 template<typename T>
-void I8086_TEST_Ax_Ix(T* regPtr, I8086 &cpu) {
+void I8086_TEST_Ax_Ix(T *regPtr, I8086 &cpu) {
     const T value = cpu.Fetch<T>();
     InstructionResult<T> instruction_result{};
     instruction_result.leftOp.before = *regPtr;

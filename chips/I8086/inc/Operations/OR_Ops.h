@@ -4,7 +4,7 @@
 #include "Adressing.h"
 
 template<typename T>
-void PerformOR(I8086& cpu, InstructionResult<T>& result) {
+void PerformOR(I8086 &cpu, InstructionResult<T> &result) {
     result.leftOp.after = result.leftOp.before | result.rightOp.before;
     result.rightOp.after = result.rightOp.before;
     cpu.Status.C = 0;
@@ -42,7 +42,7 @@ void I8086_OR_Gv_Ev(BYTE, I8086 &cpu) {
 //  AL <-- AL OR Immediate8
 //  AX <-- AX OR Immediate16
 template<typename T>
-void I8086_OR_Ax_Ix(T* regPtr, I8086 &cpu) {
+void I8086_OR_Ax_Ix(T *regPtr, I8086 &cpu) {
     const T value = cpu.Fetch<T>();
     InstructionResult<T> instruction_result{};
     instruction_result.leftOp.before = *regPtr;

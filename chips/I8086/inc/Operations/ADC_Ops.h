@@ -1,20 +1,21 @@
 #pragma once
+
 #include "I8086.h"
 #include "Adressing.h"
 
 template<typename T>
-void PerformADC(I8086& cpu, InstructionResult<T>& result) {
+void PerformADC(I8086 &cpu, InstructionResult<T> &result) {
     const T before = result.leftOp.before;
     const T value = result.rightOp.before;
 
     const BYTE oldC = cpu.Status.C;
-    const DWORD fullResult = (DWORD)before + value + oldC;
-    result.leftOp.after = (T)fullResult;
+    const DWORD fullResult = (DWORD) before + value + oldC;
+    result.leftOp.after = (T) fullResult;
     result.rightOp.after = value;
 
-    cpu.Status.C = fullResult > (T)~0;
+    cpu.Status.C = fullResult > (T) ~0;
     cpu.Status.A = ((before & 0xF) + (value & 0xF) + oldC) > 0xF; // Auxiliary
-    cpu.Status.O = ((before ^ ~value) & (before ^ result.leftOp.after)) >> (sizeof(T)*8-1); // Overflow
+    cpu.Status.O = ((before ^ ~value) & (before ^ result.leftOp.after)) >> (sizeof(T) * 8 - 1); // Overflow
     cpu.Status.UpdateStatusByValue(result.leftOp.after, I8086_Status_S | I8086_Status_Z | I8086_Status_P);
 }
 
@@ -45,7 +46,7 @@ void I8086_ADC_Gv_Ev(BYTE, I8086 &cpu) {
 
 // Immediate variants
 template<typename T>
-void I8086_ADC_Ax_Ix(T* regPtr, I8086 &cpu) {
+void I8086_ADC_Ax_Ix(T *regPtr, I8086 &cpu) {
     const T value = cpu.Fetch<T>();
     InstructionResult<T> result{};
     result.leftOp.before = *regPtr;

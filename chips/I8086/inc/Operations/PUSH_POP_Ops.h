@@ -2,15 +2,18 @@
 
 #include "I8086.h"
 
-void PUSH_Ev(I8086& cpu, const ModRegByte& modReg) {
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Reg, modReg);
+void PUSH_Ev(I8086 &cpu, const ModRegByte &modReg) {
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(OperandSize::WORD,
+                                                                                InstructionDirection::MemReg_Reg,
+                                                                                modReg);
 
     const WORD operand = instructionData.leftOp.get(cpu);
     cpu.PushDataToStack(operand);
 }
 
 void I8086_POP_Ev(BYTE, I8086 &cpu) {
-    const InstructionData instructionData = cpu.GetInstructionData<WORD>(OperandSize::WORD, InstructionDirection::MemReg_Imm);
+    const InstructionData instructionData = cpu.GetInstructionData<WORD>(OperandSize::WORD,
+                                                                         InstructionDirection::MemReg_Imm);
 
     const WORD operand = cpu.PopDataFromStack();
     instructionData.leftOp.set(cpu, operand);
@@ -24,22 +27,22 @@ void I8086_POPF(BYTE, I8086 &cpu) {
     cpu.Status.Value = cpu.PopDataFromStack();
 }
 
-FORCE_INLINE void PUSH_Reg(I8086& cpu, const BYTE regIdx) {
+FORCE_INLINE void PUSH_Reg(I8086 &cpu, const BYTE regIdx) {
     assert(regIdx <= 7);
     cpu.PushDataToStack(*cpu.GetRegWordPtr(regIdx));
 }
 
-FORCE_INLINE void PUSH_SReg(I8086& cpu, const BYTE regIdx) {
+FORCE_INLINE void PUSH_SReg(I8086 &cpu, const BYTE regIdx) {
     assert(regIdx <= 3);
     cpu.PushDataToStack(*cpu.GetSRegWordPtr(regIdx));
 }
 
-FORCE_INLINE void POP_Reg(I8086& cpu, const BYTE regIdx) {
+FORCE_INLINE void POP_Reg(I8086 &cpu, const BYTE regIdx) {
     assert(regIdx <= 7);
     *cpu.GetRegWordPtr(regIdx) = cpu.PopDataFromStack();
 }
 
-FORCE_INLINE void POP_SReg(I8086& cpu, const BYTE regIdx) {
+FORCE_INLINE void POP_SReg(I8086 &cpu, const BYTE regIdx) {
     assert(regIdx <= 3);
     *cpu.GetSRegWordPtr(regIdx) = cpu.PopDataFromStack();
 }

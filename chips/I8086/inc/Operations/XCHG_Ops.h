@@ -4,7 +4,7 @@
 #include "Adressing.h"
 
 template<typename T>
-FORCE_INLINE void PerformXCHG(I8086&, InstructionResult<T>& result) {
+FORCE_INLINE void PerformXCHG(I8086 &, InstructionResult<T> &result) {
     result.leftOp.after = result.rightOp.before;
     result.rightOp.after = result.leftOp.before;
 }
@@ -25,7 +25,7 @@ void I8086_XCHG_Gv_Ev(BYTE, I8086 &cpu) {
 }
 
 
-FORCE_INLINE void PerformXCHG_AX(I8086 &cpu, WORD* regPtr) {
+FORCE_INLINE void PerformXCHG_AX(I8086 &cpu, WORD *regPtr) {
     WORD tmp = cpu.AX;
     cpu.AX = *regPtr;
     *regPtr = tmp;

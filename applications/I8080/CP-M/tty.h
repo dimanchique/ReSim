@@ -1,0 +1,24 @@
+#pragma once
+
+#include <cstdio>
+#include "core/compilers_macro.h"
+#include "core/types.h"
+#include "io_device.h"
+
+class TTY : public IO_Device<WORD> {
+public:
+    static constexpr WORD TTY_OUTPUT = 0x02;
+
+    TTY() = default;
+
+    FORCE_INLINE BYTE Read(WORD address) override {
+        return 0x00;
+    }
+
+    FORCE_INLINE void Write(WORD address, BYTE value) override {
+        char c = static_cast<char>(value & 0x7F);
+        if (c == 0x00) return;
+        putchar(c);
+        fflush(stdout);
+    }
+};

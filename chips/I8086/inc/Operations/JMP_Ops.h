@@ -12,7 +12,7 @@ void I8086_JMP_Ap(BYTE, I8086 &cpu) {
 
 template<typename T, typename U>
 void I8086_JMP_Jx(I8086 &cpu) {
-    const U displacement = (U)cpu.Fetch<T>();
+    const U displacement = (U) cpu.Fetch<T>();
     cpu.PC += displacement;
 }
 
@@ -24,24 +24,28 @@ void I8086_JMP_Jb(BYTE, I8086 &cpu) {
     I8086_JMP_Jx<BYTE, SBYTE>(cpu); // read BYTE cast to SBYTE
 }
 
-void JMP_GRP5(I8086& cpu, const ModRegByte& modReg) {
+void JMP_GRP5(I8086 &cpu, const ModRegByte &modReg) {
     const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize,
+                                                                                InstructionDirection::MemReg_Imm,
+                                                                                modReg);
     WORD newPC = instructionData.leftOp.get(cpu);
 
     cpu.PC = newPC;
 }
 
-void JMP_GRP5_MP(I8086& cpu, const ModRegByte& modReg) {
+void JMP_GRP5_MP(I8086 &cpu, const ModRegByte &modReg) {
     const OperandSize opSize = OperandSize::WORD;
-    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize, InstructionDirection::MemReg_Imm, modReg);
+    const InstructionData instructionData = cpu.GetInstructionDataNoFetch<WORD>(opSize,
+                                                                                InstructionDirection::MemReg_Imm,
+                                                                                modReg);
     WORD newPC = instructionData.leftOp.get(cpu);
 
     cpu.PC = newPC;
 }
 
 FORCE_INLINE void PerformJump(I8086 &cpu, const bool conditionFlag = true) {
-    const SBYTE disp = (SBYTE)cpu.Fetch<BYTE>();
+    const SBYTE disp = (SBYTE) cpu.Fetch<BYTE>();
     if (conditionFlag)
         cpu.PC += disp;
 }

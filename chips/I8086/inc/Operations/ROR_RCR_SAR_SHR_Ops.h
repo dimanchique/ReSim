@@ -7,10 +7,13 @@ namespace ROR_RCR_SAR_SHR {
     using CallbackSignature = T(I8086 &, T, const BYTE *);
 
     template<typename T>
-    FORCE_INLINE void RXR_ByX(I8086 &cpu, const ModRegByte &modReg, CallbackSignature<T> *callback, BYTE *countPtr = nullptr) {
+    FORCE_INLINE void
+    RXR_ByX(I8086 &cpu, const ModRegByte &modReg, CallbackSignature<T> *callback, BYTE *countPtr = nullptr) {
         InstructionResult<T> instructionResult{};
         const OperandSize opSize = std::is_same_v<T, BYTE> ? OperandSize::BYTE : OperandSize::WORD;
-        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize, InstructionDirection::MemReg_Imm, modReg);
+        const InstructionData instructionData = cpu.GetInstructionDataNoFetch<T>(opSize,
+                                                                                 InstructionDirection::MemReg_Imm,
+                                                                                 modReg);
 
         const T operand = instructionData.leftOp.get(cpu);
         T opRes = callback(cpu, operand, countPtr);
@@ -19,7 +22,7 @@ namespace ROR_RCR_SAR_SHR {
 }
 
 template<typename T>
-T PerformROR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
+T PerformROR(I8086 &cpu, T value, const BYTE *countPtr = nullptr) {
     BYTE highOrderBitPosition = (sizeof(value) * 8) - 1;
     BYTE count = countPtr ? *countPtr : 1;
 
@@ -38,7 +41,7 @@ T PerformROR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-T PerformRCR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
+T PerformRCR(I8086 &cpu, T value, const BYTE *countPtr = nullptr) {
     BYTE highOrderBitPosition = (sizeof(value) * 8) - 1;
     BYTE count = countPtr ? *countPtr : 1;
     BYTE tmpCarry = 0;
@@ -59,7 +62,7 @@ T PerformRCR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-T PerformSAR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
+T PerformSAR(I8086 &cpu, T value, const BYTE *countPtr = nullptr) {
     BYTE highOrderBitPosition = (sizeof(value) * 8) - 1;
     BYTE count = countPtr ? *countPtr : 1;
     BYTE highOrderBit = 0;
@@ -80,7 +83,7 @@ T PerformSAR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-T PerformSHR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
+T PerformSHR(I8086 &cpu, T value, const BYTE *countPtr = nullptr) {
     BYTE highOrderBitPosition = (sizeof(value) * 8) - 1;
     BYTE count = countPtr ? *countPtr : 1;
 
@@ -98,41 +101,41 @@ T PerformSHR(I8086& cpu, T value, const BYTE* countPtr = nullptr) {
 }
 
 template<typename T>
-void ROR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void ROR_ByOne(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformROR);
 }
 
 template<typename T>
-void ROR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void ROR_ByCL(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformROR, &cpu.CL);
 }
 
 template<typename T>
-void RCR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void RCR_ByOne(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformRCR);
 }
 
 template<typename T>
-void RCR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void RCR_ByCL(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformRCR, &cpu.CL);
 }
 
 template<typename T>
-void SAR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void SAR_ByOne(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSAR);
 }
 
 template<typename T>
-void SAR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void SAR_ByCL(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSAR, &cpu.CL);
 }
 
 template<typename T>
-void SHR_ByOne(I8086& cpu, const ModRegByte& modReg) {
+void SHR_ByOne(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSHR);
 }
 
 template<typename T>
-void SHR_ByCL(I8086& cpu, const ModRegByte& modReg) {
+void SHR_ByCL(I8086 &cpu, const ModRegByte &modReg) {
     ROR_RCR_SAR_SHR::RXR_ByX<T>(cpu, modReg, &PerformSHR, &cpu.CL);
 }

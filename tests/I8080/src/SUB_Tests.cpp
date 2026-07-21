@@ -105,7 +105,7 @@ TEST_F(I8080_SUBFixture, SUB_B_2) {
 TEST_F(I8080_SUBFixture, SUB_B_3) {
     cpu.B = 0xF4;
     SUB_Register_CanSubtractRegisterFromAccumulator(SUB_B, 0x1A, 0x26,
-                                                    I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 1});
+                                                    I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 0});
 }
 
 TEST_F(I8080_SUBFixture, SUB_B_4) {
@@ -184,4 +184,28 @@ TEST_F(I8080_SUBFixture, SUI_2) {
 TEST_F(I8080_SUBFixture, SUI_3) {
     SUI_CanSubImmediateValueFromAccumulator(0xFA, 0xDD, 0xE3,
                                             I8080_Status{.C = 1, .P = 0, .AC = 0, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SUBFixture, SUB_B_NoBorrow_NegativeResult) {
+    cpu.B = 0x01;
+    SUB_Register_CanSubtractRegisterFromAccumulator(SUB_B, 0xFF, 0xFE,
+                                                    I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SUBFixture, SUB_B_NoBorrow_NegativeResult2) {
+    cpu.B = 0x00;
+    SUB_Register_CanSubtractRegisterFromAccumulator(SUB_B, 0x80, 0x80,
+                                                    I8080_Status{.C = 0, .P = 0, .AC = 0, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SUBFixture, SUB_B_NoBorrow_NegativeResult3) {
+    cpu.B = 0x30;
+    SUB_Register_CanSubtractRegisterFromAccumulator(SUB_B, 0xC0, 0x90,
+                                                    I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 0, .S = 1});
+}
+
+TEST_F(I8080_SUBFixture, SUB_B_NoBorrow_ResultFF) {
+    cpu.B = 0x00;
+    SUB_Register_CanSubtractRegisterFromAccumulator(SUB_B, 0xFF, 0xFF,
+                                                    I8080_Status{.C = 0, .P = 1, .AC = 0, .Z = 0, .S = 1});
 }
