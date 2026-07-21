@@ -26,7 +26,7 @@ void keyboard_thread(Keyboard *kbd) {
 
 int main(int argc, char **argv) {
     const std::filesystem::path projectRoot = SOURCE_DIR;
-    const std::filesystem::path filePath = projectRoot / "program.bin";
+    const std::filesystem::path filePath = projectRoot / "wozmon.bin";
 
     Memory<WORD> mem(64);
     mem.Reset();

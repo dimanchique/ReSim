@@ -24,8 +24,16 @@ mkdir build && cd build
 cmake ..
 make
 ```
-> For building tests use `cmake .. -DRESIM_BUILD_TESTING=ON`.
-> Testing suites will be located in `tests/<cpu_name>/<cpu_name>-test`
+
+If you want to build tests, you can build using this:
+```bash
+cmake .. -DRESIM_BUILD_TESTING=ON
+```
+Tests will be in `tests/<cpu_name>/<cpu_name>-test`:
+```bash
+cd build/tests/MOS6502/
+./mos6502-test
+```
 
 ## Architecture
 ### Core Components
@@ -54,18 +62,18 @@ ReSim/
 #include "ReSim/MOS6502.h"
 
 MOS6502 cpu;
-Memory ram(64 * 1024); // 64KB RAM
+Memory ram(64);                     // create 64KB RAM
 Bus bus{};
 
 // Prepare infrastructure
-ram.Reset();
-cpu.Reset();
-bus.Attach(&ram, 0x0000, 0xFFFF);
-cpu.SetBusInstance(&bus);
+ram.Reset();                        // clear ram
+cpu.Reset();                        // reset CPU to its default state
+bus.Attach(&ram, 0x0000, 0xFFFF);   // attach ram to bus and map ram to address space
+cpu.SetBusInstance(&bus);           // set cpu bus instance
 
 // Load and execute program
-cpu.LoadROM("program.bin", ram);
-cpu.Run();
+cpu.LoadROM("program.bin", ram);    // load binary into ram 
+cpu.Run();                          // let CPU go
 
 // Inspect results
 printf("Program completed in %u cycles\n", cpu.cycles);
@@ -73,9 +81,10 @@ printf("Final state: A=0x%02X, PC=0x%04X\n", cpu.A, cpu.PC);
 ```
 
 ## Demos and I/O Support
-For now only Memory Mapped I/O is implemented and tested. You can find examples in `applications`. It contains EhBasic 2.22 and Wozmon programs are located in `applications/MOS6502`.
+You can find examples in `applications`. It contains EhBasic 2.22 and Wozmon programs that are located in `applications/MOS6502`.
 Both have assembled binaries and sources.
 Refer to them as examples for implementing TTY/Keyboard in your own integration. Or you can just have fun using Basic in emulator.
+> For now only Memory Mapped I/O is implemented. Direct port I/O planned for future.
 
 ```bash
 mkdir build
@@ -134,7 +143,7 @@ Wozmon ready.
 - No BIOS Support: Cannot run complex software or operating systems
 - Debugging Tools: Basic execution tracing, no graphical debugger
 
-💡 Note: Despite limitations, ReSim excels at running and testing assembly programs, making it ideal for education, prototyping, and low-level software development.
+> Despite limitations, ReSim excels at running and testing assembly programs, making it ideal for education, prototyping, and low-level software development.
 
 ## Contributing
 We welcome contributions from the community! Whether you're interested in:
